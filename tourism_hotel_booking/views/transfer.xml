@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_hotel_transfer" model="ir.ui.view">
+        <field name="name">hotel.transfer.tree</field>
+        <field name="model">hotel.transfer</field>
+        <field name="arch" type="xml">
+            <tree default_order="create_date desc">
+                <field name="create_date" invisible="1"/>
+                <field name="room_id"/>
+                <field name="transfer_time"/>
+                <field name="type"/>
+                <field name="booking_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_hotel_transfer" model="ir.ui.view">
+        <field name="name">hotel.transfer.form</field>
+        <field name="model">hotel.transfer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_validate" type="object" string="Validate" states="draft" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="type" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="transfer_time" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="booking_line_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}" invisible="0"/>
+                            <field name="room_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hotel_transfer" model="ir.actions.act_window">
+        <field name="name">Check In/Out</field>
+        <field name="res_model">hotel.transfer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu booking -->
+<!--    <menuitem id="menu_hotel_transfer" name="Check In/Out" parent="menu_hotel_root" action="action_hotel_transfer" sequence="30"/>-->
+
+
+</odoo>

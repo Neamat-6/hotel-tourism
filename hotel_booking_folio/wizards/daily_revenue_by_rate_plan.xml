@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- inherit daily_revenue_view_form -->
+  <record id="daily_revenue_by_rate_plan_view_form" model="ir.ui.view">
+    <field name="model">daily.revenue</field>
+    <field name="mode">primary</field>
+    <field name="priority">2000</field>
+    <field name="inherit_id" ref="hotel_booking_folio.daily_revenue_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='filter_vat']" position="after">
+        <field name="rate_plan_ids" widget="many2many_tags" />
+        <field name="filter_folio_state" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="daily_revenue_by_rate_plan_action" model="ir.actions.act_window">
+    <field name="name">Revenue By Rate Plan</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">daily.revenue</field>
+    <field name="view_mode">form</field>
+    <field name="view_ids"
+      eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('hotel_booking_folio.daily_revenue_by_rate_plan_view_form')}),
+            ]" />
+    <field name="context">{'daily_revenue_by_rate_plan': True}</field>
+    <field name="target">new</field>
+  </record>
+
+  <menuitem id="revenue_rate_plan_wizard_menu" name="Revenue By Rate Plan"
+    parent="hotel_booking.booking_reporting_menu"
+    action="daily_revenue_by_rate_plan_action" />
+
+
+</odoo>

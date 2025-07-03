@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_check_booking_line_report">
+            <field name="name">Booking Check In/Out Report</field>
+            <field name="model">check.booking.line.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tourism_hotel_booking.check_booking_line_report</field>
+            <field name="report_file">tourism_hotel_booking.check_booking_line_report</field>
+            <field name="binding_model_id" ref="model_check_booking_line_report"/>
+        </record>
+
+
+		<template id="check_booking_line_report">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                    <style>
+                        table.GeneratedTable {
+                            width: 100%;
+                            background-color: #ffffff;
+                            border-collapse: collapse;
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            font-size: 14px;
+                            color: #000000;
+                        }
+
+                        table.Contact {
+                            width: 50%;
+                        }
+
+                        table.GeneratedTable td, table.GeneratedTable th {
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            padding: 2px;
+                        }
+
+                        table.GeneratedTable thead {
+                            background-color: #a3a3a3;
+                        }
+                    </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <h4 class="text-center">Booking Check In/Out Report</h4>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Booking</th>
+                                        <th class="text-center">Customer</th>
+                                        <th class="text-center">Room</th>
+                                        <th class="text-center">Number Of Rooms</th>
+                                        <th class="text-center">Check In</th>
+                                        <th class="text-center">Check Out</th>
+                                        <th class="text-center">B.Total</th>
+                                        <th class="text-center">B.Paid</th>
+                                        <th class="text-center">B.Due</th>
+                                        <th class="text-center">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="sequence" t-value="0"/>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                        <tr>
+                                            <td class="text-center">
+                                                <t t-esc="sequence"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.room_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.count"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_in"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_out"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_amount_total"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_amount_paid"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_amount_due"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <p>Total Number of Rooms: <strong t-esc="int(doc.total_count)"/> </p>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

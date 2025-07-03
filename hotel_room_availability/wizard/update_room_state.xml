@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_room_state" model="ir.ui.view">
+            <field name="name">view.update.room.state</field>
+            <field name="model">hotel.room.status.update</field>
+            <field name="arch" type="xml">
+                <form string="Update Room Status">
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="room_availability_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                            <field name="hotel_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="line_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="hotel_id" invisible="1"/>
+                                <field name="wizard_id" invisible="1"/>
+                                <field name="hotel_room_id" required="1" widget="selection" domain="[('hotel_id','=',hotel_id)]"/>
+                                <field name="state" widget="selection" required="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="update_room_state" string="Update" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_update_room_status" model="ir.actions.act_window">
+            <field name="name">Update Room Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.room.status.update</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_audit_trails_report">
+            <field name="name">Audit Trails Report</field>
+            <field name="model">audit.trails.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">booking_audit_trails.audit_trails_report</field>
+            <field name="report_file">booking_audit_trails.audit_trails_report</field>
+            <field name="binding_model_id" ref="model_audit_trails_report"/>
+        </record>
+		<template id="audit_trails_report">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                    <style>
+                        table.GeneratedTable {
+                            width: 100%;
+                            background-color: #ffffff;
+                            border-collapse: collapse;
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            font-size: 14px;
+                            color: #000000;
+                        }
+
+                        table.Contact {
+                            width: 50%;
+                        }
+
+                        table.GeneratedTable td, table.GeneratedTable th {
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            padding: 2px;
+                        }
+
+                        table.GeneratedTable thead {
+                            background-color: #a3a3a3;
+                        }
+                    </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <h3 class="text-center">Audit Trails Report</h3>
+                            <br/>
+                            <h5>Date From <span t-field="doc.start_date"/> To  <span t-field="doc.end_date"/></h5>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Operation</th>
+                                        <th class="text-center">Booking No</th>
+                                        <th class="text-center">Folio No</th>
+                                        <th class="text-center">Guest</th>
+                                        <th class="text-center">User</th>
+                                        <th class="text-center">Datetime</th>
+                                        <th class="text-center">Particulars</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="sequence" t-value="0"/>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                        <tr>
+                                            <td class="text-center">
+                                                <t t-esc="sequence"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.operation"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.folio_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-esc="line.folio_id.partner_id.name or line.booking_id.partner_id.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.user_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.datetime"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.notes"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

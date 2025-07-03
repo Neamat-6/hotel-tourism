@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_payment_type_1" model="ntmp.payment.type">
+            <field name="code">1</field>
+            <field name="name">نقد</field>
+            <field name="name_en">Cash</field>
+        </record>
+        <record id="ntmp_payment_type_2" model="ntmp.payment.type">
+            <field name="code">2</field>
+            <field name="name">بطاقة ائتمانية</field>
+            <field name="name_en">Debit or Credit Card</field>
+        </record>
+        <record id="ntmp_payment_type_3" model="ntmp.payment.type">
+            <field name="code">3</field>
+            <field name="name">المدفوعة من قبل الشركة</field>
+            <field name="name_en">Paid by Company</field>
+        </record>
+        <record id="ntmp_payment_type_4" model="ntmp.payment.type">
+            <field name="code">4</field>
+            <field name="name">شيك</field>
+            <field name="name_en">Check</field>
+        </record>
+        <record id="ntmp_payment_type_5" model="ntmp.payment.type">
+            <field name="code">5</field>
+            <field name="name">اخرى</field>
+            <field name="name_en">Other</field>
+        </record>
+        <record id="ntmp_payment_type_6" model="ntmp.payment.type">
+            <field name="code">6</field>
+            <field name="name">قناة الكترونية</field>
+            <field name="name_en">Online Channel</field>
+        </record>
+        <record id="ntmp_payment_type_0" model="ntmp.payment.type">
+            <field name="code">0</field>
+            <field name="name">غير محدد لا يوجد دفع</field>
+            <field name="name_en">Not Applicable / No Payment</field>
+        </record>
+    </data>
+</odoo>

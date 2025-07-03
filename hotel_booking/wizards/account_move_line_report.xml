@@ -1,0 +1,111 @@
+<odoo>
+    <template id="report_account_move_line">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                    <style>
+                        table.GeneratedTable {
+                        width: 100%;
+                        background-color: #ffffff;
+                        border-collapse: collapse;
+                        border-width: 2px;
+                        border-color: #121212;
+                        border-style: solid;
+                        color: black;
+                        }
+
+                        table.GeneratedTable td, table.GeneratedTable th {
+                        padding: 3px;
+                        color: black;
+                        }
+                        table.GeneratedTable td.with-border, table.GeneratedTable th {
+                        border-width: 2px;
+                        border-color: #121212;
+                        border-style: solid;
+                        padding: 3px;
+                        color: black;
+                        text-align: center;
+                        }
+
+                        table.GeneratedTable thead {
+                        background-color: #ffffff;
+                        color: black;
+                        }
+                        .bold-text{font-weight: bold}
+                    </style>
+                    <h3 style="text-align:center;" class="text-center">
+                        <b>
+                            General Ledger Report
+                        </b>
+                    </h3>
+                    <br/>
+                    <table class="GeneratedTable">
+                        <colgroup>
+                            <col width='15%'/>
+                            <col width='10%'/>
+                            <col width='15%'/>
+                            <col width='15%'/>
+                            <col width='20%'/>
+                            <col width='10%'/>
+                            <col width='15%'/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Company</th>
+                                <th class="text-center">Journal Entry</th>
+                                <th class="text-center">Label</th>
+                                <th class="text-center">Debit</th>
+                                <th class="text-center">Credit</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td class="with-border">
+                                        <span t-field="doc.date"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.company_id.name"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.move_id.name"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.name"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.debit"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.credit"/>
+                                    </td>
+                                    <td class="with-border">
+                                        <span t-field="doc.balance"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report id="action_account_move_line_report"
+            string="Account Move Line Report"
+            model="account.move.line"
+            report_type="qweb-pdf"
+            name="hotel_booking.report_account_move_line"
+            file="hotel_booking.report_account_move_line"
+    />
+
+    <record id="menu_account_move_line_report" model="ir.actions.act_window">
+        <field name="name">Account Move Line Report</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+        <record id="test_ocr_template_wizard_form" model="ir.ui.view">
+            <field name="name">test.ocr.template.wizard.form</field>
+            <field name="model">test.ocr.template.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="state" required="1"/>
+                    <div class="d-flex justify-content-center" attrs="{'invisible': [('state', 'in', ['result'])]}">
+                        <field name="image" widget="image" required="1"/>
+                    </div>
+                    <field name="result" readonly="1" attrs="{'invisible': [('state', 'in', ['upload'])]}"
+                           options="{'height': 500}"/>
+                    <footer>
+                        <button string="Back" name="upload_test_image" type="object" class="btn btn-secondary"
+                                data-hotkey="b" attrs="{'invisible': [('state', 'in', ['upload'])]}"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"
+                                attrs="{'invisible': [('state', 'in', ['result'])]}"/>
+                        <button string="Process" name="process_test_image" type="object" class="oe_highlight"
+                                data-hotkey="p" attrs="{'invisible': [('state', 'in', ['result'])]}"/>
+                        <button string="Done" name="save_result" type="object" class="oe_highlight"
+                                data-hotkey="d" attrs="{'invisible': [('state', 'in', ['upload'])]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

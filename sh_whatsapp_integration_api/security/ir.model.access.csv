@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sh_send_whatsapp_message_wizard,access_sh_send_whatsapp_message_wizard,model_sh_send_whatsapp_message_wizard,base.group_user,1,1,1,1
+access_sh_send_whatsapp_number_wizard,access_sh_send_whatsapp_number_wizard,model_sh_send_whatsapp_number_wizard,base.group_user,1,1,1,1
+access_sh_configuration_manager,access_sh_configuration_manager,model_sh_configuration_manager,base.group_user,1,1,1,1
+access_sh_qr_code_wizard,access_sh_qr_code_wizard,model_sh_qr_code_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="revenue_summary_view_form" model="ir.ui.view">
+            <field name="name">revenue_summary_view_form</field>
+            <field name="model">revenue.summary</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                                <!--                                <field name="company_ids" widget="many2many_tags"/>-->
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="day"/>
+<!--                                <field name="booking_ids" widget="many2many_tags"/>-->
+<!--                                <field name="folio_ids" widget="many2many_tags"/>-->
+<!--                                <field name="partner_id"/>-->
+                                <field name="total_room_charge"/>
+                                <field name="total_service"/>
+                                <field name="total_vat"/>
+                                <field name="total_municipality"/>
+                                <!-- <field name="total_payment"/> -->
+                                <field name="total"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="revenue_summary_action" model="ir.actions.act_window">
+            <field name="name">Revenue Summary Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">revenue.summary</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="revenue_summary_menu" name="Revenue Summary" parent="hotel_booking.booking_reports_root_accounting"
+                  action="revenue_summary_action" sequence="55"/>
+
+        <menuitem id="revenue_summary_menu_item" name="Revenue Summary" parent="hotel_booking.booking_reports_root_accounting_menu_item"
+                  action="revenue_summary_action" sequence="55"/>
+    </data>
+</odoo>

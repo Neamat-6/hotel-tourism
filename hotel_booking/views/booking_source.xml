@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--booking source-->
+        <record id="booking_source_view_tree" model="ir.ui.view">
+            <field name="name">booking_source_view_tree</field>
+            <field name="model">booking.source</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="source"/>
+                    <field name="account_account_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_booking_source" model="ir.actions.act_window">
+            <field name="name">Booking Sources</field>
+            <field name="res_model">booking.source</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="menu_booking_source" name="Booking Sources" parent="menu_hotel_configuration"
+                  action="action_booking_source" groups="hotel_booking.menu_booking_source_group"
+                  sequence="50"/>
+        <!--business source-->
+        <record id="business_source_view_tree" model="ir.ui.view">
+            <field name="name">business_source_view_tree</field>
+            <field name="model">business.source</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_business_source" model="ir.actions.act_window">
+            <field name="name">Business Sources</field>
+            <field name="res_model">business.source</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="menu_business_source" name="Business Sources" parent="menu_hotel_configuration"
+                  action="action_business_source" groups="hotel_booking.menu_business_source_group"
+                  sequence="50"/>
+    </data>
+</odoo>

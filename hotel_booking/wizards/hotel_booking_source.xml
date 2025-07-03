@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="booking_source_view_form" model="ir.ui.view">
+            <field name="name">booking_source_view_form</field>
+            <field name="model">hotel.booking.source</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="booking_source"/>
+                                <field name="check_in_from"/>
+                                <field name="check_out_from"/>
+                                <field name="total_amount"/>
+                            </group>
+                            <group>
+                                <field name="related_hotel" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="check_in_to"/>
+                                <field name="check_out_to"/>
+                                <field name="online_travel_agent_source"
+                                       attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                                <field name="company_booking_source"
+                                       attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_source_folios" type="object" string="Search"
+                                        class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="ref"/>
+                                <field name="partner_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="no_guests" optional="hide"/>
+                                <field name="room_type_id" optional="hide"/>
+                                <field name="room_id" optional="hide"/>
+                                <field name="related_hotel" optional="hide"/>
+                                <field name="booking_source" optional="hide"/>
+                                <field name="online_travel_agent_source" optional="hide"/>
+                                <field name="company_booking_source" optional="hide"/>
+                                <field name="total_nights" optional="hide"/>
+                                <field name="rate_type" optional="hide"/>
+                                <field name="subtotal" optional="hide"/>
+                                <field name="total_paid" optional="hide"/>
+                                <field name="note" optional="hide"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="booking_source_action" model="ir.actions.act_window">
+            <field name="name">Hotel Booking Source</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.booking.source</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="booking_source_menu" name="Booking Source Report"
+                  parent="hotel_booking.booking_reporting_menu"
+                  action="booking_source_action" sequence="27"/>
+        #duplicated menu
+        <menuitem id="booking_source_menu_item" name="Booking Source Report"
+                  parent="hotel_booking.booking_reporting_menu_item"
+                  action="booking_source_action" sequence="27"/>
+    </data>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rate_type_view_tree" model="ir.ui.view">
+            <field name="name">rate_type_view_tree</field>
+            <field name="model">hotel.rate.type</field>
+            <field name="arch" type="xml">
+                <tree string="rate_type_tree" delete="0">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="is_package"/>
+                    <field name="valid_from"/>
+                    <field name="valid_to"/>
+                </tree>
+            </field>
+        </record>
+        <record id="rate_type_view_form" model="ir.ui.view">
+            <field name="name">rate_type_view_form</field>
+            <field name="model">hotel.rate.type</field>
+            <field name="arch" type="xml">
+                <form string="rate_type_form" delete="0">
+                    <sheet>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="is_package"/>
+                            <field name="company_id"/>
+                            <field name="market_segmentation_id"/>
+                            <field name="valid_from" attrs="{'invisible': [('is_package', '=', False)]}"/>
+                            <field name="valid_to" attrs="{'invisible': [('is_package', '=', False)]}"/>
+                        </group>
+                        <notebook attrs="{'invisible': [('is_package', '=', False)]}">
+                            <page string="Services">
+                                <field name="inclusion_ids">
+                                    <tree editable="bottom">
+                                        <field name="service_id" required="1"/>
+                                        <field name="posting_rule" required="1"/>
+                                        <field name="rate"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="rate_type_action" model="ir.actions.act_window">
+            <field name="name">Rate Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.rate.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_rate_type" name="Rate Type" action="rate_type_action" sequence="90" groups="hotel_booking.rate_type_menu_group"
+        parent="hotel_booking.menu_hotel_configuration"/>
+    </data>
+</odoo>

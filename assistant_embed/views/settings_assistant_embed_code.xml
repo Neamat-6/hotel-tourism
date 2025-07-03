@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit the main settings view -->
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.assistant.embed</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Assistant Embed" string="Assistant Embed">
+                    <h2>Assistant Embed</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-lg-12 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Embed Code</span>
+                                <div class="text-muted">Paste your assistant embed code or script URL</div>
+                                <field name="assistant_embed" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Settings Action (already exists in base, just needs positioning) -->
+    <record id="action_assistant_embed_settings" model="ir.actions.act_window">
+        <field name="name">Assistant Embed Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'assistant_embed'}</field>
+    </record>
+
+    <!-- Settings Menu Item -->
+    <menuitem id="assistant_embed_settings_menu"
+              name="Assistant Embed"
+              parent="base.menu_config"
+              action="action_assistant_embed_settings"
+              sequence="100"
+              groups="base.group_system"/>
+</odoo>

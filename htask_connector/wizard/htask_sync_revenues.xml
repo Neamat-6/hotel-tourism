@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+		<record id="view_sync_revenues_wizard" model="ir.ui.view">
+            <field name="name">htask.sync.revenues.wizard.form</field>
+            <field name="model">htask.sync.revenues</field>
+            <field name="arch" type="xml">
+                <form string="Sync Revenues">
+                    <group>
+                        <field name="start_date" widget="date"/>
+                        <field name="end_date" widget="date"/>
+                    </group>
+                    <footer>
+                        <button name="sync_revenues" string="Run Sync" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,85 @@
+<odoo>
+    <data>
+        <report id="daily_revenues_manager_report" model="manager.report" string="Manager Report" report_type="qweb-pdf" name="htask_connector.manager_report_daily_revenues" menu="False" />
+
+        <template id="manager_report_daily_revenues">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 class="text-center">MANAGER REPORT</h3>
+
+                        <p class="text-center">
+                            [ As on date
+                            <span t-esc="context_timestamp(date_time).strftime('%d-%b-%y')" />
+                            ]
+                        </p>
+
+                        <table class="table table-sm o_main_table" name="invoice_line_table">
+                            <thead>
+                                <tr>
+                                    <!-- TODO: remove in master -->
+                                    <t t-set="colspan" t-value="6" />
+                                    <th name="th_description" class="text-left">
+                                        <span>Particulars</span>
+                                    </th>
+                                    <!-- TODO: remove in master -->
+                                    <th name="th_source" class="text-right">
+                                        <span>Today (SAR)</span>
+                                    </th>
+                                    <th name="th_quantity" class="text-right">
+                                        <span>PTD (SAR)</span>
+                                    </th>
+                                    <th name="th_priceunit" t-attf-class="text-right">
+                                        <span>YTD (SAR)</span>
+                                    </th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <t t-foreach="categs" t-as="categ">
+                                    <tr>
+                                        <td><strong><span t-esc="categ"/></strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <t t-set="total_today" t-value="0.0"/>
+                                    <t t-set="total_ptd" t-value="0.0"/>
+                                    <t t-set="total_ytd" t-value="0.0"/>
+                                    <t t-foreach="data" t-as="acc">
+                                        <t t-if="acc['type'] == categ">
+                                            <tr>
+                                                <td><span t-esc="acc['account']"/></td>
+                                                <td class="text-right"><span t-esc="acc['today']"/></td>
+                                                <td class="text-right"><span t-esc="acc['ptd']"/></td>
+                                                <td class="text-right"><span t-esc="acc['ytd']"/></td>
+                                            </tr>
+                                            <t t-set="total_today" t-value="total_today + acc['today']"/>
+                                            <t t-set="total_ptd" t-value="total_ptd + acc['ptd']"/>
+                                            <t t-set="total_ytd" t-value="total_ytd + acc['ytd']"/>
+                                        </t>
+                                    </t>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td class="text-right">
+                                            <span t-esc="round(total_today, 2)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="round(total_ptd, 2)"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="round(total_ytd, 2)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

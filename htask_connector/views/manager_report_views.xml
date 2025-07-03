@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+    <!-- <record id="action_daily_revenues_manager_report" model="ir.actions.act_window">
+      <field name="name">Manager Report</field>
+      <field name="res_model">manager.report</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_daily_revenues_manager_report" name="Manager Report" action="action_daily_revenues_manager_report" parent="htask_connector.htask_connector_root_menu" sequence="3" /> -->
+
+    <record id="action_sync_revenues" model="ir.actions.act_window">
+      <field name="name">Sync Revenues</field>
+      <field name="res_model">htask.sync.revenues</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sync_revenues" name="Sync Revenues" action="action_sync_revenues" parent="htask_connector.htask_connector_root_menu" sequence="6" />
+  </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="complimentary_reservation_wizard_view_form" model="ir.ui.view">
+            <field name="name">complimentary_reservation_wizard_view_form</field>
+            <field name="model">complimentary.reservation.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="hotel_ids" widget="many2many_tags"/>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="draft"/>
+                                <field name="confirmed_waiting_payment"/>
+                                <field name="partially_checked_in"/>
+                                <field name="checked_in"/>
+                                <field name="partially_checked_out"/>
+                                <field name="checked_out"/>
+                                <field name="paid"/>
+                                <field name="canceled"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_folios" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="room_type_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="hotel_id"/>
+                                <field name="partner_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="complimentary_reservation_wizard_action" model="ir.actions.act_window">
+            <field name="name">Complimentary Reservation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">complimentary.reservation.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="complimentary_reservation_wizard_menu" name="Complimentary Reservation"
+                  parent="hotel_booking.booking_reports_root_accounting"
+                  action="complimentary_reservation_wizard_action"/>
+
+        <menuitem id="complimentary_reservation_wizard_menu_item" name="Complimentary Reservation"
+                  parent="hotel_booking.booking_reports_root_accounting_menu_item"
+                  action="complimentary_reservation_wizard_action"/>
+    </data>
+</odoo>

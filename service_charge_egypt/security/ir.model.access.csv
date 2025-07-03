@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_charge_egypt_service_charge_egypt,service_charge_egypt.service_charge_egypt,model_service_charge_egypt_service_charge_egypt,base.group_user,1,1,1,1

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="point_of_sale.template" xml:space="preserve">
+
+  <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+    <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
+        <t t-if="receipt.pos_config_sequence">
+          <div> 
+            <strong class="text-center">ORDER NUMBER <t t-esc="receipt.pos_config_sequence"/></strong>
+          </div>
+        </t>
+    </xpath>
+  </t>
+
+</templates>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+   <t t-name="RoomChargePopup" owl="1">
+       <div role="dialog" class="modal-dialog">
+           <div class="popup popup-couponproducts" style="background-color: lightgray">
+               <p class="title">
+                   <t t-esc="props.title" />
+               </p>
+               <div class="body">
+                        <input type="text" placeholder="Enter Room number ..." id="room-name"/>
+                        <t t-if="props.folioNumber and props.folioNumber != 'initial'" >
+                          <h5> Folio number <t t-esc="props.folioNumber"/> founded !</h5>
+                        </t>
+                        <t t-elif="props.folioNumber == 'initial'" >
+                          <h5/>
+                        </t>
+                        <t t-else="">
+                          <h5> No Room found !</h5>
+                        </t>
+                        <t t-if="props.guestName" >
+                          <h5> Guest <t t-esc="props.guestName"/> </h5>
+                        </t>
+               </div>
+               <div class="footer">
+                   <t t-if="props.availbleRoom">
+                     <div class="button" style="background-color: #3d3d3d;color: white;" t-on-click="confirm">
+                         <t t-esc="props.confirmText" />
+                     </div>
+                   </t>
+                    <div class="button fa-fasearch" style="background-color: #6EC89B;color: white;" t-on-click="searchRoom">
+                      search
+                    </div>
+                   <div class="button cancel" style="background-color: indianred; color: white;" t-on-click="cancel">
+                       <t t-esc="props.cancelText" />
+                   </div>
+               </div>
+           </div>
+       </div>
+   </t>
+</templates>

@@ -1,0 +1,9 @@
+id,name
+booking_source_01,online_agent
+booking_source_02,company
+booking_source_03,direct
+booking_source_04,contract_booking
+booking_source_05,government_booking
+booking_source_06,allotment_booking
+
+

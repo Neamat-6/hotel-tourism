@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="format_reservation_report" model="report.paperformat">
+            <field name="name">Reservation Report Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- NO more need for this report -->
+        <!-- <record model="ir.actions.report" id="action_reservation_report">
+            <field name="name">Reservation Report</field>
+            <field name="model">hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.reservation_report</field>
+            <field name="report_file">hotel_booking_folio.reservation_report</field>
+            <field name="binding_model_id" ref="hotel_booking.model_hotel_booking"/>
+            <field name="binding_type">report</field>
+        </record> -->
+
+        <template id="internal_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <div class="header">
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+                <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                <div style="float: right; width: 44%; direction:ltr !important">
+                    <div class="row">
+                        <div class="col-9 text-right" style="margin-top:22px;">
+                            <ul class="list-inline mb4;" style="font-weight: bold;font-size: larger;">
+                                <li style="color: #660000; display: inline-block;border-bottom: 3px #660000 solid;">واحه
+                                    المسك الفندقيه
+                                </li>
+                                <li style="color:#A0522D;">WAHAT ELMISK HOTELS</li>
+                            </ul>
+                        </div>
+                        <div class="col-3 mb4">
+                            <!--                             <img src="/hotel_booking_folio/static/src/img/header.png" atl="Logo" class="w-100"/>-->
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" class="w-100"
+                                 alt="Logo"/>
+                        </div>
+                    </div>
+                </div>
+                <div style="float: left; text-align: right; width: 56%;">
+                    <div style="border-bottom:2px solid black;font-size: larger; direction:ltr !important">
+                        <strong>تاريخ الحجز
+                            <span style="padding-right: 5px;" t-esc="doc.create_date.date()"/>
+                        </strong>
+                        <strong style="color: #660000;">(<span style="color: #660000;" t-esc="doc.name"/>)حجز فندقي رقم
+                        </strong>
+                    </div>
+
+                    <h4 style="font-weight: bold;color: #A0522D">شركة واحة المسك للخدمات الفندقية</h4>
+                    <strong style="display:block;font-size: small;">المملكة العربية السعودية - مكة المكرمة - حي الزهراء
+                        - فندق أبراج المسك
+                    </strong>
+                    <strong style="display:block; font-size: small;">310761695100003 :الرقم الضريبي</strong>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <li>
+                            <strong>الإدارة العامة: مكة المكرمة حي الزهراء شارع المنصور فندق أبراج المسك</strong>
+                        </li>
+                        <li>
+                            <strong>+966 559931244 - +966 560642906</strong>
+                        </li>
+                        <li>
+                            <strong>Email: walmsikbooking@gmail.com</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+        <template id="reservation_report">
+            <t t-call="web.html_container">
+                <t t-call="hotel_booking_folio.internal_layout">
+                    <div class="page" style="direction: rtl !important;text-align: right !important;line-height: 1;">
+                        <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <div id="watermark">حجز مؤكد</div>
+                            <div style="right: 10%; top: 20%; text-align: right; direction: rtl; color: #660000;width: 46%;font-weight: bold;">
+                                <p>الفندق :
+                                    <span t-esc="doc.hotel_id.name"/>
+                                </p>
+                                <p>العميل :
+                                    <span t-esc="doc.partner_id.name"/>
+                                </p>
+                                <p>إسم النزيل :
+                                    <span t-esc="doc.partner_id.name"/>
+                                </p>
+                                <p>الجنسية :
+                                    <span t-esc="doc.partner_id.country_id.name"/>
+                                </p>
+                                <p>البريد الإلكتروني :
+                                    <span t-esc="doc.partner_id.email"/>
+                                </p>
+                                <p>الجوال :
+                                    <span t-esc="doc.partner_id.mobile"/>
+                                </p>
+                            </div>
+
+                            <table class="table table-bordered GeneratedTable m-2"
+                                   style="width: 100%; margin-top: 20px;line-height: 1.5;">
+                                <thead>
+                                    <tr style="text-align: right; direction: rtl">
+                                        <th>عدد الغرف</th>
+                                        <th>نوع الغرف</th>
+                                        <th>تاريخ الوصول</th>
+                                        <th>تاريخ المغادرة</th>
+                                        <th>عدد الليالي</th>
+                                        <th>سعر الغرفة</th>
+                                        <th>الإجمالي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr style="text-align: right; direction: rtl">
+                                            <td t-esc="line.number_of_rooms"/>
+                                            <td t-esc="line.room_type.name"/>
+                                            <td t-esc="doc.new_check_in"/>
+                                            <td t-esc="doc.new_check_out"/>
+                                            <td t-esc="doc.total_nights"/>
+                                            <td t-esc="'%.2f' % line.price_subtotal"/>
+                                            <td t-esc="'%.2f' % line.price_total"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered GeneratedTable m-2"
+                                   style="width: 100%; margin-top: 30px;line-height: 1.5;">
+                                <thead>
+                                    <tr style="text-align: right; direction: rtl">
+                                        <th>عدد الخدمات</th>
+                                        <th>الخدمات الإضافية</th>
+                                        <th>تاريخ الدخول</th>
+                                        <th>تاريخ الخروج</th>
+                                        <th>سعر الخدمة</th>
+                                        <th>الإجمالي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.service_ids" t-as="line">
+                                        <tr style="text-align: right; direction: rtl">
+                                            <td>1</td>
+                                            <td/>
+                                            <td t-esc="doc.new_check_in"/>
+                                            <td t-esc="doc.new_check_out"/>
+                                            <td/>
+                                            <td/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+<!--                            <table class="table table-bordered GeneratedTable m-2"-->
+<!--                                   style="width: 100%; margin-top: 30px;line-height: 1.5;">-->
+<!--                                <thead>-->
+<!--                                    <tr style="text-align: right; direction: rtl">-->
+<!--                                        <th style="width:50%">المجموع بدون الضريبه</th>-->
+<!--                                        <td style="width:50%" t-esc="doc.amount_untaxed"/>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th style="width:50%">ضريبة القيمة المضافة (%15) VAT</th>-->
+<!--                                        <td style="width:50%" t-esc="doc.amount_tax"/>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th style="width:50%">المبلغ الإجمالي مع الضريبة</th>-->
+<!--                                        <td style="width:50%" t-esc="doc.amount_total"/>-->
+<!--                                    </tr>-->
+<!--                                </thead>-->
+<!--                            </table>-->
+                            <table class="table table-bordered GeneratedTable m-2">
+                                <colgroup>
+                                    <col width='40%'/>
+                                    <col width='40%'/>
+                                    <col width='10%'/>
+                                </colgroup>
+                                <thead style="background-color: #D2B48C;">
+                                    <tr>
+                                        <th style="background-color:#D2B48C;border-color:inherit;border-style:solid;border-width:1px;color:#ffffff;font-family:Arial, sans-serif;font-size:16px;font-weight:normal;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span style="font-weight:bold">Total Amounts:</span>
+                                        </th>
+                                        <th style="background-color:#D2B48C;border-color:inherit;border-style:solid;border-width:1px;color:#ffffff;font-family:Arial, sans-serif;font-size:16px;font-weight:normal;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                                            colspan="2">
+                                            <span style="font-weight:bold">:أجمالي المبلغ</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total (Excluding VAT and Municipal‬‬ Tax)
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫)ﺑﺪﻭﻥ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬ ‫ﻭﺿﺮﻳﺒﺔ‬‫ﺍﻟﺒﻠﺪﻳﺔ(‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.get_total_exclude_vat_municipality()"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            ‫‪Discount‬‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﻣﺠﻤﻮﻉ‬‫ﺍﻟﺨﺼﻮﻣﺎﺕ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"><span t-esc="doc.price_discount"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            ‫‪Municipality city Tax‬ % ‬‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                                            dir="rtl">
+                                            رسوم الأيواء السياحي2,5%
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.get_total_municipality()"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Taxable Amount (Excluding VAT)
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫ﺍﻟﺨﺎﺿﻊ‬ ‫ﻟﻠﻀﺮﻳﺒﺔ)ﻏﻴﺮ‬ ‫ﺷﺎﻣﻞ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬‫ﺍﻟﻤﻀﺎﻓﺔ(‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+<!--                                            <span t-esc="doc.get_total_exclude_vat()"/>-->
+                                            <t t-esc='"%.2f" % doc.get_total_exclude_vat()'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total VAT
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﻣﺠﻤﻮﻉ‬‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.get_total_vat()"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Amount Paid
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻟﻤﺒﻠﻎ‬‫ﺍﻟﻤﺪﻓﻮﻉ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_paid'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Amount Due
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﺟﻤﺎﻟﻲ‬‫ﺍﻟﻤﺒﻠﻎ‬ ‫ﺍﻟﻤﺴﺘﺤﻖ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_due'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Amount
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻟﻤﺒﻠﻎ‬‫ﺍﻻﺟﻤﺎﻟﻲ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_total'))"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="width: 50%; margin-left: 30%;float: right; margin-top: 3px; border: 5px solid #000000; padding: 10px; text-align: right;">
+                                <strong style="border-bottom: 1px solid black;display: inline-block">بيانات الحساب
+                                    البنكي:
+                                </strong>
+                                <strong style="display: block;line-height: 1.2;">اسم البنك: بنك الرياض</strong>
+                                <strong style="display: block;line-height: 1.2;">اسم الحساب: شركة واحة المسك للخدمات
+                                    الفندقية
+                                </strong>
+                                <strong style="display: block;line-height: 1.2;">رقم الحساب: 1212182599941</strong>
+                                <strong style="display: block;line-height: 1.2;">رقم الآيبان: SA65200001212182599941
+                                </strong>
+                                <strong style="display: block;line-height: 1.2;">رمز السويفت: RIBSARI</strong>
+                            </div>
+                            <div style="width: 35%; float: left; margin-top: 5px; padding: 5px; text-align: right;">
+                                <strong style="display: block;font-size: small">شكرا لحجزكم معنا</strong>
+                                <strong style="display: block;font-size: small">تم الحجز بواسطة/ (<spn
+                                        t-esc="doc.create_uid.name"/>)
+                                </strong>
+                            </div>
+                            <div style="float: right; margin-top:3px; text-align: right;width:100%">
+                                <h6 style="font-weight:bold">السياسات الخاصة بالفندق:</h6>
+                                <p style="font-weight:bold;font-size: small;">وقت الدخول والخروج: تسجيل الدخول الساعه
+                                    02:00 مساء وتسجيل الخروج الساعه 12:00
+                                </p>
+                                <p style="font-weight:bold;font-size: small;">الدفع وعدم الاسترداد: لا يمكن الغاء الحجز
+                                    او استرداد المبلغ بعد التسكين
+                                </p>
+                                <p style="font-weight:bold;font-size: small;">المحافظة علي مستلزمات الغرفة: يتم احتساب
+                                    ما تم اتلافة في الغرفة بعد تسليم الغرفة واحتسابة علي النزيل
+                                </p>
+                                <p style="font-weight:bold;font-size: small;">التدخين: يمنع التدخين داخل الغرف أو المبني
+                                    الرئيسي للفندق التدخين فقط في الاماكن المفتوحة
+                                </p>
+                                <p style="font-weight:bold;font-size: small;">زيارة النزلاء: يمكن استقبال ضيوف في اي وقت
+                                    داخل استقبال الفندق ولا يسمح له بالدخول داخل الغرف
+                                </p>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

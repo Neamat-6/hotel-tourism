@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_umraheasy_connector,umraheasy_connector,model_umraheasy_connector,base.group_user,1,1,1,1
+access_umraheasy_connector_line,umraheasy_connector_line,model_umraheasy_connector_line,base.group_user,1,1,1,1

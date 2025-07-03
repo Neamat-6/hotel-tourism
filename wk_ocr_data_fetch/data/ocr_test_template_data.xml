@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+
+    <template id="ocr_fetched_data_word_table">
+        <table style="width:100%;border:1px solid black;">
+            <tr>
+                <th style="border:1px solid black;"></th>
+                <t t-foreach="range(1, max_column + 1)" t-as="i">
+                    <th style="border:1px solid black;"><t t-esc="i"/></th>
+                </t>
+            </tr>
+            <t t-foreach="range(1, max_row + 1)" t-as="i">
+                <tr style="height: 10px;">
+                    <th style="border:1px solid black;"><t t-esc="i"/></th>
+                    <t t-foreach="range(1, max_column + 1)" t-as="j">
+                        <td style="border:1px solid black;">
+                            <t t-esc="data.get((i, j)) and data[(i, j)]['text'] or ' '"/>
+                        </td>
+                    </t>
+                </tr>
+            </t>
+        </table>
+    </template>
+
+    <template id="ocr_process_result">
+        <div class="container" style="overflow-x:auto;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img t-att-src="image_link" style="width:100%;"/>
+                </div>
+                <div class="col-sm-6">
+                    <t t-raw="result"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

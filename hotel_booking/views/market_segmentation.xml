@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="market_segmentation_tree_view" model="ir.ui.view">
+        <field name="name">market_segmentation_tree_view</field>
+        <field name="model">market.segmentation</field>
+        <field name="arch" type="xml">
+            <tree string="Market Segmentation" editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="market_segmentation_action_view" model="ir.actions.act_window">
+        <field name="name">Market Segmentation</field>
+        <field name="res_model">market.segmentation</field>
+    </record>
+
+    <menuitem id="menu_market_segmentation_view" name="Market Segmentation" parent="menu_hotel_configuration"
+              action="market_segmentation_action_view" groups="hotel_booking.market_segmentation_group"
+              sequence="30"/>
+
+
+</odoo>

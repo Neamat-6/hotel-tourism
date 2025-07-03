@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_folio_view_form" model="ir.ui.view">
+            <field name="name">ntmp_folio_view_form</field>
+            <field name="model">booking.folio</field>
+            <field name="inherit_id" ref="hotel_booking.folio_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="after">
+                    <field name="apply_ntmp" invisible="1"/>
+                    <div class="alert alert-danger text-center o_form_header" role="status" invisible="1">
+                        <a class="close" data-dismiss="alert" href="#" aria-label="Close">x</a>
+                        <div>
+                            <strong>
+                                <field name="message" readonly="1" force_save="1"/>
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="alert alert-success text-center o_form_header" role="status" invisible="1">
+                        <a class="close" data-dismiss="alert" href="#" aria-label="Close">x</a>
+                        <div>
+                            <strong>
+                                <field name="message" readonly="1" force_save="1"/>
+                            </strong>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="ntmp_connect" type="object" string="Connect" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('apply_ntmp', '=', False), ('state', 'in', ['checked_out', 'cancelled'])]}"/>
+                </xpath>
+                <xpath expr="//group[@name='guest']" position="replace">
+                    <group name="guest" string="Guest Info">
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="nationality_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                            <field name="visit_purpose_id"
+                                   options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="gender_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                            <field name="customer_type_id"
+                                   options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                            <field name="ntmp_transaction_id" readonly="1" force_save="1"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='room_id']" position="after">
+                    <field name="rent_type_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                           attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='room_type_id']" position="after">
+                    <field name="ntmp_room_type_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                           attrs="{'invisible': [('apply_ntmp', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree" position="inside">
+                    <field name="ntmp_service_id" optional="hide"/>
+                    <field name="ntmp_item_number" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="attributes">
+                    <attribute name="domain">[('active', '=', True)]</attribute>
+                </xpath>
+            </field>
+        </record>
+        <menuitem id="ntmp_root_menu" name="Tourism monitoring platform" parent="hotel_booking.menu_hotel_configuration"
+                  sequence="1" groups="hotel_booking.ntmp_root_menu_group"/>
+    </data>
+</odoo>

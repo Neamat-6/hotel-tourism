@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_hotel_transportation_contract_form" model="ir.ui.view">
+        <field name="name">hotel.transportation.contract.form</field>
+        <field name="model">hotel.transportation.contract</field>
+        <field name="arch" type="xml">
+            <form string="transportation contract">
+                <group>
+                    <field name="name"/>
+                    <field name="contract_type" invisible="1"/>
+                    <field name="partner_id" attrs="{'invisible': [('contract_type', '!=', 'sell')]}"/>
+                    <field name="travel_agent_name" attrs="{'invisible': [('contract_type', '!=', 'purchase')]}"/>
+                </group>
+                <notebook>
+                    <page string="Contract Package Lines">
+                        <field name="hotel_transportation_contract_lines">
+                            <tree editable="bottom">
+                                <field name="package_id"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+        <record id="view_hotel_transportation_contract_tree" model="ir.ui.view">
+            <field name="name">hotel.trasportation.contract</field>
+            <field name="model">hotel.transportation.contract</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="contract_type"/>
+                    <field name="person_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_sale_hotel_transportation_contract" model="ir.actions.act_window">
+            <field name="name">Hotel Sale Transportation Contracts</field>
+            <field name="res_model">hotel.transportation.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_contract_type': 'sell'}</field>
+            <field name="domain">[('contract_type', '=', 'sell')]</field>
+        </record>
+
+        <record id="action_purchase_hotel_transportation_contract" model="ir.actions.act_window">
+            <field name="name">Hotel Purchase Transportation Contracts</field>
+            <field name="res_model">hotel.transportation.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_contract_type': 'purchase'}</field>
+            <field name="domain">[('contract_type', '=', 'purchase')]</field>
+        </record>
+
+
+        <menuitem id="menu_hotel_configuration" name="Configuration" parent="tourism_hotel_booking.menu_hotel_root"/>
+
+
+        <menuitem id="menu_hotel_sale_transportation_contract"
+                  name="Hotel Sale Transportation Contract"
+                  parent="menu_hotel_configuration"
+                  groups="tourism_hotel_booking.group_sale_hotel_transportation_contract"
+                  action="action_sale_hotel_transportation_contract"/>
+
+        <menuitem id="menu_hotel_purchase_transportation_contract"
+                  name="Hotel Purchase Transportation Contract"
+                  parent="menu_hotel_configuration"
+                  groups="tourism_hotel_booking.group_purchase_hotel_transportation_contract"
+                  action="action_purchase_hotel_transportation_contract"/>
+</odoo>

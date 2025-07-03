@@ -1,0 +1,1197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_whatsapp_integration_api
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-30 05:22+0000\n"
+"PO-Revision-Date: 2022-03-30 05:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,body_html:sh_whatsapp_integration_api.email_template_edi_invoice_custom_chat_api
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"<t t-if=\"object.company_id.invoice_order_information_in_message\">\n"
+"Dear <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"<t t-if=\"object.name and object.state != 'draft'\">\n"
+"Here is the your invoice *<t t-out=\"object.name or ''\"/>*.</t>\n"
+"\n"
+"<t t-else=\"\">\n"
+"Here is your invoice *<t t-out=\"object.name or ''\"/>* amounting in *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* from ${object.company_id.name}<t t-out=\"object.company_id.name or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.payment_state == 'paid'\">\n"
+"This invoice is already paid.</t>\n"
+"\n"
+"<t t-else=\"\">\n"
+"Please remit payment at your earliest convenience.\n"
+"\n"
+"</t>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_product_detail_in_message\">\n"
+"Following is your invoice details.\n"
+"\n"
+"<t t-foreach=\"object.invoice_line_ids\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Qty:* <t t-out=\"line.quantity or ''\"/>\n"
+"*Price:* <t t-out=\"line.price_unit or ''\"/><t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"________________________\n"
+"\n"
+"</t>\n"
+"*Total Amount:* <t t-out=\"object.amount_total or ''\"/><t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>\n"
+"</t> \n"
+"\t\t\t</p>\n"
+"\n"
+"\t\t"
+msgstr ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"<t t-if=\"object.company_id.invoice_order_information_in_message\">\n"
+"sehr geehrter <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"<t t-if=\"object.name and object.state != 'draft'\">\n"
+"Hier ist die Ihre Rechnung *<t t-out=\"object.name or ''\"/>*.</t>\n"
+"\n"
+"<t t-else=\"\">\n"
+"Hier ist deine Rechnung *<t t-out=\"object.name or ''\"/>* in Höhe von *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* von ${object.company_id.name}<t t-out=\"object.company_id.name or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.payment_state == 'paid'\">\n"
+"Diese Rechnung ist bereits bezahlt.</t>\n"
+"\n"
+"<t t-else=\"\">\n"
+"Bitte überweisen Sie die Zahlung so bald wie möglich.\n"
+"\n"
+"</t>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_product_detail_in_message\">\n"
+"Folgendes sind Ihre Rechnungsdetails.\n"
+"\n"
+"<t t-foreach=\"object.invoice_line_ids\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Attiert:* <t t-out=\"line.quantity or ''\"/>\n"
+"*Preis:* <t t-out=\"line.price_unit or ''\"/><t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"________________________\n"
+"\n"
+"</t>\n"
+"*Gesamtmenge:* <t t-out=\"object.amount_total or ''\"/><t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>\n"
+"</t> \n"
+"\t\t\t</p>\n"
+"\n"
+"\t\t"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,body_html:sh_whatsapp_integration_api.mail_template_data_payment_receipt_custom_chat_api
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"Dear <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"Here is the Payment *<t t-out=\"object.name or ''\"/>* from <t t-out=\"object.company_id.name or ''\"/>\n"
+"<t t-if=\"object.company_id.invoice_order_information_in_message\">\n"
+"\n"
+"Following is your Payment details.\n"
+"\n"
+"<t t-if=\"object.payment_type == 'inbound'\">\n"
+"We received payment of *<t t-out=\"format_amount(object.amount, object.currency_id) or ''\"/>*\n"
+"\n"
+"Thank You.\n"
+"\n"
+"</t>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>\n"
+"\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+msgstr ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"sehr geehrter <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"Hier ist die Zahlung *<t t-out=\"object.name or ''\"/>* von <t t-out=\"object.company_id.name or ''\"/>\n"
+"<t t-if=\"object.company_id.invoice_order_information_in_message\">\n"
+"\n"
+"Nachfolgend sind Ihre Zahlungsdetails.\n"
+"\n"
+"<t t-if=\"object.payment_type == 'inbound'\">\n"
+"Wir haben eine Zahlung von erhalten *<t t-out=\"format_amount(object.amount, object.currency_id) or ''\"/>*\n"
+"\n"
+"Danke.\n"
+"\n"
+"</t>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.invoice_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>\n"
+"\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,body_html:sh_whatsapp_integration_api.mail_template_data_stock_picking_custom_chat_api
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"Dear <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"Here is the Stock Transfer *<t t-out=\"object.name or ''\"/>* from <t t-out=\"object.company_id.name or ''\"/>\n"
+"<t t-if=\"object.company_id.inventory_information_in_message\">\n"
+"\n"
+"Following is your order details.\n"
+"\n"
+"<t t-foreach=\"object.move_ids_without_package\" t-as=\"line\">\n"
+"<t t-if=\"line.quantity_done\">\n"
+"*<t t-out=\"line.name or ''\"/>*\n"
+"*Qty:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Delivery Qty:* <t t-out=\"line.quantity_done or ''\"/>\n"
+"</t>\n"
+"<t t-else=\"\">\n"
+"*<t t-out=\"line.name or ''\"/>*\n"
+"*Qty:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Delivery Qty:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"</t>\n"
+"</t>\n"
+"</t>\n"
+"% endif\n"
+"<t t-if=\"object.company_id.inventory_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/> %0A%0A\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+msgstr ""
+"<?xml version=\"1.0\"?>\n"
+"<p>\n"
+"sehr geehrter <t t-out=\"object.partner_id.name or ''\"/>,\n"
+"\n"
+"Hier ist die Lagerübertragung *<t t-out=\"object.name or ''\"/>* von <t t-out=\"object.company_id.name or ''\"/>\n"
+"<t t-if=\"object.company_id.inventory_information_in_message\">\n"
+"\n"
+"Folgendes sind Ihre Bestelldetails.\n"
+"\n"
+"<t t-foreach=\"object.move_ids_without_package\" t-as=\"line\">\n"
+"<t t-if=\"line.quantity_done\">\n"
+"*<t t-out=\"line.name or ''\"/>*\n"
+"*Attiert:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Lieferung:* <t t-out=\"line.quantity_done or ''\"/>\n"
+"</t>\n"
+"<t t-else=\"\">\n"
+"*<t t-out=\"line.name or ''\"/>*\n"
+"*Attiert:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Lieferung:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"</t>\n"
+"</t>\n"
+"</t>\n"
+"% endif\n"
+"<t t-if=\"object.company_id.inventory_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/> %0A%0A\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_qr_code_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Warning\" role=\"img\" aria-label=\"Warning\"/>\n"
+"                            Please scan the QR code to start the session"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Warning\" role=\"img\" aria-label=\"Warning\"/>\n"
+"                            Bitte scannen Sie den QR-Code, um die Sitzung zu starten"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,body_html:sh_whatsapp_integration_api.email_template_edi_sale_custom_chat_api
+msgid ""
+"<p>\n"
+"<t t-if=\"object.company_id.order_information_in_message\">\n"
+"Dear <t t-out=\"object.partner_id.name or ''\"/>, \n"
+"\n"
+"Here is the your Order *<t t-out=\"object.name or ''\"/>* amounting in *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* from <t t-out=\"object.company_id.name or ''\"/>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.order_product_detail_in_message\">\n"
+"\n"
+"Following is your order details.\n"
+"\n"
+"<t t-foreach=\"object.order_line\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Qty:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Price:* <t t-out=\"line.price_unit or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"<t t-if=\"line.discount != 0\">\n"
+"*Discount:* <t t-out=\"line.discount or ''\"/>\n"
+"</t> \n"
+"________________________\n"
+"\n"
+"</t>\n"
+"\n"
+"*Total Amount:* %20 <t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"</t>\n"
+"\n"
+"<t t-if=\"object.company_id.signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>%0A%0A\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+msgstr ""
+"<p>\n"
+"<t t-if=\"object.company_id.order_information_in_message\">\n"
+"sehr geehrter <t t-out=\"object.partner_id.name or ''\"/>, \n"
+"\n"
+"Hier ist die Reihenfolge *<t t-out=\"object.name or ''\"/>* in Höhe von *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* von <t t-out=\"object.company_id.name or ''\"/>\n"
+"</t>\n"
+"<t t-if=\"object.company_id.order_product_detail_in_message\">\n"
+"\n"
+"Folgendes sind Ihre Bestelldetails.\n"
+"\n"
+"<t t-foreach=\"object.order_line\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Attiert:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Preis:* <t t-out=\"line.price_unit or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"<t t-if=\"line.discount != 0\">\n"
+"*Rabatt:* <t t-out=\"line.discount or ''\"/>\n"
+"</t> \n"
+"________________________\n"
+"\n"
+"</t>\n"
+"\n"
+"*Gesamtmenge:* %20 <t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"</t>\n"
+"\n"
+"<t t-if=\"object.company_id.signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/>%0A%0A\n"
+"</t>\n"
+"\t\t\t</p>\n"
+"\t\t"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,body_html:sh_whatsapp_integration_api.email_template_edi_purchase_custom_chat_api
+msgid ""
+"<pre>\n"
+"<t t-if=\"object.company_id.purchase_order_information_in_message\">\n"
+"Dear <t t-out=\"object.partner_id.name or ''\"/>, \n"
+"\n"
+"Here is the your Order *<t t-out=\"object.name or ''\"/>* amounting in *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* from <t t-out=\"object.company_id.name or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.company_id.purchase_product_detail_in_message\">\n"
+"Following is your order details.\n"
+"\n"
+"<t t-foreach=\"object.order_line\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Qty:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Price:* <t t-out=\"line.price_unit or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"________________________\n"
+"\n"
+"</t>\n"
+"\n"
+"*Total Amount:* %20 <t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"</t>\n"
+"\n"
+"<t t-if=\"object.company_id.purchase_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/> %0A%0A\n"
+"</t>\n"
+"\t\t\t</pre>\n"
+"\t\t"
+msgstr ""
+"<pre>\n"
+"<t t-if=\"object.company_id.purchase_order_information_in_message\">\n"
+"sehr geehrter <t t-out=\"object.partner_id.name or ''\"/>, \n"
+"\n"
+"Hier ist die Reihenfolge *<t t-out=\"object.name or ''\"/>* in Höhe von *<t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>* von <t t-out=\"object.company_id.name or ''\"/>\n"
+"\n"
+"</t>\n"
+"<t t-if=\"object.company_id.purchase_product_detail_in_message\">\n"
+"Folgendes sind Ihre Bestelldetails.\n"
+"\n"
+"<t t-foreach=\"object.order_line\" t-as=\"line\">\n"
+"*<t t-out=\"line.product_id.name or ''\"/>*\n"
+"*Attiert:* <t t-out=\"line.product_uom_qty or ''\"/>\n"
+"*Preis:* <t t-out=\"line.price_unit or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"________________________\n"
+"\n"
+"</t>\n"
+"\n"
+"*Gesamtmenge:* %20 <t t-out=\"object.amount_total or ''\"/> <t t-out=\"object.currency_id.symbol or ''\"/>\n"
+"</t>\n"
+"\n"
+"<t t-if=\"object.company_id.purchase_signature and object.env.user.sign\">\n"
+"<t t-out=\"object.env.user.sign or ''\"/> %0A%0A\n"
+"</t>\n"
+"\t\t\t</pre>\n"
+"\t\t"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_form
+msgid ""
+"<strong>Note:</strong>\n"
+"                            <br/>\n"
+"                            1) Use *text* to make text bold.<br/>\n"
+"                            2) Use _text_ to make text italic.<br/>\n"
+"                            3) Use %0A after/before Text if you want to add blank line.<br/>\n"
+"                            4) use %20 after/before any Text if you want to give space.<br/>\n"
+"                            5) go to users =&gt; preferences to add signature."
+msgstr ""
+"<strong>Notiz:</strong>\n"
+"                            <br/>\n"
+"                            1) Verwenden *text* Text mutig machen.<br/>\n"
+"                            2) Verwenden _text_ Text kursiv machen.<br/>\n"
+"                            3) Verwenden %0A Nach / vor dem Text, wenn Sie eine leere Zeile hinzufügen möchten.<br/>\n"
+"                            4) verwenden %20 Nach / vor dem Text, wenn Sie Platz geben möchten.<br/>\n"
+"                            5) Gehen Sie zu den Benutzern = & gt; Vorlieben, um Unterschrift hinzuzufügen."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__account_invoice_id
+msgid "Account Invoice"
+msgstr "Kontorechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__account_payment_id
+msgid "Account Payment"
+msgstr "Kontozahlung"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_account_whatsapp_feature
+msgid "Account Whatsapp Feature"
+msgstr "Konto WhatsApp-Funktion."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__attachment_ids
+msgid "Attach Files"
+msgstr "Dateien anhängen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__attachment_ids
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_form
+msgid "Attach a file"
+msgstr "Eine Datei anhängen"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_configuration_manager_form
+msgid "Authenticate"
+msgstr "Authentifizieren"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_crm_whatsapp_msg_feature
+msgid "CRM Whatsapp Feature"
+msgstr "CRM WhatsApp-Funktion."
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_form
+msgid "Cancel"
+msgstr "Stornieren"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields.selection,name:sh_whatsapp_integration_api.selection__sh_configuration_manager__config_type__chat_api
+msgid "Chat Api"
+msgstr "Chat-API"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__common_to_all
+msgid "Common Use"
+msgstr "Allgemeiner Gebrauch"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_res_company
+msgid "Companies"
+msgstr "Firmen"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#, python-format
+msgid "Compose Email"
+msgstr "E-Mail verfassen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_account_invoice_send__config_details
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_mail_compose_message__config_details
+msgid "Config Details"
+msgstr "Konfigurationsdetails"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurationseinstellungen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__config_type
+msgid "Config Type"
+msgstr "Titelart"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.actions.act_window,help:sh_whatsapp_integration_api.sh_configuration_manager_action
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_configuration_manager_form
+msgid "Configuration"
+msgstr "Aufbau"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.actions.act_window,name:sh_whatsapp_integration_api.sh_configuration_manager_action
+msgid "Configuration Manager"
+msgstr "Konfigurationsmanager"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__create_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__create_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__create_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__create_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__display_name
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__display_name
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__display_name
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Display in Chatter Message?"
+msgstr "Anzeige in der Chatter-Nachricht?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__inventory_display_in_message
+msgid "Display in Chatter Message? ON Inventory"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__invoice_display_in_message
+msgid "Display in Chatter Message? ON Invoice"
+msgstr "Anzeige in der Chatter-Nachricht? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__purchase_display_in_message
+msgid "Display in Chatter Message? ON Purchase Order"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__display_in_message
+msgid "Display in Chatter Message? ON Sale Order"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__crm_lead_display_in_message
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__crm_lead_display_in_message
+msgid "Display in Chatter Message? On Crm"
+msgstr "Anzeige in der Chatter-Nachricht? Auf CRM"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__inventory_display_in_message
+msgid "Display in Chatter Message? On Inventory"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__invoice_display_in_message
+msgid "Display in Chatter Message? On Invoice"
+msgstr "Anzeige in der Chatter-Nachricht? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__purchase_display_in_message
+msgid "Display in Chatter Message? On Purchase Order"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__display_in_message
+msgid "Display in Chatter Message? On sale Order"
+msgstr "Anzeige in der Chatter-Nachricht? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields.selection,name:sh_whatsapp_integration_api.selection__sh_configuration_manager__status__draft
+msgid "Draft"
+msgstr "Entwurf"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_mail_compose_message
+msgid "Email composition wizard"
+msgstr "E-Mail-Kompositionszizard."
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/configuration_manager.py:0
+#, python-format
+msgid "Generated QR Code"
+msgstr "Erzeugter QR-Code"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_sh_qr_code_wizard
+msgid "Generated QR Code Shown Here"
+msgstr "Erzeugter QR-Code, der hier gezeigt ist"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__id
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__id
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__id
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__id
+msgid "ID"
+msgstr "ICH WÜRDE"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__instance_id
+msgid "Instance"
+msgstr "Beispiel"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,name:sh_whatsapp_integration_api.email_template_edi_invoice_custom_chat_api
+msgid "Invoice: Send by Whatsapp"
+msgstr "Rechnung: Senden von WhatsApp"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_account_invoice_send__is_wp
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_mail_compose_message__is_wp
+msgid "Is whatsapp ?"
+msgstr "Ist WhatsApp?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_account_move
+msgid "Journal Entry"
+msgstr "Tagebucheintrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager____last_update
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard____last_update
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard____last_update
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__write_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert von"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__write_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__write_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__write_date
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__crm_lead_id
+msgid "Lead"
+msgstr "Das Blei"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_account_bank_statement_line__text_message_chat_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_account_move__text_message_chat_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_account_payment__text_message_chat_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_purchase_order__text_message_chat_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sale_order__text_message_chat_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__message
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__message
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_stock_picking__text_message_chat_api
+msgid "Message"
+msgstr "Nachricht"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__name
+msgid "Name"
+msgstr "Name"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/account_payment_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/customer_invoice_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/sale_order_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/stock_picking_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/wizard/send_whatsapp_message.py:0
+#: code:addons/sh_whatsapp_integration_api/wizard/send_whatsapp_number.py:0
+#, python-format
+msgid "No Default Configuration is selected"
+msgstr "Es wird keine Standardkonfiguration ausgewählt"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/configuration_manager.py:0
+#, python-format
+msgid "One Default send alredy exists"
+msgstr "Ein Standard Send ALREDY ist vorhanden"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_res_config_settings_view_crm_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Order Information in message?"
+msgstr "Bestellinformationen in der Nachricht?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__inventory_information_in_message
+msgid "Order Information in message? ON Inventory"
+msgstr "Bestellinformationen in der Nachricht? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__invoice_order_information_in_message
+msgid "Order Information in message? ON Invoice"
+msgstr "Bestellinformationen in der Nachricht? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__purchase_order_information_in_message
+msgid "Order Information in message? ON Purchase Order"
+msgstr "Bestellinformationen in der Nachricht? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__order_information_in_message
+msgid "Order Information in message? ON Sale Order"
+msgstr "Bestellinformationen in der Nachricht? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__inventory_information_in_message
+msgid "Order Information in message? On Inventory"
+msgstr "Bestellinformationen in der Nachricht? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__invoice_order_information_in_message
+msgid "Order Information in message? On Invoice"
+msgstr "Bestellinformationen in der Nachricht? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__purchase_order_information_in_message
+msgid "Order Information in message? On Purchase Order"
+msgstr "Bestellinformationen in der Nachricht? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__order_information_in_message
+msgid "Order Information in message? On sale Order"
+msgstr "Bestellinformationen in der Nachricht? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Order Product details in message?"
+msgstr "Produktdetails in der Nachricht bestellen?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__invoice_product_detail_in_message
+msgid "Order Product details in message? ON Invoice"
+msgstr "Produktdetails in der Nachricht bestellen? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__purchase_product_detail_in_message
+msgid "Order Product details in message? ON Purchase Order"
+msgstr "Produktdetails in der Nachricht bestellen? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__order_product_detail_in_message
+msgid "Order Product details in message? ON Sale Order"
+msgstr "Produktdetails in der Nachricht bestellen? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__invoice_product_detail_in_message
+msgid "Order Product details in message? On Invoice"
+msgstr "Produktdetails in der Nachricht bestellen? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__purchase_product_detail_in_message
+msgid "Order Product details in message? On Purchase Order"
+msgstr "Produktdetails in der Nachricht bestellen? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__order_product_detail_in_message
+msgid "Order Product details in message? On sale Order"
+msgstr "Produktdetails in der Nachricht bestellen? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/account_payment_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/customer_invoice_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/sale_order_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/stock_picking_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/wizard/send_whatsapp_number.py:0
+#, python-format
+msgid "Partner Mobile Number Not Exist"
+msgstr "Partner-Handynummer ist nicht vorhanden"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/account_payment_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/customer_invoice_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/sale_order_inherit.py:0
+#: code:addons/sh_whatsapp_integration_api/models/stock_picking_inherit.py:0
+#, python-format
+msgid "Partner Mobile Number Not Exist !"
+msgstr "Partner-Handynummer ist nicht vorhanden!"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,name:sh_whatsapp_integration_api.mail_template_data_payment_receipt_custom_chat_api
+msgid "Payment Receipt: Send by Whatsapp"
+msgstr "Zahlungs-Beleg: Senden von WhatsApp"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_account_payment
+msgid "Payments"
+msgstr "Zahlungen"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/mail_message.py:0
+#, python-format
+msgid "Please Select the account from which you want to send"
+msgstr "Bitte wählen Sie das Konto aus, von dem Sie senden möchten"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/configuration_manager.py:0
+#, python-format
+msgid "Plz Fill Proper Data"
+msgstr "PLZ füllen ordnungsgemäße Daten"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#: model:ir.model,name:sh_whatsapp_integration_api.model_purchase_order
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__purchase_order_id
+#, python-format
+msgid "Purchase Order"
+msgstr "Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,name:sh_whatsapp_integration_api.email_template_edi_purchase_custom_chat_api
+msgid "Purchase Order Whatsapp: Send by whatsapp"
+msgstr "Bestellung WhatsApp: Senden von WhatsApp"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_purchase_whatsapp_feature
+msgid "Purchase Whatsapp Feature"
+msgstr "WhatsApp-Funktion kaufen."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.actions.act_window,name:sh_whatsapp_integration_api.sh_qr_code_action
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_qr_code_wizard__qr_code
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_qr_code_form
+msgid "QR Code"
+msgstr "QR-Code"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,report_name:sh_whatsapp_integration_api.email_template_edi_purchase_custom_chat_api
+msgid "RFQ_{{(object.name or '').replace('/','_')}}"
+msgstr "RFQ_{{(object.name or '').replace('/','_')}}"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__partner_ids
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__partner_ids
+msgid "Recipients"
+msgstr "Empfänger"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_qr_code_form
+msgid "Refresh QR Code"
+msgstr "QR-Code aktualisieren."
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#, python-format
+msgid "Request for Quotation"
+msgstr "Anfrage nach Zitat"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__sale_order_id
+msgid "Sale Order"
+msgstr "Verkauf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_sale_order
+msgid "Sales Order"
+msgstr "Kundenauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,name:sh_whatsapp_integration_api.email_template_edi_sale_custom_chat_api
+msgid "Sales Order Whatsapp: Send By Whatsapp"
+msgstr "Verkaufsauftrag WhatsApp: Senden von WhatsApp"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_sales_whatsapp_feature
+msgid "Sales Whatsapp Feature"
+msgstr "Verkauf WhatsApp-Funktion."
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_form
+msgid "Send"
+msgstr "Schicken"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.invoice_form_inherit_custom
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.purchase_order_inherit_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_email_compose_form_mass_mailing
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_account_payment_inherit_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_order_inherit_custom_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_picking_inherit_custom_form
+msgid "Send By Whatsapp"
+msgstr "Senden von WhatsApp."
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.invoice_form_inherit_custom
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.purchase_order_inherit_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_account_payment_inherit_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_order_inherit_custom_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.view_picking_inherit_custom_form
+msgid "Send By Whatsapp Direct"
+msgstr "Senden Sie von WhatsApp Direct"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+msgid "Send Report URL in Message"
+msgstr "Senden Sie Berichts-URL in der Nachricht"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Send Report URL in message?"
+msgstr "Berichts-URL in der Nachricht senden?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__stock_send_pdf_in_message
+msgid "Send Report URL in message? ON Inventory"
+msgstr "Berichts-URL in der Nachricht senden? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__inv_send_pdf_in_message
+msgid "Send Report URL in message? ON Invoice"
+msgstr "Berichts-URL in der Nachricht senden? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__po_send_pdf_in_message
+msgid "Send Report URL in message? ON Purchase Order"
+msgstr "Berichts-URL in der Nachricht senden? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__send_pdf_in_message
+msgid "Send Report URL in message? ON Sale Order"
+msgstr "Berichts-URL in der Nachricht senden? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__stock_send_pdf_in_message
+msgid "Send Report URL in message? On Inventory"
+msgstr "Berichts-URL in der Nachricht senden? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__inv_send_pdf_in_message
+msgid "Send Report URL in message? On Invoice"
+msgstr "Berichts-URL in der Nachricht senden? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__po_send_pdf_in_message
+msgid "Send Report URL in message? On Purchase Order"
+msgstr "Berichts-URL in der Nachricht senden? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__send_pdf_in_message
+msgid "Send Report URL in message? On sale Order"
+msgstr "Berichts-URL in der Nachricht senden? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Send Report Url in Message"
+msgstr "Senden Sie Berichts-URL in der Nachricht"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.ui.menu,name:sh_whatsapp_integration_api.menu_subwhatsapp_number
+#: model:ir.ui.menu,name:sh_whatsapp_integration_api.menu_whatsapp_number
+#: model:ir.ui.menu,name:sh_whatsapp_integration_api.submenu_whatsapp_number
+msgid "Send Whatsapp"
+msgstr "Senden Sie WhatsApp."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.actions.act_window,name:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_action
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_partner_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_message_form
+msgid "Send Whatsapp Message"
+msgstr "Senden Sie WhatsApp-Nachricht."
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_send_whatsapp_quick
+msgid "Send Whatsapp Quick"
+msgstr "Senden Sie WhatsApp schnell."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_sh_send_whatsapp_message_wizard
+#: model:ir.model,name:sh_whatsapp_integration_api.model_sh_send_whatsapp_number_wizard
+msgid "Send whatsapp message wizard"
+msgstr "Senden Sie WhatsApp-Nachricht-Assistent"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_res_config_settings_view_crm_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Show Message in Chatter"
+msgstr "Nachricht in Chatters anzeigen"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Show Order Information in message"
+msgstr "Bestellinformationen anzeigen in der Nachricht"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Show Order Product details in message"
+msgstr "Bestellung aufgeben Produktdetails in der Nachricht"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_res_config_settings_view_crm_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Show Signature"
+msgstr "Signatur anzeigen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_users__sign
+msgid "Signature"
+msgstr "Unterschrift"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_res_config_settings_view_crm_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Signature?"
+msgstr "Unterschrift?"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__inventory_signature
+msgid "Signature? ON Inventory"
+msgstr "Unterschrift? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__invoice_signature
+msgid "Signature? ON Invoice"
+msgstr "Unterschrift? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__purchase_signature
+msgid "Signature? ON Purchase Order"
+msgstr "Unterschrift? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__signature
+msgid "Signature? ON Sale Order"
+msgstr "Unterschrift? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_company__crm_lead_signature
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__crm_lead_signature
+msgid "Signature? On Crm"
+msgstr "Unterschrift? Auf CRM"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__inventory_signature
+msgid "Signature? On Inventory"
+msgstr "Unterschrift? Auf Inventar"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__invoice_signature
+msgid "Signature? On Invoice"
+msgstr "Unterschrift? Aufrechnung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__purchase_signature
+msgid "Signature? On Purchase Order"
+msgstr "Unterschrift? Auf Bestellung"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_res_config_settings__signature
+msgid "Signature? On sale Order"
+msgstr "Unterschrift? Auf Verkaufsauftrag"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__status
+msgid "Status"
+msgstr "Status"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_message_wizard__stock_picking_id
+msgid "Stock Picking"
+msgstr "Börse picking"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,name:sh_whatsapp_integration_api.mail_template_data_stock_picking_custom_chat_api
+msgid "Stock Transfer: Send by Whatsapp"
+msgstr "Überstellungsübertragung: Senden von WhatsApp"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.group_stock_whatsapp_feature
+msgid "Stock Whatsapp Feature"
+msgstr "Aktien WhatsApp-Funktion."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_sh_configuration_manager
+msgid "Stores Your Credentials"
+msgstr "Speichert Ihre Anmeldeinformationen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__token
+msgid "Token"
+msgstr "Zeichen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_stock_picking
+msgid "Transfer"
+msgstr "Überweisen"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__default_send
+msgid "Use this Default"
+msgstr "Verwenden Sie diesen Standard"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__user_id
+msgid "User"
+msgstr "Benutzer"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model,name:sh_whatsapp_integration_api.model_res_users
+msgid "Users"
+msgstr "Benutzer"
+
+#. module: sh_whatsapp_integration_api
+#: code:addons/sh_whatsapp_integration_api/models/purchase_order_inherit.py:0
+#, python-format
+msgid "Vendor Mobile Number Not Exist !"
+msgstr "Anbieter-Handynummer ist nicht vorhanden!"
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields.selection,name:sh_whatsapp_integration_api.selection__sh_configuration_manager__status__verified
+msgid "Verified"
+msgstr "Verifiziert"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_qr_code_form
+msgid "Verify Authorisation"
+msgstr "Autorisierung überprüfen."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.ui.menu,name:sh_whatsapp_integration_api.sh_configuration_manager_item
+msgid "Whatsapp Configuration"
+msgstr "WhatsApp-Konfiguration"
+
+#. module: sh_whatsapp_integration_api
+#: model:res.groups,name:sh_whatsapp_integration_api.sh_whatsapp_configuration_manager
+msgid "Whatsapp Configuration Manager"
+msgstr "WhatsApp Configuration Manager."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.actions.act_window,name:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_action
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_send_whatsapp_number_wizard__whatsapp_mobile
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.crm_case_form_inherit_custom_view_leads
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_whatsapp_integration_send_whatsapp_number_form
+msgid "Whatsapp Number"
+msgstr "WhatsApp-Nummer"
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_inventory_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_invoice_bill_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_res_config_settings_view_crm_form
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_purchase_res_config_settings
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_show_whatsapp_send_sales_res_config_settings
+msgid "Whatsapp send"
+msgstr "WhatsApp Send."
+
+#. module: sh_whatsapp_integration_api
+#: model:ir.model.fields,field_description:sh_whatsapp_integration_api.field_sh_configuration_manager__send_base64_data
+msgid "base64"
+msgstr "Base64."
+
+#. module: sh_whatsapp_integration_api
+#: model_terms:ir.ui.view,arch_db:sh_whatsapp_integration_api.sh_qr_code_form
+msgid "img"
+msgstr "Img"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,report_name:sh_whatsapp_integration_api.email_template_edi_invoice_custom_chat_api
+#: model:mail.template,report_name:sh_whatsapp_integration_api.mail_template_data_payment_receipt_custom_chat_api
+#: model:mail.template,report_name:sh_whatsapp_integration_api.mail_template_data_stock_picking_custom_chat_api
+msgid "{{(object.name or '').replace('/','-')}}"
+msgstr "{{(object.name or '').replace('/','-')}}"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,report_name:sh_whatsapp_integration_api.email_template_edi_sale_custom_chat_api
+msgid "{{(object.name or '').replace('/','_')}}"
+msgstr "{{(object.name or '').replace('/','_')}}"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,subject:sh_whatsapp_integration_api.email_template_edi_invoice_custom_chat_api
+msgid "{{object.company_id.name}} Invoice (Ref {{object.name or 'n/a'}})"
+msgstr "{{object.company_id.name}} Rechnung (Ref {{object.name or 'n/a'}})"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,subject:sh_whatsapp_integration_api.mail_template_data_payment_receipt_custom_chat_api
+msgid ""
+"{{object.company_id.name}} Payment Receipt (Ref {{object.name or 'n/a' }})"
+msgstr ""
+"{{object.company_id.name}} Zahlungsbeleg (Ref {{object.name or 'n/a' }})"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,subject:sh_whatsapp_integration_api.mail_template_data_stock_picking_custom_chat_api
+msgid ""
+"{{object.company_id.name}} Stock Transfer (Ref {{object.name or 'n/a' }})"
+msgstr ""
+"{{object.company_id.name}} Übertragung (Ref {{object.name or 'n/a' }})"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,subject:sh_whatsapp_integration_api.email_template_edi_sale_custom_chat_api
+msgid ""
+"{{object.company_id.name}} {{object.state in ('draft', 'sent') and "
+"'Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})"
+msgstr ""
+"{{object.company_id.name}} {{object.state in ('draft', 'sent') and "
+"'Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})"
+
+#. module: sh_whatsapp_integration_api
+#: model:mail.template,subject:sh_whatsapp_integration_api.email_template_edi_purchase_custom_chat_api
+msgid ""
+"{{object.company_id.name}} {{object.state in ('draft', 'sent') and 'Request "
+"For Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})"
+msgstr ""
+"{{object.company_id.name}} {{object.state in ('draft', 'sent') and 'Request "
+"For Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})"

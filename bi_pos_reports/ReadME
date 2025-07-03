@@ -1,0 +1,26 @@
+Version 15.0.0.1 : (03-03-22)
+    - Solve mutli company issue.
+    - Solve error when we try to print our custom audit,category,order,payment,product report from pos.
+
+Version 15.0.0.2 : (11-03-22)
+    - Update code of the translation language.
+
+Version 15.0.0.3 : (17-03-2022)
+    -- Update code for the display control button. 
+
+Version 15.0.0.4 :  (17/03/2022)  
+        - Solve multi company issue in pos backend reports.
+
+Version 15.0.0.5 :  (23/03/2022)
+        - If Other Reports/Sales Summary/with [summary only] checked that time in the report date not printed now onwards date print in this also
+
+Version 15.0.0.6 :  (17/06/2022)
+        -- In the payment summary report not get data for the current pos salesperson fix that issue.
+
+Version 15.0.0.7 :  (29/06/2022)
+    -- For the payment summary report if we not print for the current session that time get an error fixed that.
+
+Version 15.0.0.8 :  (01/09/2022)
+    -- Changed the css or paper formate of the backend report.
+
+=> 15.0.0.9 : Add French, Spanish , Arabic and Dutch translation in module also improved an index.

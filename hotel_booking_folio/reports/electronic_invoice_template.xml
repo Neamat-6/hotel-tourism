@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_folio_electronic_template_body" inherit_id="hotel_booking.folio_electronic_template_body">
+        <xpath expr="//t[@t-foreach='doc.folio_ids']" position="after">
+            <tr t-foreach="doc.service_ids" t-as="line">
+                <t t-set="folio_service" t-value="line.folio_id.line_ids.filtered(lambda l: l.particulars == line.service_id.name)"/>
+                <t t-set="folio_service_municipality" t-value="False"/>
+                <t t-set="folio_service_vat" t-value="False"/>
+                <t t-set="municipality_amount" t-value="0"/>
+                <t t-set="vat_amount" t-value="0"/>
+                <t t-set="service_amount" t-value="0"/>
+                <t t-if="folio_service">
+                    <t t-set="folio_service_municipality" t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'municipality')"/>
+                    <t t-set="folio_service_vat" t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'vat')"/>
+                    <t t-if="folio_service_municipality">
+                        <t t-set="municipality_amount" t-value="folio_service_municipality.amount"/>
+                    </t>
+                    <t t-if="folio_service_vat">
+                        <t t-set="vat_amount" t-value="folio_service_vat.amount"/>
+                    </t>
+                    <t t-set="service_amount" t-value="folio_service.amount"/>
+                </t>
+                <td class="tg-0lax">
+                    <span t-esc="line.service_id.name"/>
+                </td>
+                <td class="tg-lqy6">
+                    <span t-esc="line.price"/>
+                </td>
+                <td class="tg-lqy6">
+                    <t t-if="line.price_type == 'fixed'">
+                        1
+                    </t>
+                    <t t-else="">
+                        <span t-esc="line.folio_id.number_of_guests"/>
+                    </t>
+                </td>
+                <td class="tg-lqy6">
+                    <span t-esc="round(service_amount, 2)"/>
+                </td>
+                <td class="tg-lqy6"/>
+                <td class="tg-lqy6">
+                    <span t-esc="round(municipality_amount, 2)"/>
+                </td>
+                <td class="tg-lqy6">
+                    <span t-esc="round(vat_amount, 2)"/>
+                </td>
+                <td class="tg-lqy6">
+                    <span t-esc="round((municipality_amount + vat_amount), 2)"/>
+                </td>
+                <td class="tg-lqy6">
+                    <span t-esc="round((municipality_amount + vat_amount + service_amount), 2)"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

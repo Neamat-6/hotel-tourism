@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="standard_daily_sales_xlsx_action" model="ir.actions.report">
+    <field name="name">Print xlsx</field>
+    <field name="model">hotel.booking</field>
+    <field name="report_type">xlsx</field>
+    <field name="report_name">standard_daily_sales.standard_daily_sales_xlsx_report</field>
+    <field name="report_file">standard_daily_sales.standard_daily_sales_xlsx_report</field>
+    <field name="binding_type">report</field>
+  </record>
+</odoo>

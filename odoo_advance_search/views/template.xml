@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="assets_backend" inherit_id="web.assets_backend" name="Backend Assets">
+      <xpath expr="//script[last()]" position="after">
+          <script src="/odoo_advance_search/static/src/js/search_view_common.js"/>
+          <script src="/odoo_advance_search/static/src/js/list_controller.js"/>
+          <script src="/odoo_advance_search/static/src/js/list_renderer.js"/>
+      </xpath>
+       <xpath expr="//link[last()]" position="after">
+          <link rel="stylesheet" href="/odoo_advance_search/static/src/scss/search.scss"/>
+      </xpath>
+  </template>
+</odoo>

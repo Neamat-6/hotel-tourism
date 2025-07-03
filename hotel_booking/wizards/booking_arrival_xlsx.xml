@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.actions.report" id="action_arrival_xlsx_report">
+        <field name="name">Booking Arrival XLSX</field>
+        <field name="model">booking.arrival</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">hotel_booking.booking_arrival_xlsx_report</field>
+        <field name="report_file">hotel_booking.booking_arrival_xlsx_report</field>
+        <field name="binding_model_id" ref="model_booking_arrival"/>
+    </record>
+</odoo>

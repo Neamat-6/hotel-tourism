@@ -1,0 +1,15 @@
+<odoo>
+  <data>
+  <record id="yds_view_account_journal_form_inherit_account" model="ir.ui.view">
+    <field name="name">account.journal.view.form.inherit</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='company_id']" position="before">
+        <field name="journal_allowed_users" widget="form.many2many_tags" />
+        <field name="journal_hidden_users" widget="form.many2many_tags" />
+      </xpath>
+    </field>
+  </record>
+  </data>
+</odoo>

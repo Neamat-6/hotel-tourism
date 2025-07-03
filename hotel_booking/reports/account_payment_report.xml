@@ -1,0 +1,163 @@
+<odoo>
+    <data>
+        <record id="account_payment_report" model="ir.actions.report">
+            <field name="name">Account Payment</field>
+            <field name="model">account.payment.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.account_payment_report_template</field>
+            <field name="report_file">hotel_booking.account_payment_report_template</field>
+            <field name="binding_model_id" ref="hotel_booking.model_account_payment_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="account_payment_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                            width: 100%;
+                            background-color: #ffffff;
+                            border-collapse: collapse;
+                            border-width: 2px;
+                            border-color: #121212;
+                            border-style: solid;
+                            color: black;
+                            }
+
+                            table.GeneratedTable td, table.GeneratedTable th {
+                            padding: 3px;
+                            color: black;
+                            }
+                            table.GeneratedTable td.with-border, table.GeneratedTable th {
+                            border-width: 2px;
+                            border-color: #121212;
+                            border-style: solid;
+                            padding: 3px;
+                            color: black;
+                            text-align: center;
+                            }
+
+                            table.GeneratedTable thead {
+                            background-color: #ffffff;
+                            color: black;
+                            }
+                            .bold-text{font-weight: bold}
+                        </style>
+                        <h8 style="text-align:left;" class="text-left">
+                            <span class="text-left">
+                                <t dir="rtl">
+                                    Audit Date :
+                                    <t t-esc="audit_date" dir="rtl"/>
+                                </t>
+                            </span>
+                        </h8>
+                        <br/>
+                        <br/>
+                        <h3 style="text-align:center;" class="text-center">
+                            <b>
+                                <t t-if="user_ids">
+                                    Account Report For Cashier (
+                                    <small><t t-esc="', '.join(user_ids)"/></small>
+                                    )
+                                </t>
+                                <t t-else="">
+                                    Account Report For All Cashiers
+                                </t>
+                            </b>
+                        </h3>
+                        <br/>
+                        <table class="GeneratedTable">
+                            <colgroup>
+                                <col width='15%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                                <col width='15%'/>
+                                <col width='20%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Cashier</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Journal</th>
+                                    <th class="text-center">Customer</th>
+                                    <th class="text-center">Room</th>
+                                    <th class="text-center">Memo</th>
+                                    <th class="text-center">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr>
+                                        <td class="with-border">
+                                            <span t-field="doc.date"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.user_id.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.journal_id.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.partner_id.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.folio_id.room_id"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.ref"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.amount_signed" widget="monetary"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <br/>
+                        <table class="GeneratedTable">
+                            <colgroup>
+                                <col width='15%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                                <col width='15%'/>
+                                <col width='20%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        Payment Method
+                                    </th>
+                                    <th class="text-center">
+                                        Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="payment_methods_list" t-as="p">
+                                    <tr>
+                                        <td class="with-border">
+                                            <span t-esc="p[0]"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-esc="p[1]"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

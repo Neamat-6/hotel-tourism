@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pilgrim_management_details_form" model="ir.ui.view">
+        <field name="name">pilgrim.management.details.form</field>
+        <field name="model">pilgrim.management.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <div class="oe_title oe_inline">
+                            <h1 style="color:#001f5c;">
+                                Pilgrim Management Details
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                           <field name="hotel_type"/>
+                        </group>
+                        <group>
+                            <field name="hotel_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <div style="width:100%">
+                        <h3>Hotel Arrival Date</h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hotel_arrival_date_from"/>
+                        </group>
+                        <group>
+                            <field name="hotel_arrival_date_to"/>
+                        </group>
+                    </group>
+                    <div style="width:100%">
+                        <h3>Hotel Departure Date</h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hotel_dep_date_from"/>
+                        </group>
+                        <group>
+                            <field name="hotel_dep_date_to"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="package_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="gender"/>
+                        </group>
+                        <group>
+                            <field name="pilgrim_type"/>
+                        </group>
+                    </group>
+                    <group string="Flight Contract">
+                        <group>
+                            <field name="flight_contract_id" options="{'no_create': True, 'no_open': True, 'no_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="pilgrims_no"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Arrival Flight">
+                            <field name="arrival_flight_no"/>
+                            <field name="arrival_flight_date"/>
+                            <field name="arrival_airport_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="arrival_hall_no"/>
+                        </group>
+                        <group string="Departure Flight">
+                            <field name="departure_flight_no"/>
+                            <field name="departure_flight_date"/>
+                            <field name="departure_airport_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="departure_hall_no"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <div class="row">
+                        <div class="col-2"/>
+                        <div class="col-3">
+                            <button name="print_pdf" type="object" string="Print (PDF)" class="btn btn-primary"
+                                    icon="fa-file-pdf-o"
+                                    style="color:white;background-color: #001f5c;border-color: #001f5c;"/>
+                        </div>
+                        <div class="col-3">
+                            <button name="button_search" type="object" string="Search" class="btn btn-primary"
+                                    style="color:white;background-color: #00A0AD;border-color: #00A0AD;"
+                                    icon="fa-search"/>
+                        </div>
+                        <div class="col-3">
+                            <button name="print_xlsx" type="object" string="Print (Excel)"
+                                    class="btn btn-primary" icon="fa-file-excel-o"
+                                    style="color:white;background-color: #001f5c;border-color: #001f5c;"/>
+                        </div>
+                        <div class="col-2"/>
+                    </div>
+                    <br/>
+                    <field name="line_ids" readonly="1">
+                        <tree create="0" edit="0" delete="0" editable="bottom">
+                            <field name="package_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="partner_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}" />
+                            <field name="passport_no"/>
+                            <field name="pilgrim_type" optional="show"/>
+                            <field name="main_member_id" optional="show"/>
+                            <field name="gender" optional="show"/>
+                            <field name="nationality" optional="show"/>
+                            <field name="residence_country" optional="show"/>
+                            <field name="visa_status" optional="show"/>
+                            <field name="ticket_link" optional="show"/>
+                            <field name="hajj_source" optional="show"/>
+                            <field name="main_makkah" optional="show"/>
+                            <field name="main_madinah" optional="show"/>
+                            <field name="main_arfa" optional="show"/>
+                            <field name="main_minnah" optional="show"/>
+                            <field name="main_hotel" optional="show"/>
+                            <field name="makkah_contract_id" optional="show"/>
+                            <field name="madinah_contract_id" optional="show"/>
+                            <field name="main_hotel_contract_id" optional="show"/>
+                            <field name="arrival_flight_no" optional="show"/>
+                            <field name="departure_flight_no" optional="show"/>
+                            <field name="arrival_airport_id" optional="show"/>
+                            <field name="dep_airport_id" optional="show"/>
+                            <field name="transportation_contract_ids"
+                                   optional="show" widget="many2many_tags"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                        </tree>
+                    </field>
+                </sheet>
+<!--                <div class="oe_chatter">-->
+<!--                    <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                    <field name="message_ids" widget="mail_thread"/>-->
+<!--                </div>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="pilgrims_management_details_action" model="ir.actions.act_window">
+        <field name="name">Pilgrim Management Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pilgrim.management.details</field>
+        <field name="view_mode">form</field>
+    </record>
+
+
+    <menuitem id="pilgrims_management_menu" name="Pilgrims Management" parent="b2c_hajj_custom.b2c_main_menu"
+              action="pilgrims_management_details_action" sequence="9"/>
+
+</odoo>

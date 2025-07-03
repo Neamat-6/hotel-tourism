@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_night_audit_form" model="ir.ui.view">
+            <field name="name">folio_night_audit_form</field>
+            <field name="model">night.audit</field>
+            <field name="inherit_id" ref="hotel_booking.night_audit_form"/>
+            <field name="arch" type="xml">
+                <!--draft folios-->
+                <xpath expr="//field[@name='draft_booking_ids']/tree/field[@name='room_type_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='draft_booking_ids']/tree/field[@name='room_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='draft_booking_ids']/tree/field[@name='check_in_room_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="attrs">{}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='draft_booking_ids']/tree/field[@name='partner_id']" position="after">
+                    <field name="folio_id" readonly="1" force_save="1"/>
+                    <field name="company_id" optional="hide"/>
+                    <field name="room_type_id" readonly="1" force_save="1"/>
+                    <field name="room_id" attrs="{'readonly': [('action', '!=', 'check_in')], 'required': [('action', '=', 'check_in')]}"/>
+                </xpath>
+                <!--checkout folios-->
+                <xpath expr="//field[@name='checkout_booking_ids']/tree/field[@name='room_type_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='checkout_booking_ids']/tree/field[@name='room_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='checkout_booking_ids']/tree/field[@name='partner_id']" position="after">
+                    <field name="folio_id" readonly="1" force_save="1"/>
+                    <field name="room_type_id" readonly="1" force_save="1"/>
+                    <field name="room_id" readonly="1" force_save="1"/>
+                </xpath>
+                <!--room status-->
+                <xpath expr="//field[@name='room_state_ids']/tree/field[@name='partner_id']" position="after">
+                    <field name="folio_id" readonly="1" force_save="1"/>
+                </xpath>
+                <!--folios-->
+                <xpath expr="//field[@name='folio_ids']/tree/field[@name='booking_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='folio_ids']/tree/field[@name='folio_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='folio_ids']/tree" position="inside">
+                    <field name="charged"/>
+                </xpath>
+                <xpath expr="//group" position="after">
+                    <group>
+                        <group>
+                            <field name="enable_limit" readonly="1" force_save="1"/>
+                            <field name="limit" attrs="{'invisible': [('enable_limit', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="total_folios" attrs="{'invisible': [('enable_limit', '=', False)]}"/>
+                            <field name="remaining_folios" attrs="{'invisible': [('enable_limit', '=', False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

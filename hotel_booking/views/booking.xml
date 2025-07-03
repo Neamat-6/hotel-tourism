@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_search_hotel_booking" model="ir.ui.view">
+        <field name="name">hotel.booking.search</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Booking No" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="partner_id" filter_domain="[('partner_id','ilike',self)]"/>
+                <field name="room_id" filter_domain="[('room_id','ilike',self)]"/>
+                <field name="payment_number"/>
+                <field name="company_id" filter_domain="[('company_id','ilike',self)]"/>
+                <field name="ref" filter_domain="[('ref','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_tree_hotel_booking" model="ir.ui.view">
+        <field name="name">hotel.booking.tree</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <tree default_order="create_date desc">
+                <field name="filter_type" invisible="1"/>
+                <field name="partner_id" string="Guest Name"/>
+                <field name="name" string="Res No./Voucher No." optional="hide"/>
+                <field name="create_date" string="Booking Date"/>
+                <field name="check_in" string="Check in"/>
+                <field name="check_out" string="Check Out"/>
+<!--                <field name="total_nights" string="Total Nights" sum="Nights"/>-->
+                <field name="rooms" optional="hide"/>
+<!--                <field name="number_of_room" optional="hide"/>-->
+                <field name="hotel_id" optional="show"/>
+                <field name="booking_source"/>
+                <field name="booking_source_id"/>
+                <field name="company_booking_source" optional="hide"/>
+                <field name="ref" optional="hide"/>
+                <field name="payment_number" optional="hide"/>
+                <field name="state" string="Res. Type" optional="hide"/>
+                <field name="user_id" widget="many2one_avatar_user" readonly="1"/>
+                <field name="payment_type_id"/>
+<!--                <field name="balance" decoration-info="balance == 0.0" decoration-success="balance &gt; 0.0"-->
+<!--                       decoration-danger="balance &lt; 0.0"/>-->
+<!--                <field name="amount_invoiced" sum="Amount" optional="hide"/>-->
+<!--                <field name="amount_paid" sum="Amount Paid" optional="hide"/>-->
+<!--                <field name="amount_due" sum="Amount Due" optional="hide"/>-->
+<!--                <field name="amount_total" sum="Amount Total" optional="hide"/>-->
+<!--                <field name="company_paid" optional="hide"/>-->
+<!--                <field name="paid_amount_city_ledger" optional="hide"/>-->
+                <field name="currency_id" invisible="1"/>
+                <field name="reservation_confirmed" invisible="1"/>
+                <button name="button_open_reservation_card" string="Reservation Card" type="object" class="btn-primary"
+                        attrs="{'invisible': [('reservation_confirmed', '!=', True)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_gantt_hotel_booking" model="ir.ui.view">
+        <field name="name">Hotel Booking Gantt View</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <gantt js_class="planning_gantt"
+                   date_start="new_check_in"
+                   date_stop="new_check_out"
+                   default_group_by="name"
+                   default_scale="week"
+                   string="Bookings"
+                   total_row="True"
+                   scales="day,week,month,year"
+                   precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                   display_unavailability="1"
+                   sample="1">
+                <field name="name"/>
+                <templates>
+                    <div t-name="gantt-popover" class="o_gantt_popover">
+                        <div class="o_gantt_popover_content">
+                            <ul class="o_gantt_popover_list">
+                                <li>
+                                    <div>
+                                        <strong>Check-in Date:</strong>
+                                        <t t-esc="new_check_in.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <strong>Check-out Date:</strong>
+                                        <t t-esc="new_check_out.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+
+
+    <record id="view_form_hotel_booking" model="ir.ui.view">
+        <field name="name">hotel.booking.form</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="today_is_checkin" invisible="1"/>
+                    <field name="today_is_checkout" invisible="1"/>
+                    <field name="filter_type" invisible="1"/>
+                    <field name="check_partner_advance" invisible="1"/>
+                    <field name="add_package" invisible="1"/>
+                    <field name="book_all_available_rooms" invisible="1"/>
+                    <field name="number_of_room" invisible="1"/>
+                    <button name="button_confirm" string="Confirm" type="object" class="btn-primary" states="draft"/>
+                    <button name="action_register_payment" string="Group Register Payment" type="object"
+                            class="btn-primary" attrs="{'invisible': [('number_of_room', '&lt;', 2)]}"/>
+                    <field name="has_advance_payment" invisible="1"/>
+                    <button name="action_account_advance_payment" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('has_advance_payment', '=', False)]}"
+                            string="Apply Advance Payment"/>
+                    <button name="settled_booking_amount" type="object" class="btn btn-danger"
+                            attrs="{'invisible': [('amount_due', '&gt;=', 0)]}"
+                            string="Settled Booking"/>
+                    <button name="print_booking_payments"  type="object" class="oe_highlight"
+                            string="Print Booking Payment"/>
+                    <button name="print_booking_invoices" type="object" class="fa fa-print oe_highlight"
+                            string="Invoices"/>
+                    <button name="action_refund_payment" string="Group Refunded Payment" type="object"
+                            attrs="{'invisible': ['|', ('payment_type_id', '=','city_ledger'), ('state', 'not in', ['checked_out', 'paid'])]}"
+                            class="btn btn-danger"/>
+
+                    <!--                    <button name="create_advance_payment" string="Create Advance Payment" type="object"-->
+                    <!--                            attrs="{'invisible': [('amount_due', '&gt;=', 0)]}"-->
+                    <!--                            class="btn btn-danger"/>-->
+
+                    <button name="button_open_discount_wizard" string="Apply Discount" type="object" class="btn-primary"
+                            invisible="1"
+                            groups="hotel_booking.group_booking_discount"/>
+                    <button name="button_cancel" string="Cancel Booking" type="object" states="draft,confirmed" groups="hotel_booking.group_cancel_booking"/>
+                    <!--                    <button name="action_draft" string="Reset To Draft" type="object" states="cancelled"/>-->
+                    <button name="send_by_whatsapp_direct" string="Send Whatapp direct" type="object"/>
+                    <button name="apply_advance_payment" string="Apply Advance Payment" type="object"
+                            class="btn btn-primary" attrs="{'invisible': [('check_partner_advance', '!=', True)]}"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,part_checked_in,checked_in,part_checked_out,checked_out,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_transfers" type="object" class="oe_stat_button" icon="fa-exchange"
+                                attrs="{'invisible':[('transfer_count','=',0)]}">
+                            <div class="o_stat_info">
+                                <field name="transfer_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Check-In/Out</span>
+                            </div>
+                        </button>
+                        <button name="ntmp_state" type="object" class="oe_stat_button" readonly="1">
+                            <field name="apply_ntmp" invisible="1"/>
+                            <div role="img" class="fa fa-fw fa-circle text-success o_button_icon"
+                                 attrs="{'invisible': [('apply_ntmp', '!=', True)]}" aria-label="Available"
+                                 title="Connected"/>
+                            <div role="img" class="fa fa-fw fa-circle text-danger o_button_icon"
+                                 attrs="{'invisible': [('apply_ntmp', '!=', False)]}" aria-label="Not available"
+                                 title="Not Connected"/>
+                            <span class="o_stat_text">الربط مع منصة الرصد السياحي</span>
+                        </button>
+                    </div>
+                    <div class="alert alert-info text-center"
+                         attrs="{'invisible': [('check_partner_advance', '!=', True)]}"
+                         role="alert">
+                        <p>
+                            <field name="validation_error" readonly="1"/>
+                        </p>
+                        <p>انتبه هذا النزيل لديه دفعه مقدمة للحجز</p>
+                    </div>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                            <field name="edit_price" invisible="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="has_one_line" invisible="1"/>
+                            <field name="company_id" required="1" attrs="{'readonly': [('has_one_line', '=', True)]}"
+                                   force_save="1" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="audit_date"/>
+                            <field name="season_id"/>
+                        </group>
+                        <group>
+                            <field name="hotel_id" required="1" attrs="{'readonly': [('has_one_line', '=', True)]}"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="day_use"/>
+                        </group>
+                    </group>
+                    <separator string="" colspan="4"/>
+                    <!--#1 row-->
+                    <div col="12" class="o_row">
+                        <div class="col-2">
+                            <label for="new_check_in"/>
+                            <field name="new_check_in"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                            <field name="check_in" invisible="1" force_save="1"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="total_nights"/>
+                            <field name="total_nights" force_save="1"
+                                   attrs="{'readonly': ['|', ('state', 'not in', ['draft', 'confirmed']), ('day_use', '=', True)]}"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="new_check_out"/>
+                            <field name="new_check_out" force_save="1"
+                                   attrs="{'readonly': ['|', ('state', 'not in', ['draft', 'confirmed']), ('day_use', '=', True)]}"/>
+                            <field name="check_out" force_save="1" invisible="1"/>
+                        </div>
+                        <div class="col-2" attrs="{'invisible': [('quick_group_booking', '=', True)]}">
+                            <label for="rooms_count"/>
+                            <field name="rooms_count" readonly="1"/>
+                            <!--                            <field name="rooms_count" options="{'type': 'number', 'step': 1}"-->
+                            <!--                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>-->
+                        </div>
+                        <div class="col-2">
+                            <label for="booking_source"/>
+                            <field name="booking_source"/>
+                            <field name="reservation_type" invisible="1"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="payment_type_id" groups="hotel_booking.payment_type_selection_group"/>
+                            <field name="payment_type_id" groups="hotel_booking.payment_type_selection_group"/>
+                        </div>
+                    </div>
+                    <!--#2 row-->
+                    <div col="12" class="o_row">
+                        <div class="col-4">
+                            <label for="company_booking_source"
+                                   attrs="{'invisible': [('booking_source', 'in' ,['direct','online_agent'])]}"/>
+                            <field name="company_booking_source"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                   attrs="{'invisible': [('booking_source', 'in', ['direct','online_agent'])] , 'required': [('booking_source', '=', 'company')]}"/>
+                            <label for="partner_id" string="Guest Name"/>
+                            <field name="partner_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}" context="{'default_is_company': False, 'default_parent_id': company_booking_source}"/>
+                        </div>
+                        <div class="col-3">
+                            <field name="front_id" widget="image"/>
+                        </div>
+                        <div class="col-2"
+                             attrs="{'invisible': [('booking_source', 'not in', ['travel_agent', 'company','online_agent','others'])]}">
+                            <label for="travel_agent_booking_source" invisible="1"
+                                   attrs="{'invisible': [('booking_source', '!=', 'travel_agent')]}"/>
+                            <field name="travel_agent_booking_source" invisible="1"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                   attrs="{'invisible': [('booking_source', '!=', 'travel_agent')]}"/>
+                            <label for="online_travel_agent_source"
+                                   attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                            <field name="online_travel_agent_source"
+                                   attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                            <!--                            <label for="booking_source_id" attrs="{'invisible': [('booking_source', '!=', 'others')]}"/>-->
+                            <!--                            <field name="booking_source_id"-->
+                            <!--                                   attrs="{'invisible': [('booking_source', '!=', 'others')]}"/>-->
+                        </div>
+                        <div class="col-2">
+                            <label for="ref"
+                                   attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                            <field name="ref"
+                                   attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                            <label for="company_code"
+                                   attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                            <field name="company_code"
+                                   attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                        </div>
+                    </div>
+                    <!--#3 row-->
+                    <div col="12" class="o_row">
+                        <div class="col-6">
+                            <label for="actual_no_room" string="Actual No. Room"/>
+                            <field name="actual_no_room"/>
+                        </div>
+                        <div class="col-6">
+                            <label for="actual_no_night" string="Actual No. Night"/>
+                            <field name="actual_no_night"/>
+                        </div>
+                    </div>
+                    <!--#4 row-->
+                    <group col="3">
+                        <group col="1">
+                            <field name="quick_group_booking"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                        </group>
+                        <group col="1">
+                            <field name="book_by_bed"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                        </group>
+                        <group col="1">
+                            <field name="complimentary_room"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                        </group>
+                        <group col="1">
+                            <field name="house_use"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="note" string="Notes"/>
+                            <field name="memo" string="Memo"/>
+                            <field name="automatic_send_confirmation_email_and_folio_invoice"/>
+                        </group>
+                        <group>
+                            <field name="payment_number"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Booking">
+                            <field name="line_ids"  attrs="{'readonly': [('state', 'not in', 'draft')]}">
+                                <tree editable="bottom" delete="0">
+                                    <!--ezee absolute cloning-->
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="state_selection" invisible="1"/>
+                                    <field name="booking_state" invisible="1"/>
+                                    <field name="quick_group_booking" invisible="1"/>
+                                    <field name="id" optional="hide"/>
+                                    <field name="room_type" required="1" options="{'no_open': True, 'no_create': True}"
+                                           attrs="{'readonly': [('booking_state', 'not in', ['draft', 'confirmed'])]}"/>
+                                    <field name="available_rooms" readonly="1" force_save="1"
+                                           attrs="{'column_invisible': [('parent.book_all_available_rooms', '=', True)], 'readonly': [('booking_state', 'not in', ['draft', 'confirmed'])]}"/>
+                                    <field name="rate_plan" required="1" options="{'no_open': True, 'no_create': True}"
+                                           attrs="{'readonly': ['|', ('room_type', '=', False), ('booking_state', 'not in', ['draft', 'confirmed'])]}"/>
+                                    <field name="number_of_rooms"
+                                           attrs="{
+                                           'readonly': [('booking_state', 'not in', ['draft', 'confirmed']), '|', '|', ('assign_room', '=', False), ('change_room', '=', False), ('room_type', '=', False),],
+                                           'column_invisible': [('parent.book_all_available_rooms', '=', False), ('parent.quick_group_booking', '=', False)]}"/>
+                                    <field name="room_ids" widget="many2many_tags"
+                                           options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"
+                                           attrs="{
+                                           'readonly': [('booking_state', 'not in', ['draft', 'confirmed']), '|', '|', ('assign_room', '=', False), ('change_room', '=', False), ('room_type', '=', False),],
+                                           'column_invisible': [('parent.book_all_available_rooms', '=', False), ('parent.quick_group_booking', '=', False)]}"/>
+                                    <field name="available_room_ids" widget="many2many_tags" invisible="1"/>
+                                    <field name="assign_room" invisible="1"/>
+                                    <field name="change_room" invisible="1"/>
+                                    <field name="room_id" options="{'no_open': True, 'no_create': True}"
+                                           attrs="{
+                                            'readonly': [('booking_state', 'not in', ['draft', 'confirmed']), '|', '|', ('assign_room', '=', False), ('change_room', '=', False), ('room_type', '=', False),],
+                                            'column_invisible': ['|', ('parent.book_all_available_rooms', '=', True), ('parent.quick_group_booking', '=', True)]
+                                           }"
+                                           decoration-danger="state_selection == 'dirty'"
+                                           decoration-success="state_selection == 'clean'"/>
+                                    <field name="number_of_adults" attrs="{'readonly': [('room_type', '=', False)]}"
+                                           optional="show"/>
+                                    <field name="number_of_children" attrs="{'readonly': [('room_type', '=', False)]}"
+                                           optional="show"/>
+                                    <field name="edit_price" invisible="1"/>
+                                    <field name="edit_price_include_tax" invisible="1"/>
+                                    <field name="price_unit"
+                                           attrs="{'readonly': ['|',('booking_state', 'not in', ['draft', 'confirmed']),('edit_price', '!=', True)]}"/>
+                                    <field name="price_include_tax" groups="hotel_booking.group_price_include_tax"/>
+                                    <field name="plan_tax_ids" invisible="1"/>
+                                    <field name="tax_id" widget="many2many_tags" readonly="1" force_save="1"/>
+                                    <field name="price_subtotal" optional="show"/>
+                                    <field name="price_tax" optional="show"/>
+                                    <field name="price_total"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <div role="alert" class="alert  alert-danger center" align="center"
+                                                 attrs="{'invisible': [('check_dir', '=', True)]}"
+                                                 style="height:50px;width:300px;text:align:center;">
+                                                This Booking Without Contract !!!
+                                            </div>
+                                        </group>
+                                        <group>
+                                        </group>
+                                        <group string="Room">
+                                            <field name="company_id" invisible="1"/>
+                                            <field name="vendor" domain="[('check','=', True)]"
+                                                   attrs="{'invisible':[('check_dir','=',True)]}"/>
+                                            <field name="hotel_id" options="{'no_open': True, 'no_create': True}"/>
+                                            <field name="contract_id" attrs="{'invisible':[('check_dir','=',False)]}"/>
+                                            <field name="vendor_id" attrs="{'invisible':[('check_dir','=',False)]}"/>
+                                            <!--                                            <field name="room_type_id" options="{'no_open': True, 'no_create': True}"/>-->
+                                            <field name="room_type" invisible="1"/>
+                                            <field name="available_room_ids" widget="many2many_tags" invisible="1"/>
+                                            <field name="room_id"
+                                                   options="{'no_open': True, 'no_create': True}"/>
+                                            <!--                                        <field name="room_aval"/>-->
+                                            <field name="check_dir"/>
+                                            <!--                                            <field name="cost_price" string="Cost Price"/>-->
+                                            <field name="price" readonly="1"
+                                                   attrs="{'invisible':[('check_dir','=',False)]}"/>
+                                            <field name="cost" readonly="1"
+                                                   attrs="{'invisible':[('check_dir','=',False)]}"/>
+                                            <field name="m_price" attrs="{'invisible':[('check_dir','=',True)]}"/>
+                                            <field name="m_cost" attrs="{'invisible':[('check_dir','=',True)]}"/>
+                                            <field name="plan_tax_ids" invisible="1"/>
+                                            <field name="tax_id"/>
+                                            <field name="count" required="1"/>
+                                            <field name="tax_amount"/>
+                                            <field name="total_amount"/>
+                                        </group>
+                                        <group string="Other">
+                                            <field name="number_of_adults"/>
+                                            <field name="number_of_children"/>
+                                            <field name="pricelist_id" invisible="1"/>
+                                            <field name="total_f" invisible="1"/>
+                                            <field name="check_price" invisible="1"/>
+                                            <field name="check_cost" invisible="1"/>
+                                        </group>
+                                        <group string="Scheduled Check-In/Out">
+                                            <field name="check_in"/>
+                                            <field name="check_out"/>
+                                            <field name="date_diff"/>
+                                            <field name="number_of_days"/>
+                                        </group>
+                                        <group string="Actual Check-In/Out">
+                                            <field name="actual_check_in"/>
+                                            <field name="actual_check_out"/>
+                                            <field name="actual_number_of_days"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" style="float: right !important;">
+                                <field name="room_charge_total" widget="monetary" readonly="1"/>
+                                <field name="room_charge_subtotal" widget="monetary" readonly="1"/>
+                                <field name="room_charge_mun" widget="monetary" readonly="1"/>
+                                <field name="room_charge_vat" widget="monetary" readonly="1"/>
+                                <field name="room_charge_tax" widget="monetary" readonly="1"/>
+                                <separator string="Totals"/>
+                                <field name="amount_untaxed" widget='monetary' readonly="1" string="Untaxed Amount"/>
+                                <field name="amount_tax" widget='monetary' readonly="1" string="Taxes"/>
+                                <field name="amount_total" widget='monetary' readonly="1" string="Total"/>
+                                <field name="amount_paid" widget='monetary' readonly="1" string="Paid Amount"/>
+                                <field name="amount_due" widget='monetary' readonly="1" string="Due Amount"/>
+                                <field name="company_paid"/>
+                                <field name="paid_amount_city_ledger"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_left" style="float: left !important;">
+                                <separator string="Total Service"/>
+                                <field name="service_total_mun" widget="monetary" readonly="1"
+                                       string="Service Total Municipality"/>
+                                <field name="service_total_vat" widget="monetary" readonly="1"
+                                       string="Service Total VAT"/>
+                                <field name="service_total_tax" widget="monetary" readonly="1"
+                                       string="Service Total TAX"/>
+                                <field name="service_total_subtotal" widget="monetary" readonly="1"
+                                       string="Services Subtotal"/>
+                                <field name="service_total_total" widget="monetary" readonly="1"
+                                       string="Services Total"/>
+                                <separator name="discount" string="Total Discount"/>
+                                <field name="room_price_discount"/>
+                                <field name="service_price_discount"/>
+                                <field name="price_discount"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Guest Information" name="guest">
+                            <group>
+                                <field name="guest_option" widget="radio" options="{'horizontal': true}" invisible="1"/>
+                                <field name="guest_list"
+                                       attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                                <field name="partner_id" attrs="{'invisible': [('guest_option', '=', 'create')]}" context="{'default_is_company': False, 'default_parent_id': company_booking_source}"/>
+                            </group>
+                            <field name="guest_ids" readonly="1" force_save="1"
+                                   attrs="{'invisible':[('guest_list','=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="guest_title"/>
+                                    <field name="guest_name"/>
+                                    <field name="guest_mobile"/>
+                                    <field name="guest_email"/>
+                                    <field name="guest_address"/>
+                                    <field name="guest_country_id"/>
+                                    <field name="guest_state_id" optional="hide"/>
+                                    <field name="guest_city" optional="hide"/>
+                                    <field name="guest_zip_code" optional="hide"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Folio" name="folio">
+                            <field name="folio_ids">
+                                <tree edit="0" create="0" delete="0" editable="bottom">
+                                    <field name="is_print_inv"/>
+                                    <field name="select_folio"/>
+                                    <field name="name"/>
+                                    <field name="booking_line_id"/>
+                                    <button name="button_open_lines" type="object" string="Display"
+                                            class="oe_highlight"/>
+                                    <button name="print_report" type="object" string="Print"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Signature" attrs="{'invisible': [('signature', '=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="signed_by"
+                                           attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                                    <field name="signed_on"
+                                           attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="signature" widget="image" nolablel="1"
+                                           attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Services">
+                            <field name="service_ids">
+                                <tree editable="bottom" create="0" delete="0">
+                                    <field name="service_id" readonly="1" force_save="1"/>
+                                    <field name="price_type" readonly="1" force_save="1"/>
+                                    <field name="type" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Conditions">
+                            <field name="condition_id"
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                            <field name="conditions" placeholder="Conditions ..."
+                                   attrs="{'readonly': [('state', 'not in', ['draft', 'confirmed'])]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_booking_reservation_kanban" model="ir.ui.view">
+        <field name="name">hotel.booking.reservation.kanban</field>
+        <field name="model">hotel.booking</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="state"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="rooms"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="state"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="partner_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            Booked By:
+                                            <field name="user_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            Booking Date:
+                                            <field name="create_date"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <t t-if="record.note.raw_value">
+                                            <b>
+                                                Note:
+                                                <field name="note"/>
+                                            </b>
+                                        </t>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <b>Check In:</b>
+                                        <field name="check_in"/>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <t>
+                                            <b>
+                                                Nights:
+                                                <field name="total_nights"/>
+                                            </b>
+                                        </t>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b>Check Out:</b>
+                                        <field name="check_out"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-right">
+
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b>Rooms:</b>
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="rooms"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-4 text-right">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Invoiced
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="amount_invoiced"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Paid
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="amount_paid"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Amount Due
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="amount_due"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-3" style="display: none;">
+                                <div class="oe_kanban_bottom_left">
+                                    <div class="o_hotel_room_kanban_boxes">
+                                        <a class="o_hotel_room_kanban_box" name="action_view_reservations"
+                                           type="object">
+                                            <div>
+                                                <span class="o_label">Reservations</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_hotel_booking" model="ir.actions.act_window">
+        <field name="name">Booking</field>
+        <field name="res_model">hotel.booking</field>
+        <field name="view_mode">tree,kanban,form,gantt,pivot</field>
+        <field name="domain">[('state','!=','cancelled')]</field>
+    </record>
+
+    <record id="action_hotel_booking_today_check_in" model="ir.actions.act_window">
+        <field name="name">Today's Check In</field>
+        <field name="res_model">hotel.booking</field>
+        <field name="view_mode">tree,form,gantt,pivot</field>
+        <field name="context">{'search_default_today_check_in': 1}</field>
+        <field name="domain">[('state','!=','cancelled')]</field>
+    </record>
+
+    <record id="action_hotel_booking_today_check_out" model="ir.actions.act_window">
+        <field name="name">Today's Check Out</field>
+        <field name="res_model">hotel.booking</field>
+        <field name="view_mode">tree,form,gantt,pivot</field>
+        <field name="context">{'search_default_today_check_out': 1}</field>
+        <field name="domain">[('state','!=','cancelled')]</field>
+    </record>
+
+
+    <!-- Menu booking -->
+    <!--    <menuitem id="menu_hotel_booking" name="Reservation Management" action="action_hotel_booking"-->
+    <!--              parent="hotel_booking.menu_hotels_task_root" groups="hotel_booking.reservation_management_group"-->
+    <!--              sequence="2"/>-->
+
+    <record id="view_form_hotel_booking_transfer_wizard" model="ir.ui.view">
+        <field name="name">hotel.booking.transfer.wizard.form</field>
+        <field name="model">hotel.booking.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="transfer_time"/>
+                    <field name="type" readonly="1"/>
+                    <field name="booking_line_id" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Apply" name="action_apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_search_hotel_booking_line" model="ir.ui.view">
+        <field name="name">hotel.booking.line.search</field>
+        <field name="model">hotel.booking.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Booking No" filter_domain="[('name', 'ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="booking_reporting_menu" name="Reporting" parent="hotel_booking.menu_hotels_task_root" sequence="7"/>
+
+    <menuitem id="booking_reporting_main_menu" name="Reporting" sequence="7"/>
+
+    <menuitem id="booking_reporting_menu_item" name="Hotel Booking Reporting"
+              parent="hotel_booking.booking_reporting_main_menu" sequence="3"/>
+
+</odoo>

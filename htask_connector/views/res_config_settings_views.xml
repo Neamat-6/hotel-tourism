@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_openeducat_core" model="ir.ui.view">
+            <field name="name">res.branch.form.openeducat.core</field>
+            <field name="model">res.branch</field>
+            <field name="priority">99</field>
+            <field name="inherit_id" ref="branch.branch_res_branch_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page name="institute_detail" string="Hotel Connector">
+                            <separator string="Auth Code" colspan="4"/>
+                            <field name="auth_code" colspna="4"  nolabel="1"/>
+                            <separator string="Hotel Code"  colspan="4" />
+                            <field name="hotel_code" colspna="4" nolabel="1" />
+                            <separator string="Max Try"  colspan="4" />
+                            <field name="max_try" colspna="4" nolabel="1" />
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.investment</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="HTask Connector" string="HTask Connector" data-key="htask_connector" groups="htask_connector.htask_connector_manager_group">
+                    <h2>Connector Configuration</h2>
+                    <div class="row mt16 o_settings_container" name="catalog_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="connector_request_config">
+
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Authentication Code</span>
+                                <div class="text-muted">
+                                    Enter Authentication Code for HTask API connection
+                                </div>
+                                <div class="row mt16">
+                                    <label for="auth_code" string="Auth. Code" class="col-lg-4 o_light_label"/>
+                                    <field name="auth_code" class="oe_inline"/>
+                                </div>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Hotel Code</span>
+                                <div class="text-muted">
+                                    Enter Hotel Code for HTask API connection
+                                </div>
+                                <div class="row mt16">
+                                    <label for="hotel_code" string="Hotel Code" class="col-lg-4 o_light_label"/>
+                                    <field name="hotel_code" class="oe_inline"/>
+                                </div>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Max Request Attempts</span>
+                                <div class="text-muted">
+                                    Maximum request attempts allowed by HTask API
+                                </div>
+                                <div class="row mt16">
+                                    <label for="max_try" string="Max Retries" class="col-lg-4 o_light_label"/>
+                                    <field name="max_try" class="oe_inline"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_htask_connector_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'htask_connector', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_htask_connector_config"
+            name="Configuration"
+            parent="htask_connector.htask_connector_root_menu"
+            sequence="99"
+            groups="htask_connector.htask_connector_manager_group"/>
+
+    <menuitem id="menu_htask_connector_general_settings"
+        name="Settings"
+        parent="menu_htask_connector_config"
+        sequence="0"
+        action="action_htask_connector_config_settings"
+        groups="base.group_system,htask_connector.htask_connector_manager_group"/>
+
+</odoo>

@@ -1,0 +1,173 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hotel_floor_hotel_booking.group_hotel_booking_user,hotel.floor Hotel Booking User,hotel_booking.model_hotel_floor,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_contract_hotel_booking.group_hotel_booking_user,hotel.contract Hotel Booking User,hotel_booking.model_hotel_contract,,1,1,1,1
+access_hotel_contract_line_hotel_booking.group_hotel_booking_user,hotel.contract.line Hotel Booking User,hotel_booking.model_hotel_contract_line,,1,1,1,1
+access_hotel_floor_hotel_booking.group_hotel_booking_admin,hotel.floor Hotel Booking Administrator,hotel_booking.model_hotel_floor,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_room_hotel_booking.group_hotel_booking_user,hotel.room Hotel Booking User,hotel_booking.model_hotel_room,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_room_hotel_booking.group_hotel_booking_admin,hotel.room Hotel Booking Administrator,hotel_booking.model_hotel_room,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_room_type_hotel_booking.group_hotel_booking_user,hotel.room_type Hotel Booking User,hotel_booking.model_hotel_room_type,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_room_type_hotel_booking.group_hotel_booking_admin,hotel.room_type Hotel Booking Administrator,hotel_booking.model_hotel_room_type,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_room_type_hotel_booking.group_hotel_booking_user,hotel.room_type Booking User,hotel_booking.model_room_type,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_room_type_hotel_booking.group_hotel_booking_admin,hotel.room_type Booking Administrator,hotel_booking.model_room_type,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_room_status_hotel_booking.group_hotel_booking_user,hotel.room_status Booking User,hotel_booking.model_hotel_room_status,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_room_status_hotel_booking.group_hotel_booking_admin,hotel.room_status Booking Administrator,hotel_booking.model_hotel_room_status,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_room_stay_status_hotel_booking.group_hotel_booking_user,hotel.room_stay_status Booking User,hotel_booking.model_hotel_room_stay_status,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_room_stay_status_hotel_booking.group_hotel_booking_admin,hotel.room_stay_status Booking Administrator,hotel_booking.model_hotel_room_stay_status,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_facility_hotel_booking.group_hotel_booking_user,hotel.facility Hotel Booking User,hotel_booking.model_hotel_facility,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_facility_hotel_booking.group_hotel_booking_admin,hotel.facility Hotel Booking Administrator,hotel_booking.model_hotel_facility,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_room_facility_hotel_booking.group_hotel_booking_user,hotel.facility Hotel Booking User,hotel_booking.model_hotel_room_facility,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_room_facility_hotel_booking.group_hotel_booking_admin,hotel.facility Hotel Booking Administrator,hotel_booking.model_hotel_room_facility,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_booking_hotel_booking.group_hotel_booking_user,hotel.booking Hotel Booking User,hotel_booking.model_hotel_booking,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_hotel_booking_hotel_booking_line.group_hotel_booking_user,hotel.booking.line Hotel Booking User,hotel_booking.model_hotel_booking_line,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_hotel_booking_hotel_booking.group_hotel_booking_admin,hotel.booking Hotel Booking Administrator,hotel_booking.model_hotel_booking,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_room_image_hotel_booking.group_hotel_booking_user,hotel.image Hotel Booking User,hotel_booking.model_hotel_room_image,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_room_image_hotel_booking.group_hotel_booking_admin,hotel.image Hotel Booking Administrator,hotel_booking.model_hotel_room_image,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_booking.dashboard2_hotel_booking.group_hotel_booking_user,hotel.booking.dashboard2 Hotel Booking User,hotel_booking.model_hotel_booking_dashboard2,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_hotel_booking_hotel_transfer.group_hotel_booking_user,hotel.transfer Hotel transfer User,hotel_booking.model_hotel_transfer,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_hotel_booking_hotel_transfer.group_hotel_booking_admin,hotel.transfer Hotel transfer Administrator,hotel_booking.model_hotel_transfer,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_booking_transfer_wizard_public,hotel.booking.transfer.wizard Public User,hotel_booking.model_hotel_booking_transfer_wizard,,1,1,1,1
+access_hotel_hotel_hotel_booking.group_hotel_booking_user,hotel.hotel Hotel Booking User,hotel_booking.model_hotel_hotel,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_hotel_hotel_hotel_booking.group_hotel_booking_admin,hotel.hotel Hotel Booking Administrator,hotel_booking.model_hotel_hotel,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_pricelist_hotel_booking.group_hotel_booking_user,hotel.pricelist Hotel Booking User,hotel_booking.model_hotel_pricelist,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_pricelist_hotel_booking.group_hotel_booking_admin,hotel.pricelist Hotel Booking Administrator,hotel_booking.model_hotel_pricelist,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_pricelist_line_hotel_booking.group_hotel_booking_user,hotel.pricelist_line Hotel Booking User,hotel_booking.model_hotel_pricelist_line,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_pricelist_line_hotel_booking.group_hotel_booking_admin,hotel.pricelist_line Hotel Booking Administrator,hotel_booking.model_hotel_pricelist_line,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_services,hotel.services ,hotel_booking.model_hotel_services,hotel_booking.group_hotel_booking_admin,1,1,1,1
+access_hotel_contract_log_line,hotel_contract_log_line,model_hotel_contract_log_line,,1,1,1,1
+access_booking_services,booking_services,model_booking_services,,1,1,1,1
+access_conditions_terms,conditions_terms,model_conditions_terms,,1,1,1,1
+access_booking_portal,access.booking.portal,model_hotel_booking,base.group_portal,1,1,0,0
+access_booking_line_portal,access.booking.line.portal,model_hotel_booking_line,base.group_portal,1,0,0,0
+access_hotel_portal,access.hotel.portal,model_hotel_hotel,base.group_portal,1,0,0,0
+access_hotel_room_portal,access.hotel.room.portal,model_hotel_room,base.group_portal,1,0,0,0
+
+
+access_rate_type_hotel_booking.group_hotel_booking_user,hotel.rate_type Booking User,hotel_booking.model_hotel_rate_type,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_rate_type_hotel_booking.group_hotel_booking_admin,hotel.rate_type Booking Administrator,hotel_booking.model_hotel_rate_type,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_rate_plan_hotel_booking.group_hotel_booking_user,hotel.rate_plan Booking User,hotel_booking.model_hotel_rate_plan,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_rate_plan_hotel_booking.group_hotel_booking_admin,hotel.rate_plan Booking Administrator,hotel_booking.model_hotel_rate_plan,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_rate_type_inclusion_hotel_booking.group_hotel_booking_user,hotel.rate_type_inclusion Booking User,hotel_booking.model_hotel_rate_type_inclusion,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_rate_type_inclusion_hotel_booking.group_hotel_booking_admin,hotel.rate_type_inclusion Booking Administrator,hotel_booking.model_hotel_rate_type_inclusion,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_update_room_status_hotel_booking.group_hotel_booking_user,hotel.update_room_status Booking User,hotel_booking.model_update_room_status,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_update_room_status_hotel_booking.group_hotel_booking_admin,hotel.update_room_status Booking Administrator,hotel_booking.model_update_room_status,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_bed_hotel_booking.group_hotel_booking_user,hotel.bed Booking User,hotel_booking.model_hotel_bed_type,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_bed_hotel_booking.group_hotel_booking_admin,hotel.bed Booking Administrator,hotel_booking.model_hotel_bed_type,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_out_of_order_reason.group_hotel_booking_user,out_of_order_reason Booking User,hotel_booking.model_out_of_order_reason,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_out_of_order_reason.group_hotel_booking_admin,out_of_order_reason Booking Administrator,hotel_booking.model_out_of_order_reason,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_hotel_rate_plan_price.group_hotel_booking_user,hotel_rate_plan_price Booking User,hotel_booking.model_hotel_rate_plan_price,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_hotel_rate_plan_price.group_hotel_booking_admin,hotel_rate_plan_price Booking Administrator,hotel_booking.model_hotel_rate_plan_price,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_rate_plan_price.group_hotel_booking_user,rate_plan_price Booking User,hotel_booking.model_rate_plan_day_price,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_rate_plan_price.group_hotel_booking_admin,rate_plan_price Booking Administrator,hotel_booking.model_rate_plan_day_price,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_type.group_hotel_booking_user,booking_type Booking User,hotel_booking.model_booking_type,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_type.group_hotel_booking_admin,booking_type Booking Administrator,hotel_booking.model_booking_type,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_source.group_hotel_booking_user,booking_source Booking User,hotel_booking.model_booking_source,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_source.group_hotel_booking_admin,booking_source Booking Administrator,hotel_booking.model_booking_source,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_business_source.group_hotel_booking_user,business_source Booking User,hotel_booking.model_business_source,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_business_source.group_hotel_booking_admin,business_source Booking Administrator,hotel_booking.model_business_source,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_guest.group_hotel_booking_user,booking_guest Booking User,hotel_booking.model_booking_guest,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_guest.group_hotel_booking_admin,booking_guest Booking Administrator,hotel_booking.model_booking_guest,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_folio.group_hotel_booking_user,booking_folio Booking User,hotel_booking.model_booking_folio,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_folio.group_hotel_booking_admin,booking_folio Booking Administrator,hotel_booking.model_booking_folio,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_folio_line.group_hotel_booking_user,booking_folio_line Booking User,hotel_booking.model_booking_folio_line,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_folio_line.group_hotel_booking_admin,booking_folio_line Booking Administrator,hotel_booking.model_booking_folio_line,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_discount.group_hotel_booking_user,booking_discount Booking User,hotel_booking.model_booking_discount,hotel_booking.group_hotel_booking_user,1,0,0,0
+access_booking_discount.group_hotel_booking_admin,booking_discount Booking Administrator,hotel_booking.model_booking_discount,hotel_booking.group_hotel_booking_admin,1,1,1,1
+
+access_booking_apply_discount,booking_apply_discount,hotel_booking.model_booking_apply_discount,,1,1,1,1
+
+access_hotel_work_order.group_hotel_booking_user,hotel_work_order Hotel Booking User,hotel_booking.model_hotel_work_order,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_booking_payment_register.group_hotel_booking_user,booking_payment_register Hotel Booking User,hotel_booking.model_booking_payment_register,hotel_booking.group_hotel_booking_user,1,1,1,1
+
+access_night_audit.group_hotel_booking_user,night_audit Hotel Booking User,hotel_booking.model_night_audit,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_night_audit_draft_booking.group_hotel_booking_user,night_audit_draft_booking Hotel Booking User,hotel_booking.model_night_audit_draft_booking,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_night_audit_checkout_booking.group_hotel_booking_user,night_audit_checkout_booking Hotel Booking User,hotel_booking.model_night_audit_checkout_booking,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_night_audit_room_state.group_hotel_booking_user,night_audit_room_state Hotel Booking User,hotel_booking.model_night_audit_room_state,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_night_audit_folio.group_hotel_booking_user,night_audit_folio Hotel Booking User,hotel_booking.model_night_audit_folio,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_night_audit_unsettled_folio.group_hotel_booking_user,night_audit_unsettled_folio Hotel Booking User,hotel_booking.model_night_audit_unsettled_folio,hotel_booking.group_hotel_booking_user,1,1,1,1
+
+
+access_booking_cancel.group_hotel_booking_user,booking_cancel Hotel Booking User,hotel_booking.model_booking_cancel,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_booking_cancel_reason.group_hotel_booking_user,booking_cancel_reason Hotel Booking User,hotel_booking.model_booking_cancel_reason,hotel_booking.group_hotel_booking_user,1,1,1,1
+access_account_payment_wizard,account.payment.wizard,model_account_payment_wizard,,1,1,1,1
+access_market_segmentation,market.segmentation,model_market_segmentation,,1,1,1,1
+access_booking_folio_wizard,booking.folio.wizard,model_booking_folio_wizard,,1,1,1,1
+access_booking_departure,booking.departure,model_booking_departure,,1,1,1,1
+access_booking_departure_line,booking.departure.line,model_booking_departure_line,,1,1,1,1
+access_booking_arrival,booking.arrival,model_booking_arrival,,1,1,1,1
+access_booking_arrival_line,booking.arrival.line,model_booking_arrival_line,,1,1,1,1
+access_actual_checkin,actual.checkin,model_actual_checkin,,1,1,1,1
+access_actual_checkin_line,actual.checkin.line,model_actual_checkin_line,,1,1,1,1
+access_actual_departure,actual.departure,model_actual_departure,,1,1,1,1
+access_actual_departure_line,actual.departure.line,model_actual_departure_line,,1,1,1,1
+access_hotel_service,hotel.service,model_hotel_service,,1,1,1,1
+access_hotel_service_line,hotel.service.line,model_hotel_service_line,,1,1,1,1
+access_room_status,room.status,model_room_status,,1,1,1,1
+access_room_status_line,room.status.line,model_room_status_line,,1,1,1,1
+access_work_order,work.order,model_work_order,,1,1,1,1
+access_work_order_line,work.order.line,model_work_order_line,,1,1,1,1
+access_booking_cancellation,booking.cancellation,model_booking_cancellation,,1,1,1,1
+access_booking_cancellation_line,booking.cancellation.line,model_booking_cancellation_line,,1,1,1,1
+access_hotel_booking_source,hotel.booking.source,model_hotel_booking_source,,1,1,1,1
+access_hotel_booking_source_line,hotel.booking.source.line,model_hotel_booking_source_line,,1,1,1,1
+access_city_ledger_wizard,city.ledger.wizard,model_city_ledger_wizard,,1,1,1,1
+access_city_ledger_line,city.ledger.line,model_city_ledger_line,,1,1,1,1
+
+access_folio_room_type_wizard,folio.room.type.wizard,model_folio_room_type_wizard,,1,1,1,1
+access_folio_room_type_wizard_line,folio.room.type.wizard.line,model_folio_room_type_wizard_line,,1,1,1,1
+
+access_payment_folio_refund_wizard,payment.folio.refund.wizard,model_payment_folio_refund_wizard,,1,1,1,1
+access_payment_folio_refund_wizard_line,payment.folio.refund.wizard.line,model_payment_folio_refund_wizard_line,,1,1,1,1
+
+access_revenue_rate_plan_wizard,revenue.rate.plan.wizard,model_revenue_rate_plan_wizard,,1,1,1,1
+access_revenue_rate_plan_wizard_line,payment.revenue.rate.plan.wizard.line,model_revenue_rate_plan_wizard_line,,1,1,1,1
+
+access_revenue_room_type_wizard,revenue.room.type.wizard,model_revenue_room_type_wizard,,1,1,1,1
+access_revenue_room_type_wizard_line,revenue.room.type.wizard.line,model_revenue_room_type_wizard_line,,1,1,1,1
+
+access_booking_reservation_wizard,booking.reservation.wizard,model_booking_reservation_wizard,,1,1,1,1
+access_booking_reservation_wizard_line,booking.reservation.wizard.line,model_booking_reservation_wizard_line,,1,1,1,1
+
+access_complimentary_reservation_wizard,complimentary.reservation.wizard,model_complimentary_reservation_wizard,,1,1,1,1
+access_complimentary_reservation_wizard_line,complimentary.reservation.wizard.line,model_complimentary_reservation_wizard_line,,1,1,1,1
+
+access_company_booking_source,company.booking.source,model_company_booking_source,,1,1,1,1
+access_company_booking_source_line,company.booking.source.line,model_company_booking_source_line,,1,1,1,1
+
+access_booking_filter,booking.filter,model_booking_filter,,1,1,1,1
+access_booking_filter_line,booking.filter.line,model_booking_filter_line,,1,1,1,1
+
+access_city_ledger_report,city.ledger.report,model_city_ledger_report,,1,1,1,1
+access_city_ledger_report_line,city.ledger.report.line,model_city_ledger_report_line,,1,1,1,1
+
+access_company_ledger_report,company.ledger.report,model_company_ledger_report,,1,1,1,1
+access_company_ledger_report_line,company.ledger.report.line,model_company_ledger_report_line,,1,1,1,1
+
+
+access_partner_ledger_wizard,partner.ledger.wizard,model_partner_ledger_wizard,,1,1,1,1
+access_partner_ledger_report,partner.ledger.report,model_partner_ledger_report,,1,1,1,1
+access_partner_ledger_report_line,partner.ledger.report.line,model_partner_ledger_report_line,,1,1,1,1
+
+access_season_duration,season.duration,model_season_duration,,1,1,1,1
+
+access_season_productivity,season.productivity,model_season_productivity,,1,1,1,1
+access_season_productivity_line,season.productivity.line,model_season_productivity_line,,1,1,1,1
+
+access_advance_payment,advance.payment,model_advance_payment,,1,1,1,1
+
+access_settled_booking,settled.booking,model_settled_booking,,1,1,1,1
+access_housekeeping_diff,housekeeping_diff,model_housekeeping_diff,,1,1,1,1
+

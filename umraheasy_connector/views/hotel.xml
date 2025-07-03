@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="umraheasy_view_form_hotel_hotel" model="ir.ui.view">
+            <field name="name">umraheasy_view_form_hotel_hotel</field>
+            <field name="model">hotel.hotel</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_hotel"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='hotel_rate']" position="after">
+                    <field name="enable_umraheasy"/>
+                    <field name="umraheasy_code" attrs="{'invisible': [('enable_umraheasy', '=', False)], 'required': [('enable_umraheasy', '=', True)]}"/>
+                    <field name="umraheasy_partner_id" attrs="{'invisible': [('enable_umraheasy', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

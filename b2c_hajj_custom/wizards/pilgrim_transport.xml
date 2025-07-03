@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<record id="pilgrim_transport_view_form" model="ir.ui.view">
+    <field name="name">pilgrim_transport_view_form</field>
+    <field name="model">pilgrim.transport</field>
+    <field name="arch" type="xml">
+        <form string="_form">
+            <sheet>
+                <group>
+                    <group>
+                        <field name="minnah_camp"/>
+                        <field name="transport_type"/>
+                        <field name="from_status"/>
+
+                    </group>
+                    <group>
+                        <field name="makkah_hotel" options="{'no_create': True, 'no_edit': True, 'no_open':True}"/>
+                        <field name="pilgrim_no" widget="numeric_step"/>
+                        <field name="to_status"/>
+                    </group>
+
+                </group>
+                <group>
+                    <field name="pilgrim_ids" force_save="1">
+                        <tree limit="47">
+                            <field name="name"/>
+                            <field name="pilgrim_id"/>
+                            <field name="status"/>
+                        </tree>
+                    </field>
+                </group>
+
+            </sheet>
+            <footer class="footer text-center">
+                <button name="action_update_status" string="Update Status" type="object" class="btn-primary"/>
+                <button string="Close" class="btn-secondary" special="cancel" style="margin-left: 10px;"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+
+    <record id="action_pilgrim_transport" model="ir.actions.act_window">
+        <field name="name">Pilgrim Transportation</field>
+        <field name="res_model">pilgrim.transport</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <menuitem id="menu_pilgrim_transport"
+      action="b2c_hajj_custom.action_pilgrim_transport"
+      parent="b2c_hajj_custom.b2c_main_menu"
+      name="Pilgrim Transportation"/>
+    </data>
+</odoo>

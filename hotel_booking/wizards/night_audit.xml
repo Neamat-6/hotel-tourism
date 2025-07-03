@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="night_audit_form" model="ir.ui.view">
+        <field name="name">night.audit.form</field>
+        <field name="model">night.audit</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="multi_step_wizard.multi_step_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer" position="before">
+                <group>
+                    <field name="date" readonly="1" force_save="1"/>
+                </group>
+                <field name="draft_booking_ids" attrs="{'invisible': [('state', '!=', 'start')]}">
+                    <tree editable="bottom" delete="0" create="0" edit="1">
+                        <field name="booking_id" string="Res No#" readonly="1" force_save="1"/>
+                        <field name="partner_id"/>
+                        <field name="room_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                        <field name="room_type_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+                        <field name="reservation_type" string="Res Type"/>
+                        <field name="booking_source" string="Source" readonly="1"/>
+                        <field name="check_out" string="Departure" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="amount_total" readonly="1"/>
+                        <field name="paid_total" readonly="1"/>
+                        <field name="amount_balance" readonly="1"/>
+                        <field name="action"/>
+                        <field name="cancel_reason_id"
+                               attrs="{'readonly': [('action', '!=', 'cancel')], 'required': [('action', '=', 'cancel')]}"/>
+                        <field name="check_in_room_id" widget="many2many_tags"
+                               options="{'no_create':1,'no_create_edit':1, 'no_open': 1}"
+                               attrs="{'readonly': [('action', '!=', 'check_in')], 'required': [('action', '=', 'check_in')]}"/>
+<!--                        <button name="cancel_booking" class="oe_highlight" type="object" string="Cancel Booking"-->
+<!--                        attrs="{'readonly': [('action', '!=', 'cancel')]}" readony="0"-->
+<!--                        />-->
+                    </tree>
+                </field>
+                <field name="checkout_booking_ids" attrs="{'invisible': [('state', '!=', 'release_reservation')]}">
+                    <tree editable="bottom" delete="0" create="0">
+                        <field name="booking_id" readonly="1" force_save="1"/>
+                        <field name="partner_id"/>
+                        <field name="room_ids" widget="many2many_tags"/>
+                        <field name="room_type_ids" widget="many2many_tags"/>
+                        <field name="reservation_type"/>
+                        <field name="booking_source" string="Source"/>
+                        <field name="check_out" string="Departure"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="amount_total"/>
+                        <field name="paid_total"/>
+                        <field name="amount_balance"/>
+                        <field name="action"/>
+                    </tree>
+                </field>
+                <field name="room_state_ids" attrs="{'invisible': [('state', '!=', 'room_status')]}">
+                    <tree editable="bottom" delete="0" create="0">
+                        <field name="booking_id" invisible="1"/>
+                        <field name="booking_line_id" invisible="1"/>
+                        <field name="room_id"/>
+                        <field name="partner_id"/>
+                        <field name="check_in" string="Arrival"/>
+                        <field name="check_out" string="Departure"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="amount_total"/>
+                        <field name="paid_total"/>
+                        <field name="stay_state"/>
+                        <field name="action"/>
+                    </tree>
+                </field>
+                <field name="unsettled_folio_ids" attrs="{'invisible': [('state', '!=', 'unsettled_folios')]}">
+                    <tree editable="bottom" delete="0" create="0">
+                        <field name="booking_id" invisible="1"/>
+                        <field name="room_id"/>
+                        <field name="partner_id"/>
+                        <field name="invoice_id"/>
+                        <field name="description"/>
+                        <field name="amount_total"/>
+                        <field name="paid_total"/>
+                        <field name="action"/>
+                    </tree>
+                </field>
+                <field name="folio_ids" attrs="{'invisible': [('state', '!=', 'nightly_charge')]}">
+                    <tree editable="bottom" delete="0" create="0">
+                        <field name="booking_id" invisible="0"/>
+                        <field name="booking_line_id" invisible="1"/>
+                        <field name="folio_line_id" invisible="1"/>
+                        <field name="room_id"/>
+                        <field name="partner_id"/>
+                        <field name="folio_id"/>
+                        <field name="description"/>
+                        <field name="amount"/>
+<!--                        <field name="amount_total"/>-->
+                        <field name="paid_total"/>
+                        <field name="action"/>
+                    </tree>
+                </field>
+                <div name="final" attrs="{'invisible': [('state', '!=', 'final')]}">
+                    <p>The night audit is now done.</p>
+                    <group>
+                        <field name="new_date" readonly="1" force_save="1"/>
+                    </group>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='states_buttons']" position="inside">
+                <button name="button_done" type="object" string="Done" class="oe_highlight"
+                        attrs="{'invisible': [('state', '!=', 'final')]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_night_audit" model="ir.actions.act_window">
+        <field name="name">Night Audit</field>
+        <field name="res_model">night.audit</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_night_audit_root" name="Night Audit" sequence="10" action="action_night_audit"
+              parent="hotel_booking.menu_hotels_task_root"
+              groups="hotel_booking.night_audit_group"/>
+
+</odoo>

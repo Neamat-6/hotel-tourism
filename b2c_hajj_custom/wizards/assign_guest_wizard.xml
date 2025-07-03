@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="assign_guest_wizard_view_form" model="ir.ui.view">
+            <field name="name">assign_guest_wizard_view_form</field>
+            <field name="model">assign.guest.wizard</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <sheet>
+                        <field name="info_type" invisible="1"/>
+                        <group attrs="{'invisible': [('info_type', '!=', 'gender')]}">
+                        <div class="oe_title oe_inline">
+                            <h1 style="color:#001f5c;">
+                                Add Pilgrim Gender
+                            </h1>
+                        </div>
+                        </group>
+                        <group attrs="{'invisible': [('info_type', '!=', 'pilgrim_type')]}">
+                        <div class="oe_title oe_inline">
+                            <h1 style="color:#001f5c;">
+                                Add Pilgrim Type
+                            </h1>
+                        </div>
+                        </group>
+                        <group attrs="{'invisible': [('info_type', '!=', 'member')]}">
+                        <div class="oe_title oe_inline">
+                            <h1 style="color:#001f5c;">
+                                Add Pilgrim Main Member
+                            </h1>
+                        </div>
+                        </group>
+                        <group>
+                            <field name="line_ids" nolabel="1">
+                                <tree create="0" delete="0" editable="bottom">
+                                    <field name="package_id" invisible="1"/>
+                                    <field name="makkah_room_type" invisible="1"/>
+                                    <field name="partner_id" force_save="1" readonly="1"/>
+                                    <field name="gender" attrs="{'column_invisible': [('parent.info_type', '!=', 'gender')]}" />
+                                    <field name="pilgrim_type" attrs="{'column_invisible': [('parent.info_type', '!=', 'pilgrim_type')]}"/>
+                                    <field name="main_member_id"
+                                           attrs="{'column_invisible': [('parent.info_type', '!=', 'member')]}"
+                                           options="{'no_create': True, 'no_open': True, 'no_edit': True}"
+                                           domain="[('package_id', '=', package_id), ('pilgrim_type', '=', 'main'), ('id', '!=', partner_id), ('makkah_room_type', '=', makkah_room_type)]"
+                                    />
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_confirm" type="object" string="Confirm" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="assign_guest_wizard_action" model="ir.actions.act_window">
+            <field name="name">Missed Pilgrim Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assign.guest.wizard</field>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

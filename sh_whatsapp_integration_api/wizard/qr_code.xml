@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_qr_code_form" model="ir.ui.view">
+        <field name="name">sh.qr.code.form</field>
+        <field name="model">sh.qr.code.wizard</field>
+        <field name="arch" type="xml">
+            <form string="QR Code">
+                <sheet>
+                    <button type="object" name="refresh_qr" class="btn btn-primary" string="Refresh QR Code" style="margin-right:5px"/>
+                    <button type="object" name="verify" class="btn btn-primary" string="Verify Authorisation"/>
+                    <br/>
+                    <br/>
+                    <h3 class="text-warning">
+                        <i class="fa fa-exclamation-triangle" title="Warning" role="img" aria-label="Warning"/>
+                            Please scan the QR code to start the session
+                    </h3>
+                    <br/>
+                    <br/>
+                    <style> .qr_img { position: relative; top: 0; left: 250px; text-align } .qr_icon { position: absolute; top: 210px; left: 410px; height: 64px; width: 64px; } </style>
+                    <img src="" alt="img" class="qr_img" attrs = "{'invisible' : [('sh_qr_code_img', '!=', False)]}"/>
+
+                    <field name="sh_qr_code_img" widget="image" attrs = "{'invisible' : [('sh_qr_code_img', '=', False)]}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sh_qr_code_action" model="ir.actions.act_window">
+        <field name="name">QR Code</field>
+        <field name="res_model">sh.qr.code.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

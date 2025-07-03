@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="transportation_contract_tree_view" model="ir.ui.view">
+        <field name="name">transportation.contract.tree.view</field>
+        <field name="model">transportation.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="transportation_company"/>
+                <field name="pilgrims_no"/>
+                <field name="booked_no"/>
+                <field name="available_no"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="transportation_contract_form_view" model="ir.ui.view">
+        <field name="name">transportation.contract.form.view</field>
+        <field name="model">transportation.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="transportation_company"/>
+                            <field name="pilgrims_no"/>
+                            <field name="available_no"/>
+                        </group>
+                        <group>
+                            <field name="transportation_contract_no"/>
+                            <field name="booked_no"/>
+                        </group>
+                    </group>
+                    <group string="Locations">
+                        <field name="location_lines" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="from_location"/>
+                                <field name="to_location"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="transportation_contract_action_view" model="ir.actions.act_window">
+        <field name="name">Bus Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">transportation.contract</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="transportation_contract" name="Bus Contract" parent="booking_config_menuitem"
+              action="transportation_contract_action_view" sequence="6"/>
+</odoo>

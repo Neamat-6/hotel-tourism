@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <!-- inherit form view hotel_booking.view_form_hotel_services -->
+  <record id="hotel_booking_folio_hotel_services_form_view" model="ir.ui.view">
+    <field name="name">hotel.booking.folio.hotel.services.form.view</field>
+    <field name="model">hotel.services</field>
+    <field name="inherit_id" ref="hotel_booking.view_form_hotel_services"/>
+    <field name="arch" type="xml">
+      <field name="price" position="after">
+        <field name="tax_ids" widget="many2many_tags"/>
+        <field name="include_taxes"/>
+        <field name="price_include_tax"/>
+      </field>
+    </field>
+  </record>
+  
+</odoo>

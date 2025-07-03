@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_view_form_hotel_booking" model="ir.ui.view">
+            <field name="name">folio_view_form_hotel_booking</field>
+            <field name="model">hotel.booking</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="button_group_action"
+                            attrs="{'invisible': [('state', 'in', ['checked_out','cancelled'])]}" type="object"
+                            string="Group Booking" icon="fa-list-alt"/>
+                    <button name="cancel_selected_folios"
+                            type="object" attrs="{'invisible': [('state', 'not in', ['draft','confirmed'])]}"
+                            string="Cancel Selected Folios" icon="fa-edit" groups="hotel_booking_folio.group_cancel_folios"/>
+                </xpath>
+                <!-- <xpath expr="//field[@name='line_ids']/tree/field[@name='number_of_adults']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='number_of_children']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='room_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='room_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='room_type']" position="before">
+                    <field name="folio_ids" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='room_type']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('folio_ids', '!=', [])]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='rate_plan']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', ('room_type', '=', False), ('folio_ids', '!=', [])]}
+                    </attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='number_of_rooms']" position="attributes">
+                    <attribute name="attrs">{
+                        'readonly': ['|', ('folio_ids', '!=', []), ('room_type', '=', False),],
+                        'column_invisible': [('parent.book_all_available_rooms', '=', False),
+                        ('parent.quick_group_booking', '=', False)]}
+                    </attribute>
+
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='folio_ids']/tree/field[@name='name']" position="after">
+                    <field name="available_room_ids" invisible="1"/>
+                    <field name="room_type_id" readonly="1" force_save="1" options="{'no_open': True}"/>
+                    <field name="state_selection" invisible="1"/>
+                    <field name="room_id" readonly="1" force_save="1" options="{'no_open': True}"
+                           decoration-danger="state_selection == 'dirty'"
+                           decoration-success="state_selection == 'clean'"/>
+                    <field name="new_check_in" readonly="1" force_save="1"/>
+                    <field name="new_check_out" readonly="1" force_save="1"/>
+                    <field name="price_subtotal"/>
+                    <field name="price_tax"/>
+                    <field name="price_paid"/>
+                    <field name="price_due"/>
+                    <field name="price_total"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state" widget="badge"
+                           decoration-muted="state == 'draft'"
+                           decoration-success="state in ['checked_in', 'checked_out']"
+                           decoration-warning="state == 'confirmed'"
+                           decoration-danger="state == 'cancelled'"
+                    />
+                </xpath>
+                <xpath expr="//field[@name='folio_ids']/tree/field[@name='booking_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='service_ids']/tree" position="inside">
+                    <field name="folio_id" readonly="1" force_save="1"/>
+                    <field name="price" readonly="1" force_save="1" optional="hide"/>
+                    <field name="price_include_tax"  force_save="1" optional="hide"/>
+                    <field name="tax_ids" widget="many2many_tags" readonly="1" force_save="1" optional="hide"/>
+                    <button name="update_folio_service" type="object" string="Update" class="oe_highlight"/>
+                    <button name="delete_folio_service" type="object" string="Delete" class="btn-danger"
+                            confirm="Are you sure you want to delete?"/>
+                </xpath>
+                <xpath expr="//field[@name='quick_group_booking']" position="after">
+                    <field name="master_group_room" attrs="{'invisible': [('quick_group_booking', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='book_by_bed']" position="after">
+                    <field name="master_folio_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                           attrs="{'invisible': ['|', ('quick_group_booking', '=', False), ('master_group_room', '=', False)], 'required': [('master_group_room', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='hotel_id']" position="after">
+                    <field name="apply_daily_price"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//field[@name='price_unit']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', '|', ('booking_state', 'not in', ['draft',
+                        'confirmed']),('edit_price', '!=', True), ('folio_ids', '!=', [])],
+                        'column_invisible': [('parent.apply_daily_price', '=', True)]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//page[@name='guest']" position="before">
+                    <page name="room_type_availability" string="Availability By Room Types">
+                        <field name="room_type_available_lines" widget="one2many_search">
+                            <tree editable="bottom" create="0" delete="0">
+                                <field name="room_type_id" readonly="1" force_save="1"/>
+                                <field name="date" readonly="1" force_save="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="daily_prices" string="Daily Prices">
+                        <field name="daily_price_ids">
+                            <tree editable="bottom" create="0" delete="0">
+                                <field name="booking_line_id" readonly="1" force_save="1"/>
+                                <field name="room_type_id" readonly="1" force_save="1"/>
+                                <field name="rate_plan_id" readonly="1" force_save="1"/>
+                                <field name="price_id" invisible="1"/>
+                                <field name="date" readonly="1" force_save="1"/>
+                                <field name="price" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

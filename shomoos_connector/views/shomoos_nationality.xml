@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="shomoos_nationality_view_tree" model="ir.ui.view">
+            <field name="name">shomoos_nationality_view_tree</field>
+            <field name="model">shomoos.nationality</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="arabic_title"/>
+                    <field name="english_title"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="shomoos_nationality_action" model="ir.actions.act_window">
+            <field name="name">Shomoos Nationality</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shomoos.nationality</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="shomoos_nationality_menu" name="Shomoos Nationality" parent="shomoos_root_menu" action="shomoos_nationality_action" sequence="8"/>
+    </data>
+</odoo>

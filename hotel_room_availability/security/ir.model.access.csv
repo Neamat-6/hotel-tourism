@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hotel_room_availability_manager,hotel.room.availability.manager,model_room_availability,,1,1,1,1
+access_room_availability_line,hotel.room.availability.line.manager,model_room_availability_line,,1,1,1,1
+access_room_type_availability_line,hotel.room.type.availability.line.manager,model_room_type_availability_line,,1,1,1,1
+access_hotel_room_availability_sheet_open,hotel_room_availability_sheet_open,model_hotel_room_availability_sheet_open,,1,1,1,1
+access_update_available_room_qty,hotel_update_available_room_qty,model_update_available_room_qty,,1,1,1,1
+access_update_available_room_qty_line,hotel_update_available_room_qty_line,model_update_available_room_qty_line,,1,1,1,1
+access_update_room_pricelist,hotel_update_room_pricelist,model_update_room_pricelist,,1,1,1,1
+access_update_room_pricelist_line,hotel_update_room_pricelist_line,model_update_room_pricelist_line,,1,1,1,1
+access_hotel_rate_plan_update,hotel_rate_plan_update,model_hotel_rate_plan_update,,1,1,1,1
+access_hotel_room_status_update,hotel_room_status_update,model_hotel_room_status_update,,1,1,1,1
+access_hotel_room_status_update_line,hotel_room_status_update_line,model_hotel_room_status_update_line,,1,1,1,1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="shomoos_folio_view_form" model="ir.ui.view">
+            <field name="name">shomoos_folio_view_form</field>
+            <field name="model">booking.folio</field>
+            <field name="inherit_id" ref="hotel_booking.folio_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="shomoos_connect" type="object" string="Update Shomoos" class="oe_highlight"
+                            attrs="{'invisible': ['|',('apply_shomoos', '=', False),('state', 'not in', ['checked_in'])]}"/>
+                </xpath>
+                <xpath expr="//header" position="after">
+                    <field name="is_invalid" invisible="1"/>
+                    <field name="check_shomoos_transaction" invisible="1"/>
+                    <div class="alert alert-info text-center"
+                         attrs="{'invisible': ['|',('is_invalid', '=', False),('apply_shomoos', '=', False)]}"
+                         role="alert">
+                        <p>
+                            <field name="validation_error" readonly="1"/>
+                        </p>
+                        <p>انتبه يوجد خطأ في ادخال الداتا الخاصه بمنصة شموس .. هل تريد الاستمرار</p>
+                    </div>
+                    <div class="alert alert-danger text-center"
+                         attrs="{'invisible': ['|','|',('apply_shomoos', '=', False),('check_shomoos_transaction', '=', False),('state', 'not in', ['checked_in'])]}"
+                         role="alert">
+                        <p>
+                            <field name="error_msg" readonly="1"/>
+                        </p>
+                        <p>الفوليو غير مسجل بمنصة شموس</p>
+                    </div>
+                    <field name="apply_shomoos" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[@name='guest']" position="inside">
+                    <group>
+                        <field name="mrz_image" attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_nationality_id"
+                               options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)],'required':[('shomoos_identity_code','in',['T1_3','T1_5','T1_6'])]}"/>
+                        <field name="shomoos_country_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_identity_code" invisible="1"/>
+                        <field name="shomoos_date_of_birth" force_save="1"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="date_of_birth_hijri" string="Date Of Birth (Hijri)"/>
+                        <field name="shomoos_identity_no" force_save="1"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="shomoos_escorts" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_identity" options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_transactionID" readonly="1" force_save="1"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_message" readonly="1" force_save="1"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                        <field name="shomoos_rating" place_holder="Rating Must Between 1 - 5" force_save="1"
+                               attrs="{'invisible': [('apply_shomoos', '=', False)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

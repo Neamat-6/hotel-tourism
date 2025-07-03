@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_configuration_manager_form" model="ir.ui.view">
+        <field name="name">sh.configuration.manager.form</field>
+        <field name="model">sh.configuration.manager</field>
+        <field name="arch" type="xml">
+            <form string="Configuration">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="config_type"/>
+                    </group>
+                    <group>
+                        <field name="name" required="True"/>                        
+                    </group>
+                    <group>
+                        <group>
+                            <field name="instance_id" required="True" attrs="{'invisible' :  [('config_type', '=', False)]}"/>
+                            <field name="common_to_all" attrs="{'invisible' :  [('config_type', '=', False)]}"/>
+                            <field name="default_send" attrs="{'invisible' :  [('config_type', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="token" required="True" attrs="{'invisible' :  [('config_type', '=', False)]}"/>
+                            <field name="user_id" attrs="{'invisible' :  ['|',('common_to_all', '=', True),('config_type','=',False)]}"/>
+                        </group>
+                    </group>
+                    <button type="object" class="btn btn-primary" name="authenticate" string="Authenticate" attrs="{'invisible' :  [('config_type', '=', False)]}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='sh_configuration_manager_tree' model='ir.ui.view'>
+        <field name="name">sh.trello.logger.tree</field>
+        <field name="model">sh.configuration.manager</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="config_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sh_configuration_manager_action" model="ir.actions.act_window">
+        <field name="name">Configuration Manager</field>
+        <field name="res_model">sh.configuration.manager</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+               Configuration
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Whatsapp Configuration" action="sh_configuration_manager_action" id="sh_configuration_manager_item" groups="sh_whatsapp_integration_api.sh_whatsapp_configuration_manager"/>
+</odoo>

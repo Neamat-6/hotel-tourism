@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="out_reason_view_tree" model="ir.ui.view">
+            <field name="name">out_reason_view_tree</field>
+            <field name="model">out.of.order.reason</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_out_reason" model="ir.actions.act_window">
+            <field name="name">Out of Order Reason</field>
+            <field name="res_model">out.of.order.reason</field>
+            <field name="view_mode">tree</field>
+        </record>
+    <menuitem id="menu_out_reason" name="Out of Order Reason" parent="menu_hotel_configuration" action="action_out_reason" groups="hotel_booking.menu_out_reason_group"
+              sequence="50"/>
+    </data>
+</odoo>

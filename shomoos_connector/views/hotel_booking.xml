@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="shomoos_hotel_booking_form" model="ir.ui.view">
+        <field name="name">shomoos.hotel.booking.form</field>
+        <field name="model">hotel.booking</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='ntmp_state']" position="after">
+                <button name="shomoos_state" type="object" class="oe_stat_button" readonly="1">
+                    <field name="apply_shomoos" invisible="1"/>
+                    <field name="check_shomoos_transaction" invisible="1"/>
+                    <div role="img" class="fa fa-fw fa-circle text-success o_button_icon"
+                         attrs="{'invisible': [('apply_shomoos', '!=', True)]}" aria-label="Available"
+                         title="Connected"/>
+                    <div role="img" class="fa fa-fw fa-circle text-danger o_button_icon"
+                         attrs="{'invisible': [('apply_shomoos', '!=', False)]}" aria-label="Not available"
+                         title="Not Connected"/>
+                    <span class="o_stat_text">الربط مع منصة شموس</span>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

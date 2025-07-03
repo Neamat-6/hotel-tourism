@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="shomoos_response_code_getguests_0" model="shomoos.response.code">
+            <field name="api_name">GetGuests</field>
+            <field name="api_category">success</field>
+            <field name="fault_code">201</field>
+            <field name="fault_description">Responded Successfully</field>
+        </record>
+
+        <record id="shomoos_response_code_getguests_1" model="shomoos.response.code">
+            <field name="api_name">GetGuests</field>
+            <field name="api_category">no_data</field>
+            <field name="fault_code">404</field>
+            <field name="fault_description">No data found</field>
+        </record>
+
+        <record id="shomoos_response_code_getguests_2" model="shomoos.response.code">
+            <field name="api_name">GetGuests</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">404</field>
+            <field name="fault_description">Sorry Error Exists</field>
+        </record>
+
+        <record id="shomoos_response_code_getguests_3" model="shomoos.response.code">
+            <field name="api_name">GetGuests</field>
+            <field name="api_category">invalid_data</field>
+            <field name="fault_code">417</field>
+            <field name="fault_description">Error message</field>
+        </record>
+
+        <record id="shomoos_response_code_insertguests_0" model="shomoos.response.code">
+            <field name="api_name">InsertGuest</field>
+            <field name="api_category">success</field>
+            <field name="fault_code">201</field>
+            <field name="fault_description">Saved Successfully</field>
+        </record>
+
+        <record id="shomoos_response_code_insertguests_1" model="shomoos.response.code">
+            <field name="api_name">InsertGuest</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">500</field>
+            <field name="fault_description">Sorry Error Exists"</field>
+        </record>
+
+        <record id="shomoos_response_code_insertguests_2" model="shomoos.response.code">
+            <field name="api_name">InsertGuest</field>
+            <field name="api_category">invalid_data</field>
+            <field name="fault_code">417</field>
+            <field name="fault_description">Invalid Data</field>
+        </record>
+
+        <record id="shomoos_response_code_insertguests_3" model="shomoos.response.code">
+            <field name="api_name">InsertGuest</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">401</field>
+            <field name="fault_description">Wrong Token</field>
+        </record>
+
+
+        <record id="shomoos_response_code_CheckOutAndRating_0" model="shomoos.response.code">
+            <field name="api_name">CheckOutAndRating</field>
+            <field name="api_category">success</field>
+            <field name="fault_code">201</field>
+            <field name="fault_description">Saved Successfully</field>
+        </record>
+
+        <record id="shomoos_response_code_CheckOutAndRating_1" model="shomoos.response.code">
+            <field name="api_name">CheckOutAndRating</field>
+            <field name="api_category">no_data</field>
+            <field name="fault_code">404</field>
+            <field name="fault_description">No data found</field>
+        </record>
+
+        <record id="shomoos_response_code_CheckOutAndRating_2" model="shomoos.response.code">
+            <field name="api_name">CheckOutAndRating</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">404</field>
+            <field name="fault_description">Sorry Error Exists</field>
+        </record>
+
+        <record id="shomoos_response_code_CheckOutAndRating_3" model="shomoos.response.code">
+            <field name="api_name">CheckOutAndRating</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">204</field>
+            <field name="fault_description">Sorry Error Exists</field>
+        </record>
+
+        <record id="shomoos_response_code_CheckOutAndRating_4" model="shomoos.response.code">
+            <field name="api_name">CheckOutAndRating</field>
+            <field name="api_category">failed</field>
+            <field name="fault_code">407</field>
+            <field name="fault_description">This Guest Already Checkout</field>
+        </record>
+
+    </data>
+</odoo>

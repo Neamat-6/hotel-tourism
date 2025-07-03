@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aiosell_view_company_form" model="ir.ui.view">
+            <field name="name">aiosell_view_company_form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="Aiosell" string="Aiosell Connector">
+                        <group>
+                            <field name="enable_aiosell"/>
+                            <field name="aiosell_code" attrs="{'invisible': [('enable_aiosell', '=', False)], 'required': [('enable_aiosell', '=', True)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

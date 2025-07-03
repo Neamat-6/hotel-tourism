@@ -1,0 +1,23 @@
+
+.custom-control{
+    // Custom-checkbox style
+    &.custom-checkbox{
+
+        .custom-control-label{
+            &::before, &::after{
+                border-radius: 2px;
+            } 
+        }
+
+        .custom-control-input:focus:not(:checked) ~ .custom-control-label::before,
+        .custom-control-input:checked ~ .custom-contro.o_readonly_modifier.custom-control.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label:after {
+      background-image: url('/ks_curved_backend_theme/static/src/images/checkbox-checked_light.svg');
+}l-label::before,
+        .custom-control-input:not(:disabled):active ~ .custom-control-label::before{
+            border-color: #adb5bd;
+            background: none !important;
+        }
+
+    }
+    //custom-checkbox style / end
+}

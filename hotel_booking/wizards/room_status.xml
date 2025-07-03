@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="room_status_view_form" model="ir.ui.view">
+            <field name="name">room_status_view_form</field>
+            <field name="model">room.status</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="state" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group>
+                            <group>
+                                <field name="stay_state" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_room_status" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="name"/>
+                                <field name="housekeeper" optional="hide"/>
+                                <field name="out_of_order_from"/>
+                                <field name="out_of_order_to"/>
+                                <field name="out_of_order_reason" optional="hide"/>
+                                <field name="room_type" optional="hide"/>
+                                <field name="booking_id"/>
+                                <field name="stay_state"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="room_status_report_action" model="ir.actions.act_window">
+            <field name="name">Room Status Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">room.status</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="booking_reports_root_housekeeping" name="Housekeeping Reports"
+                  parent="hotel_booking.housekeeping_root_menu"
+                  groups="housekeeping_menu_report"
+                  sequence="20"/>
+        <menuitem id="room_status_menu" name="Room Status Report"
+                  parent="hotel_booking.booking_reports_root_housekeeping"
+                  action="room_status_report_action" sequence="22"/>
+
+        #duplicated menu
+        <menuitem id="booking_reports_root_housekeeping_menu_item" name="Housekeeping Reports"
+                  parent="hotel_booking.booking_reporting_main_menu"
+                  sequence="20"/>
+
+        <menuitem id="room_status_menu" name="Room Status Report"
+                  parent="hotel_booking.booking_reports_root_housekeeping_menu_item"
+                  action="room_status_report_action" sequence="22"/>
+    </data>
+</odoo>

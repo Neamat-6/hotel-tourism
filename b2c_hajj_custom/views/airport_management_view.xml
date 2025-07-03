@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="airport_management_action_view" model="ir.actions.act_window">
+        <field name="name">Airport Management</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">airport.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="airport_management_menu" name="Airport Management" parent="booking_config_menuitem"
+              action="airport_management_action_view" sequence="15"/>
+</odoo>

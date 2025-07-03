@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="HotelBookingDashboard">
+        <div class="oh_dashboards" style="margin-top: 20px;">
+            <div class="container-fluid o_booking_dashboard">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="DashboardHotelBooking">
+        <div class="row main-section" style="margin-left: 170px;">
+            <div class="inner_select" style="display: flex;width:100%;">
+                <p style="margin-left: 20px;">Start Date :</p>
+                <p>
+                    <input type="date" class="inner_select" id="start_date" name="start_date" />
+                </p>
+                <p>End Date :</p>
+                <p>
+                    <input type="date" class="inner_select" id="end_date" name="end_date" />
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin-left: 4%;">
+            <div class="col-md-4 col-sm-6 tot_check_in_bookings oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_check_in_bookings" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;">الوصول</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_check_in_booking">
+                                <t t-esc="widget.check_in_bookings" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 tot_check_out_bookings oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_check_out_bookings" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;">المغادرة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_check_out_booking">
+                                <t t-esc="widget.check_out_bookings" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_cancel_bookings oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_cancel_bookings" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;">الحجوزات الملغية</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_cancel_booking">
+                                <t t-esc="widget.cancel_bookings" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_stay_bookings oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_stay_bookings" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;">الغرف الساكنة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_stay_booking">
+                                <t t-esc="widget.stay_bookings" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_customers oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_customers" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;">الشركات</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_customer">
+                                <t t-esc="widget.customers" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_amounts_room oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_amounts_room" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">اجمالي ايرادات الغرف</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_amount_room">
+                                <t t-esc="widget.amount_room" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_amounts_untaxed oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_amounts_untaxed" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">اجمالي الدخل بدون ضريبة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_amount_untaxed">
+                                <t t-esc="widget.amount_untaxed" />
+                                <t t-esc="widget.symbol" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tot_amounts_tax oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tot_amounts_tax" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">ضريبة القيمة المضافة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_amount_tax">
+                                <t t-esc="widget.amount_tax" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tots_occupancy oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tots_occupancy" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">نسبة الاشغال</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_occupancy">
+                                <t t-esc="widget.occupancy" />%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tots_avg_room_price oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tots_avg_room_price" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">متوسط سعر الغرفة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_avg_room_price">
+                                <t t-esc="widget.avg_room_price"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 tots_not_paid oh-payslip">
+                <div class="oh-card" style="width: 410px;">
+                    <div class="oh-card-body tots_not_paid" style="box-shadow:5px 11px 30px;">
+                        <div class="stat-widget-one" style="display:flex;">
+                            <div class="stat-icon"><i class="fa fa-puzzle-piece" /></div>
+                            <div class="stat-head" style="padding: 5%;width: 60%;font-weight: 230;font-size: 16px;">حجوزات غير مسددة</div>
+                            <div class="stat_count" style="padding: 4%;width: 30%;" id="tot_not_paid">
+                                <t t-esc="widget.not_paid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="BookingDashboardChart">
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+            <div class="row main-section">
+                <div class="col-sm-7 col-lg-7" style="margin-left: 2%;">
+                    <div class="selling_product_graph_view">
+                        <div class="oh-card text-color" style="background-color:#fff;">
+                            <canvas class="top_customers" width="200" height="120" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

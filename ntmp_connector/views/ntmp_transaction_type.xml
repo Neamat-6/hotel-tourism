@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_transaction_type_view_tree" model="ir.ui.view">
+            <field name="name">ntmp_transaction_type_view_tree</field>
+            <field name="model">ntmp.transaction.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ntmp_transaction_type_action" model="ir.actions.act_window">
+            <field name="name">Transaction Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ntmp.transaction.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ntmp_transaction_type_view_menu" name="Transaction Types"
+                  parent="ntmp_root_menu" action="ntmp_transaction_type_action" sequence="6"/>
+    </data>
+</odoo>

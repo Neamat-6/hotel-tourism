@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="OwlSalesDashboard" >
+
+        <div class="container">
+            <header class="blog-header py-3">
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                  <div class="col-4 pt-1"></div>
+                  <div class="col-4 text-center">
+                    <h1 class="blog-header-logo text-dark" href="#">Hotel Room Reservation Dashboard</h1>
+                  </div>
+                  <div class="col-4 d-flex justify-content-end align-items-center"></div>
+                </div>
+                <div class="row flex-nowrap justify-content-between align-items-center mt-5">
+                  <div class="col-1 pt-1"></div>
+                  <div class="col-10 text-center form-group">
+                      From :-
+                      <input class="inner_select" type="date" id="start_date" name="start_date"  placeholder="From" />
+                      To :-
+                      <input class="inner_select" type="date" placeholder="To" id="end_date" name="end_date"/>
+					  <input type="text" id="company_input" name="company_input" t-att-value="widget.company" class="d-none"/>
+                  </div>
+                  <div class="col-1 d-flex justify-content-end align-items-center">
+                  </div>
+                </div>
+              </header>
+
+
+			<section id="tabs" class="project-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active btn-outline-success me-2" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+									2024-10-03
+								</a>
+<!--                                <a class="nav-item nav-link btn-outline-success me-2" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">-->
+<!--									2024-11-03-->
+<!--								</a>-->
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+								<div class="row mt-5">
+									<div class="col-xl-3 col-lg-3">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="mb-4">
+													<h5 class="card-title mb-0">Total Check-In</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0" id="total_check_in">0</h2>
+													</div>
+                                                    <div class="col-4">
+                                                        <div class="media-body text-right">
+                                                            <i class="fa fa-arrow-down"></i>
+                                                        </div>
+                                                    </div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-3 col-lg-3">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="mb-4">
+													<h5 class="card-title mb-0">Total Check-Out</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0" id="total_check_out">0</h2>
+													</div>
+													<div class="col-4">
+                                                        <div class="media-body text-right">
+                                                            <i class="fa fa-arrow-up"></i>
+                                                        </div>
+                                                    </div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-3 col-lg-3">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="mb-4">
+													<h5 class="card-title mb-0">Total Cancelled</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0" id="total_cancelled">0</h2>
+													</div>
+													<div class="col-4">
+                                                        <div class="media-body text-right">
+                                                            <i class="fa fa-ban"></i>
+                                                        </div>
+                                                    </div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-3 col-lg-3">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="mb-4">
+													<h5 class="card-title mb-0">Total Room</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0" id="total_room">0</h2>
+													</div>
+													<div class="col-4">
+                                                        <div class="media-body text-right">
+                                                            <i class="fa fa-window-restore"></i>
+                                                        </div>
+                                                    </div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 mt-5">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="card-icon card-icon-large"><i class="fa fa-crosshairs"></i></div>
+												<div class="mb-4">
+													<h5 class="card-title mb-0">(%) Actual Occupancy</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0">
+															<span id="total_actual_occupancy">0.0% </span>
+														</h2>
+													</div>
+													<div class="col-4 text-right">
+													</div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 mt-5">
+										<div class="card l-bg-cherry">
+											<div class="card-statistic-3 p-4">
+												<div class="card-icon card-icon-large"><i class="fa fa-check"></i></div>
+												<div class="mb-4">
+													<h5 class="card-title mb-0">(%) Expected Occupancy</h5>
+												</div>
+												<div class="row align-items-center mb-2 d-flex">
+													<div class="col-8">
+														<h2 class="d-flex align-items-center mb-0">
+															<span id="total_expected_occupancy">0.0% </span>
+														</h2>
+													</div>
+													<div class="col-4 text-right">
+													</div>
+												</div>
+												<div class="progress mt-1 " data-height="8" style="height: 8px;">
+													<div class="progress-bar l-bg-cyan" role="progressbar" data-width="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-12 col-md-12">
+								  <div class="card overflow-hidden">
+									<div class="card-content">
+									  <div class="card-body cleartfix">
+										<div class="media align-items-stretch">
+										  <div class="text-center">
+											<h1>Booked Room Today</h1>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-3 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_actual_room_booked">0</h3>
+											  <span>Actual Room Booked</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon8.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/12.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_checked_in">0</h3>
+											  <span>Actual In-House	</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon9.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/7.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_expected_in_house">0</h3>
+											  <span>Expected In-house</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon10.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/10.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_expected_booked_room">0</h3>
+											  <span>Expected Booked Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon4.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/12.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-12 col-md-12">
+								  <div class="card overflow-hidden">
+									<div class="card-content">
+									  <div class="card-body cleartfix">
+										<div class="media align-items-stretch">
+										  <div class="text-center">
+											<h1>In House</h1>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-6 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_adults">0</h3>
+											  <span>Adults</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon11.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/16.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-6 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_child">0</h3>
+											  <span>Children</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/child.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/11.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-12 col-md-12">
+								  <div class="card overflow-hidden">
+									<div class="card-content">
+									  <div class="card-body cleartfix">
+										<div class="media align-items-stretch">
+										  <div class="text-center">
+											<h1>Checkout</h1>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-6 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_actual_check_out">0</h3>
+											  <span>Actual Check Out</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/3.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-6 col-sm-6 col-12">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_expected_checkout">0</h3>
+											  <span>Expected Check Out</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon7.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/5.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-12 col-md-12 mt-5">
+								  <div class="card overflow-hidden">
+									<div class="card-content">
+									  <div class="card-body cleartfix">
+										<div class="media align-items-stretch">
+										  <div class="text-center">
+											<h1>Room Availablity</h1>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</div>
+
+							<div class="row mt-5">
+								<div class="col-xl-3 col-sm-6 col-12 mt-5">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_rooms_avail">0</h3>
+											  <span>Total Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/bad.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/13.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12 mt-5">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_actual_booked_rooms">0</h3>
+											  <span>Actual Booked Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon6.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/14.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12 mt-5">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="total_exp_booked_rooms">0</h3>
+											  <span>Expected Booked Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon5.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/17.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="col-xl-3 col-sm-6 col-12 mt-5">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="actual_avail_rooms">0</h3>
+											  <span>Actual Available Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon10.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/9.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+								<div class="col-xl-3 col-sm-6 col-12 mt-5">
+									<div class="card">
+									  <div class="card-content">
+										<div class="card-body">
+										  <div class="media d-flex">
+											<div class="media-body text-left">
+											  <h3 class="warning" id="exp_avail_rooms">0</h3>
+											  <span>Expected Available Rooms</span>
+											</div>
+											<div class="media-body text-right">
+<!--											  <img src="/my_dashboard/static/src/img/odoo_icon10.png" width="80" height="80" alt="Girl in a jacket"/>-->
+											  <img src="/my_dashboard/static/src/img/4.png" width="80" height="80" alt="Girl in a jacket"/>
+											</div>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+
+							</div>
+
+							</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div>
+    </t>
+</templates>

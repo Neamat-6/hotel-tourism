@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="data_hotel_room_stay_status" model="hotel.room.stay.status">
+            <field name="name">Stay Over</field>
+        </record>
+        <record id="data_hotel_room_stay_status_duo_out" model="hotel.room.stay.status">
+            <field name="name">Duo Out</field>
+        </record>
+        <record id="data_hotel_room_stay_status_departed" model="hotel.room.stay.status">
+            <field name="name">Departed</field>
+        </record>
+        <record id="data_hotel_room_stay_status_arrived" model="hotel.room.stay.status">
+            <field name="name">Arrived</field>
+        </record>
+        <record id="data_hotel_room_stay_status_arrival" model="hotel.room.stay.status">
+            <field name="name">Arrival</field>
+        </record>
+        <record id="hotel_room_stay_status_vacant" model="hotel.room.stay.status">
+            <field name="name">Vacant</field>
+        </record>
+        <record id="data_hotel_room_stay_status_occupied" model="hotel.room.stay.status">
+            <field name="name">Occupied</field>
+        </record>
+        <record id="data_hotel_room_stay_status_ooo" model="hotel.room.stay.status">
+            <field name="name">Out of Order</field>
+        </record>
+        <record id="data_hotel_room_stay_status_oos" model="hotel.room.stay.status">
+            <field name="name">Out of Service</field>
+        </record>
+        <record id="hotel_room_status_dirty" model="hotel.room.status">
+            <field name="name">Dirty</field>
+            <field name="color">#DA012D</field>
+            <field name="state">dirty</field>
+            <field name="is_default" eval="True"/>
+        </record>
+        <record id="hotel_room_status_clean" model="hotel.room.status">
+            <field name="name">Clean</field>
+            <field name="state">clean</field>
+            <field name="color">#34CC05</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="shomoos_identity_type_view_tree" model="ir.ui.view">
+            <field name="name">shomoos_identity_type_view_tree</field>
+            <field name="model">shomoos.identity.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="ar_name"/>
+                    <field name="en_name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="shomoos_identity_type_action" model="ir.actions.act_window">
+            <field name="name">Shomoos Identity</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shomoos.identity.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="shomoos_identity_type_menu" name="Shomoos Identity" parent="shomoos_root_menu"
+                  action="shomoos_identity_type_action" sequence="9"/>
+
+    </data>
+</odoo>

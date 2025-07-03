@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_boking" name="Portal layout : bookings menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'booking' or booking" t-attf-class="breadcrumb-item #{'active ' if not booking else ''}">
+                <a t-if="booking" t-attf-href="/my/bookings?{{ keep_query() }}">Bookings</a>
+                <t t-else="">Bookings</t>
+            </li>
+            <li t-if="booking" class="breadcrumb-item active">
+                <t t-esc="booking.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_booking" name="Show Bookings" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Bookings</t>
+                <t t-set="url" t-value="'/my/bookings'"/>
+                <t t-set="placeholder_count" t-value="'booking_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_bookings" name="My Bookings">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Bookings</t>
+            </t>
+            <t t-if="not bookings">
+                <p>There are currently no bookings for your account.</p>
+            </t>
+            <t t-if="bookings" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Booking #</th>
+                        <th class="text-right">Date</th>
+                        <th class="text-right">Booked By</th>
+                        <th class="text-right">State</th>
+                    </tr>
+                </thead>
+                <t t-foreach="bookings" t-as="booking">
+                    <tr>
+                        <td><a t-att-href="'/my/bookings/%d' % booking.id"><t t-esc="booking.name"/></a></td>
+                        <td class="text-right"><span t-field="booking.create_date"/></td>
+                        <td class="text-right"><span t-field="booking.user_id"/></td>
+                        <td class="text-right">
+                            <span class="badge badge-pill badge-secondary"> <span t-field="booking.state"/></span>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Complete page of the booking -->
+    <template id="booking_portal_template" name="Booking Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert" groups="hotel_booking.group_hotel_booking_user">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (booking._name, booking.id, action.id)"/>
+                </t>
+            </t>
+
+            <div class="row mt16 o_portal_booking_sidebar">
+                <!-- Sidebar -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                    <t t-set="title">
+                        <h2 class="mb-0"><b t-field="booking.amount_invoiced" data-id="amount_due"/> </h2>
+                    </t>
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <a t-if="booking.has_to_be_signed()" role="button" class="btn btn-primary btn-block mb8" data-toggle="modal" data-target="#modalaccept" href="#">
+                                    <i class="fa fa-check"/><t> Accept &amp; Sign</t>
+                                </a>
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-att-href="'/my/bookings/%d?report_type=pdf&amp;download=True' % booking.id" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="'/my/bookings/%d?report_type=pdf' % booking.id" id="print_invoice_report" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="navspy list-group-item pl-0 flex-grow-1" t-ignore="true" role="complementary">
+                                <ul class="nav flex-column bs-sidenav"></ul>
+                            </li>
+
+
+                            <li t-if="booking.user_id" class="list-group-item flex-grow-1">
+                                <div class="small mb-1"><strong class="text-muted">Booked By</strong></div>
+                                <div class="row flex-nowrap">
+                                    <div class="col flex-grow-0 pr-2">
+                                        <img class="rounded-circle mr4 float-left o_portal_contact_img" t-att-src="image_data_uri(booking.user_id.avatar_1024)" alt="Contact"/>
+                                    </div>
+                                    <div class="col pl-0" style="min-width: 150px">
+                                        <span t-field="booking.user_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                        <a href="#discussion" class="small"><i class="fa fa-comment"></i> Send message</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+
+                <!-- Page content -->
+                <div id="booking_content" class="col-12 col-lg justify-content-end">
+
+                    <!-- modal relative to the actions sign and pay -->
+                    <div role="dialog" class="modal fade" id="modalaccept">
+                        <div class="modal-dialog" t-if="booking.has_to_be_signed()">
+                            <form id="accept" method="POST" t-att-data-order-id="booking.id" t-att-data-token="booking.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Validate Order</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <p>
+                                        <span>By signing this booking, I agree to the following terms:</span>
+                                        <ul>
+                                            <li><span>Accepted on the behalf of:</span> <b t-field="booking.partner_id.commercial_partner_id"/></li>
+                                            <li><span>For an amount of:</span> <b data-id="total_amount" t-field="booking.amount_due"/></li>
+                                        </ul>
+                                    </p>
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url" t-value="booking.get_portal_url(suffix='/accept')"/>
+                                        <t t-set="default_name" t-value="booking.partner_id.name"/>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+                    <!-- status messages -->
+                    <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none" role="status">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                        <strong>Thank You!</strong><br/>
+                        Your booking has been signed.
+                    </div>
+
+                    <!-- main content -->
+                    <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}" id="portal_booking_content">
+                        <div t-call="hotel_booking.booking_portal_content"/>
+                    </div>
+
+                    <!-- chatter -->
+                    <div id="booking_order_communication" class="mt-4">
+                        <h2>History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="booking"/>
+                        </t>
+                    </div>
+                </div><!-- // #booking_content -->
+            </div>
+        </xpath>
+    </template>
+
+    <template id="booking_portal_content" name="Booking Portal Content">
+        <!-- Intro -->
+        <div id="introduction" t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}">
+          <h2 class="my-0">
+                <em t-esc="booking.name"/>
+          </h2>
+        </div>
+
+        <div t-attf-class="#{'card-body' if report_type == 'html' else ''}">
+            <!-- Informations -->
+            <div id="informations">
+                <div class="row" id="so_date">
+                    <div class="mb-3 col-6">
+                     <strong>Booking Date:</strong>
+                      <span t-field="booking.create_date" t-options='{"widget": "date"}'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <strong class="d-block mb-1">Customer Address:</strong>
+                        <address t-field="booking.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                    </div>
+                </div>
+
+                <t t-set="invoices" t-value="[i for i in booking.invoice_ids]"/>
+                <div t-if="invoices" class="row">
+                    <div class="col">
+                        <strong class="d-block mb-1">Invoices</strong>
+                        <ul class="list-group mb-4">
+                            <t t-foreach="invoices" t-as="i">
+                                <t t-set="report_url" t-value="i.get_portal_url(report_type='pdf', download=True)"/>
+                                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                    <div>
+                                        <a t-att-href="report_url">
+                                            <span t-esc="i.name"/>
+                                        </a>
+                                        <div class="small d-lg-inline-block">Date: <span class="text-muted" t-field="i.invoice_date"/></div>
+                                    </div>
+                                    <span t-if="i.payment_state in ('paid', 'in_payment')" class="small badge badge-success orders_label_text_align"><i class="fa fa-fw fa-check"/> <b>Paid</b></span>
+                                    <span t-else="" class="small badge badge-info orders_label_text_align"><i class="fa fa-fw fa-clock-o"/> <b>Waiting Payment</b></span>
+                                </div>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <section id="details" style="page-break-inside: auto;" class="mt32">
+                <h3 id="details">Booking Details</h3>
+
+
+                <table t-att-data-booking-id="booking.id" t-att-data-token="booking.access_token" class="table table-sm" id="booking_table">
+                    <thead class="bg-100">
+                        <tr>
+                            <th class="text-left">Hotel</th>
+                            <th class="text-left">Room</th>
+                            <th class="text-center">Check In</th>
+                            <th class="text-center">Check Out</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="booking_tbody">
+                        <t t-foreach="booking.line_ids" t-as="line">
+                            <tr>
+                                <td class="text-left"><span t-field="line.hotel_id"/></td>
+                                <td class="text-left"><span t-field="line.room_id"/></td>
+                                <td class="text-center"><span t-field="line.check_in"/></td>
+                                <td class="text-center"><span t-field="line.check_out"/></td>
+                                <td class="text-right"><span t-field="line.total_amount"/></td>
+                            </tr>
+
+                        </t>
+                    </tbody>
+                </table>
+                <div id="total" class="row" name="total" style="page-break-inside: avoid;">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <t t-call="hotel_booking.booking_portal_content_totals_table"/>
+                    </div>
+                </div>
+            </section>
+
+            <section t-if="booking.signature" id="signature" name="Signature">
+                <div class="row mt-4" name="signature">
+                    <div t-attf-class="#{'col-3' if report_type != 'html' else 'col-sm-7 col-md-4'} ml-auto text-center">
+                        <h5>Signature</h5>
+                        <img t-att-src="image_data_uri(booking.signature)" style="max-height: 6rem; max-width: 100%;"/>
+                        <p t-field="booking.signed_by"/>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </template>
+
+    <template id="booking_portal_content_totals_table">
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td><b>Invoiced Amount</b></td>
+                    <td class="text-right"><span t-field="booking.amount_invoiced"/></td>
+                </tr>
+                <tr>
+                    <td><b>Paid Amount</b></td>
+                    <td class="text-right"><span t-field="booking.amount_paid"/></td>
+                </tr>
+                <tr>
+                    <td><b>Due Amount</b></td>
+                    <td class="text-right"><span t-field="booking.amount_due"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+</odoo>

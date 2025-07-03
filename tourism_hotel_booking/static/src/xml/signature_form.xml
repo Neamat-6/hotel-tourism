@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="tourism_hotel_booking.sign_name_and_signature" t-extend="web.sign_name_and_signature">
+        <t t-jquery="div.o_web_sign_name_group" t-operation="append">
+            <div t-attf-class="{{ widget.is_hotel === 0 ? 'd-none': '' }}">
+                <label class="col-form-label" for="booking_reference">Booking Reference</label>
+                <input type="text" id="booking_reference" required="1" name="booking_reference"  class="o_web_sign_booking_input form-control" placeholder="Hotel Booking Reference"/>
+            </div>
+        </t>
+    </t>
+</templates>

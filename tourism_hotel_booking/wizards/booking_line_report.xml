@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="booking_line_report_view_form" model="ir.ui.view">
+            <field name="name">booking_line_report_view_form</field>
+            <field name="model">booking.line.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="states"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="hotel_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="total_count"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight" icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="booking_line_id" invisible="1"/>
+                                <field name="booking_id" options="{'no_open': True}"/>
+                                <field name="hotel_id" options="{'no_open': True}"/>
+                                <field name="partner_id" options="{'no_open': True}"/>
+                                <field name="room_id" options="{'no_open': True}" optional="show"/>
+                                <field name="count" optional="show"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="price" optional="show"/>
+                                <field name="cost" optional="show"/>
+                                <field name="tax_amount" optional="show"/>
+                                <field name="total_amount" optional="show"/>
+                                <field name="booking_amount_total"/>
+                                <field name="booking_amount_paid"/>
+                                <field name="booking_amount_due"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="state" widget="badge"
+                                       decoration-muted="state in ['draft', 'waiting_hotel', 'waiting_customer']"
+                                       decoration-warning="state in ['hotel_confirm', 'customer_confirm']"
+                                       decoration-success="state == 'confirmed'"
+                                       decoration-danger="state == 'cancelled'"
+                                />
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                        <button name="print_xlsx" type="object" string="Export" icon="fa-file-excel-o"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="booking_line_report_action" model="ir.actions.act_window">
+            <field name="name">Booking Inhouse</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.line.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="booking_reporting_root" name="Reporting" parent="tourism_hotel_booking.menu_hotel_root" sequence="5"/>
+        <menuitem id="booking_line_report_menu" name="Booking Inhouse" parent="booking_reporting_root"
+                  action="booking_line_report_action" sequence="1"/>
+    </data>
+</odoo>

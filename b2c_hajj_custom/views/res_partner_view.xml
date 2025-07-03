@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_tree_hajj_inherit" model="ir.ui.view">
+        <field name="name">res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="saudi_mobile" optional="hide"/>
+                <field name="pilgrim_id" optional="hide"/>
+                <field name="group_no" optional="hide"/>
+                <field name="pilgrim_type" optional="hide"/>
+                <field name="main_member_id"  optional="hide"/>
+                <field name="hajj_source" optional="hide"/>
+                <field name="package_id" optional="hide"/>
+                <field name="main_makkah"/>
+                <field name="makkah_arrival_date" string="Makkah Arrival Date"/>
+                <field name="makkah_departure_date" string="Makkah Departure Date"/>
+                <field name="makkah_room_type"/>
+                <field name="main_madinah"/>
+                <field name="madinah_arrival_date" string="Madinah Arrival Date"/>
+
+                <!-- Optional fields -->
+                <field name="madinah_departure_date" string="Madinah Departure Date" optional="hide"/>
+                <field name="madinah_room_type" optional="hide"/>
+                <field name="main_arfa" optional="hide"/>
+                <field name="arfa_arrival_date" string="Arfa Arrival Date" optional="hide"/>
+                <field name="arfa_departure_date" string="Arfa Departure Date" optional="hide"/>
+                <field name="main_minnah" optional="hide"/>
+                <field name="minnah_arrival_date" string="Minnah Arrival Date" optional="hide"/>
+                <field name="minnah_departure_date" string="Minnah Departure Date" optional="hide"/>
+                <field name="hotel_arrival_date" string="Hotel Arrival Date" optional="hide"/>
+                <field name="hotel_departure_date" string="Hotel Departure Date" optional="hide"/>
+                <field name="hotel_room_type" optional="hide"/>
+                <field name="transportation_contract_ids" widget="many2many_tags"/>
+                <field name="flight_schedule_id"/>
+                <field name="arrival_flight_no"/>
+                <field name="departure_flight_no"/>
+                <field name="flight_arrival_date"/>
+                <field name="arrival_airport_id" string="Arrival Airport"/>
+                <field name="flight_departure_date" string="Flight Departure Date"/>
+                <field name="dep_airport_id" string="Departure Airport"/>
+                <field name="makkah_actual_room_number" optional="show"/>
+                <field name="madinah_actual_room_number" optional="show"/>
+                <field name="minnah_actual_room_number" optional="hide"/>
+                <field name="arfa_actual_room_number" optional="hide"/>
+                <field name="minnah_sofa_number" optional="hide"/>
+                <field name="arfa_sofa_number" optional="hide"/>
+                <field name="tour_guide_id" optional="show"/>
+                <field name="status" optional="show"/>
+                <field name="upgraded" widget="boolean" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_form_hajj_custom" model="ir.ui.view">
+        <field name="name">res.partner.form.hajj.custom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="create_portal_user" type="object" string="Create Portal User"
+                            attrs="{'invisible': [('portal_user_id', '!=', False)]}"/>
+                    <button name="create_admin_chat" string="Start Chat with Pilgrim" type="object"
+                            class="btn-primary"/>
+                    <button name="action_send_pilgrim_barcode_whatsapp" string="Send QrCode via WhatsApp" type="object"
+                            class="btn-primary"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='company_type']" position="replace">
+                <field name="company_type" options="{'horizontal': true}" widget="radio"/>
+            </xpath>
+            <xpath expr="//sheet/div[1]" position="replace">
+                <div></div>
+            </xpath>
+            <xpath expr="//group/group" position="replace">
+                <group invisible="1">
+                    <span class="o_form_label o_td_label" name="address_name">
+                        <field name="type"
+                               attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}"
+                               class="font-weight-bold"/>
+                        <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>
+                    </span>
+                    <div class="o_address_format">
+                        <field name="street" placeholder="Street..." class="o_address_street"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                        <field name="street2" placeholder="Street 2..." class="o_address_street"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                        <field name="city" placeholder="City" class="o_address_city"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                        <field name="state_id" class="o_address_state" placeholder="State"
+                               options="{'no_open': True, 'no_quick_create': True}"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                        <field name="zip" placeholder="ZIP" class="o_address_zip"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                        <field name="country_id" placeholder="Country" class="o_address_country"
+                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
+                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                    </div>
+                    <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': [('parent_id','!=',False)]}"/>
+                </group>
+                <group>
+                    <field name="upgraded"/>
+                    <field name="is_transportation_company"/>
+                    <field name="nationality"/>
+                    <field name="region"/>
+                    <field name="language" context="{'active_test': False}"/>
+                    <field name="residence_country"/>
+                    <field name="pilgrim_type" attrs="{'required': [('package_id', '!=', False)]}"/>
+                    <field name="main_member_id" options="{'no_create': True}"
+                           attrs="{'invisible': [('pilgrim_type', '!=', 'member')]}"
+                           domain="[('package_id', '=', package_id), ('pilgrim_type', '=', 'main'), ('id', '!=', id), ('makkah_room_type', '=', makkah_room_type)]"/>
+                    <field name="gender" required="1"/>
+                    <field name="is_guide"/>
+                    <field name="room_ref"/>
+                    <field name="package_id"/>
+                    <field name="package_contract_id"/>
+                    <field name="pilgrim_id"/>
+                    <field name="group_no"/>
+                    <field name="ticket_number"/>
+                    <field name="flight_contract"/>
+                    <field name="passport_no"/>
+                    <field name="passport_expiry_date"/>
+                    <field name="tour_guide_id"/>
+                    <field name="portal_user_id" invisible="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="hajj_source"/>
+                <field name="visa_status"/>
+                <field name="ticket_link" widget="url"/>
+                <field name="booking_details"/>
+                <field name="status" readonly="True" force_save="1"/>
+
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="saudi_mobile" widget="phone"/>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="package_info" string="Package Information" attrs="{'invisible': [('package_id', '=', False)]}">
+                    <group>
+                        <group string="Makkah">
+                            <field name="main_makkah"/>
+                            <field name="makkah_arrival_date" string="Arrival Date"/>
+                            <field name="makkah_departure_date" string="Departure Date"/>
+                            <field name="makkah_room_type"/>
+                            <field name="makkah_room" readonly="True"/>
+                            <field name="makkah_actual_room_number"/>
+                        </group>
+                        <group string="Madinah">
+                            <field name="main_madinah"/>
+                            <field name="madinah_arrival_date" string="Arrival Date"/>
+                            <field name="madinah_departure_date" string="Departure Date"/>
+                            <field name="madinah_room_type"/>
+                            <field name="madinah_room" readonly="True"/>
+                            <field name="madinah_actual_room_number"/>
+                        </group>
+                        <separator name="dummy"/>
+                        <group string="Arfa">
+                            <field name="main_arfa"/>
+                            <field name="arfa_arrival_date" string="Arrival Date"/>
+                            <field name="arfa_departure_date" string="Departure Date"/>
+                            <field name="arfa_room" readonly="True"/>
+                            <field name="arfa_actual_room_number"/>
+                            <field name="arfa_sofa_number"/>
+                        </group>
+                        <group string="Minnah">
+                            <field name="main_minnah"/>
+                            <field name="minnah_arrival_date" string="Arrival Date"/>
+                            <field name="minnah_departure_date" string="Departure Date"/>
+                            <field name="minnah_room" readonly="True"/>
+                            <field name="minnah_actual_room_number"/>
+                            <field name="minnah_sofa_number"/>
+                        </group>
+                        <separator name="dummy2"/>
+                        <group string="Main Shift">
+                            <field name="main_hotel"/>
+                            <field name="hotel_arrival_date" string="Arrival Date"/>
+                            <field name="hotel_departure_date" string="Departure Date"/>
+                            <field name="hotel_room_type"/>
+                            <field name="hotel_room" readonly="True"/>
+                        </group>
+                        <group string="Transportation Info">
+                            <field name="transportation_contract_ids" widget="many2many_tags"/>
+                            <field name="flight_schedule_id"/>
+                            <field name="arrival_flight_no"/>
+                            <field name="flight_arrival_date"/>
+                            <field name="arrival_airport_id"/>
+                            <field name="departure_flight_no"/>
+                            <field name="flight_departure_date"/>
+                            <field name="dep_airport_id"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Transportation" attrs="{'invisible': [('package_id', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="is_hastened"/>
+                            <field name="ziarat_al_rawdah"/>
+                            <field name="jamarat_day1"/>
+                            <field name="jamarat_day3"/>
+                            <field name="tawaf_al_ifada_sai"/>
+                        </group>
+                        <group>
+                           <field name="tarwiyah"/>
+                           <field name="tawaf_al_qudum"/>
+                           <field name="jamarat_day2"/>
+                           <field name="jamarat_day4"/>
+                           <field name="tawaf_al_wada"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="hajj_view_res_partner_filter" model="ir.ui.view">
+        <field name="name">hajj_view_res_partner_filter</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+                <field name="name"
+                       filter_domain="['|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self)]"/>
+                <field name="main_member_id"
+                       filter_domain="[('main_member_id', 'ilike', self)]"/>
+                <field name="parent_id" domain="[('is_company', '=', True)]" operator="child_of"/>
+                <field name="email" filter_domain="[('email', 'ilike', self)]"/>
+                <field name="phone" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"/>
+                <field name="group_no"/>
+                <field name="pilgrim_id"/>
+                <field name="nationality"/>
+                <field name="region"/>
+                <field name="language"/>
+                <field name="gender"/>
+                <field name="package_id"/>
+                <field name="category_id" string="Tag" filter_domain="[('category_id', 'child_of', self)]"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Individuals" name="type_person" domain="[('is_company', '=', False)]"/>
+                <filter string="Companies" name="type_company" domain="[('is_company', '=', True)]"/>
+                <filter string="Family Members" name="family_members" domain="[('pilgrim_type', '=', 'member')]"/>
+                <filter string="Unassigned Family Members" name="unassigned_family_members"
+                        domain="[('pilgrim_type', '=', 'member'), ('main_member_id', '=', False)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="Main Member" string="Main Member" domain="[]" context="{'group_by' : 'main_member_id'}"/>
+                    <filter name="nationality" string="Nationality" domain="[]"
+                            context="{'group_by' : 'nationality'}"/>
+                    <filter name="region" string="Region" domain="[]" context="{'group_by' : 'region'}"/>
+                    <filter name="language" string="Language" domain="[]" context="{'group_by' : 'language'}"/>
+                    <filter name="gender" string="Gender" domain="[]" context="{'group_by' : 'gender'}"/>
+                    <filter name="package_id" string="Package" domain="[]" context="{'group_by' : 'package_id'}"/>
+                    <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'parent_id'}"/>
+                    <filter name="group_country" string="Country" context="{'group_by': 'country_id'}"/>
+                    <filter name="group_is_hastened"  context="{'group_by': 'is_hastened'}"/>
+                    <filter name="group_tarwiyah"  context="{'group_by': 'tarwiyah'}"/>
+                    <filter name="group_ziarat_al_rawdah"  context="{'group_by': 'ziarat_al_rawdah'}"/>
+                    <filter name="group_tawaf_al_qudum"  context="{'group_by': 'tawaf_al_qudum'}"/>
+                    <filter name="group_jamarat_day1"  context="{'group_by': 'jamarat_day1'}"/>
+                    <filter name="group_jamarat_day2"  context="{'group_by': 'jamarat_day2'}"/>
+                    <filter name="group_jamarat_day3"  context="{'group_by': 'jamarat_day3'}"/>
+                    <filter name="group_jamarat_day4"  context="{'group_by': 'jamarat_day4'}"/>
+                    <filter name="group_tawaf_al_ifada_sai"  context="{'group_by': 'tawaf_al_ifada_sai'}"/>
+                    <filter name="group_tawaf_al_wada"  context="{'group_by': 'tawaf_al_wada'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="pilgrims_action_partner_action" model="ir.actions.act_window">
+        <field name="name">Pilgrims</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('package_id', '!=', False)]</field>
+        <field name="search_view_id" ref="hajj_view_res_partner_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Contact in your address book
+            </p>
+            <p>
+                Odoo helps you track all activities related to your contacts.
+            </p>
+        </field>
+    </record>
+    <record id="guide_action_partner_action" model="ir.actions.act_window">
+        <field name="name">Guides</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'default_is_guide': True}</field>
+        <field name="domain">[('is_guide', '=', True)]</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Contact in your address book
+            </p>
+            <p>
+                Odoo helps you track all activities related to your contacts.
+            </p>
+        </field>
+    </record>
+    <menuitem id="pilgrims_action_partner_menu" name="Pilgrims" parent="hotel_booking.menu_hotels_task_root"
+              action="pilgrims_action_partner_action" sequence="6"/>
+    <menuitem id="guide_action_partner_menu" name="Guides" parent="hotel_booking.menu_hotels_task_root"
+              action="guide_action_partner_action" sequence="6"/>
+
+    <menuitem id="b2c_main_menu" name="B2C HAJJ" sequence="10"/>
+    <menuitem id="pilgrims_action_partner_menu" name="Pilgrims" parent="b2c_hajj_custom.b2c_main_menu"
+              action="pilgrims_action_partner_action" sequence="1"/>
+    <menuitem id="guide_action_partner_menu" name="Guides" parent="b2c_hajj_custom.b2c_main_menu"
+              action="guide_action_partner_action" sequence="2"/>
+
+
+</odoo>

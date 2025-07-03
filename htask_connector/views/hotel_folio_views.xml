@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form view of hotel folio -->
+    <record id="view_hotel_folio_form" model="ir.ui.view">
+        <field name="name">hotel.folio.form</field>
+        <field name="model">hotel.folio</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Folio">
+                <header>
+                    <button name="action_invoiced" class="oe_highlight" type="object" string="Set Invoiced False"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object" class="oe_stat_button" icon="fa-pencil-square-o" name="action_view_partner_invoice" context="{'default_folio_id': active_id}" attrs="{'invisible': [('move_ids', '=', [])]}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="move_ids" invisible="1" />
+                                </span>
+                                <span class="o_stat_text">Invoice</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <label for="name" string="Folio Number" />
+                    <h1>
+                        <field name="name" colspan="4" />
+                    </h1>
+                    <newline />
+                    <group>
+                        <group>
+                            <field invisible="1" name="currency_id" />
+                            <field name="partner_id" />
+                            <field name="company_id" invisible="1"/>
+                            <field name="branch_id" invisible="1"/>
+                            <field name="reservation_no" />
+                            <field name="invoice_no" />
+                            <field name="account_move_id"/>
+                            <field name="ledger_move_id" attrs="{'invisible': [('ledger_move_id', '=', False)]}"/>
+                            <field name="voucher_no" />
+
+                        </group>
+                        <group>
+                            <field name="checkin_date" widget="date" />
+                            <field name="checkout_date" widget="date" />
+                            <field name="duration" readonly="1" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="detail_line_ids" string="Folio Details">
+
+                            <field name="detail_line_ids" colspan="4" string="Folio Line" nolabel="1">
+                                <tree string="Folio Line">
+                                    <field name="is_payment" invisible="1"/>
+                                    <field name="bill_date" widget="date" />
+                                    <field name="ref_no" />
+                                    <field name="type" />
+                                    <field name="name" />
+                                    <field name="qty" />
+                                    <field name="folio_id" invisible="1" />
+                                    <field name="invoiced"/>
+                                    <field name="amount_subtotal" widget="monetary" />
+                                    <field invisible="1" name="currency_id" />
+                                </tree>
+                            </field>
+                            
+                            <group class="oe_subtotal_footer">
+                                <field name="detail_amount_total" class="oe_subtotal_footer_separator" widget="monetary"/>
+                                <field name="detail_total_paid" class="oe_subtotal_footer_separator" widget="monetary"/>
+                                <field name="due_amount" class="oe_subtotal_footer_separator" widget="monetary"/>
+                            </group>
+
+                        </page>
+                        <page name="room_lines" string="Room Lines">
+
+                            <field name="room_line_ids" colspan="4" string="Room Line" nolabel="1" context="{'checkin':checkin_date,'checkout':checkout_date,'folio':context.get('folio_id')}">
+                                <tree string="Room Line">
+                                    <field name="checkin_date" widget="date" />
+                                    <field name="checkout_date" widget="date" />
+                                    <field name="room_no" />
+                                    <field name="room_type" />
+                                    <field name="rate_type" />
+                                    <field name="market_code" />
+                                    <field name="move_id" invisible="1" />
+                                    <field name="amount_subtotal" widget="monetary" />
+                                    <field invisible="1" name="currency_id" />
+                                </tree>
+                            </field>
+                            
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary"/>
+                            </group>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Tree view of hotel folio -->
+    <record id="view_hotel_folio_tree" model="ir.ui.view">
+        <field name="name">hotel.folio.tree</field>
+        <field name="model">hotel.folio</field>
+        <field name="arch" type="xml">
+            <tree string="Hotel Folio">
+                <field name="name" />
+                <field name="reservation_no" />
+                <field name="partner_id" />
+                <field name="source_name" />
+                <field name="checkin_date" widget="date" />
+                <field name="checkout_date" widget="date" />
+                <field name="duration" />
+                <field invisible="1" name="currency_id" />
+                <field name="detail_amount_total" widget="monetary" sum="Total Amount" string="Total"/>
+                <field name="detail_total_paid" widget="monetary" sum="Total Paid" string="Paid"/>
+                <field name="due_amount" widget="monetary" sum="Total Paid" string="Due"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Calendar view of hotel folio -->
+    <record id="hotel_folio_calendar_view" model="ir.ui.view">
+        <field name="name">Hotel- Folios Calendar</field>
+        <field name="model">hotel.folio</field>
+        <field name="arch" type="xml">
+            <calendar string="Folios" date_start="checkin_date" color="partner_id" date_stop="checkout_date">
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="duration" />
+            </calendar>
+        </field>
+    </record>
+    <!-- Search view of hotel folio -->
+    <record id="view_hotel_folio_search" model="ir.ui.view">
+        <field name="name">hotel.folio.search</field>
+        <field name="model">hotel.folio</field>
+        <field name="arch" type="xml">
+            <search string="Tables Detail">
+                <field name="partner_id" />
+                <field name="name" filter_domain="[('name', 'ilike', self)]" />
+                <filter name="checkout_date" string="Current Booking" domain="[('checkout_date','&gt;=',datetime.datetime.now().replace(hour=0, minute=0, second=0)),('checkin_date','&lt;=',datetime.datetime.now().replace(hour=23, minute=59, second=59))]" />
+                <group expand="0" string="Group By">
+                    <filter name="partner_id" string="Guest" context="{'group_by':'partner_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <!--graph view of hotel folio -->
+    <!-- <record id="view_hotel_folio_graph" model="ir.ui.view">
+        <field name="name">view.hotel.folio.graph</field>
+        <field name="model">hotel.folio</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="date_order" type="row" />
+                <field name="amount_total" type="measure" />
+            </graph>
+        </field>
+    </record> -->
+
+    <record id="htask_folios_action" model="ir.actions.act_window">
+        <field name="name">Folios</field>
+        <field name="res_model">hotel.folio</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- HTask Folios MenuItem -->
+    <menuitem id="htask_folios_menuitem" sequence="2" parent="htask_connector.htask_connector_root_menu" action="htask_folios_action" name="Folios" groups="htask_connector.htask_connector_manager_group" />
+
+    <record id="hotel_folio_detail_view_tree" model="ir.ui.view">
+        <field name="name">hotel_folio_detail_view_tree</field>
+        <field name="model">hotel.folio.detail</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" decoration-muted="invoiced == True">
+                <field name="bill_date" widget="date"/>
+                <field name="ref_no"/>
+                <field name="folio_id"/>
+                <field name="source_name"/>
+                <field name="type"/>
+                <field name="name"/>
+                <field name="qty"/>
+                <field name="folio_id" invisible="1"/>
+                <field name="amount_subtotal" widget="monetary"/>
+                <field name="invoiced"/>
+                <field name="unique_id"/>
+                <field name="is_payment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hotel_folio_detail_action" model="ir.actions.act_window">
+        <field name="name">Folio Details</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hotel.folio.detail</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="hotel_folio_detail_menu" name="Folio Details"
+              groups="htask_connector.htask_connector_manager_group"
+              parent="htask_connector.htask_connector_root_menu"
+              action="hotel_folio_detail_action" sequence="3"/>
+
+    <record id="action_generate_entry" model="ir.actions.server">
+        <field name="name">Generate Entry/Payment</field>
+        <field name="model_id" ref="htask_connector.model_hotel_folio_detail"/>
+        <field name="binding_model_id" ref="htask_connector.model_hotel_folio_detail"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_generate_entry()</field>
+    </record>
+</odoo>

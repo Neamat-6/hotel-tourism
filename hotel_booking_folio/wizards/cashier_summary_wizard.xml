@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+  <record id="cashier_summary_view_form" model="ir.ui.view">
+    <field name="name">cashier_summary_view_form</field>
+    <field name="model">cashier.summary.report</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="start_audit_date" />
+            <field name="end_audit_date" />
+          </group>
+          <footer>
+            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o" />
+            <button string="Cancel" class="btn-secondary" special="cancel" />
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- ========================================================= -->
+  <record id="cashier_summary_action" model="ir.actions.act_window">
+    <field name="name">Cashier Summary</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">cashier.summary.report</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+  <!-- ========================================================= -->
+  <menuitem id="cashier_summary_menu" name="Cashier Summary"
+    parent="hotel_booking.booking_reports_root_accounting"
+    action="cashier_summary_action" sequence="55" />
+
+  <menuitem id="menu_front_office_cashier_summary_menu" name="Cashier Summary" 
+        parent="hotel_booking.booking_reports_root_accounting_menu_item"
+        action="cashier_summary_action" sequence="4"/>
+
+</odoo>

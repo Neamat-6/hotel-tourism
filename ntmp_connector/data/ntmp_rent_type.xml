@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_rent_type_1" model="ntmp.rent.type">
+            <field name="code">1</field>
+            <field name="name">يومي</field>
+            <field name="name_en">Daily</field>
+        </record>
+        <record id="ntmp_rent_type_2" model="ntmp.rent.type">
+            <field name="code">2</field>
+            <field name="name">بالساعة</field>
+            <field name="name_en">Hourly</field>
+        </record>
+        <record id="ntmp_rent_type_3" model="ntmp.rent.type">
+            <field name="code">3</field>
+            <field name="name">اسبوعي</field>
+            <field name="name_en">Weekly</field>
+        </record>
+        <record id="ntmp_rent_type_4" model="ntmp.rent.type">
+            <field name="code">4</field>
+            <field name="name">شهري</field>
+            <field name="name_en">Monthly</field>
+        </record>
+    </data>
+</odoo>

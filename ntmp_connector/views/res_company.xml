@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_view_company_form" model="ir.ui.view">
+            <field name="name">ntmp_view_company_form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="ntmp" string="NTMP Connector">
+                        <group>
+                            <field name="apply_ntmp"/>
+                            <field name="ntmp_username"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)], 'required': [('apply_ntmp', '=', True)]}"/>
+                            <field name="ntmp_password"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)], 'required': [('apply_ntmp', '=', True)]}"/>
+                            <field name="ntmp_key"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)], 'required': [('apply_ntmp', '=', True)]}"/>
+                            <field name="ntmp_channel"
+                                   attrs="{'invisible': [('apply_ntmp', '=', False)], 'required': [('apply_ntmp', '=', True)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_form_res_partner_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.hotel</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="NTMP Information">
+                        <group>
+                            <field name="gender_id"/>
+                            <field name="customer_type_id"/>
+                            <field name="visit_purpose_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

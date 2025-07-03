@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="cashier_custody_form_view" model="ir.ui.view">
+        <field name="name">cashier_custody_form_view</field>
+        <field name="model">cashier.custody</field>
+        <field name="arch" type="xml">
+            <form string="Cashier Custody">
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="waiting,draft,post"/>
+                </header>
+                <sheet>
+                 <widget name="web_ribbon" title="Closed" bg_color="bg-dark" attrs="{'invisible': [('status', '!=', 'closed')]}"/>
+                    <group>
+                        <div class="oe_title oe_inline">
+                            <h1>
+                                Closing Cashier:
+                                <field name="user_id" attrs="{'readonly':[('status','=','closed')]}"/>
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date_from"  attrs="{'readonly':[('status','=','closed')]}"/>
+                            <field name="date_to"  attrs="{'readonly':[('status','=','closed')]}"/>
+                            <field name="state"  attrs="{'readonly':[('status','=','closed')]}"/>
+                            <field name="payment_state"  readonly="1"/>
+                            <field name="note"  attrs="{'readonly':[('status','=','closed')]}"/>
+                        </group>
+                        <group>
+                            <field name="company_ids" widget="many2many_tags"   attrs="{'readonly':[('status','=','closed')]}"/>
+                            <field name="total_amount"  attrs="{'readonly':[('status','=','closed')]}"/>
+                            <field name="no_lines"  attrs="{'readonly':[('status','=','closed')]}"/>
+                        </group>
+                    </group>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-3">
+                            <button name="button_toggle_all" type="object" string="Select/Unselect All"
+                                    class="btn btn-primary"
+                                    
+                                    style="color:white;background-color: #804d76;border-color: #804d76;"
+                                    icon="fa-check-square-o"/>
+                        </div>
+                        <div class="col-3">
+                            <button name="button_close_cashier" type="object" string="Close Cashier"
+                                    class="btn btn-primary"
+                                    style="color:white;background-color: #804d76;border-color: #804d76;"
+                                    icon="fa-money"/>
+                        </div>
+                        <div class="col-3">
+                            <button name="button_search" type="object" string="Search" class="btn btn-primary"
+                                    style="color:white;background-color: #804d76;border-color: #804d76;"
+                                    attrs="{'invisible':[('status','=','closed')]}"
+                                    confirm="Make sure you will not be able to modify any filter after doing this search, Are you sure?"
+                                    icon="fa-search"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <field name="account_payment_ids" readonly="0">
+                        <tree create="0" edit="1" delete="0" editable="bottom">
+                            <field name="date" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                            <field name="journal_id" readonly="1"/>
+                            <field name="booking_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                   readonly="1"/>
+                            <field name="folio_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                   readonly="1"/>
+                            <field name="payment_method_line_id" readonly="1"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="partner_id" readonly="1"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="state" widget="badge" readonly="1"
+                                   decoration-success="state == 'posted'"
+                                   decoration-danger="state == 'draft'"/>
+                            <field name="closed_cashier" readonly="1"/>
+                            <field name="is_selected_payment" attrs="{'readonly':[('closed_cashier','=',True)]}"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cashier_custody_tree_view" model="ir.ui.view">
+        <field name="name">cashier_custody_tree_view</field>
+        <field name="model">cashier.custody</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="account_journal_id"/>
+                <field name="des_journal_id"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="cashier_custody_action_view" model="ir.actions.act_window">
+        <field name="name">Closing Cashier</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cashier.custody</field>
+        <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+    <menuitem id="menu_front_office_closing_cashier_menu" name="Closing Cashier" 
+              parent="hotel_booking.menu_front_office"
+              action="cashier_custody_action_view" sequence="4"/>
+              
+    <menuitem id="menu_finance_front_office_closing_cashier_menu" name="Closing Cashier" 
+              parent="account.menu_finance"
+              action="cashier_custody_action_view" sequence="4"/>
+
+</odoo>

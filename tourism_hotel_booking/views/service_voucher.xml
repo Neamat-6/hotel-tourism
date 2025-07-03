@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="service_voucher_view_form" model="ir.ui.view">
+            <field name="name">service_voucher_view_form</field>
+            <field name="model">tourism.booking.services</field>
+            <field name="arch" type="xml">
+                <form string="service_voucher_form">
+                    <sheet>
+                        <group>
+                            <field name="meal_number"/>
+                        </group>
+                        <field name="voucher_ids" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="meal_number"/>
+                                <field name="state" decoration-success="state == 'available'" decoration-muted="state == 'redeemed'" decoration-danger="state == 'expired'" widget="badge"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="button_generate_barcode" type="object" class="oe_highlight" string="Generate"
+                            attrs="{'invisible': [('voucher_ids', '!=', [])]}"/>
+                        <button name="print_vouchers" type="object" class="oe_highlight" string="Print"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--voucher scan-->
+        <record id="voucher_scan_view_form" model="ir.ui.view">
+            <field name="name">voucher_scan_view_form</field>
+            <field name="model">service.voucher.scan</field>
+            <field name="arch" type="xml">
+                <form string="voucher_scan_form">
+                    <header>
+                        <button name="redeem_voucher" type="object" class="oe_highlight" string="Redeem"/>
+                    </header>
+                    <sheet>
+                        <field name="_barcode_scanned" widget="voucher_barcode_handler"/>
+                        <field name="meal_number"/>
+                        <field name="lines">
+                            <tree editable="bottom">
+                                <field name="barcode"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="voucher_scan_action" model="ir.actions.act_window">
+            <field name="name">Voucher Scan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.voucher.scan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="voucher_scan_menu" name="Voucher Scan" action="voucher_scan_action" sequence="99"
+        groups="tourism_hotel_booking.group_voucher_user"/>
+    </data>
+</odoo>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_hotel_booking_filter_form" model="ir.ui.view">
+            <field name="name">hotel.booking.filter.form</field>
+            <field name="model">booking.filter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="oe_title oe_inline">
+                                <h1 style="color:#001f5c;">
+                                    Dynamic Reservation Booking
+                                </h1>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="arrival_from"/>
+                                <field name="arrival_to"/>
+                            </group>
+                            <group>
+                                <field name="departure_from"/>
+                                <field name="departure_to"/>
+                            </group>
+                        </group>
+                        <group string="Yes/No">
+                          <group>
+                            <field name="include_cancelled"/>
+                            <field name="day_use"/>
+                            <field name="complimentary_room"/>
+                            <field name="house_use"/>
+                            <field name="paid_without_zero"/>
+                            <field name="paid_with_zero"/>
+                            <field name="total_without_zero"/>
+                            <field name="print_with_total"/>
+                            <field name="is_cancelled"/>
+                          </group>
+                          <group>
+                            
+                            <field name="grouped_booking_source"/>
+                            <field name="total_amount_direct"
+                                    attrs="{'invisible': [('grouped_booking_source', '!=', True)]}"/>
+                            <field name="total_amount_online"
+                                    attrs="{'invisible': [('grouped_booking_source', '!=', True)]}"/>
+                            <field name="total_amount_booking_source"
+                                    attrs="{'invisible': [('grouped_booking_source', '!=', True)]}"/>
+                            <field name="city_ledger_booking"/>
+                            <field name="settled_city_ledger_booking"/>
+                                      <field name="grouped_company_source"/>
+                            <field name="grouped_direct_source"/>
+                            <field name="grouped_online_source"/>
+                          </group>
+                        </group>
+                        <group>
+                            <group>
+                              <field name="no_lines"/>
+                                <field name="filter_type"/>
+                                <field name="booking_id"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                                <field name="folio_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="booking_source"/>
+                                <field name="company_booking_source"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                       attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                                <field name="online_travel_agent_source"
+                                       attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                                <field name="hotel_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="state"/>
+                                <field name="season_id"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="partner_id"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                                <field name="country_id"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                                <field name="mobile"/>
+                                <field name="user_id" widget="many2one_avatar_user"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                      
+                                <field name="total_amount"/>
+                                <field name="total_paid"/>
+                                <field name="balance"/>
+                            </group>
+                            <group>
+                                <field name="reference_number"/>
+                               
+                                <field name="city_ledger_total"
+                                       attrs="{'invisible': [('city_ledger_booking', '!=', True),('settled_city_ledger_booking', '!=', True)]}"/>
+                                <field name="city_ledger_balance"
+                                       attrs="{'invisible': [('city_ledger_booking', '!=', True),('settled_city_ledger_booking', '!=', True)]}"/>
+                                <field name="paid_amount_city_ledger"/>
+                                <field name="paid_for_city_ledger"/>
+                                <field name="total_advanced_payment"/>
+                                <field name="expected_balance"/>
+                                <field name="actual_balance"/>
+                                <field name="total_paid_city_ledger"/>
+                            </group>
+                        </group>
+                        <br/>
+                        <div class="row">
+                            <div class="col-2"/>
+                            <div class="col-2">
+                                <button name="print_pdf" type="object" string="Print (PDF)" class="btn btn-primary"
+                                        icon="fa-file-pdf-o"
+                                        style="color:white;background-color: #001f5c;border-color: #001f5c;"/>
+                            </div>
+                            <div class="col-2">
+                                <button name="button_search" type="object" string="Search" class="btn btn-primary"
+                                        style="color:white;background-color: #00A0AD;border-color: #00A0AD;"
+                                        icon="fa-search"/>
+                            </div>
+                            <div class="col-2">
+                                <button name="print_xlsx" type="object" string="Print (Excel)"
+                                        class="btn btn-primary" icon="fa-file-excel-o"
+                                        style="color:white;background-color: #001f5c;border-color: #001f5c;"/>
+                            </div>
+                            <div class="col-3">
+                                <button name="print_booking_source_pdf" type="object" string="Print Booking Sources"
+                                        class="btn btn-primary" icon="fa-file-pdf-o"
+                                        style="color:white;background-color: #001f5c;border-color: #001f5c;"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="folio_id" invisible="0"/>
+                                <field name="booking_id" options="{'no_open': True}"/>
+                                <field name="name"/>
+                                <field name="partner_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                       string="Guest"/>
+                                <field name="company_booking_source"
+                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                       string="Company"/>
+                                <field name="ref" optional="hide"/>
+                                <field name="related_hotel" options="{'no_create': True}"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="room_id"/>
+                                <field name="rate_plan_id"/>
+                                <field name="room_type_id"/>
+                                <field name="no_nights"/>
+                                <field name="no_rooms"/>
+                                <field name="price_night"/>
+                                <!--                                <field name="price_night_with_tax"/>-->
+                                <field name="user_id" widget="many2one_avatar_user"/>
+                                <field name="total_discount"/>
+                                <field name="price_tax"/>
+                                <field name="price_subtotal"/>
+                                <field name="price_paid"/>
+                                <field name="price_total"/>
+<!--                                <field name="cash_paid" optional="hide"/>-->
+<!--                                <field name="bank_paid" optional="hide"/>-->
+                                <field name="price_due" optional="hide"/>
+                                <field name="company_paid" optional="show"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="state" widget="badge"
+                                       decoration-muted="state == 'draft'"
+                                       decoration-success="state in ['part_checked_in', 'checked_in','part_checked_out','checked_out']"
+                                       decoration-warning="state == 'confirmed'"
+                                       decoration-danger="state == 'cancelled'"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="booking_filter_action_view" model="ir.actions.act_window">
+            <field name="name">Booking Filter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.filter</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="booking_filter_menu" name="Dynamic Reservation Report"
+                  parent="hotel_booking.booking_reporting_menu"
+                  action="booking_filter_action_view" sequence="10"/>
+
+        #duplicated menu
+        <menuitem id="booking_filter_menu_item" name="Dynamic Reservation Report"
+                  parent="hotel_booking.booking_reporting_menu_item"
+                  action="booking_filter_action_view" sequence="10"/>
+
+
+    </data>
+</odoo>

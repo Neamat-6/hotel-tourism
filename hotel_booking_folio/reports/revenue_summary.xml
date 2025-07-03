@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_revenue_summary_report" model="report.paperformat">
+            <field name="name">Daily Revenue Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_revenue_summary_report">
+            <field name="name">Revenue Summary</field>
+            <field name="model">revenue.summary</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.revenue_summary_report</field>
+            <field name="report_file">hotel_booking_folio.revenue_summary_report</field>
+            <field name="binding_model_id" ref="model_revenue_summary"/>
+            <field name="paperformat_id" ref="hotel_booking_folio.format_revenue_summary_report"/>
+        </record>
+
+        <template id="revenue_summary_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+
+                        <t t-foreach="docs" t-as="doc">
+                            <h4 class="text-center">Revenue Summary Report</h4>
+                            <!-- add currecnt datetime -->
+                            <h5 class="text-center" style="text-align:center">
+                              <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+                            </h5>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Day</th>
+                                        <th class="text-center">Total Room Charge</th>
+                                        <th class="text-center">Total Services</th>
+                                        <th class="text-center">Total Vat</th>
+                                        <th class="text-center">Total Municipality</th>
+                                        <!-- <th class="text-center">Total Payment</th> -->
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td class="text-center">
+                                                <span t-field="line.day"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.total_room_charge"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.total_service"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.total_vat"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.total_municipality"/>
+                                            </td>
+                                            <!-- <td class="text-center">
+                                                <span t-field="line.total_payment"/>
+                                            </td> -->
+                                            <td class="text-center">
+                                                <span t-field="line.total"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td class="text-center" colspan="1">
+                                            <b>Total</b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total_room_charge"/>
+                                            </b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total_service"/>
+                                            </b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total_vat"/>
+                                            </b>
+                                        </td>
+                                        <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total_municipality"/>
+                                            </b>
+                                        </td>
+                                        <!-- <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total_payment"/>
+                                            </b>
+                                        </td> -->
+                                        <td class="text-center">
+                                            <b>
+                                                <span t-field="doc.total"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

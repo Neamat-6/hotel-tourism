@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_manual_assign_view_form" model="ir.ui.view">
+            <field name="name">folio_manual_assign_view_form</field>
+            <field name="model">folio.manual.assign</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="wizard_id" invisible="1"/>
+                            <field name="folio_id" invisible="1"/>
+                            <field name="room_ids" options="{'no_create': True}" widget="many2many_tags" invisible="1"/>
+                            <field name="room_id" options="{'no_create': True}"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Assign" type="object" name="button_assign" class="btn btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

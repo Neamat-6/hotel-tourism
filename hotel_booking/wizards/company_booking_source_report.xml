@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="company_booking_source_view_form" model="ir.ui.view">
+            <field name="name">company_booking_source_view_form</field>
+            <field name="model">company.booking.source</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_booking_source"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                            <group>
+                                <field name="related_hotel" widget="many2many_tags"/>
+                                <field name="total_amount"/>
+                                <field name="total_paid"/>
+                                <field name="balance"/>
+                                <!--                                <field name="company_booking_source"-->
+                                <!--                                       attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>-->
+                                <!--                                <field name="date_to"/>-->
+                                <!--                                <field name="related_hotel" widget="many2many_tags" options="{'no_create': True}"/>-->
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_source_folios" type="object" string="Search"
+                                        class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="company_booking_source"/>
+                                <field name="total_paid"/>
+                                <field name="subtotal"/>
+                                <field name="balance"/>
+                                <field name="related_hotel"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="company_booking_source_action" model="ir.actions.act_window">
+            <field name="name">Company Booking Source</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">company.booking.source</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="company_booking_source_menu" name="Company Booking Source"
+                  parent="hotel_booking.booking_reporting_menu"
+                  action="company_booking_source_action" sequence="57"/>
+
+        #duplicated menu
+        <menuitem id="company_booking_source_menu_item" name="Company Booking Source"
+                  parent="hotel_booking.booking_reporting_menu_item"
+                  action="company_booking_source_action" sequence="57"/>
+    </data>
+</odoo>

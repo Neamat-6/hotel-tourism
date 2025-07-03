@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+	<!-- 	Sale Order Template Chat Api -->
+	<record id="email_template_edi_sale_custom_chat_api" model="mail.template">
+		<field name="name">Sales Order Whatsapp: Send By Whatsapp</field>
+		<field name="model_id" ref="sale.model_sale_order"/>
+		<field name="email_from">{{object.user_id.email_formatted }}</field>	
+		<field name="partner_to">{{object.partner_id.id}}</field>
+		<field name="subject">{{object.company_id.name}} {{object.state in ('draft', 'sent') and 'Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})</field>
+		<field name="body_html" type="html">
+			<p>
+<t t-if="object.company_id.order_information_in_message">
+Dear <t t-out="object.partner_id.name or ''" />, 
+
+Here is the your Order *<t t-out="object.name or ''" />* amounting in *<t t-out="object.amount_total or ''" /> <t t-out="object.currency_id.symbol or ''" />* from <t t-out="object.company_id.name or ''" />
+</t>
+<t t-if="object.company_id.order_product_detail_in_message">
+
+Following is your order details.
+
+<t t-foreach="object.order_line" t-as="line">
+*<t t-out="line.product_id.name or ''" />*
+*Qty:* <t t-out="line.product_uom_qty or ''" />
+*Price:* <t t-out="line.price_unit or ''" /> <t t-out="object.currency_id.symbol or ''" />
+<t t-if="line.discount != 0">
+*Discount:* <t t-out="line.discount or ''" />
+</t> 
+________________________
+
+</t>
+
+*Total Amount:* <t t-out="object.amount_total or ''" /> <t t-out="object.currency_id.symbol or ''" />
+</t>
+
+<t t-if="object.company_id.signature and object.env.user.sign">
+<t t-out="object.env.user.sign or ''" />%0A%0A
+</t>
+			</p>
+		</field>
+		<field name="report_template" ref="sale.action_report_saleorder"/>
+		<field name="report_name">{{(object.name or '').replace('/','_')}}</field>
+		<field name="lang">{{object.partner_id.lang}}</field>
+		<field name="auto_delete" eval="False"/>
+	</record>
+
+	<!-- Purchase Order Chat Api -->
+	<record id="email_template_edi_purchase_custom_chat_api" model="mail.template">
+		<field name="name">Purchase Order Whatsapp: Send by whatsapp</field>
+		<field name="model_id" ref="purchase.model_purchase_order"/>
+		<field name="email_from">{{object.user_id.email_formatted }}</field>	
+		<field name="partner_to">{{object.partner_id.id}}</field>
+		<field name="subject">{{object.company_id.name}} {{object.state in ('draft', 'sent') and 'Request For Quotation' or 'Order'}} (Ref {{object.name or 'n/a' }})</field>
+		<field name="body_html" type="html">
+			<pre>
+<t t-if="object.company_id.purchase_order_information_in_message">
+Dear <t t-out="object.partner_id.name or ''" />, 
+
+Here is the your Order *<t t-out="object.name or ''" />* amounting in *<t t-out="object.amount_total or ''" /> <t t-out="object.currency_id.symbol or ''" />* from <t t-out="object.company_id.name or ''" />
+
+</t>
+<t t-if="object.company_id.purchase_product_detail_in_message">
+Following is your order details.
+
+<t t-foreach="object.order_line" t-as="line">
+*<t t-out="line.product_id.name or ''" />*
+*Qty:* <t t-out="line.product_uom_qty or ''" />
+*Price:* <t t-out="line.price_unit or ''" /> <t t-out="object.currency_id.symbol or ''" />
+________________________
+
+</t>
+
+*Total Amount:* <t t-out="object.amount_total or ''" /> <t t-out="object.currency_id.symbol or ''" />
+</t>
+
+<t t-if="object.company_id.purchase_signature and object.env.user.sign">
+<t t-out="object.env.user.sign or ''" /> %0A%0A
+</t>
+			</pre>
+		</field>
+		<field name="report_template" ref="purchase.action_report_purchase_order"/>
+		<field name="report_name">RFQ_{{(object.name or '').replace('/','_')}}</field>
+		<field name="lang">{{object.partner_id.lang}}</field>
+		<field name="auto_delete" eval="True"/>
+	</record>
+
+	<!-- Account Invoice Template Chat Api -->
+	<record id="email_template_edi_invoice_custom_chat_api" model="mail.template">
+		<field name="name">Invoice: Send by Whatsapp</field>
+		<field name="model_id" ref="account.model_account_move"/>
+		<field name="email_from">{{(object.invoice_user_id.email_formatted or user.email_formatted) }}</field>
+		<field name="partner_to">{{object.partner_id.id}}</field>
+		<field name="subject">{{object.company_id.name}} Invoice (Ref {{object.name or 'n/a'}})</field>
+		<field name="body_html" type="xml">
+			<p>
+<t t-if="object.company_id.invoice_order_information_in_message">
+Dear <t t-out="object.partner_id.name or ''" />,
+
+<t t-if="object.name and object.state != 'draft'">
+Here is the your invoice *<t t-out="object.name or ''" />*.</t>
+
+<t t-else="">
+Here is your invoice *<t t-out="object.name or ''" />* amounting in *<t t-out="object.amount_total or ''" /> <t t-out="object.currency_id.symbol or ''" />* from ${object.company_id.name}<t t-out="object.company_id.name or ''" />
+
+</t>
+<t t-if="object.payment_state == 'paid'">
+This invoice is already paid.</t>
+
+<t t-else="">
+Please remit payment at your earliest convenience.
+
+</t>
+</t>
+<t t-if="object.company_id.invoice_product_detail_in_message">
+Following is your invoice details.
+
+<t t-foreach="object.invoice_line_ids" t-as="line">
+*<t t-out="line.product_id.name or ''" />*
+*Qty:* <t t-out="line.quantity or ''" />
+*Price:* <t t-out="line.price_unit or ''" /><t t-out="object.currency_id.symbol or ''" />
+________________________
+
+</t>
+*Total Amount:* <t t-out="object.amount_total or ''" /><t t-out="object.currency_id.symbol or ''" />
+
+</t>
+<t t-if="object.company_id.invoice_signature and object.env.user.sign">
+<t t-out="object.env.user.sign or ''" />
+</t> 
+			</p>
+
+		</field>
+		<field name="report_template" ref="account.account_invoices"/>
+		<field name="report_name">{{(object.name or '').replace('/','-')}}</field>
+		<field name="lang">{{object.partner_id.lang}}</field>
+		<field name="auto_delete" eval="True"/>
+	</record>
+
+	<!-- Account Payment Chat Api -->
+	<record id="mail_template_data_payment_receipt_custom_chat_api" model="mail.template">
+		<field name="name">Payment Receipt: Send by Whatsapp</field>
+		<field name="model_id" ref="account.model_account_payment"/>
+		<field name="subject">{{object.company_id.name}} Payment Receipt (Ref {{object.name or 'n/a' }})</field>
+		<field name="partner_to">{{object.partner_id.id}}</field>
+		<field name="body_html" type="xml">
+			<p>
+Dear <t t-out="object.partner_id.name or ''" />,
+
+Here is the Payment *<t t-out="object.name or ''" />* from <t t-out="object.company_id.name or ''" />
+<t t-if="object.company_id.invoice_order_information_in_message">
+
+Following is your Payment details.
+
+<t t-if="object.payment_type == 'inbound'">
+We received payment of *<t t-out="format_amount(object.amount, object.currency_id) or ''" />*
+
+Thank You.
+
+</t>
+</t>
+<t t-if="object.company_id.invoice_signature and object.env.user.sign">
+<t t-out="object.env.user.sign or ''" />
+
+</t>
+			</p>
+		</field>
+		<field name="report_template" ref="account.action_report_payment_receipt"/>
+		<field name="report_name">{{(object.name or '').replace('/','-')}}</field>
+		<field name="lang">{{object.partner_id.lang}}</field>
+		<field name="auto_delete" eval="True"/>
+	</record>
+
+	<!-- Stock Picking Chat Api -->
+	<record id="mail_template_data_stock_picking_custom_chat_api" model="mail.template">
+		<field name="name">Stock Transfer: Send by Whatsapp</field>
+		<field name="model_id" ref="stock.model_stock_picking"/>
+		<field name="email_from">{{object.user_id.email_formatted }}</field>
+		<field name="subject">{{object.company_id.name}} Stock Transfer (Ref {{object.name or 'n/a' }})</field>
+		<field name="partner_to">{{object.partner_id.id}}</field>
+		<field name="body_html" type="xml">
+			<p>
+Dear <t t-out="object.partner_id.name or ''" />,
+
+Here is the Stock Transfer *<t t-out="object.name or ''" />* from <t t-out="object.company_id.name or ''" />
+<t t-if="object.company_id.inventory_information_in_message">
+
+Following is your order details.
+
+<t t-foreach="object.move_ids_without_package" t-as="line">
+<t t-if="line.quantity_done">
+*<t t-out="line.name or ''" />*
+*Qty:* <t t-out="line.product_uom_qty or ''" />
+*Delivery Qty:* <t t-out="line.quantity_done or ''" />
+</t>
+<t t-else="">
+*<t t-out="line.name or ''" />*
+*Qty:* <t t-out="line.product_uom_qty or ''" />
+*Delivery Qty:* <t t-out="line.product_uom_qty or ''" />
+</t>
+</t>
+</t>
+% endif
+<t t-if="object.company_id.inventory_signature and object.env.user.sign">
+<t t-out="object.env.user.sign or ''" /> %0A%0A
+</t>
+			</p>
+		</field>
+		<field name="report_template" ref="stock.action_report_picking"/>
+		<field name="report_name">{{(object.name or '').replace('/','-')}}</field>
+		<field name="lang">{{object.partner_id.lang}}</field>
+		<field name="auto_delete" eval="True"/>
+	</record>
+</odoo>

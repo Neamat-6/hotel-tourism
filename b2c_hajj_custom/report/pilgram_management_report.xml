@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_pilgrim_management_excel" model="ir.actions.report">
+          <field name="name">Pilgrim Management Report</field>
+          <field name="model">pilgrim.management.details</field>
+            <field name="report_type">xlsx</field>
+          <field name="report_name">b2c_hajj_custom.report_pilgrim_management_excel</field>
+          <field name="report_file">Pilgrim Management Xls</field>
+          <field name="binding_type">report</field>
+        </record>
+
+        <record id="format_pilgram_filter_report" model="report.paperformat">
+            <field name="name">Pilgram Management Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">32</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">25</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_pilgrim_management_report">
+            <field name="name">Pilgrim Management Report</field>
+            <field name="model">pilgrim.management.details</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">b2c_hajj_custom.pilgrim_management_filter_report</field>
+            <field name="report_file">b2c_hajj_custom.pilgrim_management_filter_report</field>
+            <field name="binding_model_id" ref="model_pilgrim_management_details"/>
+            <field name="paperformat_id" ref="format_pilgram_filter_report"/>
+        </record>
+
+        <template id="pilgrim_management_filter_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, Helvetica, sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                            width: 100%;
+                            background-color: #ffffff;
+                            border-collapse: collapse;
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            font-size: 11px;
+                            color: #000000;
+                            }
+
+                            table.GeneratedTable td, table.GeneratedTable th {
+                            border-width: 1px;
+                            border-style: solid;
+<!--                            padding-bottom: 8px; /* Increased padding for better readability */-->
+<!--                            padding-top: 17px;-->
+                            text-align: center; /* Center align text in cells */
+                            padding: 2px 4px;
+                            word-wrap: break-word;
+                            }
+
+                            table.GeneratedTable thead th {
+                            background-color: #74c0fc;
+                            color: black;
+                            font-color: ffffff;
+                            font-weight: bold;
+                            }
+
+                            table.GeneratedTable tbody tr:nth-child(even) {
+                            background-color: #f2f2f2; /* Zebra stripe effect */
+                            }
+
+                            table.GeneratedTable sources td {
+                            background-color: #d8dee9;
+                            font-weight: bold;
+                            }
+
+                            .report-title {
+                            text-align: center;
+                            font-size: 24px;
+                            margin-top: 20px;
+                            margin-bottom: 8px;
+                            font-weight: bold;
+                            color: #1864ab;
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="text-left">
+                                <p>
+                                     <t t-if="doc.hotel_type">
+                                        &#160;&#160;&#160;&#160; Hotel Type:
+                                        <t t-esc="doc.hotel_type"/>
+                                    </t>
+                                    <t t-if="doc.hotel_id">
+                                        &#160;&#160;&#160;&#160; Hotel:
+                                        <t t-esc="doc.hotel_id.name"/>
+                                    </t>
+                                    <t t-if="doc.hotel_arrival_date_from">
+                                        &#160;&#160;&#160;&#160; Arrival Date From:
+                                        <t t-esc="doc.hotel_arrival_date_from"/>
+                                    </t>
+                                    <t t-if="doc.hotel_arrival_date_to">
+                                        &#160;&#160;&#160;&#160; Arrival Date To:
+                                        <t t-esc="doc.hotel_arrival_date_to"/>
+                                    </t>
+                                    <t t-if="doc.hotel_dep_date_from">
+                                        &#160;&#160;&#160;&#160; Departure Date From:
+                                        <t t-esc="doc.hotel_dep_date_from"/>
+                                    </t>
+                                    <t t-if="doc.hotel_dep_date_to">
+                                        &#160;&#160;&#160;&#160; Departure Date To:
+                                        <t t-esc="doc.hotel_dep_date_to"/>
+                                    </t>
+                                    <br/>
+                                   <t t-if="doc.package_id">
+                                        &#160;&#160;&#160;&#160; Package:
+                                        <t t-esc="doc.package_id.package_code"/>
+                                    </t>
+                                    <t t-if="doc.gender">
+                                        &#160;&#160;&#160;&#160; Gender:
+                                        <t t-esc="doc.gender"/>
+                                    </t>
+                                   <t t-if="doc.pilgrim_type">
+                                        &#160;&#160;&#160;&#160; Pilgrim Type:
+                                        <t t-esc="doc.pilgrim_type"/>
+                                    </t>
+                                    <br/>
+                                   <t t-if="doc.flight_contract_id">
+                                        &#160;&#160;&#160;&#160; Flight Contract:
+                                        <t t-esc="doc.flight_contract_id.name"/>
+                                    </t>
+                                    <t t-if="doc.pilgrims_no">
+                                        &#160;&#160;&#160;&#160; Pilgrims NO.:
+                                        <t t-esc="doc.pilgrims_no"/>
+                                    </t>
+                                    <t t-if="doc.arrival_flight_no">
+                                        &#160;&#160;&#160;&#160; Arrival Flight No.:
+                                        <t t-esc="doc.arrival_flight_no"/>
+                                    </t>
+                                   <t t-if="doc.departure_flight_no">
+                                        &#160;&#160;&#160;&#160; Departure Flight Date:
+                                        <t t-esc="doc.departure_flight_no"/>
+                                    </t>
+                                   <t t-if="doc.arrival_airport_id">
+                                        &#160;&#160;&#160;&#160; Arrival Airport:
+                                        <t t-esc="doc.arrival_airport_id.name"/>
+                                    </t>
+                                   <t t-if="doc.arrival_hall_no">
+                                        &#160;&#160;&#160;&#160; Arrival Hall:
+                                        <t t-esc="doc.arrival_hall_no"/>
+                                    </t>
+                                   <t t-if="doc.departure_flight_date">
+                                        &#160;&#160;&#160;&#160; Departure Flight Date:
+                                        <t t-esc="doc.departure_flight_date"/>
+                                    </t>
+                                   <t t-if="doc.departure_airport_id">
+                                        &#160;&#160;&#160;&#160; Departure Airport:
+                                        <t t-esc="doc.departure_airport_id.name"/>
+                                    </t>
+                                   <t t-if="doc.departure_hall_no">
+                                        &#160;&#160;&#160;&#160; Departure Hall:
+                                        <t t-esc="doc.departure_hall_no"/>
+                                    </t>
+                                    <br/>
+                                </p>
+
+                                <br/>
+                            </div>
+                            <h3 class="report-title">بيان مفصل بوصول الحجاج على الرحلات مع عقود النقل والسكن</h3>
+                            <table class="table GeneratedTable m-2">
+                                <thead>
+                                    <tr style="background-color: white;">
+                                        <th style="color:white; width: 40px;">#</th>
+                                        <th style="color:white; width: 40px;">Name</th>
+                                        <th style="color:white; width: 40px;">Passport number</th>
+<!--                                        <th style="color:white; width: 40px;">First Name</th>-->
+<!--                                        <th style="color:white; width: 40px;">Last Name</th>-->
+                                        <th style="color:white; width: 100px;">Flight Contract</th>
+                                        <th style="color:white; width: 100px;">Arrival Flight</th>
+                                        <th style="color:white; width: 40px;">Arrival Date</th>
+                                        <th style="color:white; width: 70px;">Arrival Airport</th>
+                                        <th style="color:white; width: 100px;">Departure Flight</th>
+                                        <th style="color:white; width: 40px;">Departure Date</th>
+                                        <th style="color:white; width: 70px;">Departure Airport</th>
+<!--                                        <th style="color:white; width: 80px;">Hall</th>-->
+                                        <th style="color:white; width: 80px;">Transportation Contract</th>
+                                        <th style="color:white; width: 100px;">Makkah Hotel</th>
+                                        <th style="color:white; width: 100px;">Madinah Hotel</th>
+                                        <th style="color:white; width: 100px;">Arfa Hotel</th>
+                                        <th style="color:white; width: 100px;">Minnah Hotel</th>
+                                        <th style="color:white; width: 90px;">Package</th>
+                                        <th style="color:white; width: 90px;">Makkah Contract</th>
+                                        <th style="color:white; width: 90px;">Madinah Contract</th>
+                                        <th style="color:white; width: 90px;">Main Hotel Contract</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="counter" t-value="0"/>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                        <tr>
+                                            <td>
+                                                <span t-esc="counter"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.partner_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.passport_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.flight_schedule_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.arrival_flight_no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.flight_arrival_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.arrival_airport_id.name"/>
+                                            </td>
+                                             <td>
+                                                <t t-esc="line.departure_flight_no"/>
+                                            </td>
+                                             <td>
+                                                <t t-esc="line.flight_departure_date"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line.dep_airport_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-set="contract_nos" t-value="' , '.join(contract.transportation_contract_no for contract in line.transportation_contract_ids)"/>
+                                                <span t-esc="contract_nos"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.main_makkah.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.main_madinah.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.main_arfa.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.main_minnah.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.package_id.package_code"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.makkah_contract_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.madinah_contract_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.main_hotel_contract_id.name"/>
+                                            </td>
+                                        </tr>
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <span t-esc="counter"/>-->
+<!--                                            </td>-->
+<!--&lt;!&ndash;                                            <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <span t-esc="counter"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </td>&ndash;&gt;-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="line.partner_id.name"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.passport_no"/>-->
+<!--                                            </td>-->
+
+<!--&lt;!&ndash;                                            <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <t t-esc="line.partner_id.name.split(' ', 1)[1] if ' ' in line.partner_id.name else ''"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </td>&ndash;&gt;-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="line.flight_arrival_date.strftime('%Y-%m-%d') if line.arrival_date else ''"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="line.arrival_date.strftime('%H:%M:%S') if line.arrival_date else ''"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.flight_schedule_id.flight_no"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.flight_schedule_id.airport"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.flight_schedule_id.hall_no"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.transportation_contract_id.transportation_contract_no"/>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--&lt;!&ndash;                                                <span t-field="line.hotel_id"/>&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <span t-field="line.package_id.package_code"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

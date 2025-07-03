@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="apply_booking_discount_form" model="ir.ui.view">
+            <field name="name">apply_booking_discount_form</field>
+            <field name="model">booking.apply.discount</field>
+            <field name="arch" type="xml">
+                <form string="apply_booking_discount_form">
+                    <sheet>
+                        <group>
+                            <field name="type"/>
+                            <field name="discount_rule"/>
+                        </group>
+                        <footer>
+                            <button name="apply_discount" string="Apply" type="object" class="oe_highlight"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

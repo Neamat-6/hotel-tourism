@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record forcecreate="True" id="cron_get_ezee_invoices" model="ir.cron">
+            <field name="name">Get Ezee Inovices</field>
+            <field name="model_id" ref="ezee_api.model_create_ezee_invoice"/>
+            <field name="state">code</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="True" name="active"/>
+            <field name="code">
+try:
+    model.button_connect()
+    log('Connected to Ezee')
+except Exception as e:
+    log(e)
+            </field>
+        </record>
+    </data>
+</odoo>

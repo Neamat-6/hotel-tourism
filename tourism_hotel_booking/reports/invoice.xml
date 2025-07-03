@@ -1,0 +1,23 @@
+<odoo>
+    <template id='account_custom_report' inherit_id='account.report_invoice_document'>
+        <xpath expr="//div/table/thead/tr/th[@class='text-right']" position='before'>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Days</th>
+        </xpath>
+
+        <xpath expr="//div/table[@name='invoice_line_table']/tbody/t[3]/tr/t/td[@name='account_invoice_line_name']" position='after'>
+
+            <td>
+                <span t-esc="line.check_in" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+            </td>
+            <td>
+                <span t-esc="line.check_out" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/>
+            </td>
+            <td>
+                <span t-esc="line.number_of_days"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <record id="vendor_mail_booking_details_notification" model="mail.template">
+            <field name="name">Vendor Booking Notification Email</field>
+            <field name="model_id" ref="model_tourism_hotel_booking"/>
+            <field name="subject">{{object.company_id.name}} booking</field>
+            <!--   <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted or '') }}</field>-->
+            <field name="email_from">
+                ${('&quot;%s&quot; &lt;%s&gt;' % (object.company_id.name, object.company_id.email or user.email)) | safe}
+            </field>
+            <field name="partner_to">{{ object.vendor_id.id }}</field>
+            <!--            <field name="lang">{{ object.vendor_id.lang }}</field>-->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.vendor_id.name or ''"></t>
+                        <br/>
+                        <br/>
+                        Greetings from Alkinana Company ...
+                        <br/>
+                        Kindly book the following Request .
+                        <br/>
+                        <br/>
+                        <t t-foreach="object.line_ids" t-as="line">
+                            Hotel Name :
+                            <t t-out="line.hotel_id.name  or ''"></t>
+                            <br/>
+                            Guest Name :
+                            <t t-out="object.guest_name or object.partner_id.name"></t>
+                            <br/>
+                            Arrival date :
+                            <t t-out="line.check_in.strftime('%d/%m/%Y')  or ''"></t>
+                            <br/>
+                            Depart. date :
+                            <t t-out="line.check_out.strftime('%d/%m/%Y')  or ''"></t>
+                            <br/>
+                            No. of rooms :
+                            <t t-out="int(line.count)  or ''"></t>
+                            <br/>
+                            Number of Nights :
+                            <t t-out="int(line.date_diff)  or ''"></t>
+                            <br/>
+                            Room type :
+                            <t t-out="line.rooms_display  or ''"></t>
+                            <br/>
+                            Meal plan :
+                            <t t-out="','.join(line.meal_id.mapped('name'))"></t>
+                            <br/>
+                            Kindest Regards,
+                            <br/>
+                            <br/>
+                            <ul style="list-style-type: none;padding: 0;margin: 0">
+                                <li><t t-out="user.name"/></li>
+                                <li><t t-out="user.function"/></li>
+                                <t t-if="user.mobile">
+                                    <li>Mobile : <t t-out="user.mobile"/></li>
+                                </t>
+                                <t t-if="user.phone">
+                                    <li>Telephone : <t t-out="user.phone"/></li>
+                                </t>
+                                <t t-if="user.email">
+                                    <li>Email : <t t-out="user.email"/></li>
+                                </t>
+                                <t t-if="user.website">
+                                    <li>Website : <t t-out="user.website"/></li>
+                                </t>
+                            </ul>
+                        </t>
+                    </p>
+<!--                    <div style="margin: 16px 0px 16px 0px;">-->
+<!--                        <a t-attf-href="/my/bookings/{{object.id}}" style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">-->
+<!--                            View Booking-->
+<!--                        </a>-->
+<!--                    </div>-->
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+        <record id="customer_mail_booking_details_notification" model="mail.template">
+            <field name="name">Customer Booking Notification Email</field>
+            <field name="model_id" ref="model_tourism_hotel_booking"/>
+            <field name="subject">{{object.company_id.name}} booking</field>
+            <field name="email_from">${('&quot;%s&quot; &lt;%s&gt;' % (object.company_id.name, object.company_id.email or user.email)) | safe}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <!--            <field name="lang">{{ object.partner_id.lang }}</field>-->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.partner_id.name or ''"></t>
+                        <br/>
+                        <br/>
+                        You have a reservation that includes this data
+                        <br/>
+                        <br/>
+                        booked by :
+                        <t t-out="object.user_id.name  or ''"></t>
+
+                        <br/>
+                        booked Expiry Date :
+                        <t t-out="object.expiry_date  or ''"></t>
+
+                        <t t-foreach="object.line_ids" t-as="line">
+
+                            <br/>
+                            <br/>
+                            Hotel :
+                            <t t-out="line.hotel_id.name  or ''"></t>
+                            <br/>
+                            <br/>
+                            room type :
+                            <t t-out="line.rooms_display  or ''"></t>
+                            <br/>
+                            <br/>checkIn :
+                            <t t-out="line.check_in  or ''"></t>
+                            <br/>
+                            <br/>checkOut :
+                            <t t-out="line.check_out  or ''"></t>
+                            <br/>
+                            <br/>
+                            vendor :
+                            <t t-out="line.vendor.name  or ''"></t>
+                            <br/>
+                            <br/>
+                            Price :
+                            <t t-out="line.price  or line.m_price"></t>
+                            <br/>
+                            <br/>
+                            Number Of Rooms :
+                            <t t-out="line.count"></t>
+
+                        </t>
+                    </p>
+<!--                    <div style="margin: 16px 0px 16px 0px;">-->
+<!--                        <a t-attf-href="/my/bookings/{{object.id}}" style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">-->
+<!--                            View Booking-->
+<!--                        </a>-->
+<!--                    </div>-->
+                </div>
+            </field>
+            <field name="report_template" ref="customer_hotel_booking"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+        <record id="confirmation_customer_mail_booking" model="mail.template">
+            <field name="name">Confirmation Customer Booking</field>
+            <field name="model_id" ref="model_tourism_hotel_booking"/>
+            <field name="subject">{{object.company_id.name}} booking</field>
+            <field name="email_from">${('&quot;%s&quot; &lt;%s&gt;' % (object.company_id.name, object.company_id.email or user.email)) | safe}</field>
+            <field name="email_to">{{ (object.partner_id.email_formatted) }}</field>
+            <!--            <field name="lang">{{ object.partner_id.lang }}</field>-->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.partner_id.name or ''"></t>
+                        <br/>
+                        Thanks For Booking
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+
+        <record id="cancellation_mail_booking" model="mail.template">
+            <field name="name">Cancellation Booking</field>
+            <field name="model_id" ref="model_tourism_hotel_booking"/>
+            <field name="subject">{{object.company_id.name}} booking Cancel </field>
+            <field name="email_from">${('&quot;%s&quot; &lt;%s&gt;' % (object.company_id.name, object.company_id.email or user.email)) | safe}</field>
+            <field name="email_to">{{ (object.vendor_id.email_formatted) }}</field>
+            <!--            <field name="lang">{{ object.partner_id.lang }}</field>-->
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.partner_id.name or ''"></t>
+                        <br/>
+                        The Booking have been cancel by the customer
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

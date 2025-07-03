@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="default_room_view_tree" model="ir.ui.view">
+            <field name="name">default_room_view_tree</field>
+            <field name="model">hotel.default.room</field>
+            <field name="arch" type="xml">
+                <tree string="default_room_tree">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="floor_id"/>
+                    <field name="booking_ok"/>
+                    <field name="telephone_extension"/>
+                    <field name="room_size"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        <record id="default_room_view_form" model="ir.ui.view">
+            <field name="name">default_room_view_form</field>
+            <field name="model">hotel.default.room</field>
+            <field name="arch" type="xml">
+                <form string="default_room_form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="floor_id"/>
+                            <field name="booking_ok"/>
+                            <field name="telephone_extension"/>
+                            <field name="room_size"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="default_room_action" model="ir.actions.act_window">
+            <field name="name">Default Rooms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.default.room</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="default_room_menu" name="Default Rooms" parent="tourism_hotel_booking.menu_hotel_configuration" action="tourism_hotel_booking.default_room_action" sequence="55"/>
+    </data>
+</odoo>

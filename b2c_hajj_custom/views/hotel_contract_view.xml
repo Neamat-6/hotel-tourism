@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hotel_contract_form_view" model="ir.ui.view">
+        <field name="name">hotel_contract_form_view</field>
+        <field name="model">hotel.contract.management</field>
+        <field name="arch" type="xml">
+            <form string="Contract Management">
+                <header>
+                    <button string="Confirm" type="object" name="action_confirm"
+                            attrs="{'invisible': [('state', 'in', ['confirm', 'po_created'])]}"/>
+                    <button string="Create Purchase Order" type="object" name="button_create_purchase_order"
+                            attrs="{'invisible': [('state', 'in', ['draft', 'po_created'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,po_created"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Contract Code" required="1"
+                                   attrs="{'readonly': [('state', '=', 'po_created')]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vendor" attrs="{'readonly': [('state', '=', 'po_created')]}"/>
+                            <field name="hotel_id"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="purchase_order_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hotel Lines">
+                            <field name="line_ids" attrs="{'readonly': [('state', '=', 'po_created')]}">
+                                <tree editable="bottom">
+                                    <field name="room_type_id"/>
+                                    <field name="floor_id"/>
+                                    <field name="start"/>
+                                    <field name="count"/>
+                                    <field name="unit_price"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="hotel_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_contract_tree_view" model="ir.ui.view">
+        <field name="name">hotel.contract.tree.view</field>
+        <field name="model">hotel.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hotel_contract_action_view" model="ir.actions.act_window">
+        <field name="name">Hotel Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hotel.contract.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="hotel_contract_menu" name="Hotel Contract" parent="b2c_hajj_custom.b2c_main_menu"
+              action="hotel_contract_action_view"
+              sequence="20"/>
+</odoo>

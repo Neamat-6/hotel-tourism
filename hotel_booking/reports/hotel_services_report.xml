@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_hotel_service_report" model="report.paperformat">
+            <field name="name">Hotel Service Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_hotel_service_report">
+            <field name="name">Hotel Services</field>
+            <field name="model">hotel.service</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.hotel_service_report</field>
+            <field name="report_file">hotel_booking.hotel_service_report</field>
+            <field name="binding_model_id" ref="model_hotel_service"/>
+            <field name="paperformat_id" ref="hotel_booking.format_hotel_service_report"/>
+        </record>
+
+        <template id="hotel_service_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <b>
+                                <span>
+                                    Date From:
+                                    <t t-esc="doc.date_from"/>
+                                    To
+                                    <t t-esc="doc.date_to"/>
+                                </span>
+                            </b>
+                            <b>
+                                <h4 class="text-center">Hotel Services Report</h4>
+                            </b>
+                            <br/>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Day</th>
+                                        <th class="text-center">Particulars</th>
+                                        <th class="text-center">Booking</th>
+                                        <th class="text-center">Room</th>
+                                        <th class="text-center">Description</th>
+                                        <th class="text-center">Created By</th>
+                                        <th class="text-center" t-if="doc.print_amount">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td class="text-center">
+                                                <span t-field="line.day"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.particular"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.room_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.description"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.created_by"/>
+                                            </td>
+                                            <td class="text-center" t-if="doc.print_amount">
+                                                <span t-field="line.amount"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <div>
+                                <b>
+                                    <span>
+                                        Total:
+                                        <t t-esc="doc.total"/>
+                                    </span>
+                                </b>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record model="ir.actions.report" id="action_service_xlsx_report">
+            <field name="name">Hotel Services XLSX</field>
+            <field name="model">hotel.service</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">hotel_booking.hotel_service_xlsx_report</field>
+            <field name="report_file">hotel_booking.hotel_service_xlsx_report</field>
+            <field name="binding_model_id" ref="model_hotel_service"/>
+        </record>
+
+    </data>
+</odoo>

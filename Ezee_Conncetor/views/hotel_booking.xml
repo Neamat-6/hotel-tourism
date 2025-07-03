@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hotel_booking_form_inherit" model="ir.ui.view">
+        <field name="name">hotel.booking.form.inherit</field>
+        <field name="model">hotel.booking</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='send_by_whatsapp_direct']" position="after">
+                <button name="fetch_and_create_ezee_bookings" type="object" string="Retrieve Booking"/>
+            </xpath>
+            <xpath expr="//field[@name='hotel_id']" position="after">
+                <field name="sub_booking_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- inherit daily_revenue_view_form -->
+  <record id="daily_revenue_by_tax_view_form" model="ir.ui.view">
+    <field name="model">daily.revenue</field>
+    <field name="mode">primary</field>
+    <field name="priority">2100</field>
+    <field name="inherit_id" ref="hotel_booking_folio.daily_revenue_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='filter_service']" position="replace"/>
+      <xpath expr="//field[@name='filter_room_charge']" position="replace"/>
+      <xpath expr="//field[@name='display_folio_numbers']" position="replace"/>
+      <xpath expr="//field[@name='line_ids']//tree//field[@name='total_room_charge']" position="replace"/>
+      <xpath expr="//field[@name='line_ids']//tree//field[@name='total_service']" position="replace"/>
+      <xpath expr="//field[@name='line_ids']//tree//field[@name='folio_ids']" position="replace"/>
+    </field>
+  </record>
+
+  <record id="daily_revenue_by_tax_action" model="ir.actions.act_window">
+    <field name="name">Revenue By Tax</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">daily.revenue</field>
+    <field name="view_mode">form</field>
+    <field name="view_ids"
+      eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('hotel_booking_folio.daily_revenue_by_tax_view_form')}),
+            ]" />
+    <field name="context">{'daily_revenue_by_tax': True}</field>
+    <field name="target">new</field>
+  </record>
+
+  <menuitem id="revenue_tax_wizard_menu" name="Revenue By Tax"
+    parent="hotel_booking.booking_reporting_menu"
+    action="daily_revenue_by_tax_action" />
+
+
+</odoo>

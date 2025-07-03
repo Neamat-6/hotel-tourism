@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <record id="action_fetch_update_data" model="ir.actions.server">
+        <field name="name">Process Image and Update</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="binding_model_id" ref="wk_ocr_data_fetch.model_res_partner"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+                action = model.action_process_image()
+        </field>
+        <field name="groups_id" eval="[(4, ref('wk_ocr_data_fetch.group_ocr_editor_and_processor'))]"/>
+    </record>
+
+    <record id="action_test_ocr_template_wizard" model="ir.actions.act_window">
+        <field name="name">Test OCR Template</field>
+        <field name="res_model">test.ocr.template.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help">Test the OCR template with test image</field>
+    </record>
+</odoo>

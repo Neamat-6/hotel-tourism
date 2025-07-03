@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.actions.report" id="action_transportation_report">
+      <field name="name">Transportation Report</field>
+      <field name="model">hotel.booking.transportation</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">tourism_hotel_booking.transportation_report_template</field>
+      <field name="report_file">tourism_hotel_booking.transportation_report_template</field>
+      <field name="binding_model_id" ref="model_hotel_booking_transportation"/>
+      <field name="binding_type">report</field>
+      <field name="binding_view_types">list,form</field>
+    </record>
+
+    <template id="transportation_report_template">
+      <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+          <t t-foreach="docs" t-as="doc">
+            <div class="page" style="font-family:Arial,Helvetica,sans-serif; direction: rtl;">
+              <style>
+                .summaryTable, .detailTable {
+                  width: 100%;
+                  border-collapse: collapse;
+                  margin-bottom: 20px;
+                }
+                .summaryTable td, .detailTable td, .detailTable th {
+                  border: 2px solid #000;
+                  padding: 5px;
+                  text-align: center;
+                  vertical-align: middle;
+                }
+                .detailTable th {
+                  background-color: #eee;
+                }
+                .report-title {
+                  text-align: center;
+                  font-size: 20px;
+                  font-weight: bold;
+                  margin-bottom: 10px;
+                }
+              </style>
+
+              <h2 class="report-title">أمر تشغيل</h2>
+
+              <table class="summaryTable">
+                <tr>
+                  <td>رقم أمر التشغيل</td>
+                  <td><span t-field="doc.operation_number"/></td>
+                  <td>عدد الحافلات</td>
+                  <td>
+                    <t t-if="doc.transportation_booking_ids">
+                      <span t-field="doc.transportation_booking_ids[0].no_of_bus"/>
+                    </t>
+                    <t t-else="">-</t>
+                  </td>
+                  <td>موديل الحافلة</td>
+                  <td>
+                    <t t-if="doc.transportation_booking_ids and doc.transportation_booking_ids[0].bus_type">
+                      <span t-field="doc.transportation_booking_ids[0].bus_type"/>
+                    </t>
+                    <t t-elif="doc.transportation_booking_ids and doc.transportation_booking_ids[0].bus_type_id">
+                      <span t-field="doc.transportation_booking_ids[0].bus_type_id.name"/>
+                    </t>
+                    <t t-else="">-</t>
+                  </td>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td>الوكيل</td>
+                  <td><span t-field="doc.travel_agent_name.name"/></td>
+                  <td>الجنسية</td>
+                  <td>
+                    <t t-if="doc.partner_id and doc.partner_id.country_id">
+                      <span t-field="doc.partner_id.country_id.name"/>
+                    </t>
+                    <t t-else="">-</t>
+                  </td>
+                  <td>رقم التعميم</td>
+                  <td><span t-field="doc.circular_number"/></td>
+                  <td>عدد المعتمرين</td>
+                  <td><span t-field="doc.number_of_guests"/></td>
+                </tr>
+                <tr>
+                  <td>رحلة القدوم</td>
+                  <td><span t-field="doc.arrival_flight_number"/></td>
+                  <td>وقت الوصول</td>
+                  <td>
+                    <span t-field="doc.flight_arrival_date" t-options='{"format": "HH:mm"}'/>
+                  </td>
+                  <td>رحلة المغادرة</td>
+                  <td><span t-field="doc.departure_flight_number"/></td>
+                  <td>وقت الاقلاع</td>
+                  <td>
+                    <span t-field="doc.flight_departure_date" t-options='{"format": "HH:mm"}'/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>فندق مكة</td>
+                  <td><span t-field="doc.makkah_hotel"/></td>
+                  <td>فندق المدينة</td>
+                  <td><span t-field="doc.madinah_hotel"/></td>
+                  <td colspan="4"></td>
+                </tr>
+                <tr>
+                  <td>وصول مكة</td>
+                  <td>
+                    <span t-field="doc.makkah_arrival_date" t-options='{"format": "dd-MM-yyyy HH:mm"}'/>
+                  </td>
+                  <td>مغادرة مكة</td>
+                  <td>
+                    <span t-field="doc.makkah_departure_date" t-options='{"format": "dd-MM-yyyy HH:mm"}'/>
+                  </td>
+                  <td>وصول المدينة</td>
+                  <td>
+                    <span t-field="doc.madinah_arrival_date" t-options='{"format": "dd-MM-yyyy HH:mm"}'/>
+                  </td>
+                  <td>مغادرة المدينة</td>
+                  <td>
+                    <span t-field="doc.madinah_departure_date" t-options='{"format": "dd-MM-yyyy HH:mm"}'/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>المشرف</td>
+                  <td><span t-field="doc.supervisor"/></td>
+                  <td>الهاتف</td>
+                  <td><span t-field="doc.phone"/></td>
+                  <td colspan="4"></td>
+                </tr>
+              </table>
+
+              <table class="detailTable">
+                <tr>
+                  <th>التاريخ</th>
+                  <th>اليوم</th>
+                  <th>الحركة</th>
+                  <th>الوقت</th>
+                  <th>من</th>
+                  <th>المنفذ/الفندق</th>
+                  <th>إلي</th>
+                  <th>المنفذ/الفندق</th>
+                </tr>
+                <t t-foreach="doc.transportation_destination_lines" t-as="line">
+                  <tr>
+                    <td>
+                      <span t-field="line.datetime" t-options='{"format": "dd-MM-yyyy"}'/>
+                    </td>
+                    <td>
+                      <span t-field="line.datetime" t-options='{"format": "EEEE"}'/>
+                    </td>
+                    <td>
+                      <span t-field="line.move"/>
+                    </td>
+                    <td>
+                      <span t-field="line.datetime" t-options='{"format": "HH:mm"}'/>
+                    </td>
+                    <td>
+                      <span t-field="line.from_destination_id.name"/>
+                    </td>
+                    <td>
+                      <span t-field="line.from_destination_id.name"/>
+                    </td>
+                    <td>
+                      <span t-field="line.to_destination_id.name"/>
+                    </td>
+                    <td>
+                      <span t-field="line.to_destination_id.name"/>
+                    </td>
+                  </tr>
+                </t>
+              </table>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>

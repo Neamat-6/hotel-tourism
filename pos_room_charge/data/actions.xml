@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="action_force_delete_order">
+          <field name="name">Force Delete Order</field>
+          <field name="model_id" ref="point_of_sale.model_pos_order"/>
+          <field name="binding_type">action</field>
+          <field name="state">code</field>
+            <field name="groups_id" eval="[(4,ref('point_of_sale.group_pos_manager'))]"/>
+          <field name="code">
+          if records:
+            records.force_delete_order()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_reclose_session">
+          <field name="name">Re-Close Session</field>
+          <field name="model_id" ref="point_of_sale.model_pos_session"/>
+          <field name="binding_type">action</field>
+          <field name="state">code</field>
+            <field name="groups_id" eval="[(4,ref('point_of_sale.group_pos_manager'))]"/>
+          <field name="code">
+          if records:
+            records.reclose_session()
+          </field>
+        </record>
+    </data>
+</odoo>

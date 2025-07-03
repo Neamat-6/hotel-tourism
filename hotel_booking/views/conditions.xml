@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_hotel_conditions" model="ir.actions.act_window">
+        <field name="name">conditions</field>
+        <field name="res_model">conditions.terms</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hotel_conditions" name="Conditions And Terms" parent="hotel_booking.menu_hotel_configuration"
+              groups="hotel_booking.menu_hotel_conditions_group"
+              action="action_hotel_conditions" sequence="100"/>
+
+
+</odoo>

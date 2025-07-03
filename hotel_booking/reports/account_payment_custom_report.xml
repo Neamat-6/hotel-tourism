@@ -1,0 +1,222 @@
+<odoo>
+    <template id="report_payment_document_temp">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-if="docs">
+                        <t t-set="booking_ids"
+                           t-value="','.join([doc.booking_id.name for doc in docs if doc.booking_id])"/>
+                        <t t-set="journal_ids"
+                           t-value="','.join([doc.journal_id.name for doc in docs if doc.journal_id])"/>
+                        <!-- Document Content -->
+                        <div class="page"
+                             style="font-family: Arial !important; direction: rtl; text-align: right; width: 100%;">
+                            <style>
+                                .GeneratedTable {
+                                width: 100%;
+                                background-color: #ffffff;
+                                border-collapse: collapse;
+                                color: #000000;
+                                border: none;
+                                }
+                                .GeneratedTable td, .GeneratedTable th {
+                                padding: 5px;
+                                border: none;
+                                }
+                                .GeneratedTable thead {
+                                background-color: #ffffff;
+                                }
+                                .bold-text {
+                                font-weight: bold;
+                                }
+                                .center-text {
+                                text-align: center;
+                                }
+                                .rtl-text {
+                                direction: rtl;
+                                font-weight: bold;
+                                }
+                                .ltr-text {
+                                direction: ltr;
+                                text-align: left;
+                                font-weight: bold;
+                                }
+                                .no-border {
+                                border: none;
+                                }
+                                .signature-line {
+                                border-top: 1px solid #000;
+                                margin-top: 20px;
+                                text-align: center;
+                                padding-top: 10px;
+                                }
+                                .header-logo {
+                                text-align: center;
+                                }
+                                .page-title {
+                                font-size: 20px;
+                                font-weight: bold;
+                                }
+                                .page-subtitle {
+                                font-size: 16px;
+                                font-weight: bold;
+                                }
+                                .amount-box {
+                                display: inline-block;
+                                padding: 5px;
+                                border: 1px solid #000;
+                                margin-top: 10px;
+                                text-align: center;
+                                }
+                                table.GeneratedTable, .GeneratedTable td, .GeneratedTable th {
+                                border: none !important;
+                                }
+
+                            </style>
+
+                            <!-- Header -->
+                            <table class="GeneratedTable">
+                                <thead>
+                                    <tr dir="rtl">
+                                        <th class="center-text page-title" colspan="3" style="color:black;">
+                                            <strong>سند قبض / Cash Receipt</strong>
+                                            <br/>
+                                            <strong>
+                                                <t t-esc="docs[0].currency_id.name"/>
+                                            </strong>
+                                            <strong>
+                                                <span t-esc="'%.2f' % (sum(doc.amount_company_currency_signed for doc in docs) or 0)"/>
+                                            </strong>
+                                            <strong class="bold-text rtl-text">Amount</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <br/>
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <td class="rtl-text">التاريخ</td>
+                                        <td class="center-text">
+                                            <t t-esc="docs[0].date"/>
+                                        </td>
+                                        <td class="ltr-text">Date</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">استلمنا من السادة</td>
+                                        <td class="center-text">
+                                            <t t-if="docs[0].booking_id.booking_source == 'company'">
+                                                <t t-esc="docs[0].booking_id.company_booking_source.name"/>
+                                            </t>
+                                            <t t-if="docs[0].booking_id.booking_source != 'company'">
+                                                <t t-esc="docs[0].booking_id.partner_id.name"/>
+                                            </t>
+                                            <t t-if="not docs[0].booking_id">
+                                                <t t-esc="docs[0].partner_id.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="ltr-text">Client</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">نقداً / شيك</td>
+                                        <td class="center-text">
+                                            <t t-esc="docs[0].journal_id.name"/>
+                                        </td>
+                                        <td class="ltr-text">Cash / Cheque</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">المسحوب على</td>
+                                        <td class="center-text"></td>
+                                        <td class="ltr-text">Drawn From</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">مبلغ وقدره</td>
+                                        <td class="center-text">
+                                            <t t-if="docs[0].amount_in_words">
+                                                <t t-esc="docs[0].amount_in_words"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="docs[0].booking_id.amount_in_words"/>
+                                            </t>
+                                        </td>
+                                        <td class="ltr-text">The Amount of</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">وذلك عن</td>
+                                        <td class="center-text" dir="rtl">سداد قيمة حجز رقمه
+                                            <t t-esc="docs[0].booking_id.name"/>
+                                        </td>
+                                        <td class="ltr-text">Being</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text">البيان</td>
+                                        <td class="center-text" dir="rtl">سداد قيمة حجز رقمه
+                                            <t t-esc="docs[0].system_note"/>
+                                        </td>
+                                        <td class="ltr-text">Note</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <hr style="border-top: 1px solid #000;"/>
+
+                            <!-- Signatures -->
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <td class="rtl-text" style="text-align: right;">توقيع المستلم
+                                            ------------------------------
+                                        </td>
+                                        <td class="center-text"></td>
+                                        <td class="ltr-text" style="text-align: left;">Signature
+                                            -------------------------------
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="rtl-text" style="text-align: right;">المستلم
+                                            ------------------------------
+                                        </td>
+                                        <td class="center-text"></td>
+                                        <td class="ltr-text" style="text-align: left;">Receiver
+                                            ------------------------------
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <hr style="border-top: 1px solid #000;"/>
+                            <!-- Footer -->
+                            <table class="GeneratedTable" style="text-align:left;">
+                                <tbody style="text-align:left;">
+                                    <tr>
+                                        <td class="center-text">
+                                            <t t-esc="docs[0].create_uid.name"/>
+                                        </td>
+                                        <td class="bold-text ltr-text">Created By</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center-text">
+                                            <t t-esc="docs[0].printed_by"/>
+                                        </td>
+                                        <td class="bold-text ltr-text">Printed By</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <report id="action_report_payment_document"
+            model="account.payment"
+            string="Print Payments"
+            report_type="qweb-pdf"
+            name="hotel_booking.report_payment_document_temp"
+            file="hotel_booking.report_payment_document_temp"
+            attachment_use="False"
+            menu="False"
+    />
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="shomoos_identity_type_1" model="shomoos.identity.type">
+            <field name="code">T1_1</field>
+            <field name="ar_name">هوية وطنية</field>
+            <field name="en_name">National ID</field>
+        </record>
+
+        <record id="shomoos_identity_type_2" model="shomoos.identity.type">
+            <field name="code">T1_2</field>
+            <field name="ar_name">هوية عائلية</field>
+            <field name="en_name">Card family ID</field>
+        </record>
+        <record id="shomoos_identity_type_3" model="shomoos.identity.type">
+            <field name="code">T1_3</field>
+            <field name="ar_name">هوية خليجية</field>
+            <field name="en_name">GCC ID</field>
+        </record>
+        <record id="shomoos_identity_type_4" model="shomoos.identity.type">
+            <field name="code">T1_4</field>
+            <field name="ar_name">مقيم</field>
+            <field name="en_name">Residence</field>
+        </record>
+        <record id="shomoos_identity_type_5" model="shomoos.identity.type">
+            <field name="code">T1_5</field>
+            <field name="ar_name">جواز السفر</field>
+            <field name="en_name">Passport</field>
+        </record>
+        <record id="shomoos_identity_type_6" model="shomoos.identity.type">
+            <field name="code">T1_6</field>
+            <field name="ar_name">هوية زائر</field>
+            <field name="en_name">Visit identity</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+        <!-- Under Technical/Email -->
+        <menuitem name="OCR"
+                  id="menu_ocr"
+                  parent="base.menu_custom"
+                  sequence="1"
+                  groups="wk_ocr_data_fetch.group_ocr_editor_and_processor"/>
+
+        <menuitem name="OCR Templates"
+                  id="menu_ocr_templates"
+                  parent="wk_ocr_data_fetch.menu_ocr"
+                  action="wk_ocr_data_fetch.action_ocr_template"
+                  sequence="1"
+                  groups="wk_ocr_data_fetch.group_ocr_editor_and_processor"/>
+    </data>
+</odoo>

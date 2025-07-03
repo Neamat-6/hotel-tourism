@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="draft_folio_report" model="folio.report.state">
+            <field name="name">Draft</field>
+            <field name="type">draft</field>
+        </record>
+        <record id="confirmed_folio_report" model="folio.report.state">
+            <field name="name">Confirmed</field>
+            <field name="type">confirmed</field>
+        </record>
+        <record id="checked_in_folio_report" model="folio.report.state">
+            <field name="name">Checked In</field>
+            <field name="type">checked_in</field>
+        </record>
+        <record id="checked_out_folio_report" model="folio.report.state">
+            <field name="name">Checked Out</field>
+            <field name="type">checked_out</field>
+        </record>
+        <record id="cancelled_folio_report" model="folio.report.state">
+            <field name="name">Cancelled</field>
+            <field name="type">cancelled</field>
+        </record>
+    </data>
+</odoo>

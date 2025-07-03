@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- inherit pos_config_view_form -->
+    <record id="pos_config_view_form_inherit" model="ir.ui.view">
+        <field name="name">pos.config.form.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pricing']" position="after">
+                <h2>Sequence</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="payment_methods_new">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Sequence</span>
+                            <div class="text-muted">
+                                This sequence will be used to generate the order number in the POS.
+                            </div>
+                            <div class="content-group mt16">
+                                <field name="pos_sequence_id"  />
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

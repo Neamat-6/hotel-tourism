@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+        <record id="hotel_booking_dashboard_form" model="ir.ui.view">
+        <field name="name">hotel.booking.dashboard.form</field>
+        <field name="model">tourism.hotel.booking.dashboard2</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="view_type" invisible="1"/>
+
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            <div style="background: #c1c1c1; padding: 4px ; border: 1px solid black;">
+                                <table style="width:100%">
+                                    <tr>
+                                        <td><field name="hotel_id" widget="selection"/></td>
+                                        <td colspan="5"> </td>
+                                        <td rowspan="5">
+                                            <button name="button_search" type="object" string="" class="oe_highlight pull-right" style="border-radius: 0; height: 140px; width: 90px;">
+                                                <i class="fa fa-refresh" style="font-size: 50px;"/><br/>
+                                                <i class="fa fa-search"/> Search
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><strong>Period</strong></td>
+                                        <td colspan="2"><strong>Room</strong></td>
+                                        <td colspan="2"><strong>Other</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>From</td>
+                                        <td><field name="date_from" required="1"/></td>
+                                        <td>Room Type</td>
+                                        <td><field name="search_room_type_ids" widget="many2many_tags"/></td>
+                                        <td>Display Mode</td>
+                                        <td><field name="display_mode"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>To</td>
+                                        <td><field name="date_to" required="1"/></td>
+                                        <td>Room</td>
+                                        <td><field name="search_room_ids" widget="many2many_tags"/></td>
+                                        <td>Facilities</td>
+                                        <td><field name="search_facilities_ids" widget="many2many_tags"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>Floor</td>
+                                        <td><field name="search_floor_ids" widget="many2many_tags"/></td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <table class="pull-right">
+                                <tr>
+                                    <td>
+                                        <button name="button_switch_view" type="object" string=" " icon="fa-th" style="pointer-events:none; color: #212529; background-color: #dae0e5; border-color: #d3d9df;" attrs="{'invisible':[('view_type','!=','view1')]}"/>
+                                        <button name="button_switch_view" type="object" string=" " icon="fa-th" context="{'view_type':'view1'}" style="color: #212529; background-color: #f8f9fa; border-color: #f8f9fa;" attrs="{'invisible':[('view_type','=','view1')]}"/>
+                                    </td>
+                                    <td>
+                                        <button name="button_switch_view" type="object" string=" " icon="fa-calendar" style="pointer-events:none;  color: #212529; background-color: #dae0e5; border-color: #d3d9df;" attrs="{'invisible':[('view_type','!=','view2')]}"/>
+                                        <button name="button_switch_view" type="object" string=" " icon="fa-calendar" context="{'view_type':'view2'}" style="color: #212529; background-color: #f8f9fa; border-color: #f8f9fa;" attrs="{'invisible':[('view_type','=','view2')]}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button name="button_staying" type="object" class="oe_link"><span class="fa fa-angle-double-right"/> Customer Staying In</button><br/>
+                            <button name="button_overdue" type="object" class="oe_link"><span class="fa fa-angle-double-right"/> Customer Overdue</button><br/>
+                            <table style="margin-left:10px;"><tr>
+                                <td style="padding-top:8px;"><field name="booking_screen_color" widget="color"/></td>
+                                <td><button name="save_screen_color" type="object" class="oe_link"><span class="fa fa-floppy-o"/> Apply Theme</button></td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+<!--                <field name="booking_screen" invisible="0"/>-->
+                <field name="booking_screen" readonly="1" widget="text_table"/>
+                <button name="button_display_raw_data" type="object" string="Get raw data" class="oe_link" groups="base.group_no_one"/>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Action-->
+    <record id="action_hotel_dashboard2" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">tourism.hotel.booking.dashboard2</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <!-- Dashboard -->
+<!--    <menuitem id="menu_hotel_dashboard2" name="Dashboard" parent="hotel_booking.menu_hotel_root" action="action_hotel_dashboard2" sequence="10"/>-->
+
+
+
+
+</odoo>

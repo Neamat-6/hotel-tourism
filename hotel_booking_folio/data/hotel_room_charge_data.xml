@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="manual_room_charge" model="hotel.room.charge">
+            <field name="name">Manual Room Charge</field>
+            <field name="charge_type">manual</field>
+        </record>
+        <record id="no_show_room_charge" model="hotel.room.charge">
+            <field name="name">No Show Room Charge</field>
+            <field name="charge_type">no_show</field>
+        </record>
+        <record id="cancellation_room_charge" model="hotel.room.charge">
+            <field name="name">Cancellation Room Charge</field>
+            <field name="charge_type">cancellation</field>
+        </record>
+        <record id="early_check_in_room_charge" model="hotel.room.charge">
+            <field name="name">Early Check In Room Charge</field>
+            <field name="charge_type">early</field>
+        </record>
+        <record id="late_check_out_room_charge" model="hotel.room.charge">
+            <field name="name">Late Check Out Room Charge</field>
+            <field name="charge_type">late</field>
+        </record>
+    </data>
+</odoo>

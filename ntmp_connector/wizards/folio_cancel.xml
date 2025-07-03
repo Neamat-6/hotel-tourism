@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_cancel_view_form" model="ir.ui.view">
+            <field name="name">folio_cancel_view_form</field>
+            <field name="model">folio.cancel</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="booking_id" readonly="1" force_save="1"/>
+                            <field name="folio_id" readonly="1" force_save="1"/>
+                            <field name="reason_id" options="{'no_open': true, 'no_edit': true, 'no_create': true}"/>
+                            <field name="cancel_with_charge"/>
+                            <field name="chargeable_days"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_cancel_folio" type="object" string="Cancel" class="btn-danger"/>
+                        <button string="Close" class="oe_secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

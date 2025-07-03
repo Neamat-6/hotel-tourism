@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_create_folio_invoice" model="ir.actions.server">
+            <field name="name">Generate Invoices</field>
+            <field name="model_id" ref="model_booking_folio"/>
+            <field name="binding_model_id" ref="model_booking_folio"/>
+            <field name="state">code</field>
+            <field name="code">action = records.action_create_folio_invoice()</field>
+        </record>
+        <record id="action_update_new_check" model="ir.actions.server">
+            <field name="name">Update Check In/Out</field>
+            <field name="model_id" ref="model_hotel_booking"/>
+            <field name="binding_model_id" ref="model_hotel_booking"/>
+            <field name="state">code</field>
+            <field name="code">action = records.update_new_check()</field>
+        </record>
+    </data>
+</odoo>

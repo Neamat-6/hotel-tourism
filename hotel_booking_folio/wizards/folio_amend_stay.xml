@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_amend_stay_view_form" model="ir.ui.view">
+            <field name="name">folio_amend_stay_view_form</field>
+            <field name="model">folio.amend.stay</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="folio_id" readonly="1" force_save="1" attrs="{'invisible': [('folio_ids', '!=', [])]}"/>
+                            <field name="amend_by" required="1"  force_save="1" attrs="{'invisible': [('amend_option', '!=', 'date'),('folio_ids', '!=', [])]}"/>
+                            <field name="new_check_in" attrs="{'invisible': [('amend_by', '=', 'check_out')]}" />
+                            <field name="check_in" readonly="1" force_save="1" attrs="{'invisible': [('folio_ids', '!=', [])]}"/>
+                            <field name="old_check_out" readonly="1" force_save="1" attrs="{'invisible': [('folio_ids', '!=', [])]}"/>
+
+                            <field name="folio_ids" widget="many2many_tags" readonly="1" force_save="1" attrs="{'invisible': [('folio_id', '!=', False)]}"/>
+                            <field name="amend_option" attrs="{'invisible': [('folio_ids', '=', [])], 'required': [('folio_ids', '!=', [])]}"/>
+                            <field name="amend_type" attrs="{'invisible': ['|', ('folio_ids', '=', []), ('amend_option', '!=', 'number')], 'required': [('folio_ids', '!=', []), ('amend_option', '=', 'number')]}"/>
+                            <field name="amend_number_of_days" attrs="{'invisible': ['|', ('folio_ids', '=', []), ('amend_option', '!=', 'number')], 'required': [('folio_ids', '!=', []), ('amend_option', '=', 'number')]}"/>
+
+                            <field name="new_check_out" attrs="{'invisible': [('amend_by', '=', 'check_in')]}"/>
+                            <field name="show_day_use" invisible="1"/>
+                            <field name="day_use" attrs="{'invisible': [('show_day_use', '=', False)]}"/>
+                           <field name="show_new_price" invisible="1"/>
+                            <field name="new_price"/>
+                            <field name="price_include_tax"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_amend_stay" type="object" string="Amend" class="oe_highlight"/>
+                        <button string='Cancel' class='btn-default' special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

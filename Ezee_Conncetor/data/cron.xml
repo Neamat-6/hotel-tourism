@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_cron_get_bookings" model="ir.cron">
+            <field name="name">Ezee: Get Bookings</field>
+            <field name="model_id" ref="model_hotel_booking"/>
+            <field name="state">code</field>
+            <field name="code">model.fetch_and_create_ezee_bookings()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="ezee_cron_update_inventory" model="ir.cron">
+            <field name="name">Ezee: Update Inventory</field>
+            <field name="model_id" ref="model_hotel_booking"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_update_inventory()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="ntmp_cron_cancel_booking" model="ir.cron">
+            <field name="name">NTMP: Cancel Bookings</field>
+            <field name="model_id" ref="model_hotel_booking"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_ntmp_cancel_bookings()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo>

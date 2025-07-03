@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+
+        <record id="res_partner_view_form_inherit_shomoos" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit.shomoos</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Shomoos Information">
+                        <group>
+                            <field name="shomoos_nationality_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="shomoos_country_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="shomoos_identity" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="shomoos_identity_no"/>
+                            <field name="shomoos_date_of_birth"/>
+                            <field name="date_of_birth_hijri"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hajj_view_form_hotel_room" model="ir.ui.view">
+            <field name="name">hajj_view_form_hotel_room</field>
+            <field name="model">hotel.room</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_room"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bed_type']" position="after">
+                    <field name="company_id" invisible="1"/>
+                    <field name="gender"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="folio_room_kanban_view" model="ir.ui.view">
+            <field name="name">folio_room_kanban_view</field>
+            <field name="model">hotel.room</field>
+            <field name="inherit_id" ref="hotel_booking_folio.folio_room_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='row5']" position="replace">
+                    <div class="row" id="row5">
+                        <div class="col-4">
+                            <field name="booking_date"/>
+                        </div>
+                        <field name="total_beds" invisible="1"/>
+                        <field name="available_beds" invisible="1"/>
+                        <field name="number_of_guests" invisible="1"/>
+                        <field name="is_camp" invisible="1"/>
+
+                            <t t-if="record.total_beds.raw_value">
+                                <t t-if="record.is_camp.raw_value == False">
+                                    <div class="col-8 text-center">
+                                        <span style="font-size: 15px; font-weight: bold;">Beds: </span>
+                                        <t t-set="total_beds" t-value="record.total_beds.raw_value or 0"/>
+                                        <t t-set="available_beds" t-value="record.available_beds.raw_value or 0"/>
+                                        <t t-set="beds" t-value="range(int(total_beds))"/>
+                                        <t t-foreach="beds" t-as="i">
+                                            <t t-if="(i &lt; available_beds)">
+                                                <i class="fa fa-bed fa-lg text-success"></i>
+                                            </t>
+                                            <t t-else="">
+                                                <i class="fa fa-bed fa-lg text-danger"></i>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t t-if="record.is_camp.raw_value">
+                                    <div class="col-4 text-center">
+                                        <t t-if="record.total_beds.raw_value">
+                                           <strong style="font-size:15px"> Tot.Beds: <field name="total_beds"/></strong>
+                                        </t>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <t t-if="record.available_beds.raw_value">
+                                            <strong style="font-size:15px"> Avl.Beds: <field name="available_beds"/></strong>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="booking_package_form_view" model="ir.ui.view">
+        <field name="name">booking.package.form.view</field>
+        <field name="model">booking.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_create_bookings" type="object" string="Create Bookings" class="oe_highlight"
+                            attrs="{'invisible': [('allow_booking', '=', False)]}"
+                    />
+                    <button name="button_update_bookings" type="object" string="Update Bookings" class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','confirmed')]}"
+                    />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_bookings" type="object" class="oe_stat_button"
+                                icon="fa-pencil-square-o" attrs="{'invisible': [('booking_count', '=', 0)]}">
+                            <field name="booking_count" widget="statinfo" string="Bookings"/>
+                        </button>
+                        <button name="action_view_pilgrims" type="object" class="oe_stat_button"
+                                icon="fa-pencil-square-o" attrs="{'invisible': [('partner_count', '=', 0)]}">
+                            <field name="partner_count" widget="statinfo" string="Pilgrims"/>
+                        </button>
+                    </div>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Package"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="package_code"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="guide_ids" context="{'default_is_guide': True}" widget="many2many_tags"
+                                   required="1"/>
+                            <field name="package_closing_date"/>
+                            <field name="allow_booking" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Flight Contracts">
+                            <group>
+                                <field name="flight_contract_lines" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="flight_contract_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                                        <field name="booked_no" force_save="1"/>
+                                        <field name="available_no" force_save="1"/>
+                                        <field name="sale_price"/>
+                                        <field name="purchase_price"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <field name="flight_sale_price"/>
+                                    <field name="flight_purchase_price"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="makkah" string="Makkah">
+                            <group>
+                                <group>
+                                    <field name="main_makkah"/>
+                                    <field name="main_makkah_company_id" invisible="1"/>
+                                    <field name="makkah_arrival_date" attrs="{'required': [('main_makkah', '!=', False)]}"/>
+                                    <field name="makkah_departure_date"
+                                           attrs="{'required': [('main_makkah', '!=', False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="makkah_contract_id" options="{'no_create':True, 'no_open': True, 'no_edit': True}"/>
+                                    <field name="makkah_date_from"/>
+                                    <field name="makkah_date_to"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Double">
+                                    <field name="makkah_double_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_no_double" string="Booking"/>
+                                    <field name="makka_double_male_beds" string="Booking Male Rooms"/>
+                                    <field name="makka_double_female_beds" string="Booking Female Rooms"/>
+                                    <field name="makkah_double_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('makkah_no_double', '>', 0)]}"/>
+                                    <!--                                    <field name="makkah_double_total_beds" string="Total Beds"/>-->
+                                    <field name="makkah_double_male_total_beds" string="Total Male Beds"/>
+                                    <field name="makkah_double_female_total_beds" string="Total Female Beds"/>
+                                    <field name="makkah_double_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_double_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <!--                                    <field name="makkah_double_booked_beds" string="Booked Beds" readonly="1" force_save="1"/>-->
+                                    <!--                                    <field name="makkah_double_available_beds" string="Available Beds"/>-->
+                                    <field name="makkah_double_male_available_beds" string="Male Available Beds"/>
+                                    <field name="makkah_double_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                                <group string="Triple">
+                                    <field name="makkah_triple_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_no_triple" string="Booking"/>
+                                    <field name="makka_triple_male_beds" string="Booking Male Rooms"/>
+                                    <field name="makka_triple_female_beds" string="Booking Female Rooms"/>
+                                    <field name="makkah_triple_plan_id" string="Rate Plan"
+                                           attrs="{'required': ['|','|',('makkah_no_triple', '>', 0),('makka_triple_male_beds', '>', 0),('makka_triple_female_beds', '>', 0)]}"/>
+                                    <!--                                    <field name="makkah_triple_total_beds" string="Total Beds"/>-->
+                                    <field name="makkah_triple_male_total_beds" string="Total Male Beds"/>
+                                    <field name="makkah_triple_female_total_beds" string="Total Female Beds"/>
+                                    <field name="makkah_triple_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_triple_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <!--                                    <field name="makkah_triple_booked_beds" string="Booked Beds" readonly="1"-->
+                                    <!--                                           force_save="1"/>-->
+                                    <field name="makkah_triple_male_available_beds" string="Male Available Beds"/>
+                                    <field name="makkah_triple_female_available_beds" string="Female Available Beds"/>
+                                    <!--                                    <field name="makkah_triple_available_beds" string="Available Beds"/>-->
+                                </group>
+                                <group string="Quad">
+                                    <field name="makkah_quad_available" string="Available" readonly="1" force_save="1"/>
+                                    <field name="makkah_no_quad" string="Booking"/>
+                                    <field name="makka_quad_male_beds" string="Booking Male Rooms"/>
+                                    <field name="makka_quad_female_beds" string="Booking Female Rooms"/>
+                                    <field name="makkah_quad_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('makkah_no_quad', '>', 0)]}"/>
+                                    <!--                                    <field name="makkah_quad_total_beds" string="Total Beds"/>-->
+                                    <field name="makkah_quad_male_total_beds" string="Total Male Beds"/>
+                                    <field name="makkah_quad_female_total_beds" string="Total Female Beds"/>
+                                    <field name="makkah_quad_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_quad_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <!--                                    <field name="makkah_quad_booked_beds" string="Booked Beds" readonly="1"-->
+                                    <!--                                           force_save="1"/>-->
+                                    <!--                                    <field name="makkah_quad_available_beds" string="Available Beds"/>-->
+                                    <field name="makkah_quad_male_available_beds" string="Male Available Beds"/>
+                                    <field name="makkah_quad_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <field name="makkah_activity_line_ids" nolabel="1" context="{'default_location': 'makkah'}" domain="[('location', '=', 'makkah')]">
+                                    <tree editable="bottom">
+                                      <field name="name"/>
+                                      <field name="date"/>
+                                      <field name="from_time" widget="float_time"/>
+                                      <field name="to_time" widget="float_time"/>
+                                      <field name="image"/>
+                                      <field name="location" invisible="1"/>
+                                    </tree>
+                                  </field>
+                            </group>
+                        </page>
+                        <page name="madinah" string="Madinah">
+                            <group>
+                                <group>
+                                    <field name="main_madinah"/>
+                                    <field name="main_madinah_company_id" invisible="1"/>
+                                    <field name="madinah_arrival_date"
+                                           attrs="{'required': [('main_madinah', '!=', False)]}"/>
+                                    <field name="madinah_departure_date"
+                                           attrs="{'required': [('main_madinah', '!=', False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="madinah_contract_id" options="{'no_create':True, 'no_open': True, 'no_edit': True}"/>
+                                    <field name="madinah_date_from"/>
+                                    <field name="madinah_date_to"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Double">
+                                    <field name="madinah_double_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_no_double" string="Booking"/>
+                                    <field name="madinah_double_male_beds" string="Booking Male Rooms"/>
+                                    <field name="madinah_double_female_beds" string="Booking Female Rooms"/>
+                                    <field name="madinah_double_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('madinah_no_double', '>', 0)]}"/>
+                                    <!--                                    <field name="madinah_double_total_beds" string="Total Beds"/>-->
+                                    <field name="madinah_double_male_total_beds" string="Total Male Beds"/>
+                                    <field name="madinah_double_female_total_beds" string="Total Female Beds"/>
+                                    <field name="madinah_double_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_double_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="madinah_double_male_available_beds" string="Male Available Beds"/>
+                                    <field name="madinah_double_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                                <group string="Triple">
+                                    <field name="madinah_triple_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_no_triple" string="Booking"/>
+                                    <field name="madinah_triple_male_beds" string="Booking Male Rooms"/>
+                                    <field name="madinah_triple_female_beds" string="Booking Female Rooms"/>
+                                    <field name="madinah_triple_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('madinah_no_triple', '>', 0)]}"/>
+                                    <!--                                    <field name="madinah_triple_total_beds" string="Total Beds"/>-->
+                                    <field name="madinah_triple_male_total_beds" string="Total Male Beds"/>
+                                    <field name="madinah_triple_female_total_beds" string="Total Female Beds"/>
+                                    <!--                                    <field name="madinah_triple_booked_beds" string="Booked Beds" readonly="1"-->
+                                    <!--                                           force_save="1"/>-->
+                                    <field name="madinah_triple_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_triple_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <!--                                    <field name="madinah_triple_available_beds" string="Available Beds"/>-->
+                                    <field name="madinah_triple_male_available_beds" string="Male Available Beds"/>
+                                    <field name="madinah_triple_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                                <group string="Quad">
+                                    <field name="madinah_quad_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_no_quad" string="Booking"/>
+                                    <field name="madinah_quad_male_beds" string="Booking Male Rooms"/>
+                                    <field name="madinah_quad_female_beds" string="Booking Female Rooms"/>
+                                    <field name="madinah_quad_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('madinah_no_quad', '>', 0)]}"/>
+                                    <field name="madinah_quad_male_total_beds" string="Total Male Beds"/>
+                                    <field name="madinah_quad_female_total_beds" string="Total Female Beds"/>
+                                    <field name="madinah_quad_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_quad_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="madinah_quad_male_available_beds" string="Male Available Beds"/>
+                                    <field name="madinah_quad_female_available_beds" string="Female Available Beds"/>
+                                    <!--                                    <field name="madinah_quad_total_beds" string="Total Beds"/>-->
+                                    <!--                                    <field name="madinah_quad_booked_beds" string="Booked Beds" readonly="1" force_save="1"/>-->
+                                    <!--                                    <field name="madinah_quad_available_beds" string="Available Beds"/>-->
+                                </group>
+                            </group>
+                            <group string="Activities">
+                              <field name="madina_activity_line_ids" nolabel="1" context="{'default_location': 'madina'}" domain="[('location', '=', 'madina')]">
+                                <tree editable="bottom">
+                                  <field name="name"/>
+                                  <field name="date"/>
+                                  <field name="from_time" widget="float_time"/>
+                                  <field name="to_time" widget="float_time"/>
+                                  <field name="image"/>
+                                  <field name="location" invisible="1"/>
+                                </tree>
+                              </field>
+                            </group>
+                        </page>
+                        <page name="arfa" string="Arfa">
+                            <group>
+                                <field name="main_arfa"/>
+                                <field name="main_arfa_company_id" invisible="1"/>
+                                <field name="arfa_arrival_date" attrs="{'required': [('main_arfa', '!=', False)]}"/>
+                                <field name="arfa_departure_date" attrs="{'required': [('main_arfa', '!=', False)]}"/>
+                            </group>
+                            <group>
+                                <group string="Male">
+                                    <field name="arfa_male_available_beds" string="Available Beds" readonly="1" force_save="1"/>
+                                    <field name="arfa_male_total_beds" string="Booking"/>
+                                    <field name="arfa_male_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('arfa_male_total_beds', '>', 0)]}"/>
+                                    <field name="arfa_male_booked_beds" string="Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="arfa_male_unbooked_beds" string="UnBooked Beds"/>
+                                </group>
+                                <group string="Female">
+                                    <field name="arfa_female_available_beds" string="Available Beds" readonly="1" force_save="1"/>
+                                    <field name="arfa_female_total_beds" string="Booking"/>
+                                    <field name="arfa_female_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('arfa_female_total_beds', '>', 0)]}"/>
+                                    <field name="arfa_female_booked_beds" string="Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="arfa_female_unbooked_beds" string="UnBooked Beds"/>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <field name="arfa_activity_line_ids" nolabel="1" context="{'default_location': 'arfa'}" domain="[('location', '=', 'arfa')]">
+                                    <tree editable="bottom">
+                                      <field name="name"/>
+                                      <field name="date"/>
+                                      <field name="from_time" widget="float_time"/>
+                                      <field name="to_time" widget="float_time"/>
+                                      <field name="image"/>
+                                      <field name="location" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="minnah" string="Minnah">
+                            <group>
+                                <field name="main_minnah"/>
+                                <field name="main_minnah_company_id" invisible="1"/>
+                                <field name="minnah_arrival_date" attrs="{'required': [('main_minnah', '!=', False)]}"/>
+                                <field name="minnah_departure_date"
+                                       attrs="{'required': [('main_minnah', '!=', False)]}"/>
+                            </group>
+                            <group>
+                                <group string="Male">
+                                 <field name="minnah_male_available_beds" string="Available Beds" readonly="1" force_save="1"/>
+                                    <field name="minnah_male_total_beds" string="Booking"/>
+                                    <field name="minnah_male_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('minnah_male_total_beds', '>', 0)]}"/>
+                                    <field name="minnah_male_booked_beds" string="Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="minnah_male_unbooked_beds" string="UnBooked Beds"/>
+                                </group>
+                                <group string="Female">
+                                 <field name="minnah_female_available_beds" string="Available Beds" readonly="1" force_save="1"/>
+                                    <field name="minnah_female_total_beds" string="Booking"/>
+                                    <field name="minnah_female_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('minnah_female_total_beds', '>', 0)]}"/>
+                                    <field name="minnah_female_booked_beds" string="Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="minnah_female_unbooked_beds" string="UnBooked Beds"/>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <field name="minah_activity_line_ids" nolabel="1" context="{'default_location': 'minah'}" domain="[('location', '=', 'minah')]">
+                                    <tree editable="bottom">
+                                      <field name="name"/>
+                                      <field name="date"/>
+                                      <field name="from_time" widget="float_time"/>
+                                      <field name="to_time" widget="float_time"/>
+                                      <field name="image"/>
+                                      <field name="location" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="main" string="Main Shift">
+                            <group>
+                                <group>
+                                    <field name="main_hotel"/>
+                                    <field name="main_hotel_company_id" invisible="1"/>
+                                    <field name="hotel_arrival_date" attrs="{'required': [('main_hotel', '!=', False)]}"/>
+                                    <field name="hotel_departure_date" attrs="{'required': [('main_hotel', '!=', False)]}"/>
+                                </group>
+
+                                <group>
+                                    <field name="main_hotel_contract_id" options="{'no_create':True, 'no_open': True, 'no_edit': True}"/>
+                                    <field name="main_hotel_date_from"/>
+                                    <field name="main_hotel_date_to"/>
+                                </group>
+
+                            </group>
+                            <group>
+                                <group string="Double">
+                                    <field name="hotel_double_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_no_double" string="Booking"/>
+                                    <field name="hotel_double_male_beds" string="Booking Male Rooms"/>
+                                    <field name="hotel_double_female_beds" string="Booking Female Rooms"/>
+                                    <field name="hotel_double_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('hotel_no_double', '>', 0)]}"/>
+                                     <field name="hotel_double_male_total_beds" string="Total Male Beds"/>
+                                    <field name="hotel_double_female_total_beds" string="Total Female Beds"/>
+                                     <field name="hotel_double_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_double_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="hotel_double_male_available_beds" string="Male Available Beds"/>
+                                    <field name="hotel_double_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                                <group string="Triple">
+                                    <field name="hotel_triple_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_no_triple" string="Booking"/>
+                                    <field name="hotel_triple_male_beds" string="Booking Male Rooms"/>
+                                    <field name="hotel_triple_female_beds" string="Booking Female Rooms"/>
+                                    <field name="hotel_triple_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('hotel_no_triple', '>', 0)]}"/>
+                                     <field name="hotel_triple_male_total_beds" string="Total Male Beds"/>
+                                    <field name="hotel_triple_female_total_beds" string="Total Female Beds"/>
+                                     <field name="hotel_triple_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_triple_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="hotel_triple_male_available_beds" string="Male Available Beds"/>
+                                    <field name="hotel_triple_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                                <group string="Quad">
+                                    <field name="hotel_quad_available" string="Available" readonly="1" force_save="1"/>
+                                    <field name="hotel_no_quad" string="Booking"/>
+                                     <field name="hotel_quad_male_beds" string="Booking Male Rooms"/>
+                                    <field name="hotel_quad_female_beds" string="Booking Female Rooms"/>
+                                    <field name="hotel_quad_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('hotel_no_quad', '>', 0)]}"/>
+                                     <field name="hotel_quad_male_total_beds" string="Total Male Beds"/>
+                                    <field name="hotel_quad_female_total_beds" string="Total Female Beds"/>
+                                     <field name="hotel_quad_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_quad_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="hotel_quad_male_available_beds" string="Male Available Beds"/>
+                                    <field name="hotel_quad_female_available_beds" string="Female Available Beds"/>
+                                </group>
+                            </group>
+                            <group string="Activities">
+                                <field name="hotel_activity_line_ids" nolabel="1" context="{'default_location': 'hotel'}" domain="[('location', '=', 'hotel')]">
+                                    <tree editable="bottom">
+                                      <field name="name"/>
+                                      <field name="date"/>
+                                      <field name="from_time" widget="float_time"/>
+                                      <field name="to_time" widget="float_time"/>
+                                      <field name="image"/>
+                                      <field name="location" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="transportation" string="Transportation Contract">
+                            <group>
+                                <group>
+                                    <field name="transportation_contract_ids" widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="extra" string="Extra">
+                            <field name="package_extra_service">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="sale_price"/>
+                                    <field name="cost_price"/>
+                                </tree>
+                            </field>
+                            <group>
+                                <field name="extra_service_sale"/>
+                                <field name="extra_service_purchase"/>
+                            </group>
+                        </page>
+                        <page name="sale_price" string="Sale Prices">
+                            <field name="sale_price_ids" context="{'default_price_type': 'sale'}">
+                                <tree editable="bottom">
+                                    <field name="price_type" invisible="1"/>
+                                    <field name="room_type"/>
+                                    <field name="makkah_price"/>
+                                    <field name="madinah_price"/>
+                                    <field name="main_hotel_price"/>
+                                    <field name="arf_price"/>
+                                    <field name="minnah_price"/>
+                                    <field name="flight_price"/>
+                                    <field name="extra_price"/>
+                                    <field name="pilgrim_count_sale"/>
+                                    <field name="total_price_per_pilgrim"/>
+                                    <field name="total_price_per_group"/>
+                                </tree>
+                            </field>
+
+                            <group>
+                                <field name="package_sale_price" force_save="True"/>
+                            </group>
+                        </page>
+                        <page name="purchase_price" string="Purchase Prices">
+                            <field name="purchase_price_ids" context="{'default_price_type': 'purchase'}">
+                               <tree editable="bottom">
+                                   <field name="price_type" invisible="1"/>
+                                    <field name="room_type"/>
+                                    <field name="makkah_price"/>
+                                    <field name="madinah_price"/>
+                                    <field name="main_hotel_price"/>
+                                    <field name="arf_price"/>
+                                    <field name="minnah_price"/>
+                                    <field name="flight_price"/>
+                                    <field name="extra_price"/>
+                                    <field name="pilgrim_count_purchase"/>
+                                    <field name="total_price_per_pilgrim"/>
+                                    <field name="total_price_per_group"/>
+                               </tree>
+                            </field>
+                            <group>
+                                <field name="package_purchase_price" force_save="True"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_package_tree_view" model="ir.ui.view">
+        <field name="name">booking.package.form.view</field>
+        <field name="model">booking.package</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="package_code"/>
+                <field name="partner_id"/>
+                <field name="guide_ids"  widget="many2many_tags" optional="show"/>
+                <field name="package_closing_date" optional="show"/>
+                <field name="transportation_contract_ids" optional="show" widget="many2many_tags"/>
+                <field name="main_makkah" optional="show"/>
+                <field name="main_madinah" optional="show"/>
+                <field name="main_arfa" optional="show"/>
+                <field name="main_minnah" optional="show"/>
+                <field name="main_hotel" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="booking_package_search_view" model="ir.ui.view">
+       <field name="name">booking_package_search_view</field>
+       <field name="model">booking.package</field>
+        <field name="arch" type="xml">
+            <search string="">
+          <field name="name" string="Booking Package"/>
+          <field name="package_code" string="Package Code"/>
+          <field name="partner_id" string="Booking Customer"/>
+        <separator/>
+            <filter name="filter_date" date="package_closing_date"/>
+        <separator/>
+       <group expand="0" string="Group By">
+            <filter name="group_partner_id" string="Booking Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+           <filter string="Package Closing Date" name="group_by_package_closing_date" context="{'group_by': 'package_closing_date:month'}"/>
+        </group>
+
+        </search>
+       </field>
+    </record>
+
+    <record id="booking_package_action_view" model="ir.actions.act_window">
+        <field name="name">Booking Package</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">booking.package</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="booking_package_menuitem" name="Booking Package" parent="hotel_booking.menu_hotel_configuration"
+              action="booking_package_action_view"
+              sequence="6"/>
+
+</odoo>

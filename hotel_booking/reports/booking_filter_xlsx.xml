@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.report" id="action_dynamic_reservation_xlsx_report">
+        <field name="name">Dynamic Reservation XLSX</field>
+        <field name="model">booking.filter</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">hotel_booking.booking_filter_xlsx_report</field>
+        <field name="report_file">hotel_booking.booking_filter_xlsx_report</field>
+        <field name="binding_model_id" ref="hotel_booking.model_booking_filter"/>
+    </record>
+
+</odoo>

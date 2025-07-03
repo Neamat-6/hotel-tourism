@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Room Avaliablity -->
+    <record id="view_room_availability_form" model="ir.ui.view">
+        <field name="name">room.availability.form</field>
+        <field name="model">room.availability</field>
+        <field name="arch" type="xml">
+            <form string="Hotel Room Availability" create="false" delete="false">
+                <div class="alert alert-info">
+                    <h1 class="text-center">
+                        <field name="company_id"  />
+                      </h1>
+                    </div>
+                    <group>
+                      <field name="date_from" />
+                      <field name="date_to" />
+                    </group>
+                <field name="rooms_ids" widget="many2many_checkboxes" nolabel="1" invisible="1"/>
+                <notebook>
+                     <page string="Room Availibility Details" invisible="0">
+                        <field name="room_availability_ids"  widget="RoomAvailabilityView">
+                            <tree name="room_availability" editable="bottom">
+
+                                <field name="date"/>
+                                <field name="room_category_id"/>
+                                <field name="company_id"  />
+                                <field name="room_qty"/>
+                                   <field name="contract_qty"/>
+                                <field name="room_cost_price"/>
+                                <field name="close"/>
+                            </tree>
+                            <form name="room_availability">
+                                <group>
+                                    <group>
+                                        <field name="room_qty" required="1"/>
+                                        <field name="company_id"/>
+                                        <field name="date" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="room_category_id" required="1"/>
+                                        <field name="room_cost_price"/>
+                                        <field name="room_availability_id" invisible="1"/>
+<!--                                        <field name="room_availability_id_computed" invisible="1"/>-->
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Stay View">
+                        <field name="room_type_availability_ids"  widget="RoomTypeAvailabilityView">
+                            <tree name="room_availability" editable="bottom">
+
+                                <field name="date"/>
+                                <field name="room_type"/>
+                                <field name="company_id"  />
+                                <field name="room_qty"/>
+                                <field name="contract_qty"/>
+                                <field name="room_cost_price"/>
+                                <field name="close"/>
+                            </tree>
+                            <form name="room_availability">
+                                <group>
+                                    <group>
+                                        <field name="room_qty" required="1"/>
+                                        <field name="company_id"/>
+                                        <field name="date" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="room_type" required="1"/>
+                                        <field name="room_cost_price"/>
+                                        <field name="room_availability_id" invisible="1"/>
+<!--                                        <field name="room_availability_id_computed" invisible="1"/>-->
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_room_availability_tree" model="ir.ui.view">
+        <field name="name">room.availability.tree</field>
+        <field name="model">room.availability</field>
+        <field name="arch" type="xml">
+            <tree string="Room Availability">
+                <field name="company_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+
+
+    
+    <record id="action_room_availability" model="ir.actions.act_window">
+      <field name="name">open.room.availability.sheet</field>
+      <field name="res_model">room.availability</field>
+      <field name="view_mode">form</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_id" ref="view_room_availability_form"/>
+    </record>
+    <menuitem id="room_availability_menu"
+              name="Room Availability"
+              action="hotel_room_availability.action_room_availability"
+              sequence="3"
+              parent="hotel_booking_folio.front_office_operation_menu" />
+</odoo>

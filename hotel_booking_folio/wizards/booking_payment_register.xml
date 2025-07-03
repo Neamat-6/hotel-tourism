@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_view_booking_payment_register_form" model="ir.ui.view">
+            <field name="name">folio_view_booking_payment_register_form</field>
+            <field name="model">booking.payment.register</field>
+            <field name="inherit_id" ref="hotel_booking.view_booking_payment_register_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='advanced_payment']" position="after">-->
+<!--                    <field name="pay_more" attrs="{'invisible': ['|',('type', '!=', 'city_ledger'),('pay_type', '!=', 'yes')]}"/>-->
+<!--                    <field name="pay_amount" attrs="{'invisible': ['|','|',('pay_more', '=', False),('type', '!=', 'city_ledger'),('pay_type', '!=', 'yes')],'required':[('pay_more','=',True)]}"/>-->
+<!--                    <field name="remaining_amount" attrs="{'invisible': ['|','|',('pay_more', '=', False),('type', '!=', 'city_ledger'),('pay_type', '!=', 'yes')]}"/>-->
+<!--                </xpath>-->
+                <xpath expr="//group" position="after">
+                    <div class="row">
+                        <div class="col-5"/>
+                        <div class="col-7">
+                            <button name="select_update_folios" string="Select and Update" type="object"
+                                    attrs="{'invisible': [('folio_id', '!=', False)],'required': [('folio_id','!=',False)]}"
+                                    class="oe_highlight"/>
+                        </div>
+                    </div>
+                    <group string="Split Folios" attrs="{'invisible': [('folio_id', '!=', False)]}">
+                        <group>
+                            <field name="booking_folio_ids" invisible="1"/>
+                            <field name="folio_id" invisible="1"/>
+                            <field name="booking" invisible="1"/>
+                            <field name="split"/>
+                            <field name="select_all"/>
+                            <button name="button_update_split" type="object" string="Update Lines" icon="fa-refresh"
+                                    attrs="{'invisible': [('split', '=', False)]}"/>
+                            <button name="distribute_amount" type="object" string="Distribute Amount" icon="fa-star"
+                                    attrs="{'invisible': [('split', '=', False)]}"/>
+                            <button name="get_due_amount" type="object" string="Set Amount" icon="fa-dollar"
+                                    attrs="{'invisible': [('split', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="folio_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('split', '=', False)], 'required': [('split', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <notebook attrs="{'invisible': [('split', '=', False)]}">
+                        <page string="Split">
+                            <field name="line_ids">
+                                <tree editable="bottom" delete="0" create="0">
+                                    <field name="folio_id" readonly="1" force_save="1"/>
+                                    <field name="due_amount"/>
+                                    <field name="amount" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

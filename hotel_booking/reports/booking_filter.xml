@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="format_booking_filter_report" model="report.paperformat">
+            <field name="name">Booking Filter Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_booking_filter_report">
+            <field name="name">Booking Filter Report</field>
+            <field name="model">booking.filter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.booking_filter_report</field>
+            <field name="report_file">hotel_booking.booking_filter_report</field>
+            <field name="binding_model_id" ref="model_booking_filter"/>
+            <field name="paperformat_id" ref="format_booking_filter_report"/>
+        </record>
+
+        <template id="booking_filter_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family: Arial, Helvetica, sans-serif !important">
+                    <style>
+                    .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.table-custom th, .table-custom td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-custom th {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: blue;
+    border-bottom: 2px solid black;
+}
+
+.table-custom td {
+    white-space: nowrap;
+}
+
+.table-custom tr:last-child td {
+    border-bottom: none;
+}
+
+.table-custom th:nth-child(1), .table-custom td:nth-child(1) {
+    text-align: center;
+}
+
+.table-custom td:nth-child(6), .table-custom td:nth-child(7) {
+    text-align: right;
+}
+
+.table-custom td:nth-child(7) {
+    font-weight: bold;
+}
+                            table.GeneratedTable {
+                                width: 100%;
+                                font-size: 20px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                padding: 0; /* Remove extra padding */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                                padding: 5px; /* Add some padding */
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 20px; /* Adjust font size for compactness */
+                                padding: 5px; /* Add some padding */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            
+                            <h2 class="text-center" style="text-align: center !important;">
+                                Report
+                            </h2>
+                          <table class="GeneratedTable" style="margin-bottom: 20px !important;">
+                              <tbody>
+                                  <tr>
+                                      <td><strong>Guest Name</strong></td>
+                                      <td>
+                                          <t t-if="doc.partner_id"><t t-esc="doc.partner_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>User</strong></td>
+                                      <td>
+                                          <t t-if="doc.user_id"><t t-esc="doc.user_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Arrival From</strong></td>
+                                      <td>
+                                          <t t-if="doc.arrival_from"><t t-esc="doc.arrival_from"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Arrival To</strong></td>
+                                      <td>
+                                          <t t-if="doc.arrival_to"><t t-esc="doc.arrival_to"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Departure From</strong></td>
+                                      <td>
+                                          <t t-if="doc.departure_from"><t t-esc="doc.departure_from"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                                  <tr>
+
+                                      <td><strong>Departure To</strong></td>
+                                      <td>
+                                          <t t-if="doc.departure_to"><t t-esc="doc.departure_to"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Reservation Date From</strong></td>
+                                      <td>
+                                          <t t-if="doc.reservation_date_from"><t t-esc="doc.reservation_date_from"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Reservation Date To</strong></td>
+                                      <td>
+                                          <t t-if="doc.reservation_date_to"><t t-esc="doc.reservation_date_to"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Company</strong></td>
+                                      <td>
+                                          <t t-if="doc.company_id"><t t-esc="doc.company_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Hotels</strong></td>
+                                      <td>
+                                          <t t-if="doc.hotel_ids"><t t-esc="', '.join(doc.hotel_ids.mapped('name'))"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                                  <tr>
+
+                                      <td><strong>Booking Source</strong></td>
+                                      <td>
+                                          <t t-if="doc.booking_source"><t t-esc="doc.booking_source"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Online Travel Agent</strong></td>
+                                      <td>
+                                          <t t-if="doc.online_travel_agent_source"><t t-esc="doc.online_travel_agent_source.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Company Booking Source</strong></td>
+                                      <td>
+                                          <t t-if="doc.company_booking_source"><t t-esc="doc.company_booking_source.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>State</strong></td>
+                                      <td>
+                                          <t t-if="doc.state"><t t-esc="doc.state"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Booking Number</strong></td>
+                                      <td>
+                                          <t t-if="doc.booking_id"><t t-esc="doc.booking_id.ref"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Folio</strong></td>
+                                      <td>
+                                          <t t-if="doc.folio_id"><t t-esc="doc.folio_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Filter Type</strong></td>
+                                      <td>
+                                          <t t-if="doc.filter_type"><t t-esc="doc.filter_type"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Cancelled Booking</strong></td>
+                                      <td>
+                                          <t t-if="doc.include_cancelled">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Guest Mobile</strong></td>
+                                      <td>
+                                          <t t-if="doc.mobile"><t t-esc="doc.mobile"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Guest Country</strong></td>
+                                      <td>
+                                          <t t-if="doc.country_id"><t t-esc="doc.country_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                                  <tr>
+
+                                      <td><strong>Reference No</strong></td>
+                                      <td>
+                                          <t t-if="doc.reference_number"><t t-esc="doc.reference_number"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Season</strong></td>
+                                      <td>
+                                          <t t-if="doc.season_id"><t t-esc="doc.season_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Currency</strong></td>
+                                      <td>
+                                          <t t-if="doc.currency_id"><t t-esc="doc.currency_id.name"/></t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Day Use</strong></td>
+                                      <td>
+                                          <t t-if="doc.day_use">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Complimentary Room</strong></td>
+                                      <td>
+                                          <t t-if="doc.complimentary_room">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                                  <tr>
+
+                                      <td><strong>House Use</strong></td>
+                                      <td>
+                                          <t t-if="doc.house_use">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>City Ledger Booking</strong></td>
+                                      <td>
+                                          <t t-if="doc.city_ledger_booking">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                      <td><strong>Settled City Ledger Booking</strong></td>
+                                      <td>
+                                          <t t-if="doc.settled_city_ledger_booking">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Unsettled City Ledger Booking</strong></td>
+                                      <td>
+                                          <t t-if="doc.city_ledger_booking">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+
+                                      <td><strong>Grouped Booking Source</strong></td>
+                                      <td>
+                                          <t t-if="doc.grouped_booking_source">Yes</t>
+                                          <t t-else="">-</t>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr style="background-color: white;">
+                                        <th style=" width: 40px;">#</th>
+                                        <th style=" width: 80px;"
+                                            t-if="doc.grouped_company_source and doc.filter_type != 'booking'">Folio #
+                                        </th>
+                                        <th style=" width: 80px;" t-if="not doc.grouped_company_source">
+                                            Booking #
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.grouped_company_source">
+                                            Guest
+                                        </th>
+                                        <th style=" width: 120px;">Company Source</th>
+                                        <!-- <th t-if="not doc.grouped_company_source">Ref</th> -->
+                                        <th style=" width: 90px;" t-if="not doc.grouped_company_source">
+                                            Check In
+                                        </th>
+                                        <th style=" width: 90px;" t-if="not doc.grouped_company_source">
+                                            Check Out
+                                        </th>
+                                        <th style=" width: 70px;" t-if="not doc.grouped_company_source">Room
+                                            No.
+                                        </th>
+                                        <th style=" width: 90px;" t-if="not doc.grouped_company_source">
+                                            Hotel
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.grouped_company_source">
+                                            Booked By
+                                        </th>
+                                        <th style=" width: 70px;" t-if="not doc.grouped_company_source">
+                                            State
+                                        </th>
+                                        <th style=" width: 80px;" t-if="not doc.grouped_company_source">NO
+                                            Night
+                                        </th>
+                                        <th style=" width: 80px;" t-if="not doc.grouped_company_source">No
+                                            Room
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.grouped_company_source">
+                                            Price Night
+                                        </th>
+                                        <th style=" width: 90px;"
+                                            t-if="not doc.print_with_total and not doc.grouped_company_source">Price Tax
+                                        </th>
+                                        <th style=" width: 100px;"
+                                            t-if="not doc.print_with_total and not doc.grouped_company_source">Price
+                                            Subtotal
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.print_with_total">Price
+                                            Paid
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.print_with_total">Total
+                                            Discount
+                                        </th>
+                                        <th style=" width: 100px;" t-if="not doc.print_with_total">Price
+                                            Total
+                                        </th>
+                                        <th style=" width: 120px;" t-if="not doc.print_with_total">
+                                            Transferred To City Ledger
+                                        </th>
+                                        <th style=" width: 130px;" t-if="not doc.print_with_total">Actual
+                                            Paid City Ledger
+                                        </th>
+                                        <th style=" width: 120px;"
+                                            t-if="doc.settled_city_ledger_booking or doc.city_ledger_booking">City
+                                            Ledger Paid
+                                        </th>
+                                        <th style=" width: 90px;" t-if="not doc.print_with_total">Price
+                                            Due
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="counter" t-value="0"/>
+                                    <t t-set="total_discount" t-value="0"/>
+                                    <t t-set="price_due_total" t-value="0"/>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                        <t t-set="total_discount" t-value="total_discount + line.total_discount"/>
+                                        <tr>
+                                            <td>
+                                                <span t-esc="counter"/>
+                                            </td>
+                                            <td t-if="doc.grouped_company_source and doc.filter_type != 'booking'">
+                                                <span t-field="line.folio_id"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.booking_id"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.company_booking_source"/>
+                                            </td>
+                                            <!--                                            <td t-if="not doc.grouped_company_source">-->
+                                            <!--                                                <span t-field="line.ref"/>-->
+                                            <!--                                            </td>-->
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.check_in"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.check_out"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.room_id"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.related_hotel.name"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.user_id"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.state"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.no_nights"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.no_rooms"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source">
+                                                <span t-field="line.price_night"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                                <span t-field="line.price_tax"/>
+                                            </td>
+                                            <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                                <span t-field="line.price_subtotal"/>
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <t t-if="line.booking_id.payment_type_id == 'cash'">
+                                                    <span t-field="line.price_paid"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>0</span>
+                                                </t>
+
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <span t-field="line.total_discount"/>
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <span t-field="line.price_total"/>
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <span t-field="line.paid_amount_city_ledger"/>
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <span t-field="line.company_paid"/>
+                                            </td>
+                                            <td t-if="doc.settled_city_ledger_booking or doc.city_ledger_booking">
+                                                <span t-field="line.company_paid"/>
+                                            </td>
+                                            <td t-if="not doc.print_with_total">
+                                                <t t-if="line.booking_id.payment_type_id == 'cash'">
+                                                    <t t-set="price_due" t-value="line.price_paid - line.price_total"/>
+                                                    <t t-esc="price_due"/>
+                                                </t>
+                                                <t t-if="line.booking_id.payment_type_id == 'city_ledger'">
+                                                    <t t-set="price_due"
+                                                       t-value="line.booking_id.company_paid - line.price_total"/>
+                                                    <t t-esc="price_due"/>
+                                                </t>
+                                                <t t-set="price_due_total" t-value="price_due_total + (price_due or 0)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr t-if="not doc.print_with_total">
+                                        <td colspan="10" t-if="not doc.grouped_company_source">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td colspan="2" t-if="doc.grouped_company_source">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_no_nights)"/>
+                                        </td>
+                                        <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_no_rooms)"/>
+                                        </td>
+                                        <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_price_nights)"/>
+                                        </td>
+                                        <td t-if="not doc.grouped_company_source and not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_price_tax)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total and not doc.grouped_company_source">
+                                            <t t-esc="'{:.2f}'.format(doc.total_price_subtotal)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_paid)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(total_discount)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.total_amount)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.paid_amount_city_ledger)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(doc.city_ledger_total)"/>
+                                        </td>
+                                        <td t-if="not doc.print_with_total">
+                                            <t t-esc="'{:.2f}'.format(price_due_total)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <table class="GeneratedTable m-2" t-if="doc.grouped_company_source">
+                                <thead>
+                                    <tr>
+                                        <th>Total Company Source</th>
+                                        <th>Total Direct Source</th>
+                                        <th>Total Online Source</th>
+                                        <th>Total Sources</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_amount"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_amount_direct"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_amount_online"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_amount_online + doc.total_amount_direct + doc.total_amount"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div t-if="doc.city_ledger_booking or doc.settled_city_ledger_booking">
+                                <p>City Ledger Total Amount:</p>
+                                <p>
+                                    <t t-esc="doc.total_paid"/>
+                                </p>
+                            </div>
+
+                            <div t-if="doc.city_ledger_booking or doc.settled_city_ledger_booking">
+                                <p>City Ledger Total Paid:</p>
+                                <p>
+                                    <t t-esc="doc.city_ledger_total"/>
+                                </p>
+                            </div>
+                            <div t-if="doc.city_ledger_booking or doc.settled_city_ledger_booking">
+                                <p>City Ledger Balance:</p>
+                                <p>
+                                    <t t-esc="doc.city_ledger_balance"/>
+                                </p>
+                            </div>
+                            <table class="GeneratedTable m-2" t-if="doc.booking_source == 'company'">
+                                <thead>
+                                    <tr>
+                                        <th>Transferred To City Ledger</th>
+                                        <th>Actual Paid City Ledger</th>
+                                        <th>Expected Balance</th>
+                                        <th>Actual Balance</th>
+                                        <th>Total Advance Payment</th>
+                                        <th>Total Paid City Ledger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.paid_amount_city_ledger"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.paid_for_city_ledger"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.expected_balance"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.actual_balance"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_advanced_payment"/>
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                <t t-esc="doc.total_paid_city_ledger"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

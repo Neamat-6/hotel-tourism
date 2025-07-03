@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_owl_sales_dashboard" model="ir.actions.client">
+            <field name="name">Sales Dashboard</field>
+            <field name="tag">my_dashboard.hotel_booking_dashboard</field>
+        </record>
+        <record id="action_owl_internal_dashboard" model="ir.actions.client">
+            <field name="name">Internal Dashboard</field>
+            <field name="tag">my_dashboard.hotel_booking_internal_dashboard</field>
+        </record>
+        <menuitem name="Hotel Booking Dashboard" id="menu_owl_tutorial_reservation_menu" sequence="-1" parent="hotel_booking.menu_hotels_task_root">
+            <menuitem name="Booking Status Dashboard" id="menu_owl_sales_dashboard" sequence="10" action="action_owl_sales_dashboard"/>
+        </menuitem>
+        <menuitem name="Internal Dashboard" id="hotel_booking_internal_dashboard_menu_reservation" sequence="1" parent="hotel_booking.menu_hotels_task_root">
+            <menuitem name="Internal Dashboard" id="hotel_booking_internal_dashboard_menu_reservation2" sequence="11" action="action_owl_internal_dashboard"/>
+        </menuitem>
+
+        <menuitem name="Hotel Booking Dashboard" id="menu_owl_tutorial_front_office" sequence="1" parent="hotel_booking.menu_front_office">
+            <menuitem name="Booking Status Dashboard" id="menu_owl_tutorial_front_office_dashboard" sequence="10" action="action_owl_sales_dashboard"/>
+        </menuitem>
+        <menuitem name="Internal Dashboard" id="hotel_booking_internal_front_office_menu" sequence="2" parent="hotel_booking.menu_front_office">
+            <menuitem name="Internal Dashboard" id="hotel_booking_internal_front_office_menu2" sequence="11" action="action_owl_internal_dashboard"/>
+        </menuitem>
+
+
+        <menuitem name="Hotel Booking Dashboard" id="menu_owl_tutorial_housekeeping_root_menu" sequence="1" parent="hotel_booking.housekeeping_root_menu">
+            <menuitem name="Booking Status Dashboard" id="menu_owl_sales_dashboard_housekeeping_menu" sequence="10" action="action_owl_sales_dashboard"/>
+        </menuitem>
+        <menuitem name="Internal Dashboard" id="hotel_booking_internal_housekeeping_root_menu" sequence="1" parent="hotel_booking.housekeeping_root_menu">
+            <menuitem name="Internal Dashboard" id="hotel_booking_internal_housekeeping_root_menu2" sequence="11" action="action_owl_internal_dashboard"/>
+        </menuitem>
+
+
+        <menuitem name="Hotel Booking Dashboard" id="menu_owl_tutorial_hotel_root_menu" sequence="1" parent="hotel_booking.booking_reporting_main_menu">
+            <menuitem name="Booking Status Dashboard" id="menu_owl_sales_dashboard_hotel_menu" sequence="10" action="action_owl_sales_dashboard"/>
+        </menuitem>
+        <menuitem name="Internal Dashboard" id="hotel_booking_internal_hotel_root_menu" sequence="1" parent="hotel_booking.booking_reporting_main_menu">
+            <menuitem name="Internal Dashboard" id="hotel_booking_internal_hotel_root_menu2" sequence="11" action="action_owl_internal_dashboard"/>
+        </menuitem>
+
+
+    </data>
+</odoo>

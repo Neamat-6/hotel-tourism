@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+    <record model="ir.actions.server" id="action_reset_guest_assign">
+          <field name="name">Reset Guest Assign</field>
+          <field name="model_id" ref="hotel_booking.model_hotel_booking"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="hotel_booking.model_hotel_booking"/>
+          <field name="state">code</field>
+          <field name="code">
+if records:
+    records.action_reset_guest_assign()
+          </field>
+        </record>
+
+    <record model="ir.actions.server" id="action_change_user_password">
+          <field name="name">Change Password New</field>
+          <field name="model_id" ref="base.model_res_users"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_users"/>
+          <field name="state">code</field>
+          <field name="code">
+for record in records:
+  if record.partner_id and record.partner_id.passport_no:
+    new_password = record.partner_id.passport_no
+    record.sudo().write({'password': record.partner_id.passport_no})
+          </field>
+        </record>
+
+    <record model="ir.actions.server" id="action_in_source_country">
+          <field name="name">في بلد القدوم</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+<!--          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_airport'))]"/>-->
+          <field name="code">
+if records:
+    records.in_source_country()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_jaddah_air_arrival">
+          <field name="name">مطار جده - وصول</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_airport'))]"/>
+          <field name="code">
+if records:
+    records.jaddah_air_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_jaddah_air_departure">
+          <field name="name">مطار جده - مغادره</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_airport'))]"/>
+          <field name="code">
+if records:
+    records.jaddah_air_departure()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_madinah_air_arrival">
+          <field name="name">مطار المدينة -  وصول</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_airport'))]"/>
+          <field name="code">
+if records:
+    records.madinah_air_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_madinah_air_departure">
+          <field name="name">مطار المدينة - للمغادرة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_airport'))]"/>
+          <field name="code">
+if records:
+    records.madinah_air_departure()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_airport_makkah">
+          <field name="name">الانتقال من المطار الي فندق مكة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.airport_makkah()
+          </field>
+        </record>
+
+
+        <record model="ir.actions.server" id="action_madinah_airport">
+          <field name="name">الانتقال الي المطار من فندق المدينة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.madinah_airport()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_makah_airport">
+          <field name="name">الانتقال الي المطار من فندق مكه</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.makah_airport()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_hotel_arfa">
+          <field name="name">الانتقال من الفندق الي عرفة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.hotel_arfa()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_minnah_arrival">
+          <field name="name">الوصول الي مني -تروية</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_minnah'))]"/>
+          <field name="code">
+if records:
+    records.minnah_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_minnah_arrival2">
+          <field name="name">الوصول الي مني</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_minnah'))]"/>
+          <field name="code">
+if records:
+    records.minnah_arrival2()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_minnah_arfa">
+          <field name="name">الانتقال من مني الى عرفة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.minnah_arfa()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_arfa_arrival">
+          <field name="name">الوصول الي عرفة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_arfa'))]"/>
+          <field name="code">
+if records:
+    records.arfa_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_arfa_mzdlfa">
+          <field name="name">الانتقال من عرفة  الى مزدلفة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.arfa_mzdlfa()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_mzdlfa_minnah">
+          <field name="name">الانتقال من مزدلفة الي مني</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.mzdlfa_minnah()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_minnah_hotel">
+          <field name="name">الانتقال من مني الي الفندق</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_transport'))]"/>
+          <field name="code">
+if records:
+    records.minnah_hotel()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_hotel_makkah_arrival">
+          <field name="name">الوصول فندق مكه</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_makkah'))]"/>
+          <field name="code">
+if records:
+    records.hotel_makkah_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_hotel_makkah_departure">
+          <field name="name">المغادرة فندق مكه</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_makkah'))]"/>
+          <field name="code">
+if records:
+    records.hotel_makkah_departure()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_hotel_madinah_arrival">
+          <field name="name">الوصول فندق المدينة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_madinah'))]"/>
+          <field name="code">
+if records:
+    records.hotel_madinah_arrival()
+          </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_hotel_madinah_departure">
+          <field name="name">المغادرة فندق المدينة</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="groups_id" eval="[(4, ref('b2c_hajj_custom.b2c_hajj_madinah'))]"/>
+          <field name="code">
+if records:
+    records.hotel_madinah_departure()
+          </field>
+        </record>
+
+
+        <record model="ir.actions.server" id="action_generate_qr_code">
+          <field name="name">Generate QR</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="code">
+if records:
+    records.generate_new_qr_code()
+          </field>
+        </record>
+
+    <record model="ir.actions.server" id="action_assign_package_activities">
+          <field name="name">Generate Activities</field>
+          <field name="model_id" ref="b2c_hajj_custom.model_booking_package"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="b2c_hajj_custom.model_booking_package"/>
+          <field name="state">code</field>
+          <field name="code">
+if records:
+    records.action_generate_activity_lines()
+          </field>
+        </record>
+
+    <record model="ir.actions.server" id="action_generate_ai_device">
+          <field name="name">Generate AI Device</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="code">
+if records:
+    records.generate_ai_device()
+          </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_add_meta_data_to_assistant_device">
+          <field name="name">Add Meta Data to Assistant Device</field>
+          <field name="model_id" ref="base.model_res_partner"/>
+          <field name="binding_type">action</field>
+          <field name="binding_model_id" ref="base.model_res_partner"/>
+          <field name="state">code</field>
+          <field name="code">
+if records:
+    records.add_meta_data_to_assistant_device()
+          </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+
+        <record id="view_ocr_template_form" model="ir.ui.view">
+            <field name="name">ocr.template.form</field>
+            <field name="model">ocr.template</field>
+            <field name="arch" type="xml">
+                <form string="OCR Templates">
+                    <header>
+                        <button string="Sample Test" type="action" name="%(action_test_ocr_template_wizard)d"/>
+                    </header>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Name"/>
+                            <h1>
+                                <div class="d-flex">
+                                    <field class="o_text_overflow" name="name" placeholder="e.g. Test template"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="process_type" required="1"/>
+                                <field name="min_conf" attrs="{'invisible': [('process_type', '=', 'string')],
+                                'required': [('process_type', '=', 'words')]}"/>
+                                <field name="lang" required="1"/>
+                                <field name="psm" required="1"/>
+                            </group>
+                            <group>
+                                <field name="model_id" required="1"/>
+                                <field name="operation_type" required="1"/>
+                                <field name="restrict_im_size" string="Fix Image Size"/>
+                                <field name="image_wid" attrs="{'invisible': [('restrict_im_size', '=', False)],
+                                'required': [('restrict_im_size', '=', True)]}"/>
+                                <field name="image_hgt" attrs="{'invisible': [('restrict_im_size', '=', False)],
+                                'required': [('restrict_im_size', '=', True)]}"/>
+                                <field name="preprocess_image" invisible="1"/>
+                                <field name="oem" required="1" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sample result" name="sample_result">
+                                <field name="result" readonly="1" options="{'height': 300}" placeholder="Test result..."/>
+                            </page>
+                            <page string="Image Preprocessing" name="image_preprocessing"
+                                  attrs="{'invisible':[('preprocess_image','=',False)]}">
+                            </page>
+                            <page string="Field Mapping" name="field_mapping">
+                                <field name="model_fields_ids" widget='one2many' context="{'ocr_template_id':
+                                active_id, 'parent_model_id': model_id}">
+                                    <tree string="Fields" editable="bottom">
+                                        <field name="ocr_template_id" invisible="1"/>
+                                        <field name="model_id" invisible="1"/>
+                                        <field name="process_type" invisible="1"/>
+                                        <field name="model_fields_id"
+                                               domain="[('model_id', '=', model_id),
+                                               ('store', '=', True), ('ttype', 'in', ['char'])]"/>
+                                        <field name="regex"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- OCR Templates Tree -->
+        <record id="view_ocr_template_tree" model="ir.ui.view">
+            <field name="name">ocr.template.tree</field>
+            <field name="model">ocr.template</field>
+            <field name="arch" type="xml">
+                <tree string="OCR Template">
+                    <field name="name" string="Name"/>
+                    <field name="model_id" string="Model"/>
+                    <field name="process_type" string="Process"/>
+                    <field name="operation_type" string="Operation"/>
+                    <field name="psm" string="PSM"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--  OCR Template Filter -->
+        <record id="view_ocr_template_filter" model="ir.ui.view">
+            <field name="name">ocr.template.select</field>
+            <field name="model">ocr.template</field>
+            <field name="arch" type="xml">
+                <search string="Search OCR Templates">
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- ACTIONS -->
+
+        <!-- OCR Templates Actions -->
+
+        <record id="action_ocr_template" model="ir.actions.act_window">
+            <field name="name">OCR Templates</field>
+            <field name="res_model">ocr.template</field>
+        </record>
+    </data>
+</odoo>

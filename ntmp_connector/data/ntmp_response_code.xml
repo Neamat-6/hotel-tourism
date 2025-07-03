@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_response_code_create_0" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">success</field>
+            <field name="http_code">0</field>
+            <field name="error_code">0</field>
+            <field name="error_description">N/A</field>
+        </record>
+        <record id="ntmp_response_code_create_1" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">1</field>
+            <field name="error_description">
+                Booking No is required and can contain Arabic, English, and Numeric &amp; Alphanumeric.
+                Max length 50. Booking No cannot be 0 or NULL or Empty.
+                Booking No cannot be changed once posted. Booking No must be unique.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_2" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">2</field>
+            <field name="error_description">
+                Invalid Nationality Code. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_3" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">3</field>
+            <field name="error_description">
+                Invalid Check In Date. It must be numeric in YYYYMMDD format.
+                The Check In date must be less than or equal to Check Out date.
+                Date must be Gregorian Only. Length Must be 8 characters.
+                YYYY Should be only starting with 202 which means only 4th character could be 0-9.
+                MM should be only between 01-12 (numbers between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+                DD should be only between 01-31 (numbers between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_4" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">4</field>
+            <field name="error_description">
+                Invalid Check Out Date. It must be numeric in YYYYMMDD format.
+                The Checkout date must be greater than or equal to Check In date. Date must be
+                Gregorian Only. Length Must be 8 characters.
+                YYYY Should be only starting with 202 which means only 4th character could be 0-9.
+                MM should be only between 01-12 (numbers between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+                DD should be only between 01-31 (numbers between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_5" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">5</field>
+            <field name="error_description">
+                Invalid Total Duration Days. It must be Numeric. It cannot be zero or negative.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_6" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">6</field>
+            <field name="error_description">
+                Invalid Allotted Room No. Minimum Length 1 – Max 50, allowed English, Arabic &amp; Numeric.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_7" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">7</field>
+            <field name="error_description">
+                Invalid Room Rent Type. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_8" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">8</field>
+            <field name="error_description">
+                Invalid Daily Room Rate. It must be numeric
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_9" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">9</field>
+            <field name="error_description">
+                Invalid Total Room Rate. It must be numeric. It cannot be 0 if Daily Room Rate is NOT 0.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_10" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">10</field>
+            <field name="error_description">
+                Invalid VAT Value. It must be numeric &amp; Amount only.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_11" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">11</field>
+            <field name="error_description">
+                Invalid Municipality Tax. It must be numeric &amp; Amount only.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_12" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">12</field>
+            <field name="error_description">
+                Invalid Discount. It must be numeric &amp; Amount only.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_13" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">13</field>
+            <field name="error_description">
+                Invalid Grand Total. It must be numeric &amp; Amount only. It cannot be 0 if any of following is NOT 0.
+                - Daily Room Rate - Total Room Rate - VAT - Municipality Tax - Discount
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_14" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">14</field>
+            <field name="error_description">
+                Invalid Grand Total. The total must be equal to Sum of (Total Room Rate + VAT + Municipality Tax) – Discount.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_15" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">15</field>
+            <field name="error_description">
+                Invalid Transaction Type Id. It must be numeric and can be only following values (1 = booking, 2 = CheckIn &amp; 3 = Checkout).
+                Valid values 1, 2 &amp; 3.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_16" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">16</field>
+            <field name="error_description">
+                Invalid Gender. It must be Numeric and can be only three values (0 = Not Found, 1 = Male , 2 = Female) ,
+                Check Lookup for more values if any.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_17" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">17</field>
+            <field name="error_description">
+                Invalid User Id or UserId not found.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_18" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">18</field>
+            <field name="error_description">
+                Invalid Transaction No or this Transaction No not found in MT database. It must be of type GUID.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_19" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">19</field>
+            <field name="error_description">
+                Invalid Check In Time. It must be numeric and could hold value 0 if not determined yet
+                in case of Transaction Type ID =1 (Booking), otherwise it should be in following format.
+                HHMMSS.
+                - HH must be between 0-23 (if length is 5 then it’s AM and hour will be represented with single number like
+                1 or 2 without 0 a prefix).
+                - MM must be between 00- 59 (numbers between 0-9 must contains 0 as prefix so it will look like
+                01, 02, 03, .... 09)
+                - SS must be between 00- 59 (numbers between 0-9 must contains 0 as prefix so it will look like
+                01, 02, 03, .... 09)
+                - Checkin Time is mandatory at the time of CheckIn.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_20" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">20</field>
+            <field name="error_description">
+                Invalid Check Out Time. It must be numeric and could hold value 0 if not determined yet in case of Transaction Type ID =1 (Booking)
+                or TransactionTypeID=2 (CheckIn),otherwise it should be in following format.
+                HHMMSS.
+                - HH must be between 0-23 (if length is 5 then it’s AM and hour will be represented with single number like
+                1 or 2 without 0 a prefix).
+                - MM must be between 00-59 (numbers between 0-9 must contains 0 as prefix so it will look like
+                01, 02, 03, .... 09)
+                - SS must be between 00-59 (numbers between 0-9 must contains 0 as prefix so it will look like
+                01, 02, 03, .... 09)
+                - CheckOut Time is mandatory at the time of CheckOut.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_21" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">21</field>
+            <field name="error_description">
+                Invalid Customer Type. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_22" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">22</field>
+            <field name="error_description">
+                Invalid No Of Guest. It must be numeric. It cannot be zero. Max Value 9999.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_23" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">23</field>
+            <field name="error_description">
+                Invalid Room Type. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_24" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">24</field>
+            <field name="error_description">
+                Invalid Purpose of Visit. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_25" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">25</field>
+            <field name="error_description">
+                Invalid Payment Type value. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_26" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">26</field>
+            <field name="error_description">
+                Invalid “No Of Rooms”. It must be numeric &amp; can contain value from 1 to 9999. It cannot be zero.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_27" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">27</field>
+            <field name="error_description">
+                Invalid Create or Update Flag. The value must be 1 or 2.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_28" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">28</field>
+            <field name="error_description">
+                Invalid Date Of Birth. It must be either 0 if not found otherwise it should be always in following format. YYYYMMDD
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_29" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">29</field>
+            <field name="error_description">
+                This TransactionID &amp; TransactionTypeID already exist. If you wish to update the same record please send a request with CUFlag=2.
+                This will be valid in case of new record for Check-In &amp; Checkout only with CUFlag=1 to avoid duplications
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_30" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">30</field>
+            <field name="error_description">
+                Updates on Booking &amp; Check In are not allowed because Check out is created.
+                If transactionTypeID=3 found in our database then Updates (CUFlag=2) will not be allowed
+                on corresponding TrasactionTypeID=1 &amp; TransactionTypeID=2 with same TransationID
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_31" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">31</field>
+            <field name="error_description">
+                Updates on Booking are not allowed because Check-In is created for same booking.
+                If transactionTypeID=2 found only in our database then Updates (CUFlag=2) will not
+                be allowed on corresponding TrasactionTypeID=1 with same TransationID
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_32" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">32</field>
+            <field name="error_description">
+                No updates allowed on this TransactionID because it is already cancelled.
+                If [TransactionCancellationId] is NOT Null then Updates are not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_33" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">33</field>
+            <field name="error_description">
+                You are trying to update a record, which does not exist. Please first create a record.
+                It means Transaction ID &amp; Transaction Type ID should first exist in our DB if we are receiving
+                CUFlag =2 for above combination. This is true for booking, check in and checkout.
+                Same Error code will be raised if you try to Checkout without Prior CheckIn by passing valid or invalid TransactionID.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_34" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">34</field>
+            <field name="error_description">
+                Booking number and Userid combination should be unique. This check is valid if
+                TransactionID is null and only for new booking/checkin/check out entry.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_35" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">35</field>
+            <field name="error_description">
+                Channel name is missing or invalid. If you don’t know the channel name, please contact with NTMP Support email: ntmp@MT.gov.sa
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_100" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">100</field>
+            <field name="error_description">
+                Invalid Credentials. Authentication failed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_create_101" model="ntmp.response.code">
+            <field name="api_name">createOrUpdateBooking</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">101</field>
+            <field name="error_description">
+                Internal Server Error. Please try again later, if problem persist, contact with NTMP Support.
+                ntmp@MT.gov.sa
+            </field>
+        </record>
+        <!--CancelBooking:-->
+        <record id="ntmp_response_code_cancel_0" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">success</field>
+            <field name="http_code">0</field>
+            <field name="error_code">0</field>
+            <field name="error_description">N/A</field>
+        </record>
+        <record id="ntmp_response_code_cancel_1" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">1</field>
+            <field name="error_description">
+                Invalid Transaction ID or this Transaction ID not found in MT database. It must be of type GUID.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_2" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">2</field>
+            <field name="error_description">
+                Invalid Cancel Reason. It must be numeric
+                and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_3" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">3</field>
+            <field name="error_description">
+                Invalid Cancel With Charges. It must be
+                numeric and can have only 2 values (1= Yes
+                with Charges, 0 = Cancel without Charges)
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_4" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">4</field>
+            <field name="error_description">
+                Invalid Chargeable Days. If Cancelled with Charges then this field should not contain 0.
+                If Cancelled without Charges then provide 0.Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_5" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">5</field>
+            <field name="error_description">
+                Invalid Room Rent Type. If Cancelled with
+                Charges then this field should not contain 0
+                &amp; It must be numeric and available in lookup
+                list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_6" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">6</field>
+            <field name="error_description">
+                Invalid Daily Room Rate. If Cancelled with
+                Charges then this field should not contain 0.
+                It must be numeric only If provided.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_7" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">7</field>
+            <field name="error_description">
+                Invalid Total Room Rate. If Cancelled with
+                Charges then this field should not contain 0.
+                It must be numeric only If provided.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_8" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">8</field>
+            <field name="error_description">
+                Invalid VAT. If Cancelled with Charges then
+                this field should not contain 0. It must be
+                numeric (Amount) only If provided.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_9" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">9</field>
+            <field name="error_description">
+                Invalid Municipality Tax. If Cancelled with
+                Charges then this field should not contain 0.
+                It must be numeric (Amount) only If provided.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_10" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">10</field>
+            <field name="error_description">
+                Invalid Discount. If Cancelled with Charges
+                then this field should not contain 0. It must be
+                numeric (Amount) only If provided.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_11" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">11</field>
+            <field name="error_description">
+                Invalid Grand Total. If Cancelled with
+                Charges then this field should not contain 0.
+                It must be numeric (Amount) only If provided.
+                The grand total must be calculated as (Total Room Rate + VAT + Municipality Tax) – Discount.
+                If Cancelled without Charges then provide 0.
+                Null is not allowed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_12" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">12</field>
+            <field name="error_description">
+                Invalid User Id or UserId not found.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_13" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">13</field>
+            <field name="error_description">
+                Invalid Payment Type value. It must be
+                numeric and available in lookup list. If
+                Cancelled with Charges then this field should
+                not contain 0.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_14" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">14</field>
+            <field name="error_description">
+                This operation is allowed only before Check In.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_15" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">15</field>
+            <field name="error_description">
+                Invalid CU Flag. The value must be 1 or 2.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_16" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">16</field>
+            <field name="error_description">
+                This transaction is already cancelled. If you
+                wish to update this transaction please use
+                CUFlag = 2 for updates.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_17" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">17</field>
+            <field name="error_description">
+                Channel name is missing or invalid. If you
+                don’t know the channel name, please contact
+                with NTMP Support email: ntmp@mt.gov.sa
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_100" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">100</field>
+            <field name="error_description">
+                Invalid Credentials. Authentication failed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_cancel_101" model="ntmp.response.code">
+            <field name="api_name">cancelBooking</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">101</field>
+            <field name="error_description">
+                Internal Server Error. Please try again later, if
+                problem persist, contact with NTMP Support.
+                ntmp@mt.gov.sa
+            </field>
+        </record>
+        <!--bookingExpense-->
+        <record id="ntmp_response_code_expense_0" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">success</field>
+            <field name="http_code">0</field>
+            <field name="error_code">0</field>
+            <field name="error_description">N/A</field>
+        </record>
+        <record id="ntmp_response_code_expense_1" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">1</field>
+            <field name="error_description">
+                Invalid Transaction ID or this Transaction ID not found in MT database. It must be of type GUID.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_2" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">2</field>
+            <field name="error_description">
+Invalid Expense Date. It must be numeric in
+YYYYMMDD format Date must be Gregorian
+Only. Length Must be 8 characters.
+YYYY
+Should be only starting with 202 which means
+only 4th character could be 0-9.
+MM
+should be only between 01-12 (numbers
+between 0-9 must contains 0 as prefix so it
+will look like 01, 02, 03, .... 09)
+DD
+should be only between 01-31 (numbers
+between 0-9 must contains 0 as prefix so it
+will look like 01, 02, 03, .... 09)
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_3" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">3</field>
+            <field name="error_description">
+                Invalid Item Number. It must be numeric &amp;Unique for each expense Item with respect to TransactionID &amp; UserID.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_4" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">4</field>
+            <field name="error_description">
+                ItemNumber not found in MT Database. (This case will be valid when CUFlag = 2 )
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_5" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">5</field>
+            <field name="error_description">
+                Invalid Expense Type ID. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_6" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">6</field>
+            <field name="error_description">
+                Invalid Unit Price. It must be numeric.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_7" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">7</field>
+            <field name="error_description">
+                Invalid Discount. It must be numeric only If provided.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_8" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">8</field>
+            <field name="error_description">
+                Invalid VAT. It must be numeric in Amount only. It can contain 0.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_9" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">9</field>
+            <field name="error_description">
+                Invalid Municipality Tax. It must be numeric in Amount only. It can contain 0.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_10" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">10</field>
+            <field name="error_description">
+                Invalid Grand Total. It must be numeric in
+                Amount only.
+                If any of below items are not 0 then Grand
+                Total cannot be 0.
+                - Unit Price
+                - Discount
+                - VAT
+                - Municipality Tax
+                Formula:
+                Grand Total = (Unit Price + VAT +
+                Municipality) – Discount
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_12" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">12</field>
+            <field name="error_description">
+                Invalid Payment Type value. It must be numeric and available in lookup list.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_13" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">14</field>
+            <field name="error_description">
+                No checkout data found for TransactionID.Please call this api once the checkout is done.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_15" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">15</field>
+            <field name="error_description">
+                Invalid CU Flag Value. It must be 1=Add,2=Update
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_16" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">16</field>
+            <field name="error_description">
+                Channel name is missing or invalid. If you don’t know the channel name, please contact with NTMP Support email: ntmp@mt.gov.sa
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_100" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">100</field>
+            <field name="error_description">
+                Invalid Credentials. Authentication failed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_expense_101" model="ntmp.response.code">
+            <field name="api_name">bookingExpense</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">101</field>
+            <field name="error_description">
+                Internal Server Error. Please try again later, if
+                problem persist, contact with NTMP Support.
+                ntmp@mt.gov.sa
+            </field>
+        </record>
+        <!--OccupancyUpdate2-->
+        <record id="ntmp_response_code_occ_0" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">success</field>
+            <field name="http_code">0</field>
+            <field name="error_code">0</field>
+            <field name="error_description">N/A</field>
+        </record>
+        <record id="ntmp_response_code_occ_1" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">1</field>
+            <field name="error_description">
+                Invalid Update Date. It should be numeric in
+                following format YYYYMMDD. Date must be
+                Gregorian Only. Length Must be 8
+                characters.
+                YYYY
+                Should be only starting with 202 which means
+                only 4th character could be 0-9.
+                MM
+                should be only between 01-12 (numbers
+                between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+                DD
+                should be only between 01-31 (numbers
+                between 0-9 must contains 0 as prefix so it
+                will look like 01, 02, 03, .... 09)
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_2" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">2</field>
+            <field name="error_description">
+                Invalid Rooms Occupied. It must be numeric only. It can contain 0.
+                It cannot be negative value.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_3" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">3</field>
+            <field name="error_description">
+                Invalid Rooms Available. It must be numeric only. It can contain 0. It cannot be negative value if dayclosing=true.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_4" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">4</field>
+            <field name="error_description">
+                Invalid Rooms Booked. It must be numeric only. It can contain 0. It cannot be negative value.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_5" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">5</field>
+            <field name="error_description">
+                Invalid “RoomsOnMaintinance”. It must be numeric only. It can contain 0. It cannot be negative value.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_6" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">6</field>
+            <field name="error_description">
+                Invalid UserId or User Id not found.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_7" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">7</field>
+            <field name="error_description">
+                Invalid Transaction Id or TransactionId not found
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_8" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">8</field>
+            <field name="error_description">
+                Invalid Day Closing value. It should be true or false
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_9" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">9</field>
+            <field name="error_description">
+                Invalid Total Rooms value. It must be numeric only. It cannot contain 0.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_10" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">10</field>
+            <field name="error_description">
+                Incorrect Total Rooms Value. Total Rooms
+                value must be equal to sum of (Rooms
+                Occupied + Rooms Available +
+                RoomsOnMaintinance + RoomsBooked).
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_11" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">11</field>
+            <field name="error_description">
+                Invalid Total Adults value. It must be numeric
+                only and Max Length 5 digits. It can contain 0
+                0 but not negative value
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_12" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">12</field>
+            <field name="error_description">
+                Invalid Total Children value. It must be numeric only and Max Length 5 digits.
+                It can contain 0 0 but not negative value
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_13" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">13</field>
+            <field name="error_description">
+                Invalid Total Guests value. It must be numeric only and Max Length 6 digits.
+                It can contain 0 but not negative value
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_14" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">14</field>
+            <field name="error_description">
+                Incorrect Total Guests value. It must be equal to sum of (totalAdults + totalChildren)
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_15" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">15</field>
+            <field name="error_description">
+                Total Guests is mandatory if day closing is true
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_16" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">16</field>
+            <field name="error_description">
+                Invalid Total Revenue value. It must be numeric only and Max Length 10 digits.
+                It can contain 0 but not negative value
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_17" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">17</field>
+            <field name="error_description">
+                Total Revenue is mandatory if day closing is true
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_18" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">18</field>
+            <field name="error_description">
+                Channel name is missing or invalid. If you don’t know the channel name,
+                please contact with NTMP Support email: ntmp@mt.gov.sa
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_100" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">100</field>
+            <field name="error_description">
+                Invalid Credentials. Authentication failed.
+            </field>
+        </record>
+        <record id="ntmp_response_code_occ_101" model="ntmp.response.code">
+            <field name="api_name">OccupancyUpdate2</field>
+            <field name="category">technical</field>
+            <field name="http_code">200</field>
+            <field name="error_code">101</field>
+            <field name="error_description">
+                Internal Server Error. Please try again later, if
+                problem persist, contact with NTMP Support.
+                ntmp@mt.gov.sa
+            </field>
+        </record>
+        <!--GetTransactionIDByBookingNo:-->
+        <record id="ntmp_response_code_trx_0" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">success</field>
+            <field name="http_code">0</field>
+            <field name="error_code">N/A</field>
+            <field name="error_description">N/A</field>
+        </record>
+        <record id="ntmp_response_code_trx_300" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">300</field>
+            <field name="error_description">
+                bookingNo cannot be NULL or Empty
+            </field>
+        </record>
+        <record id="ntmp_response_code_trx_301" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">301</field>
+            <field name="error_description">
+                bookingNo not found in MT Database
+            </field>
+        </record>
+        <record id="ntmp_response_code_trx_302" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">302</field>
+            <field name="error_description">
+                Invalid bookingNo, bookingNo cannot be 0 , bookingNo Max length is 50 , bookingNo cannot have special characters
+            </field>
+        </record>
+        <record id="ntmp_response_code_trx_303" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">303</field>
+            <field name="error_description">
+                Total bookingNo allowed only 50 items to be in the list
+            </field>
+        </record>
+        <record id="ntmp_response_code_trx_304" model="ntmp.response.code">
+            <field name="api_name">GetTransactionIDByBookingNo</field>
+            <field name="category">validation</field>
+            <field name="http_code">200</field>
+            <field name="error_code">304</field>
+            <field name="error_description">
+                Internal Server Error. Please try again later, if problem persist, contact with NTMP Support.
+                ntmp@mt.gov.sa
+            </field>
+        </record>
+
+    </data>
+</odoo>

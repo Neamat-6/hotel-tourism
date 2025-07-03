@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_room_type_view_tree" model="ir.ui.view">
+            <field name="name">ezee_room_type_view_tree</field>
+            <field name="model">ezee.room.type</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="short_code"/>
+                    <field name="base_adult_occupancy"/>
+                    <field name="base_child_occupancy"/>
+                    <field name="max_adult_occupancy"/>
+                    <field name="max_child_occupancy"/>
+                    <field name="hotel_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ezee_room_types_action" model="ir.actions.act_window">
+            <field name="name">Ezee Room Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ezee.room.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ezee_room_types_menu" name="Ezee Room Types" parent="Ezee_Conncetor.ezee_config_menu"
+                  action="ezee_room_types_action" sequence="1"/>
+    </data>
+</odoo>

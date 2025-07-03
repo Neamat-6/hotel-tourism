@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="action_get_journal_from_list" model="ir.actions.server">
+            <field name="name">Update Journals</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.get_account_journal()
+                    action = records.delete_records()
+            </field>
+        </record>
+    </data>
+</odoo>

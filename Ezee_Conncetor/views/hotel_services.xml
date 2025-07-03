@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_view_form_hotel_services" model="ir.ui.view">
+            <field name="name">ezee_view_form_hotel_services</field>
+            <field name="model">hotel.services</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_services"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="ezee_charge_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_check_booking_line_xlsx_report">
+            <field name="name">Booking Check In/Out Report XLSX</field>
+            <field name="model">check.booking.line.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">tourism_hotel_booking.check_booking_line_xlsx_report</field>
+            <field name="report_file">tourism_hotel_booking.check_booking_line_xlsx_report</field>
+            <field name="binding_model_id" ref="model_check_booking_line_report"/>
+        </record>
+    </data>
+</odoo>

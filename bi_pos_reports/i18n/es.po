@@ -1,0 +1,1180 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bi_pos_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-31 14:43+0000\n"
+"PO-Revision-Date: 2022-08-31 14:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span class=\"pull-right\">0.0</span>"
+msgstr "<span class=\"pull-right\">0.0</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span colspan=\"3\">Discount :</span>"
+msgstr "<span colspan=\"3\">تخفيض :</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span colspan=\"3\">Gross Total:</span>"
+msgstr "<span colspan=\"3\">المجموع الكلي:</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span colspan=\"3\">Sales without Tax :</span>"
+msgstr "<span colspan=\"3\">Ventas sin Impuesto :</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span colspan=\"3\">Tax Amount :</span>"
+msgstr "<span colspan=\"3\">Importe del impuesto :</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Discount : </span>"
+msgstr "<span>Descuento : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "<span>End Date : </span>"
+msgstr "<span>Fecha final : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Gross Total : </span>"
+msgstr "<span>Total bruta: </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Name : </span>"
+msgstr "<span>Nombre : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "<span>Report Date time :</span>"
+msgstr "<span>Hora de la fecha del informe:</span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Sales : </span>"
+msgstr "<span>Ventas : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "<span>Start Date : </span>"
+msgstr "<span>Fecha de inicio : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Tax : </span>"
+msgstr "<span>Impuesto : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "<span>Total : </span>"
+msgstr "<span>Total : </span>"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+msgid "<strong>Total:</strong>"
+msgstr "<strong>Total:</strong>"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Amount"
+msgstr "Monto"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Amount w/o  Tax"
+msgstr "Importe sin impuestos"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_config__loc_summery
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+#, python-format
+msgid "Audit Report"
+msgstr "Informe de auditoría"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Available qty"
+msgstr "Cantidad disponible"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Back"
+msgstr "atrás"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_xls
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_profit_loss_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_sale_summary_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_top_selling_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_x_report_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_z_report_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields.selection,name:bi_pos_reports.selection__pos_top_selling_wizard__top_selling__categories
+msgid "Categories"
+msgstr "Categorías"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+#, python-format
+msgid "Category"
+msgstr "Categoría"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#, python-format
+msgid "Category Summary"
+msgstr "Resumen de la categoría"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Close"
+msgstr "Cerca"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Close Bal:"
+msgstr "Balón de cierre:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Closed"
+msgstr "Cerrada"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_closed_session
+msgid "Closed Session Point of Sale Details"
+msgstr "Detalles de punto de venta de sesión cerrada"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__company_id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Cost Price"
+msgstr "Precio de coste"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__create_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__create_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Current Session"
+msgstr "Sesión actual"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields.selection,name:bi_pos_reports.selection__pos_top_selling_wizard__top_selling__customers
+msgid "Customers"
+msgstr "Clientes"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "Department Sales"
+msgstr "Departamento de Ventas"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+msgid "Detailed Product Sales Details  From"
+msgstr "Detalles detallados de ventas de productos de"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Difference:"
+msgstr "Diferencia:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Discount :"
+msgstr "Descuento :"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__display_name
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__end_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__end_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__end_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__end_dt
+#, python-format
+msgid "End Date"
+msgstr "Fecha final"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "End Date:"
+msgstr "Fecha final:"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__file_name
+msgid "Excel File"
+msgstr "Archivo Excel"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Gross Profit/Loss"
+msgstr "Ganancia/pérdida bruta"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Gross Total:"
+msgstr "Total bruta:"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__id
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__id
+msgid "ID"
+msgstr "IDENTIFICACIÓN"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Invoiced"
+msgstr "Facturada"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Journal"
+msgstr "Diario"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Journal Summary"
+msgstr "Resumen del diario"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Journals"
+msgstr "Revistas"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard____last_update
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__write_uid
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order_location__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_category__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_journal__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_report_payment__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__write_date
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_order__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Location Summary"
+msgstr "Resumen de ubicación"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Locations"
+msgstr "Ubicaciones"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Logo"
+msgstr "Logo"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#, python-format
+msgid "Month :"
+msgstr "Mes :"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Month:"
+msgstr "Mes:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#, python-format
+msgid "Name"
+msgstr "Nombre"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "New"
+msgstr "Nueva"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__no_product
+msgid "Number of Products (Top)"
+msgstr "Número de productos (superior)"
+
+#. module: bi_pos_reports
+#: model:ir.actions.report,name:bi_pos_reports.action_x_report_print
+msgid "Ongoing Session Repor"
+msgstr "Informe de sesión en curso"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_x_report
+#: model:ir.ui.menu,name:bi_pos_reports.x_report
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_x_report_wizard
+msgid "Ongoing Session Report"
+msgstr "Informe de sesión en curso"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__only_summary
+msgid "Only Summary"
+msgstr "Solo Resumen"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Open Bal:"
+msgstr "Balón abierto:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Opened"
+msgstr "Abierta"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Opening Balance:"
+msgstr "Saldo de apertura:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Order Date"
+msgstr "Fecha de orden"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Order Report"
+msgstr "Informe de pedido"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+#, python-format
+msgid "Order Summary"
+msgstr "Resumen del pedido"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_config__order_summery
+msgid "Order Summery"
+msgstr "Resumen del pedido"
+
+#. module: bi_pos_reports
+#: model:ir.ui.menu,name:bi_pos_reports.menu_report_parent
+msgid "Other Reports"
+msgstr "Otros informes"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_order_location
+msgid "POS Order Locaton"
+msgstr "Ubicación de pedido de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_pos_payment
+msgid "POS Payment Report"
+msgstr "Informe de pago de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_payment_wizard
+msgid "POS Payment Wizard"
+msgstr "Asistente de pago de TPV"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+msgid "POS Payments Details"
+msgstr "Detalles de pagos de POS"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+msgid "POS Products Details"
+msgstr "Detalles de productos POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_profit_loss
+msgid "POS Profit Loss Report"
+msgstr "Informe de pérdida de ganancias de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_profit_loss_wizard
+msgid "POS Profit Loss Wizard"
+msgstr "Asistente para pérdida de ganancias de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_report_category
+msgid "POS Report Category"
+msgstr "Categoría de informe de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_report_journal
+msgid "POS Report Journal"
+msgstr "Diario de informe de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_report_payment
+msgid "POS Report Payment"
+msgstr "Pago de informe de POS"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+msgid "POS Reports Configuration"
+msgstr "Configuración de informes de TPV"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_sales_summary
+msgid "POS Sale Summary Report"
+msgstr "Informe de resumen de venta de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_sale_summary_wizard
+msgid "POS Sale Summary Wizard"
+msgstr "Asistente de resumen de venta de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__pos_session_ids
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__pos_session_ids
+msgid "POS Session(s)"
+msgstr "Sesiones de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_top_selling
+msgid "POS Top Selling Report"
+msgstr "Informe de las más vendidas de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_top_selling_wizard
+msgid "POS Top Selling Wizard"
+msgstr "Asistente de mayor venta de POS"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_x_report_wizard
+msgid "POS X Report Wizard"
+msgstr "Asistente para informes POS X"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_z_report_wizard
+msgid "POS Z Report Wizard"
+msgstr "Asistente para informes POS Z"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_sale_excel_report
+msgid "POS sale excel Report"
+msgstr "Informe excel venta POS"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Paid"
+msgstr "Pagada"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+#, python-format
+msgid "Payment Summary"
+msgstr "Resumen de pago"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_config__payment_summery
+msgid "Payment Summery"
+msgstr "Resumen de pago"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Please Select Location."
+msgstr "Seleccione la ubicación."
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Please Select Session."
+msgstr "Seleccione Sesión."
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Please fill End Date."
+msgstr "Complete la fecha de finalización."
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Please fill Start Date."
+msgstr "Complete la fecha de inicio."
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Configuración de punto de venta"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_report_bi_pos_reports_report_open_session
+msgid "Point of Sale Details"
+msgstr "Detalles del punto de venta"
+
+#. module: bi_pos_reports
+#: model:ir.model,name:bi_pos_reports.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Pedidos de punto de venta"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_report_pos_payment
+#: model:ir.actions.report,name:bi_pos_reports.action_pos_payment_report
+#: model:ir.ui.menu,name:bi_pos_reports.menu_pos_payment_report
+msgid "Pos Payment Report"
+msgstr "Informe de pago de pos"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_report_profit_loss
+#: model:ir.actions.report,name:bi_pos_reports.action_profit_loss_report
+#: model:ir.ui.menu,name:bi_pos_reports.menu_profit_loss_report
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Pos Profit-Loss Report"
+msgstr "Informe Pos. de Pérdidas y Ganancias"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Posted"
+msgstr "Al corriente"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_z_report
+#: model:ir.actions.report,name:bi_pos_reports.action_z_report_print
+#: model:ir.ui.menu,name:bi_pos_reports.z_report_1
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_z_report_wizard
+msgid "Posted Session Report"
+msgstr "Informe de sesión publicado"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_profit_loss_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_sale_summary_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_top_selling_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_x_report_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_z_report_wizard
+#, python-format
+msgid "Print"
+msgstr "Impresión"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_wizard
+msgid "Print PDF"
+msgstr "Imprimir PDF"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_wizard
+msgid "Print XLS"
+msgstr "Imprimir XLS"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Product"
+msgstr "Producto"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+msgid "Product Category Summary"
+msgstr "Resumen de la categoría del producto"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Product Name"
+msgstr "nombre del producto"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.inherit_view_pos_config_reports
+#, python-format
+msgid "Product Summary"
+msgstr "Resumen del producto"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_config__product_summery
+msgid "Product Summery"
+msgstr "Resumen del producto"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_config__product_categ_summery
+msgid "Product product Summery"
+msgstr "Producto producto Resumen"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields.selection,name:bi_pos_reports.selection__pos_top_selling_wizard__top_selling__products
+msgid "Products"
+msgstr "productos"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+#, python-format
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Report Date:"
+msgstr "Fecha del informe:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Report Time :"
+msgstr "Hora del informe:"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__report_type
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__report_type
+#: model:ir.model.fields,field_description:bi_pos_reports.field_x_report_wizard__report_type
+#: model:ir.model.fields,field_description:bi_pos_reports.field_z_report_wizard__report_type
+msgid "Report Type"
+msgstr "Tipo de informe"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__res_user_ids
+msgid "Res User"
+msgstr "Usuario Res."
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Returns :"
+msgstr "Devoluciones :"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_sale_excel_report__excel_file
+msgid "Sales Daily Excel Report"
+msgstr "Informe diario de ventas en Excel"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_report_sale_summary
+#: model:ir.actions.report,name:bi_pos_reports.action_sales_summary_report
+#: model:ir.ui.menu,name:bi_pos_reports.menu_report_sale_summary
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_payment_xls
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_profit_loss_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_sale_summary_wizard
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.view_pos_top_selling_wizard
+msgid "Sales Summary"
+msgstr "Resumen de ventas"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Sales without Tax :"
+msgstr "Ventas sin Impuesto :"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Sales:"
+msgstr "Ventas:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Salesperson:"
+msgstr "Vendedora:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Salespersons"
+msgstr "Vendedora:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Select Session"
+msgstr "Seleccionar sesión"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "Select State"
+msgstr "Seleccione estado"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Select Stock Locations"
+msgstr "Seleccionar ubicaciones de existencias"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Served by"
+msgstr "Servido por"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Session Summary"
+msgstr "Resumen de la sesión"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Session(s) :"
+msgstr "Sesión(es):"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Sessions"
+msgstr "Sesiones"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Sold qty"
+msgstr "Cantidad vendida"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_payment_wizard__start_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_profit_loss_wizard__start_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_sale_summary_wizard__start_dt
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__start_dt
+#, python-format
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Start Date:"
+msgstr "Fecha de inicio:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "State"
+msgstr "Estado"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#, python-format
+msgid "States"
+msgstr "estados"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Status:"
+msgstr "Estado:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#, python-format
+msgid "Stock Locations"
+msgstr "Ubicaciones de existencias"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_sales_summary
+#, python-format
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_closed_session
+msgid "Tax :"
+msgstr "Impuesto :"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_open_session
+msgid "Tax Amount :"
+msgstr "Importe del impuesto :"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Tel:"
+msgstr "Teléfono:"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#, python-format
+msgid "To"
+msgstr "A"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Top Categories"
+msgstr "Categorías principales"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Top Customers"
+msgstr "Clientes principales"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Top Products"
+msgstr "Productos principales"
+
+#. module: bi_pos_reports
+#: model:ir.model.fields,field_description:bi_pos_reports.field_pos_top_selling_wizard__top_selling
+msgid "Top Selling"
+msgstr "Más vendidos"
+
+#. module: bi_pos_reports
+#: model:ir.ui.menu,name:bi_pos_reports.menu_report_top_selling
+msgid "Top Selling Customer/Product Report"
+msgstr "Informe de productos/clientes más vendidos"
+
+#. module: bi_pos_reports
+#: model:ir.actions.act_window,name:bi_pos_reports.action_report_top_selling
+#: model:ir.actions.report,name:bi_pos_reports.action_top_selling_report
+msgid "Top Selling Customer/Product/Category"
+msgstr "Cliente/Producto/Categoría más vendidos"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#, python-format
+msgid "Total"
+msgstr "Total"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Total Selling"
+msgstr "Venta total"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#, python-format
+msgid "Total Summary"
+msgstr "Resumen total"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "Total:"
+msgstr "Total:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_top_selling
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_profit_loss
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: bi_pos_reports
+#. openerp-web
+#: code:addons/bi_pos_reports/static/src/xml/AuditReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/CategoryReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/OrderReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/PaymentReport.xml:0
+#: code:addons/bi_pos_reports/static/src/xml/ProductReport.xml:0
+#, python-format
+msgid "VAT:"
+msgstr "VAT:"
+
+#. module: bi_pos_reports
+#: model_terms:ir.ui.view,arch_db:bi_pos_reports.report_pos_payment
+msgid "to"
+msgstr "a"

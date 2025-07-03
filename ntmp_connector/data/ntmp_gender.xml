@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_gender_0" model="ntmp.gender">
+            <field name="code">0</field>
+            <field name="name">لا يوجد</field>
+            <field name="name_en">Not Found / Not applicable</field>
+        </record>
+        <record id="ntmp_gender_1" model="ntmp.gender">
+            <field name="code">1</field>
+            <field name="name">ذكر</field>
+            <field name="name_en">Male</field>
+        </record>
+        <record id="ntmp_gender_2" model="ntmp.gender">
+            <field name="code">2</field>
+            <field name="name">أنثى</field>
+            <field name="name_en">Female</field>
+        </record>
+    </data>
+</odoo>

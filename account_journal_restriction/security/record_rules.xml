@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="filter_user_journal_allowed" model="ir.rule">
+        <field name="name">Filter Allowed Journal per User</field>
+        <field name="model_id" search="[('model','=','account.journal')]" model="ir.model"/>
+        <field name="groups" eval="[(4, ref('account_journal_restriction.group_journal_limited_access'))]"/>
+        <field name="domain_force">[('id','in', [ p.id for p in user.user_allowed_journals_ids ])]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+</odoo>

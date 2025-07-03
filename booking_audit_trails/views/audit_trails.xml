@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="audit_trails_view_tree" model="ir.ui.view">
+            <field name="name">audit_trails_view_tree</field>
+            <field name="model">audit.trails</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="operation"/>
+                    <field name="user_id"/>
+                    <field name="datetime"/>
+                    <field name="folio_id"/>
+                    <field name="booking_id"/>
+                    <field name="room_id"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hotels_task_audit_trails_action" model="ir.actions.act_window">
+            <field name="name">Audit Trails</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">audit.trails</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <record id="front_office_audit_trails_action" model="ir.actions.act_window">
+            <field name="name">Audit Trails</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">audit.trails</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="hotels_task_audit_trails_menu" name="Audit Trails" parent="hotel_booking.menu_hotels_task_root"
+                  action="hotels_task_audit_trails_action" sequence="8"/>
+<!--        <menuitem id="front_office_audit_trails_menu" name="Audit Trails" parent="hotel_booking.menu_front_office"-->
+<!--                  action="front_office_audit_trails_action" sequence="6"/>-->
+    </data>
+</odoo>

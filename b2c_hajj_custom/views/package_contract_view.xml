@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="package_contract_form_view" model="ir.actions.act_window">
+        <field name="name">Package Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">package.contract</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+<!--    <menuitem id="package_contract_menu" name="Package Contract" parent="booking_config_menuitem"-->
+<!--              action="package_contract_form_view" sequence="15"/>-->
+</odoo>

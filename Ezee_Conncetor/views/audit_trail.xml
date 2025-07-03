@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_audit_trail_view_tree" model="ir.ui.view">
+            <field name="name">ezee_audit_trail_view_tree</field>
+            <field name="model">audit.trails</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="datetime"/>
+                    <field name="booking_id"/>
+                    <field name="ezee_reference"/>
+                    <field name="folio_id"/>
+                    <field name="user_id"/>
+                    <field name="operation"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ezee_audit_trail_action" model="ir.actions.act_window">
+            <field name="name">Ezee Audit</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">audit.trails</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('operation', '=', 'ezee_error')]</field>
+        </record>
+        <menuitem id="ezee_audit_trail_menu" name="Ezee Audit" parent="Ezee_Conncetor.ezee_config_menu" action="ezee_audit_trail_action" sequence="1"/>
+    </data>
+</odoo>

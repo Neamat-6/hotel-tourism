@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_tree_booking_discount" model="ir.ui.view">
+        <field name="name">booking.discount.tree</field>
+        <field name="model">booking.discount</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="short_code"/>
+                <field name="type"/>
+                <field name="open_discount"/>
+                <field name="value"/>
+                <field name="apply_on_room_rate"/>
+                <field name="apply_on_extra_charge"/>
+                <field name="create_uid"/>
+                <field name="write_uid"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_form_booking_discount" model="ir.ui.view">
+        <field name="name">booking.discount.form</field>
+        <field name="model">booking.discount</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type" widget="radio" options="{'horizontal': True}"/>
+                            <field name="open_discount"/>
+                        </group>
+                        <group>
+                            <field name="short_code"/>
+                            <field name="discount_allowed_users" widget="many2many_tags" groups="hotel_booking.group_allowed_discount"/>
+                            <field name="value" attrs="{'readonly': [('open_discount', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <group string="Apply on">
+                        <group>
+                            <field name="apply_on_room_rate" string="Room Rate"/>
+                        </group>
+                        <group>
+                            <field name="apply_on_extra_charge" string="Extra Charge"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_booking_discount" model="ir.actions.act_window">
+        <field name="name">Discounts</field>
+        <field name="res_model">booking.discount</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_booking_discount" groups="hotel_booking.menu_booking_discount_group" name="Discounts"
+              parent="menu_hotel_configuration" action="action_booking_discount" sequence="130"/>
+</odoo>

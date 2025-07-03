@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_hotel_pricelist" model="ir.ui.view">
+        <field name="name">hotel.pricelist.tree</field>
+        <field name="model">hotel.pricelist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="hotel_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_hotel_pricelist" model="ir.ui.view">
+        <field name="name">hotel.pricelist.form</field>
+        <field name="model">hotel.pricelist</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Standard Pricelist"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="hotel_id"/>
+                        </group>
+                        <group>
+                            <field name="type" widget="radio"/>
+                            <field name="room_ids" widget="many2many_tags" attrs="{'invisible':[('type', '!=', 'room')]}"/>
+                            <field name="room_type_ids" widget="many2many_tags" attrs="{'invisible':[('type', '!=', 'room_type')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="price" string="Price/Day"/>
+                                    <field name="price_type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hotel_pricelist" model="ir.actions.act_window">
+        <field name="name">Pricelists</field>
+        <field name="res_model">hotel.pricelist</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu pricelist -->
+<!--    <menuitem id="menu_hotel_pricelist" name="التسعير" parent="menu_hotel_configuration" action="action_hotel_pricelist" sequence="100"/>-->
+
+
+</odoo>

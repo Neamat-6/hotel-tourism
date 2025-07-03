@@ -1,0 +1,108 @@
+<odoo>
+    <data>
+        <template id="basic_layout_inherit_printed_by" inherit_id="web.basic_layout">
+            <xpath expr="//t[@t-out='0']" position="before">
+                <div class="row" style="margin-top: -5px !important;">
+                    <div class="col-6">
+                        <strong>Printed by:</strong>
+                        <span t-esc="user.name"/> <!-- Print user name -->
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Time of Print:</strong>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/> <!-- Current time -->
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="external_layout_standard_inherit_printed_by" inherit_id="web.external_layout_standard">
+            <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']/div[3]" position="inside">
+                            <div class="col-6 text-right">
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong class="mr-2">Printed by:</strong>
+                            <span t-esc="user.name"/>
+                        </li>
+                        <li>
+                            <strong class="mr-2">Time of Print:</strong>
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/>
+                        </li>
+                    </ul>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="internal_layout_inherit_printed_by" inherit_id="web.internal_layout">
+            <xpath expr="//div[hasclass('header')]/div[hasclass('row')]" position="after">
+                <div class="row">
+                    <div class="col-3">
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/>
+                    </div>
+                    <div class="col-3 text-center">
+                        <span>Printed by: <t t-esc="user.name"/></span>
+                    </div>
+                    <div class="col-2 offset-1 text-center">
+                        <span t-esc="company.name"/>
+                    </div>
+                    <div class="col-2 offset-1 text-right">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><span class="page"/></li>
+                            <li class="list-inline-item">/</li>
+                            <li class="list-inline-item"><span class="topage"/></li>
+                        </ul>
+                    </div>
+            </div>
+            </xpath>
+
+        </template>
+
+        <template id="external_layout_striped_inherited" inherit_id="web.external_layout_striped">
+            <!-- Add Printed By and Time of Print to the Header -->
+            <xpath expr="//div[@class='o_background_header']" position="before">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <strong>Printed by:</strong>
+                        <span t-esc="user.name"/> <!-- Print user name -->
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Time of Print:</strong>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/> <!-- Current time -->
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="external_layout_bold_inherit" inherit_id="web.external_layout_bold">
+            <xpath expr="//div[hasclass('o_clean_header')]" position="inside">
+                <!-- Add new row for printed by and print time -->
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <strong>Printed by:</strong>
+                        <span t-esc="user.name"/> <!-- User name -->
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Time of Print:</strong>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/> <!-- Current time -->
+                    </div>
+                </div>
+        </xpath>
+        </template>
+
+        <template id="external_layout_boxed_inherited" inherit_id="web.external_layout_boxed">
+            <!-- Add Printed By and Time of Print to the Header -->
+            <xpath expr="//div[@class='row mb8']" position="after">
+                <div class="row mb8">
+                    <div class="col-6">
+                        <strong>Printed by:</strong>
+                        <span t-esc="user.name"/> <!-- Print user name -->
+                    </div>
+                    <div class="col-6 text-right">
+                        <strong>Time of Print:</strong>
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %I:%M:%S %p')"/> <!-- Current time -->
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

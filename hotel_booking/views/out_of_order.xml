@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="out_of_order_filter" model="ir.ui.view">
+            <field name="name">out.of.order.select</field>
+            <field name="model">hotel.room</field>
+            <field name="arch" type="xml">
+                <search string="Search Out of Order">
+                    <field name="floor_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Floor" name="floor" context="{'group_by': 'floor_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="room_out_of_order_view_tree" model="ir.ui.view">
+            <field name="name">room_out_of_order_view_tree</field>
+            <field name="model">hotel.room</field>
+            <field name="arch" type="xml">
+                <tree string="room_out_of_order_tree" editable="bottom" create="0" delete="0">
+                    <field name="name" readonly="1"/>
+                    <field name="out_of_order_from" readonly="1"/>
+                    <field name="out_of_order_to" attrs="{'required': [('out_of_order_from', '!=', False)]}"/>
+                    <field name="out_of_order_reason" attrs="{'required': [('out_of_order_from', '!=', False)]}"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_update_out_of_order" model="ir.actions.server">
+            <field name="name">Update Out of Order</field>
+            <field name="model_id" ref="model_hotel_room"/>
+            <field name="binding_model_id" ref="model_hotel_room"/>
+            <field name="groups_id" eval="[(4, ref('hotel_booking.group_update_out_of_order'))]"/>
+            <field name="state">code</field>
+            <field name="code">action = records.update_out_of_order()</field>
+        </record>
+        <record id="action_update_out_of_service" model="ir.actions.server">
+            <field name="name">Update Out of Service</field>
+            <field name="model_id" ref="model_hotel_room"/>
+            <field name="binding_model_id" ref="model_hotel_room"/>
+            <field name="groups_id" eval="[(4, ref('hotel_booking.group_update_out_of_service'))]"/>
+            <field name="state">code</field>
+            <field name="code">action = records.update_out_of_service()</field>
+        </record>
+        <record id="out_of_order_action" model="ir.actions.act_window">
+            <field name="name">Out of Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.room</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'room_state': 'out_of_order'}</field>
+            <field name="view_id" ref="room_out_of_order_view_tree"/>
+            <field name="search_view_id" ref="out_of_order_filter"/>
+        </record>
+        <!--        <menuitem id="out_of_order_menu" name="Out of Order" sequence="66" action="out_of_order_action"-->
+        <!--                  parent="hotel_booking.housekeeping_root_menu"-->
+        <!--                  groups="hotel_booking.out_of_order_group"/>-->
+
+        <!--        <menuitem id="out_of_order_front_menu" name="Out of Order" sequence="3" action="out_of_order_action"-->
+        <!--                  parent="hotel_booking.menu_front_office"-->
+        <!--                  groups="hotel_booking.out_of_order_group"/>-->
+    </data>
+</odoo>

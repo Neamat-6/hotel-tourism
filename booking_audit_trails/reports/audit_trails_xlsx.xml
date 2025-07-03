@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_audit_trails_xlsx_report">
+            <field name="name">Audit Trails XLSX</field>
+            <field name="model">audit.trails.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">booking_audit_trails.audit_trails_xlsx_report</field>
+            <field name="report_file">booking_audit_trails.audit_trails_xlsx_report</field>
+            <field name="binding_model_id" ref="model_audit_trails_report"/>
+        </record>
+    </data>
+</odoo>

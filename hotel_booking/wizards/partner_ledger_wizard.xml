@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="partner_ledger_wizard_view_form" model="ir.ui.view">
+            <field name="name">partner_ledger_wizard_view_form</field>
+            <field name="model">partner.ledger.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                            <group>
+                                <field name="partner_id"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="generate_report" type="object" string="Generate Report" class="oe_highlight"
+                                    icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="partner_ledger_wizard_action" model="ir.actions.act_window">
+            <field name="name">Partner Ledger Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.ledger.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="partner_ledger_wizard_menu" name="Partner Ledger Report"
+                  parent="hotel_booking.booking_reports_root_accounting"
+                  action="partner_ledger_wizard_action" sequence="22"/>
+
+        <menuitem id="partner_ledger_wizard_menu_item" name="Partner Ledger Report"
+                  parent="hotel_booking.booking_reports_root_accounting_menu_item"
+                  action="partner_ledger_wizard_action" sequence="22"/>
+
+
+    </data>
+</odoo>

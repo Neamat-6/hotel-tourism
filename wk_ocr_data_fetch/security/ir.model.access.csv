@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ocr_template,ocr.template,model_ocr_template,group_ocr_editor_and_processor,1,1,1,1
+model_fields_ocr_template,model.fields.ocr.template,model_model_fields_ocr_template,group_ocr_editor_and_processor,1,1,1,1
+test_ocr_template_wizard,test.ocr.template.wizard,model_test_ocr_template_wizard,group_ocr_editor_and_processor,1,1,1,1
+ocr_process_wizard,ocr.process.wizard,model_ocr_process_wizard,group_ocr_editor_and_processor,1,1,1,1

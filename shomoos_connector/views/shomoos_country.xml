@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="shomoos_country_view_tree" model="ir.ui.view">
+            <field name="name">shomoos_country_view_tree</field>
+            <field name="model">shomoos.country</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="arabic_title"/>
+                    <field name="english_title"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="shomoos_country_action" model="ir.actions.act_window">
+            <field name="name">Country</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shomoos.country</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="shomoos_root_menu" name="Shomoos platform" parent="hotel_booking.menu_hotel_configuration" sequence="3" groups="hotel_booking.shomoos_root_menu_group"/>
+
+        <menuitem id="shomoos_country_menu" name="Country" parent="shomoos_root_menu" action="shomoos_country_action" sequence="3"/>
+    </data>
+</odoo>

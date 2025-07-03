@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="shomoos_view_company_form" model="ir.ui.view">
+            <field name="name">shomoos_view_company_form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="shomoos" string="Shomoos Connector">
+                        <group>
+                            <field name="apply_shomoos"/>
+                            <field name="shomoos_user_id"  attrs="{'invisible': [('apply_shomoos', '=', False)], 'required': [('apply_shomoos', '=', True)]}"/>
+                            <field name="shomoos_branch_code"  attrs="{'invisible': [('apply_shomoos', '=', False)], 'required': [('apply_shomoos', '=', True)]}"/>
+                            <field name="shomoos_branch_secret" attrs="{'invisible': [('apply_shomoos', '=', False)], 'required': [('apply_shomoos', '=', True)]}"/>
+                            <field name="shomoos_key" attrs="{'invisible': [('apply_shomoos', '=', False)], 'required': [('apply_shomoos', '=', True)]}"/>
+                            <field name="shomoos_lang" attrs="{'invisible': [('apply_shomoos', '=', False)], 'required': [('apply_shomoos', '=', True)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

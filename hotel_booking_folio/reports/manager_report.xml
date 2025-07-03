@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_hotel_manager_report">
+            <field name="name">Manager Report</field>
+            <field name="model">hotel.manager.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.hotel_manager_report</field>
+            <field name="report_file">hotel_booking_folio.hotel_manager_report</field>
+            <field name="binding_model_id" ref="model_hotel_manager_report"/>
+        </record>
+        <template id="hotel_manager_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <t t-foreach="docs" t-as="doc">
+                            <b>
+                                <h4 class="text-center">Manager Report <span>
+                                    <span t-field="doc.date"/>
+                                </span></h4>
+                            </b>
+                            <table class="table table-sm table-striped o_main_table" style="page-break-inside: avoid !important;">
+                                <colgroup>
+                                    <col width='30%'/>
+                                    <col width='20%'/>
+                                    <col width='25%'/>
+                                    <col width='25%'/>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Particulars</strong></td>
+                                        <td><strong>Today</strong></td>
+                                        <td><strong>PTD</strong></td>
+                                        <td><strong>YTD</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Room Charges</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.room_charge_line_ids.filtered(lambda l: l.charge_type not in ['municipality', 'vat'])" t-as="line">
+                                        <td><span t-field="line.charge_type"/></td>
+                                        <td><span t-esc="round(line.date_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td><span t-esc="round(doc.room_charge_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Room Charges Taxes</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.room_charge_line_ids.filtered(lambda l: l.charge_type in ['municipality', 'vat'])" t-as="line">
+                                        <td><span t-field="line.charge_type"/></td>
+                                        <td><span t-esc="round(line.date_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td><span t-esc="round(doc.room_charge_tax_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_tax_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_tax_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Extra Charges</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.extra_charge_line_ids.filtered(lambda l: not l.tax_type)" t-as="line">
+                                        <td><span t-field="line.name"/></td>
+                                        <td><span t-esc="round(line.date_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td><span t-esc="round(doc.extra_charge_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Extra Charges Taxes</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.extra_charge_line_ids.filtered(lambda l: l.tax_type)" t-as="line">
+                                        <td><span t-field="line.tax_type"/></td>
+                                        <td><span t-esc="round(line.date_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td><span t-esc="round(doc.extra_charge_tax_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_tax_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_tax_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Revenue without Tax</strong></td>
+                                        <td><span t-esc="round(doc.total_date_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ptd_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ytd_revenue_without_tax, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Revenue with Tax</strong></td>
+                                        <td><span t-esc="round(doc.total_date_revenue_with_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ptd_revenue_with_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ytd_revenue_with_tax, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>POS to PMS Posting</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Payment</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.payment_line_ids" t-as="line">
+                                        <td><span t-field="line.journal_id"/></td>
+                                        <td><span t-esc="round(line.date_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(line.ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Payment</strong></td>
+                                        <td><span t-esc="round(doc.payment_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.payment_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.payment_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Guest Ledger</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Charge Posted</strong></td>
+                                        <td><span t-esc="round(doc.total_virtual, 2)"/></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Paid</strong></td>
+                                        <td><span t-esc="round(doc.total_actual, 2)"/></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Balance</strong></td>
+                                        <td><span t-esc="round(doc.total_balance, 2)"/></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Room Summary</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr t-foreach="doc.room_line_ids.filtered(lambda l: not l.hide_from_report)" t-as="line">
+                                        <td><span t-field="line.name"/></td>
+                                        <td>
+                                            <t t-if="line.date_total_str">
+                                                <span t-esc="line.date_total_str"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="round(line.date_total, 2)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.ptd_total_str">
+                                                <span t-esc="line.ptd_total_str"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="round(line.ptd_total, 2)"/>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.ytd_total_str">
+                                                <span t-esc="line.ytd_total_str"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="round(line.ytd_total, 2)"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Revenue Summary (without tax)</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Room Revenue</strong></td>
+                                        <td><span t-esc="round(doc.room_charge_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.room_charge_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Extra Revenue</strong></td>
+                                        <td><span t-esc="round(doc.extra_charge_date_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_ptd_total, 2)"/></td>
+                                        <td><span t-esc="round(doc.extra_charge_ytd_total, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PMS Revenue</strong></td>
+                                        <td><span t-esc="round(doc.total_date_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ptd_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ytd_revenue_without_tax, 2)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Revenue</strong></td>
+                                        <td><span t-esc="round(doc.total_date_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ptd_revenue_without_tax, 2)"/></td>
+                                        <td><span t-esc="round(doc.total_ytd_revenue_without_tax, 2)"/></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <br/>
+                        </t>
+                        <br/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="service_voucher_report" model="ir.actions.report">
+            <field name="name">Service Voucher Report</field>
+            <field name="model">tourism.booking.services</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tourism_hotel_booking.service_voucher</field>
+            <field name="report_file">tourism_hotel_booking.service_voucher</field>
+        </record>
+        <template id="service_voucher">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <t t-foreach="docs" t-as="o">
+                            <div class="oe_structure"/>
+                            <center>
+                                <h2 style="color: #000;">Vouchers</h2>
+                            </center>
+                            <table class="my-0 table table-sm table-borderless">
+                                <t t-foreach="set(o.voucher_ids.mapped('name'))" t-as="barcode">
+                                    <tr>
+                                        <t t-set="table_style" t-value="'border: 1px solid black;'"/>
+                                        <t t-set="barcode_size" t-value="'width:33mm;height:10mm'"/>
+                                        <t t-set="table_style" t-value="'width:47mm;height:20.1mm;' + table_style"/>
+                                        <td>
+                                            <div class="o_label_full" t-att-style="table_style">
+                                                <div class= "text-center">
+                                                    <span class="text-nowrap" t-esc="barcode"/>
+                                                        <div t-esc="barcode" style="padding:0" t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': barcode_size}"/>
+<!--                                                        <span class="text-center" t-field="voucher.name"/>-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

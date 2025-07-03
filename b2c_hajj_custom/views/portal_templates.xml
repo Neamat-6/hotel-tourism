@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="portal_full_width_breakout" inherit_id="portal.portal_my_home" priority="1">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <style>
+        .o_portal_my_home.container-fluid.bg-white {
+          position: relative;
+          left: 50%;
+          margin-left: -50vw;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          min-height: calc(100vh - 114px) !important;
+        }
+        .o_portal_wrap {
+          overflow-x: hidden;
+          background-color: #f0f0f0;
+        }
+      </style>
+    </xpath>
+  </template>
+
+  <template id="portal_full_height_style" inherit_id="portal.portal_my_home" priority="2">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <style>
+        .o_portal_my_home.container-fluid.bg-white {
+          min-height: calc(100vh - 114px) !important;
+        }
+      </style>
+    </xpath>
+  </template>
+
+  <template id="portal_my_home_cards" inherit_id="portal.portal_my_home" priority="200">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <t t-set="p" t-value="request.env.user.partner_id"/>
+        <div class="container">
+          <h3 class="mb-4">Your Dashboard</h3>
+
+          <t t-if="p.qr_code">
+            <div class="row justify-content-center mb-4">
+              <div class="col-auto">
+                <img t-att-src="image_data_uri(p.qr_code)"
+                    width="150" height="150"
+                    alt="Your QR Code"/>
+              </div>
+            </div>
+          </t>
+
+          <t t-if="not p.is_guide">
+            <div class="row gx-3 gy-4">
+              <div class="col-12 col-md-6">
+                <div class="card text-center p-4 h-100" style="border:1px solid #eee;">
+                  <i class="fa fa-thermometer-half fa-3x mb-3" style="color:#e67e22"/>
+                  <h5 class="card-title mb-2">Makkah Temp</h5>
+                  <div id="temp-makkah" class="display-4">-- °C</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="card text-center p-4 h-100" style="border:1px solid #eee;">
+                  <i class="fa fa-thermometer-half fa-3x mb-3" style="color:#e67e22"/>
+                  <h5 class="card-title mb-2">Madinah Temp</h5>
+                  <div id="temp-madinah" class="display-4">-- °C</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card p-4 h-100" style="border:1px solid #eee;">
+                  <h5 class="text-center mb-4">
+                    <i class="fa fa-clock-o text-secondary mr-2"/>Prayer Times
+                  </h5>
+                  <div class="row text-center">
+                    <t t-foreach="[ 
+                      ('Fajr','fa-moon-o','#8e44ad','time-fajr'),
+                      ('Dhuhr','fa-sun-o','#f1c40f','time-dhuhr'),
+                      ('Asr','fa-cloud','#3498db','time-asr'),
+                      ('Maghrib','fa-sun-o','#c0392b','time-maghrib'),
+                      ('Isha','fa-star-o','#2c3e50','time-isha')
+                    ]" t-as="pt">
+                      <div class="col-6 col-lg-2 mb-3">
+                        <i t-attf-class="fa #{pt[1]} fa-2x mb-2" t-att-style="'color:' + pt[2]"/>
+                        <div><strong t-esc="pt[0]"/></div>
+                        <div t-att-id="pt[3]" class="h5 mt-1">--:--</div>
+                      </div>
+                    </t>
+                  </div>
+                </div>
+              </div>
+              <t t-foreach="[ 
+                ('makkah','Makkah Hotel','fa-building','#e74c3c'),
+                ('madinah','Madinah Hotel','fa-building','#f1c40f'),
+                ('arfa','Arfa Camp','fa-bed','#2ecc71'),
+                ('minnah','Minnah Camp','fa-bed','#2ecc71')
+              ]" t-as="h">
+                <div class="col-6 col-md-4">
+                  <a t-att-href="'/my/hotel/%s' % h[0]"
+                     class="card text-center p-4 h-100 text-decoration-none text-dark"
+                     style="border:1px solid #eee; transition:box-shadow .2s;"
+                     onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                     onmouseout="this.style.boxShadow='none'">
+                    <i t-attf-class="fa #{h[2]} fa-3x mb-3" t-att-style="'color:' + h[3]"/>
+                    <h5 class="card-title mb-0"><t t-esc="h[1]"/></h5>
+                  </a>
+                </div>
+              </t>
+
+              <div class="col-6 col-md-4">
+                <a href="/my/activities"
+                  class="card text-center p-4 h-100 text-decoration-none text-dark"
+                  style="border:1px solid #eee; transition: box-shadow .2s;"
+                  onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                  onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-calendar fa-3x mb-3" style="color:#27ae60"/>
+                  <h5 class="card-title mb-0">Activities</h5>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <a href="/my/assistant"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition:box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-comments fa-3x mb-3" style="color:#3498db"/>
+                  <h5 class="card-title mb-0">Chatbot Assistant</h5>
+                </a>
+              </div>
+
+
+              <div class="col-6 col-md-4">
+                <a href="/my/qibla"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition:box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-compass fa-3x mb-3" style="color:#8e44ad"/>
+                  <h5 class="card-title mb-0">Find Qibla</h5>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <a href="/my/quran"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition: box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-book fa-3x mb-3" style="color:#16a085"/>
+                  <h5 class="card-title mb-0">Qur’an</h5>
+                </a>
+              </div>
+            </div>
+          </t>
+
+          <t t-else="">
+            <div class="row gx-3 gy-4">
+              <div class="col-12 col-md-6">
+                <div class="card text-center p-4 h-100" style="border:1px solid #eee;">
+                  <i class="fa fa-thermometer-half fa-3x mb-3" style="color:#e67e22"/>
+                  <h5 class="card-title mb-2">Makkah Temp</h5>
+                  <div id="temp-makkah" class="display-4">-- °C</div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="card text-center p-4 h-100" style="border:1px solid #eee;">
+                  <i class="fa fa-thermometer-half fa-3x mb-3" style="color:#e67e22"/>
+                  <h5 class="card-title mb-2">Madinah Temp</h5>
+                  <div id="temp-madinah" class="display-4">-- °C</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card p-4 h-100" style="border:1px solid #eee;">
+                  <h5 class="text-center mb-4">
+                    <i class="fa fa-clock-o text-secondary mr-2"/>Prayer Times
+                  </h5>
+                  <div class="row text-center">
+                    <t t-foreach="[ 
+                      ('Fajr','fa-moon-o','#8e44ad','time-fajr'),
+                      ('Dhuhr','fa-sun-o','#f1c40f','time-dhuhr'),
+                      ('Asr','fa-cloud','#3498db','time-asr'),
+                      ('Maghrib','fa-sun-o','#c0392b','time-maghrib'),
+                      ('Isha','fa-star-o','#2c3e50','time-isha')
+                    ]" t-as="pt">
+                      <div class="col-6 col-lg-2 mb-3">
+                        <i t-attf-class="fa #{pt[1]} fa-2x mb-2" t-att-style="'color:' + pt[2]"/>
+                        <div><strong t-esc="pt[0]"/></div>
+                        <div t-att-id="pt[3]" class="h5 mt-1">--:--</div>
+                      </div>
+                    </t>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <a href="/my/assistant"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition:box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-comments fa-3x mb-3" style="color:#3498db"/>
+                  <h5 class="card-title mb-0">Chatbot Assistant</h5>
+                </a>
+              </div>
+              
+              <div class="col-6 col-md-4">
+                <a href="/my/pilgrim_tasks"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition:box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-tasks fa-3x mb-3" style="color:#16a085"/>
+                  <h5 class="card-title mb-0">Tasks</h5>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <a href="/my/qibla"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition:box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-compass fa-3x mb-3" style="color:#8e44ad"/>
+                  <h5 class="card-title mb-0">Find Qibla</h5>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <a href="/my/quran"
+                   class="card text-center p-4 h-100 text-decoration-none text-dark"
+                   style="border:1px solid #eee; transition: box-shadow .2s;"
+                   onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'"
+                   onmouseout="this.style.boxShadow='none'">
+                  <i class="fa fa-book fa-3x mb-3" style="color:#16a085"/>
+                  <h5 class="card-title mb-0">Qur’an</h5>
+                </a>
+              </div>
+            </div>
+          </t>
+
+        </div>
+      </div>
+
+      <script type="text/javascript"><![CDATA[
+        document.addEventListener('DOMContentLoaded', function () {
+          fetch('https://api.open-meteo.com/v1/forecast?latitude=21.4225&longitude=39.8262&current_weather=true')
+            .then(r=>r.json()).then(d=>{ document.getElementById('temp-makkah').textContent = Math.round(d.current_weather.temperature)+' °C'; });
+          fetch('https://api.open-meteo.com/v1/forecast?latitude=24.4717&longitude=39.6111&current_weather=true')
+            .then(r=>r.json()).then(d=>{ document.getElementById('temp-madinah').textContent = Math.round(d.current_weather.temperature)+' °C'; });
+          fetch('https://api.aladhan.com/v1/timingsByCity?city=Makkah&country=Saudi%20Arabia&method=2')
+            .then(r=>r.json()).then(d=>{
+              const t=d.data.timings;
+              ['Fajr','Dhuhr','Asr','Maghrib','Isha'].forEach(name=>{
+                const el = document.getElementById('time-'+name.toLowerCase());
+                if(el) el.textContent = t[name];
+              });
+            });
+        });
+      ]]></script>
+
+    </xpath>
+  </template>
+
+  <template id="portal_hotel_details" inherit_id="portal.portal_my_home" primary="True" priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <t t-set="p" t-value="request.env.user.partner_id"/>
+        <t t-set="mapping" t-value="{
+          'makkah':  {'label':'Makkah Hotel','rec':p.main_makkah,'arr':p.makkah_arrival_date,'dep':p.makkah_departure_date,'type':p.makkah_room_type,'room':p.makkah_room},
+          'madinah': {'label':'Madinah Hotel','rec':p.main_madinah,'arr':p.madinah_arrival_date,'dep':p.madinah_departure_date,'type':p.madinah_room_type,'room':p.madinah_room},
+          'arfa':    {'label':'Arfa Camp',    'rec':p.main_arfa,   'arr':p.arfa_arrival_date,   'dep':p.arfa_departure_date,   'type':'','room':p.arfa_room},
+          'minnah':  {'label':'Minnah Camp',  'rec':p.main_minnah, 'arr':p.minnah_arrival_date, 'dep':p.minnah_departure_date, 'type':'','room':p.minnah_room}
+        }"/>
+        <t t-set="data" t-value="mapping.get(hotel_key)"/>
+        <div class="container">
+          <t t-if="not data or not data['rec']">
+            <div class="alert alert-warning">Invalid hotel key.</div>
+            <a href="/my" class="btn btn-secondary">← Back to Dashboard</a>
+          </t>
+          <t t-else="">
+            <h3><t t-esc="data['label']"/> Details</h3>
+            <div class="card mb-4" style="border:1px solid #eee;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img class="card-img" t-att-src="data['rec'].company_id.logo and image_data_uri(data['rec'].company_id.logo)"/>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                      <li><strong>Hotel Name:</strong> <t t-esc="data['rec'].name or '—'"/></li>
+                      <li><strong>Arrival:</strong>   <t t-esc="data['arr']  or '—'"/></li>
+                      <li><strong>Departure:</strong> <t t-esc="data['dep']  or '—'"/></li>
+                      <li><strong>Room Type:</strong> <t t-esc="data['type'] or '—'"/></li>
+                      <li><strong>Room No.:</strong>   <t t-esc="data['room'] and data['room'].name or '—'"/></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="/my" class="btn btn-secondary">← Back to Dashboard</a>
+          </t>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template id="portal_assistant_page" inherit_id="portal.portal_my_home" primary="True" priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <div class="container">
+          <h3>Chatbot Assistant</h3>
+          <t t-set="p" t-value="request.env.user.partner_id"/>
+          <t t-if="p.assistant_device_key">
+            <iframe
+              t-att-src="'https://entaai.net:3068?auth_key=%s' % p.assistant_device_key"
+              class="w-100" height="600" frameborder="0"
+              allow="microphone; camera; autoplay; geolocation"
+              allowfullscreen="true">
+            </iframe>
+          </t>
+          <t t-else="">
+            <p class="text-muted">Your assistant isn’t registered yet.</p>
+          </t>
+          <a href="/my" class="btn btn-secondary mt-4">← Back to Dashboard</a>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="portal_pilgrim_tasks_page"
+    inherit_id="portal.portal_my_home"
+    primary="True"
+    priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <div class="container">
+          <h3 class="mb-4">Pilgrim Tasks</h3>
+          <form action="/my/pilgrim_tasks/update" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Pilgrim</th>
+                    <th>متعجل</th>
+                    <th>تروية</th>
+                    <th>زِيارَة الروضة</th>
+                    <th>طواف القدوم</th>
+                    <th>الجمرات 1</th>
+                    <th>الجمرات 2</th>
+                    <th>الجمرات 3</th>
+                    <th>الجمرات 4</th>
+                    <th>الإفاضة و السعي</th>
+                    <th>طواف الوداع</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-foreach="pilgrims" t-as="pilgrim">
+                    <tr>
+                      <td><t t-esc="pilgrim.name"/></td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'is_hastened_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.is_hastened"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'tarwiyah_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.tarwiyah"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'ziarat_al_rawdah_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.ziarat_al_rawdah"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'tawaf_al_qudum_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.tawaf_al_qudum"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'jamarat_day1_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.jamarat_day1"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'jamarat_day2_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.jamarat_day2"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'jamarat_day3_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.jamarat_day3"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'jamarat_day4_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.jamarat_day4"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'tawaf_al_ifada_sai_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.tawaf_al_ifada_sai"/>
+                      </td>
+                      <td>
+                        <input type="checkbox"
+                              t-att-name="'tawaf_al_wada_%s' % pilgrim.id"
+                              t-att-checked="pilgrim.tawaf_al_wada"/>
+                      </td>
+                    </tr>
+                  </t>
+                </tbody>
+
+              </table>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Save Tasks</button>
+          </form>
+          <a href="/my" class="btn btn-secondary mt-4">← Back to Dashboard</a>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template id="portal_activities_page" inherit_id="portal.portal_my_home" primary="True" priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <div class="container">
+          <h3 class="mb-4">My Activities</h3>
+          <t t-set="loc_names" t-value="{'makkah':'Makkah','madina':'Madinah','arfa':'Arafat','minah':'Minah','hotel':'Hotel'}"/>
+          <t t-foreach="['makkah','madina','arfa','minah','hotel']" t-as="loc">
+            <t t-if="activities_by_location.get(loc)">
+              <h4 class="mt-4"><t t-esc="loc_names[loc]"/> Activities</h4>
+              <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Date</th><th>From</th><th>To</th><th>Description</th><th>Image</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <t t-foreach="activities_by_location[loc]" t-as="act">
+                      <tr>
+                        <td><t t-esc="act.date"/></td>
+                        <td><t t-esc="act.from_time or ''"/></td>
+                        <td><t t-esc="act.to_time or ''"/></td>
+                        <td><t t-esc="act.name or ''"/></td>
+                        <td>
+                          <t t-if="act.image">
+                            <img t-att-src="image_data_uri(act.image)" width="80"/>
+                          </t>
+                        </td>
+                      </tr>
+                    </t>
+                  </tbody>
+                </table>
+              </div>
+            </t>
+          </t>
+          <a href="/my" class="btn btn-secondary mt-4">← Back to Dashboard</a>
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template id="portal_qibla_page" inherit_id="portal.portal_my_home" primary="True" priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <div class="container">
+          <h3>Find Qibla</h3>
+          <p id="qibla-info" class="h4 text-center">Determining Qibla direction…</p>
+          <div id="qibla-direction" class="text-center mt-4">
+            <i id="qibla-arrow"
+               class="fa fa-location-arrow fa-5x"
+               style="transform: rotate(0deg); transition: transform 0.5s;">
+            </i>
+          </div>
+          <a href="/my" class="btn btn-secondary mt-4">← Back to Dashboard</a>
+        </div>
+      </div>
+      <script type="text/javascript"><![CDATA[
+        document.addEventListener('DOMContentLoaded', function() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                // Call Aladhan’s free Qibla‐direction endpoint:
+                fetch(`https://api.aladhan.com/v1/qibla/${lat}/${lon}`)
+                  .then(r => r.json())
+                  .then(d => {
+                    if (d.data && d.data.direction) {
+                      const angle = d.data.direction;
+                      document.getElementById('qibla-info')
+                              .textContent = `Qibla Direction: ${angle.toFixed(2)}° from North`;
+                      document.getElementById('qibla-arrow')
+                              .style.transform = `rotate(${angle}deg)`;
+                    } else {
+                      document.getElementById('qibla-info')
+                              .textContent = 'Unable to fetch Qibla direction.';
+                    }
+                  })
+                  .catch(() => {
+                    document.getElementById('qibla-info')
+                            .textContent = 'Error fetching Qibla direction.';
+                  });
+              },
+              function(error) {
+                document.getElementById('qibla-info')
+                        .textContent = 'Geolocation permission denied.';
+              }
+            );
+          } else {
+            document.getElementById('qibla-info')
+                    .textContent = 'Geolocation is not supported by your browser.';
+          }
+        });
+      ]]></script>
+    </xpath>
+  </template>
+
+  <template id="portal_quran_page" inherit_id="portal.portal_my_home" primary="True" priority="300">
+    <xpath expr="//t[@t-call='portal.portal_layout']" position="inside">
+      <t t-set="my_details" t-value="False"/>
+    </xpath>
+    <xpath expr="//div[contains(@class,'o_portal_my_home')]" position="replace">
+      <div class="o_portal_my_home container-fluid bg-white py-4">
+        <div class="container">
+          <h3>Qur’ān Reader</h3>
+
+          <!-- 1) Dropdown to select translation (language) -->
+          <div class="mb-3">
+            <label for="translation-select"><strong>Select Translation:</strong></label>
+            <select id="translation-select" class="form-select w-auto d-inline-block">
+              <!-- Note: “selected” must have a value in XML -->
+              <option value="en.sahih" selected="selected">English (Sahih International)</option>
+              <option value="ur.junagarhi">Urdu (Junagarhi)</option>
+              <option value="fr.hamidullah">French (Hamidullah)</option>
+              <option value="es.alamin">Spanish (Al‐Amin)</option>
+              <option value="ms.dahlan">Malay (Dahlan)</option>
+              <!-- You may add any free translation code available on AlQuran Cloud -->
+            </select>
+          </div>
+
+          <!-- 2) Dropdown to select Surah (chapter) by number -->
+          <div class="mb-3">
+            <label for="surah-select"><strong>Select Surah:</strong></label>
+            <select id="surah-select" class="form-select w-auto d-inline-block">
+              <!-- We’ll dynamically populate Surah names and numbers via JavaScript -->
+            </select>
+          </div>
+
+          <!-- 3) Container where verses will appear -->
+          <div id="quran-verse-container"
+               style="max-height: 600px; overflow-y: auto; border:1px solid #ddd; padding:1rem; background:#fafafa;">
+            <p class="text-muted">Please select a Surah and translation above.</p>
+          </div>
+
+          <!-- 4) Back to dashboard -->
+          <a href="/my" class="btn btn-secondary mt-3">← Back to Dashboard</a>
+        </div>
+
+        <!-- ────────────────────────────────────────────────────────────── -->
+        <!-- 5) JavaScript to load Surah list & verses from AlQuran Cloud  -->
+        <!-- ────────────────────────────────────────────────────────────── -->
+        <script type="text/javascript"><![CDATA[
+          document.addEventListener('DOMContentLoaded', function() {
+            const translationSelect = document.getElementById('translation-select');
+            const surahSelect = document.getElementById('surah-select');
+            const verseContainer = document.getElementById('quran-verse-container');
+
+            // 1) Fetch the list of all Surahs (chapters) from AlQuran Cloud
+            fetch('https://api.alquran.cloud/v1/surah')
+              .then(response => response.json())
+              .then(data => {
+                if (data.code === 200 && data.data) {
+                  // data.data is an array of 114 surahs
+                  data.data.forEach(surah => {
+                    const opt = document.createElement('option');
+                    opt.value = surah.number;
+                    opt.textContent = `${surah.number}. ${surah.englishName} (${surah.englishNameTranslation})`;
+                    surahSelect.appendChild(opt);
+                  });
+                }
+              })
+              .catch(err => {
+                console.error('Error fetching Surah list:', err);
+                verseContainer.innerHTML = '<p class="text-danger">Failed to load Surah list.</p>';
+              });
+
+            // 2) Whenever the user changes either translation or surah, re‐fetch verses
+            function loadVerses() {
+              const surahNumber = surahSelect.value;
+              const translationCode = translationSelect.value; 
+              if (!surahNumber) {
+                verseContainer.innerHTML = '<p class="text-muted">Please select a Surah.</p>';
+                return;
+              }
+              // Show a loading indicator
+              verseContainer.innerHTML = '<p>Loading verses…</p>';
+
+              // Construct the URL:  e.g. https://api.alquran.cloud/v1/surah/1/en.sahih
+              const apiURL = `https://api.alquran.cloud/v1/surah/${surahNumber}/${translationCode}`;
+
+              fetch(apiURL)
+                .then(resp => resp.json())
+                .then(json => {
+                  if (json.code === 200 && json.data && json.data.ayahs) {
+                    // Clear and render all verses
+                    verseContainer.innerHTML = '';
+                    // We will fetch both the Arabic and the translation in parallel:
+                    const arabicPromise = fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.alafasy`)
+                      .then(r => r.json());
+                    const transPromise  = Promise.resolve(json); 
+                    Promise.all([arabicPromise, transPromise]).then(results => {
+                      const [arabicJson, transJson] = results;
+                      if (arabicJson.code === 200 && transJson.code === 200) {
+                        const arabicAyahs = arabicJson.data.ayahs;
+                        const transAyahs  = transJson.data.ayahs;
+                        verseContainer.innerHTML = '';  // clear
+
+                        for (let i = 0; i < arabicAyahs.length; i++) {
+                          const num = arabicAyahs[i].numberInSurah;
+                          const arabicText = arabicAyahs[i].text;
+                          const transText  = (transAyahs[i] && transAyahs[i].text) ? transAyahs[i].text : '—';
+
+                          // Container for a single ayah
+                          const wrap = document.createElement('div');
+                          wrap.style.marginBottom = '1rem';
+
+                          // Arabic paragraph
+                          const arabP = document.createElement('p');
+                          arabP.style.fontFamily = 'Scheherazade, serif';
+                          arabP.style.fontSize = '1.4rem';
+                          arabP.style.direction = 'rtl';
+                          arabP.style.textAlign = 'right';
+                          arabP.textContent = `${num}. ${arabicText}`;
+
+                          // Translation paragraph
+                          const trP = document.createElement('p');
+                          trP.style.fontSize = '1rem';
+                          trP.style.marginTop = '0.3rem';
+                          trP.textContent = `${num}. ${transText}`;
+
+                          wrap.appendChild(arabP);
+                          wrap.appendChild(trP);
+                          verseContainer.appendChild(wrap);
+                        }
+                      } else {
+                        verseContainer.innerHTML = '<p class="text-danger">Failed to load verses.</p>';
+                      }
+                    }).catch(err => {
+                      console.error('Error loading both versions:', err);
+                      verseContainer.innerHTML = '<p class="text-danger">Error loading verses.</p>';
+                    });
+                  } else {
+                    verseContainer.innerHTML = '<p class="text-danger">Failed to load verses for this Surah.</p>';
+                  }
+                })
+                .catch(err => {
+                  console.error('Error fetching Surah verses:', err);
+                  verseContainer.innerHTML = '<p class="text-danger">Error loading verses.</p>';
+                });
+            }
+
+            // Wire up “change” event on both selects
+            translationSelect.addEventListener('change', loadVerses);
+            surahSelect.addEventListener('change', loadVerses);
+          });
+        ]]></script>
+      </div>
+    </xpath>
+  </template>
+
+</odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="guest_ledger_view_form" model="ir.ui.view">
+            <field name="name">guest_ledger_view_form</field>
+            <field name="model">guest.ledger</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="folio_id" optional="show" readonly="1" force_save="1"/>
+                                <field name="booking_id" optional="show"/>
+                                <field name="room_id" options="{'no_open': True}"/>
+                                <field name="room_type_id" options="{'no_open': True}"/>
+                                <field name="partner_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="days" sum="total nights"/>
+                                <field name="rate" sum="total rate" readonly="1" force_save="1"/>
+                                <field name="rate_plan_id"/>
+                                <field name="adults" sum="total pax"/>
+                                <field name="breakfast" optional="show" sum="total breakfast" readonly="1" force_save="1"/>
+                                <field name="lunch" optional="show" sum="total lunch" readonly="1" force_save="1"/>
+                                <field name="dinner" optional="show" sum="total dinner" readonly="1" force_save="1"/>
+                                <field name="state" readonly="1" force_save="1"/>
+                                <field name="virtual" sum="total owed" readonly="1" force_save="1"/>
+                                <field name="actual" sum="total paid" readonly="1" force_save="1"/>
+                                <field name="balance" sum="total balance" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <footer>
+                        <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="guest_ledger_action" model="ir.actions.act_window">
+            <field name="name">Guest Ledger</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">guest.ledger</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="guest_ledger_menu" name="Guest Ledger" parent="hotel_booking.booking_reporting_menu"
+                  action="guest_ledger_action" sequence="3"/>
+    </data>
+</odoo>

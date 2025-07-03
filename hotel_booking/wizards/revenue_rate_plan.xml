@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="revenue_rate_plan_wizard_view_form" model="ir.ui.view">
+            <field name="name">revenue_rate_plan_wizard_view_form</field>
+            <field name="model">revenue.rate.plan.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="booking_id" widget="many2many_tags"/>
+                                <field name="hotel_id" widget="many2many_tags"/>
+                                <field name="partner_id" widget="many2many_tags" string="Customer"/>
+                                <field name="rate_plan" widget="many2many_tags"/>
+                                <field name="total_amount"/>
+                            </group>
+                            <group>
+                                <field name="draft"/>
+                                <field name="confirmed_waiting_payment"/>
+                                <field name="partially_checked_in"/>
+                                <field name="checked_in"/>
+                                <field name="partially_checked_out"/>
+                                <field name="checked_out"/>
+                                <field name="paid"/>
+                                <field name="canceled"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_folios" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="day"/>
+                                <field name="booking_id"/>
+                                <field name="partner_id"/>
+                                <field name="hotel_id"/>
+                                <field name="rate_plan"/>
+                                <field name="state"/>
+                                <field name="amount"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="revenue_rate_plan_wizard_action" model="ir.actions.act_window">
+            <field name="name">Revenue By Rate Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">revenue.rate.plan.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- HIDE THIS MENU NO USAGE FOR THIS REPORT -->
+
+        <!-- <menuitem id="revenue_rate_plan_wizard_menu" name="Revenue By Rate Plan"
+                  parent="hotel_booking.booking_reporting_menu"
+                  action="revenue_rate_plan_wizard_action"/>
+
+        #duplicated menu
+        <menuitem id="revenue_rate_plan_wizard_menu_item" name="Revenue By Rate Plan"
+                  parent="hotel_booking.booking_reporting_menu_item"
+                  action="revenue_rate_plan_wizard_action"/> -->
+    </data>
+</odoo>

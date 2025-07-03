@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="booking_group_action_view_form" model="ir.ui.view">
+            <field name="name">booking_group_action_view_form</field>
+            <field name="model">booking.group.action</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="booking_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="floor_start_sequence" invisible="1"/>
+                            <field name="type"/>
+                            <field name="floor_start"  domain="[('hotel_id.company_id','=',company_id)]"
+                                   attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', True)], 'required': [('type', '=', 'assign'), ('unassign', '=', False)]}"/>
+                            <field name="floor_end" domain="[('hotel_id.company_id','=',company_id)]"
+                                   attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', True)], 'required': [('type', '=', 'assign'), ('unassign', '=', False)]}"/>
+                            <field name="assign_clean_room"
+                                   attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', True)]}"/>
+                            <field name="unassign" attrs="{'invisible': [('type', '!=', 'assign')]}"/>
+                            <field name="discount_id"
+                                   attrs="{'invisible': [('type', '!=', 'discount')], 'required': [('type', '=', 'discount')]}"/>
+                            <field name="discount_rule"
+                                   attrs="{'invisible': [('type', '!=', 'discount')], 'required': [('type', '=', 'discount')]}"/>
+                            <field name="note" attrs="{'invisible': [('type', '!=', 'discount')]}"/>
+                            <field name="open_discount" invisible="1"/>
+                            <field name="discount_percentage"
+                                   attrs="{'invisible': ['|',('open_discount','!=',True),('type', '!=', 'discount')], 'required': [('open_discount', '=', True)]}"/>
+                            <field name="new_room_charge"
+                                   attrs="{'invisible': [('type', '!=', 'update_room_charge')], 'required': [('type', '=', 'update_room_charge')]}"/>
+                            <field name="price_include_tax"
+                                   attrs="{'invisible': [('type', '!=', 'update_room_charge')]}"/>
+                            <field name="tax_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('type', '!=', 'update_room_charge')]}" readonly="1"/>
+                            <field name="all_room_ids" invisible="1"/>
+                            <field name="room_ids" attrs="{'invisible': [('type', 'not in', ['update_room_charge'])]}"
+                                   widget="many2many_tags"/>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_auto_assign" type="object" string="Auto Assign"
+                                        class="oe_highlight"
+                                        icon="fa-refresh"
+                                        attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', True)]}"/>
+                                <button name="button_manual_assign" type="object" string="Enable Manual Assign"
+                                        class="oe_highlight" style="margin:10px;"
+                                        icon="fa-refresh"
+                                        attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', True)]}"/>
+                                <button name="button_unassign_rooms" type="object" string="Unassign Rooms"
+                                        class="oe_highlight"
+                                        icon="fa-close"
+                                        attrs="{'invisible': ['|', ('type', '!=', 'assign'), ('unassign', '=', False)]}"/>
+                                <button name="button_group_check_in" type="object" string="Group Check In"
+                                        class="oe_highlight"
+                                        icon="fa-calendar" attrs="{'invisible': [('type', '!=', 'check_in')]}"/>
+                                <button name="button_group_check_out" type="object" string="Group Check Out"
+                                        class="oe_highlight"
+                                        icon="fa-calendar" attrs="{'invisible': [('type', '!=', 'check_out')]}"/>
+                                <button name="button_group_discount" type="object" string="Group Discount"
+                                        class="oe_highlight"
+                                        icon="fa-percent" attrs="{'invisible': [('type', '!=', 'discount')]}"/>
+                                <button name="button_group_checkout_charge" type="object" string="Group Checkout Charge"
+                                        class="oe_highlight"
+                                        icon="fa-percent" attrs="{'invisible': [('type', '!=', 'charge')]}"/>
+                                <button name="button_update_room_charge" type="object" string="Group Update Room Charge"
+                                        class="oe_highlight"
+                                        attrs="{'invisible': [('type', '!=', 'update_room_charge')]}"/>
+                            </div>
+                        </div>
+                        <field name="folio_ids" attrs="{'invisible': [('type', 'not in', ['assign'])]}">
+                            <tree create="0" edit="0" editable="bottom">
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="available_room_ids" invisible="0" readonly="1" force_save="1"/>
+                                <field name="group_action_wizard"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                                <field name="floor_start" readonly="1" force_save="1" invisible="1"/>
+                                <field name="floor_end" readonly="1" force_save="1" invisible="1"/>
+                                <field name="group_action_wizard" readonly="1" force_save="1" invisible="1"/>
+                                <button name="button_manual_assign" type="object" string="Manual Assign"
+                                        attrs="{'invisible': [('group_action_wizard', '=', 0)]}"/>
+                            </tree>
+                        </field>
+                        <field name="checkin_folio_ids" attrs="{'invisible': [('type', 'not in', ['check_in'])]}"
+                               readonly="1" force_save="1">
+                            <tree create="0" edit="0">
+                                <field name="available_room_ids" invisible="1"/>
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                            </tree>
+                        </field>
+                        <field name="all_folio_ids" attrs="{'invisible': [('type', 'not in', ['discount', 'charge'])]}">
+                            <tree create="0" edit="0" editable="bottom">
+                                <field name="available_room_ids" invisible="1"/>
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                            </tree>
+                        </field>
+                        <field name="checkout_folio_ids" attrs="{'invisible': [('type', 'not in', ['check_out'])]}"
+                               readonly="1" force_save="1">
+                            <tree create="0" edit="0">
+                                <field name="available_room_ids" invisible="1"/>
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                            </tree>
+                        </field>
+                        <field name="amend_folio_ids" widget="one2many_group_action"
+                               attrs="{'invisible': [('type', 'not in', ['amend'])]}">
+                            <tree create="0" edit="0" editable="bottom">
+                                <field name="available_room_ids" invisible="1"/>
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                            </tree>
+                        </field>
+                        <field name="charge_folio_ids" widget="one2many_group_action"
+                               attrs="{'invisible': [('type', 'not in', ['update_room_charge'])]}" readonly="1"
+                               force_save="1">
+                            <tree create="0" edit="0" editable="bottom">
+                                <field name="available_room_ids" invisible="1"/>
+                                <field name="booking_id" readonly="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="room_type_id" readonly="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="check_in" readonly="1"/>
+                                <field name="check_out" readonly="1"/>
+                                <field name="price_subtotal" optional="hide" readonly="1"/>
+                                <field name="price_tax" optional="hide" readonly="1"/>
+                                <field name="price_total" optional="hide" readonly="1"/>
+                                <field name="price_paid" optional="hide" readonly="1"/>
+                                <field name="price_due" optional="hide" readonly="1"/>
+                                <field name="currency_id" invisible="1" readonly="1"/>
+                                <field name="state" widget="badge" readonly="1"/>
+                            </tree>
+                        </field>
+                        <field name="all_folio_line_ids" invisible="1"/>
+                        <group attrs="{'invisible': [('type', '!=', 'update_room_charge')]}">
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search" attrs="{'invisible': [('type', '!=', 'update_room_charge')]}"/>
+                            </div>
+                        </div>
+                        <field name="folio_line_ids"
+                               attrs="{'invisible': [('type', 'not in', ['update_room_charge'])]}">
+                            <tree create="0" edit="0" editable="bottom">
+                                <field name="day" readonly="1" force_save="1"/>
+                                <field name="room_id" readonly="1" force_save="1"/>
+                                <field name="particulars" readonly="1" force_save="1"/>
+                                <field name="amount" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

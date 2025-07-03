@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_gantt_room_management" model="ir.ui.view">
+        <field name="name">Room Management Gantt</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <gantt date_start="booking_checkin" date_stop="booking_checkout" string="Rooms" default_group_by="room_stay_status_id">
+<!--                <field name="name"/>-->
+<!--                <field name="guest_id"/>-->
+            </gantt>
+        </field>
+    </record>
+
+
+</odoo>

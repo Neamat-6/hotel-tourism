@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_gender_view_tree" model="ir.ui.view">
+            <field name="name">ntmp_gender_view_tree</field>
+            <field name="model">ntmp.gender</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="name_en"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ntmp_gender_action" model="ir.actions.act_window">
+            <field name="name">Gender</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ntmp.gender</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ntmp_gender_menu" name="Gender" parent="ntmp_root_menu" action="ntmp_gender_action" sequence="3"/>
+    </data>
+</odoo>

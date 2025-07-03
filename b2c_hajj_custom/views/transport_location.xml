@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="transportation_locations_view_tree" model="ir.ui.view">
+            <field name="name">transportation_locations_view_tree</field>
+            <field name="model">transportation.locations</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="transportation_locations_action" model="ir.actions.act_window">
+            <field name="name">Transportation Location</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transportation.locations</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="transportation_locations_menu" name="Transportation Location"
+                  parent="b2c_hajj_custom.booking_config_menuitem"
+                  action="transportation_locations_action" sequence="10"/>
+    </data>
+</odoo>

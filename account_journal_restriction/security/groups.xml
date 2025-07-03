@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Limted Access by Journal -->
+    <record id="group_journal_limited_access" model="res.groups">
+        <field name="name">Limted Access by Journal</field>
+    </record>
+</odoo>

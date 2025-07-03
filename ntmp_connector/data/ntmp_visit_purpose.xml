@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_visit_purpose_1" model="ntmp.visit.purpose">
+            <field name="code">1</field>
+            <field name="name">السياحة</field>
+            <field name="name_en">Tourism</field>
+        </record>
+        <record id="ntmp_visit_purpose_2" model="ntmp.visit.purpose">
+            <field name="code">2</field>
+            <field name="name">زيارة الأهل و الأصدقاء</field>
+            <field name="name_en">Family or Friends</field>
+        </record>
+        <record id="ntmp_visit_purpose_3" model="ntmp.visit.purpose">
+            <field name="code">3</field>
+            <field name="name">زيارة دينية</field>
+            <field name="name_en">Religious</field>
+        </record>
+        <record id="ntmp_visit_purpose_4" model="ntmp.visit.purpose">
+            <field name="code">4</field>
+            <field name="name">عمل</field>
+            <field name="name_en">Business or Work</field>
+        </record>
+        <record id="ntmp_visit_purpose_5" model="ntmp.visit.purpose">
+            <field name="code">5</field>
+            <field name="name">نشاط رياضي</field>
+            <field name="name_en">Sports</field>
+        </record>
+        <record id="ntmp_visit_purpose_6" model="ntmp.visit.purpose">
+            <field name="code">6</field>
+            <field name="name">نشاط ترفيهي</field>
+            <field name="name_en">Entertainment</field>
+        </record>
+        <record id="ntmp_visit_purpose_7" model="ntmp.visit.purpose">
+            <field name="code">7</field>
+            <field name="name">اخرى</field>
+            <field name="name_en">Other</field>
+        </record>
+        <record id="ntmp_visit_purpose_8" model="ntmp.visit.purpose">
+            <field name="code">8</field>
+            <field name="name">موظف ديوان</field>
+            <field name="name_en">Work (Royal Court)</field>
+        </record>
+        <record id="ntmp_visit_purpose_9" model="ntmp.visit.purpose">
+            <field name="code">9</field>
+            <field name="name">عمل نزيل حجر</field>
+            <field name="name_en">Quarantined guests</field>
+        </record>
+        <record id="ntmp_visit_purpose_10" model="ntmp.visit.purpose">
+            <field name="code">10</field>
+            <field name="name">موظف وزارة الصحة</field>
+            <field name="name_en">Ministry of Health Staff</field>
+        </record>
+    </data>
+</odoo>

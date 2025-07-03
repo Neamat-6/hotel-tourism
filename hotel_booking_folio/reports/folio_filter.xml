@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_folio_filter_report" model="report.paperformat">
+            <field name="name">Folio Filter Report Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">50</field>
+            <field name="margin_bottom">30</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+        <record model="ir.actions.report" id="action_folio_filter_report">
+            <field name="name">Folio Filter Report</field>
+            <field name="model">folio.filter</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.folio_filter_report</field>
+            <field name="report_file">hotel_booking_folio.folio_filter_report</field>
+            <field name="binding_model_id" ref="model_folio_filter"/>
+            <field name="paperformat_id" ref="format_folio_filter_report"/>
+        </record>
+		<template id="folio_filter_report">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important; font-size: 20px !important;">
+                    <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                                padding: 5px; /* Add some padding */
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 15px; /* Adjust font size for compactness */
+                                padding: 5px; /* Add some padding */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <h2 class="text-center" style="text-align: center !important;">
+                                Report
+                            </h2>
+                            <table class="GeneratedTable" style="margin-bottom: 20px !important;">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Advanced Search</strong></td>
+                                        <td>
+                                            <t t-if="doc.advanced_search">Yes</t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Include Cancelled</strong></td>
+                                        <td>
+                                            <t t-if="doc.include_cancelled">Yes</t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Day Use</strong></td>
+                                        <td>
+                                            <t t-if="doc.day_use">Yes</t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>Complimentary Room</strong></td>
+                                        <td>
+                                            <t t-if="doc.complimentary_room">Yes</t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>House Use</strong></td>
+                                        <td>
+                                            <t t-if="doc.house_use">Yes</t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>States</strong></td>
+                                        <td>
+                                            <t t-if="doc.state_ids"><t t-esc="', '.join(doc.state_ids.mapped('name'))"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>Booking Source</strong></td>
+                                        <td>
+                                            <t t-if="doc.booking_source"><t t-esc="doc.booking_source"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Filter Type</strong></td>
+                                        <td>
+                                            <t t-if="doc.filter_type"><t t-esc="doc.filter_type"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>Related Hotel</strong></td>
+                                        <td>
+                                            <t t-if="doc.related_hotel"><t t-esc="', '.join(doc.related_hotel.mapped('name'))"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>Guest Name</strong></td>
+                                        <td>
+                                            <t t-if="doc.partner_id"><t t-esc="doc.partner_id.name"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ref</strong></td>
+                                        <td>
+                                            <t t-if="doc.folio_id"><t t-esc="doc.folio_id.name"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Booking Number</strong></td>
+                                        <td>
+                                            <t t-if="doc.booking_id"><t t-esc="doc.booking_id.ref"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td><strong>Guest Mobile</strong></td>
+                                        <td>
+                                            <t t-if="doc.mobile"><t t-esc="doc.mobile"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Reference Number</strong></td>
+                                        <td>
+                                            <t t-if="doc.reference_number"><t t-esc="doc.reference_number"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+
+                                        <td><strong>Room Number</strong></td>
+                                        <td>
+                                            <t t-if="doc.room_id"><t t-esc="doc.room_id.name"/></t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Booking</th>
+                                        <th class="text-center">Reference</th>
+                                        <th class="text-center">Room Type</th>
+                                        <th class="text-center">Room</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">Check In</th>
+                                        <th class="text-center">Check Out</th>
+                                        <th class="text-center">Nights</th>
+                                        <th class="text-center">Guests</th>
+                                        <th class="text-center">B</th>
+                                        <th class="text-center">L</th>
+                                        <th class="text-center">D</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="sequence" t-value="0"/>
+                                    <t t-set="total_nights" t-value="0"/>
+                                    <t t-set="total_adults" t-value="0"/>
+                                    <t t-set="total_breakfast" t-value="0"/>
+                                    <t t-set="total_lunch" t-value="0"/>
+                                    <t t-set="total_dinner" t-value="0"/>
+                                    <t t-set="total_price" t-value="0"/>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                        <t t-set="total_night" t-value="line.total_nights"/> 
+                                        <t t-set="total_adult" t-value="line.number_of_guests"/>
+                                        <t t-set="total_nights" t-value="total_nights + total_night"/>
+                                        <t t-set="total_adults" t-value="total_adults + total_adult"/>
+                                        <t t-set="total_price" t-value="total_price + line.price_total"/>
+
+                                        <tr>
+                                            <td class="text-center">
+                                                <t t-esc="sequence"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.booking_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.room_type_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.room_id"/>
+                                            <td class="text-center">
+                                               <t t-esc="line.price_total"/>
+                                            </td>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_in"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_out"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="total_night"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="total_adult"/>
+                                            </td>
+                                            <td class="text-center">
+
+                                                <t t-if="line.rate_plan_id.include_breakfast">
+                                                  <t t-esc="total_adult"/>
+                                                  <t t-set="total_breakfast" t-value="total_breakfast + total_adult"/>
+                                                </t>
+                                                <t t-else="">0</t>
+                                            </td>
+                                            
+                                            <td class="text-center">
+                                                <t t-if="line.rate_plan_id.include_lunch">
+
+                                                  <t t-esc="total_adult"/>
+                                                  <t t-set="total_lunch" t-value="total_lunch + total_adult"/>
+                                                </t>
+                                                <t t-else="">0</t>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-if="line.rate_plan_id.include_dinner">
+                                                  <t t-esc="total_adult"/>
+                                                  <t t-set="total_dinner" t-value="total_dinner + total_adult"/>
+                                                </t>
+                                                <t t-else="">0</t>
+                                            </td>
+                                        
+                                            <td class="text-center">
+                                                <span t-field="line.price_total"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td  class="text-right"><strong>Total</strong></td>
+                                        <td  class="text-right"><strong>Nights</strong></td>
+                                        <td  class="text-left"><strong><t t-esc="total_nights"/></strong></td>
+                                        <td  class="text-right"><strong>Adults</strong></td>
+                                        <td  class="text-left"><strong><t t-esc="total_adults"/></strong></td>
+                                        <td  class="text-right"><strong>Rooms</strong></td>
+                                        <td  class="text-center"><strong><t t-esc="sequence"/></strong></td>
+                                        <td  class="text-right"><strong>Meals</strong></td>
+                                        <td  class="text-left"><strong><t t-esc="total_breakfast"/> / <t t-esc="total_lunch"/> /  <t t-esc="total_dinner"/> </strong></td>
+                                        <td colspan="3"/>
+                                        <td  class="text-right"><strong>Total Price</strong></td>
+                                        <td  class="text-left"><strong><t t-esc="total_price"/> </strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <data>
+
+        <record id="b2c_hajj_airport" model="res.groups">
+            <field name="name">مطار</field>
+        </record>
+        <record id="b2c_hajj_transport" model="res.groups">
+            <field name="name">نقل</field>
+        </record>
+        <record id="b2c_hajj_minnah" model="res.groups">
+            <field name="name">مخيمات مني</field>
+        </record>
+        <record id="b2c_hajj_arfa" model="res.groups">
+            <field name="name">مخيمات عرفة</field>
+        </record>
+        <record id="b2c_hajj_makkah" model="res.groups">
+            <field name="name">فندق مكه</field>
+        </record>
+        <record id="b2c_hajj_madinah" model="res.groups">
+            <field name="name">فندق المدينة</field>
+        </record>
+    </data>
+</odoo>

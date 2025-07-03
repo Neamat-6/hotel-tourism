@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="daily_revenue_report_eg" inherit_id="hotel_booking_folio.daily_revenue_report">
+            <xpath expr="//table/thead/tr/th[8]" position="replace">
+                <th class="text-center">Total Service Charge</th>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

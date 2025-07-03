@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_config_settings_advance_payment_form" model="ir.ui.view">
+        <field name="name">view.account.config.settings.advance.payment.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <block title="Advance Payments" id="account_payment_advance">
+                    <group string="Default Account" id="account_payment_advance_accounts"
+                           help="Default account to be used for Advance Payments of your company">
+                        <group>
+                            <field name="advance_payment_account_id" options="{'no_create_edit': True, 'no_open': True}"
+                                   domain="[('company_id', '=', company_id),('reconcile', '=', True)]"/>
+                        </group>
+                        <group>
+                            <field name="advance_payment_outgoing_account_id"
+                                   options="{'no_create_edit': True, 'no_open': True}"
+                                   domain="[('company_id', '=', company_id), ('reconcile', '=', True)]"/>
+                        </group>
+                    </group>
+                    <group string="Default Journal" id="account_payment_advance_journal"
+                           help="Default journal to be used for Advance Payments of your company">
+                        <group>
+                            <field name="advance_payment_journal_id" options="{'no_create_edit': True, 'no_open': True}"
+                                   domain="[('company_id', '=', company_id)]"/>
+                        </group>
+                    </group>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

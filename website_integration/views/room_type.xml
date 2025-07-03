@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="room_type_form_view_inherit" model="ir.ui.view">
+        <field name="name">room.type.form.inherit</field>
+        <field name="model">room.type</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_room_type"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div" position="after">
+                <field name="image_1920" widget="image" nolabel="1" class="oe_avatar" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

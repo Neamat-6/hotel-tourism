@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_transaction_type_1" model="ntmp.transaction.type">
+            <field name="code">1</field>
+            <field name="name">Booking</field>
+        </record>
+        <record id="ntmp_transaction_type_2" model="ntmp.transaction.type">
+            <field name="code">2</field>
+            <field name="name">CheckIn</field>
+        </record>
+        <record id="ntmp_transaction_type_3" model="ntmp.transaction.type">
+            <field name="code">3</field>
+            <field name="name">CheckOut</field>
+        </record>
+    </data>
+</odoo>

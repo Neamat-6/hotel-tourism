@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="folio_report" inherit_id="hotel_booking.folio_report">
+            <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr[@id='arrival_departure_time']" position="replace">
+                <tr id="arrival_departure_time">
+                    <td class="with-border">Time Of Arrival</td>
+                    <td class="with-border">
+                        <t t-set="arrival_time" t-value="doc.booking_id.audit_trails.filtered(lambda a: a.operation == 'checked_in' and a.folio_id == doc)"/>
+                        <t t-if="arrival_time">
+                            <t t-set="local_dt" t-value="context_timestamp(arrival_time[-1].datetime)"/>
+                            <t t-esc="local_dt.strftime('%I:%M:%S %p')"/>
+                        </t>
+                    </td>
+                    <td class="with-border">Time of Departure</td>
+                    <td class="with-border">
+                        <t t-set="departure_time" t-value="doc.booking_id.audit_trails.filtered(lambda a: a.operation == 'checked_out' and a.folio_id == doc)"/>
+                        <t t-if="departure_time">
+                            <t t-set="local_dt" t-value="context_timestamp(departure_time[-1].datetime)"/>
+                            <t t-esc="local_dt.strftime('%I:%M:%S %p')"/>
+                        </t>
+                    </td>
+                    <td class="with-border">Rate Type</td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

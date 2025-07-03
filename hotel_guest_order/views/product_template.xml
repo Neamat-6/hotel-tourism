@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!-- Inherit Form View to Modify it -->
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product_template_form_view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='sales']" position="inside">
+                    <group>
+                        <group>
+                            <field name="is_orderable"/>
+                            <field name="period"/>
+                        </group>
+                        <group>
+                            <field name="from_hour" widget="float_time"/>
+                            <field name="to_hour" widget="float_time"/>
+                        </group>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hotel_guest_order.view_product_template_search_orderable"
+            model="ir.ui.view">
+            <field name="name">hotel_guest_order.product.template.search.orderable</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter name="filter_is_orderable"
+                            string="Orderable"
+                            domain="[('is_orderable','=',True)]"/>
+                    <filter name="filter_not_orderable"
+                            string="Not Orderable"
+                            domain="[('is_orderable','=',False)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

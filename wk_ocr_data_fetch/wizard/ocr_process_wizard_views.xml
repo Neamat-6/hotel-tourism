@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <data>
+        <record id="ocr_process_wizard_form" model="ir.ui.view">
+            <field name="name">ocr.process.wizard.form</field>
+            <field name="model">ocr.process.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field invisible="1" name="state" required="1"/>
+                    <field invisible="1" name="model_id" required="1"/>
+                    <field name="ocr_template_id" required="1" widget="radio"
+                           attrs="{'invisible': [('state', 'in', ['upload'])]}"
+                           domain="[('model_id', '=', model_id)]"/>
+                    <div class="d-flex justify-content-center"
+                         attrs="{'invisible': [('state', 'in', ['template'])]}">
+                        <field name="image" widget="image"/>
+                    </div>
+                    <footer>
+                        <button string="Back" name="select_template" type="object" class="btn btn-secondary"
+                                data-hotkey="b" attrs="{'invisible': [('state', 'in', ['template'])]}"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                        <button string="Upload Image" name="upload_image" type="object" class="oe_highlight"
+                                data-hotkey="d" attrs="{'invisible': [('state', 'in', ['upload'])]}"/>
+                        <button string="Process And Save" name="process_and_save" type="object" class="oe_highlight"
+                                data-hotkey="p" attrs="{'invisible': [('state', 'in', ['template'])]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

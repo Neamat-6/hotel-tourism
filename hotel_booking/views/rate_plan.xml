@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rate_plan_view_tree" model="ir.ui.view">
+            <field name="name">rate_plan_view_tree</field>
+            <field name="model">hotel.rate.plan</field>
+            <field name="arch" type="xml">
+                <tree string="rate_plan_tree" delete="0">
+                    <field name="room_type_id"/>
+                    <field name="rate_type_id"/>
+                    <field name="name"/>
+                    <field name="web_description"/>
+                    <field name="rock_rate"/>
+                </tree>
+            </field>
+        </record>
+        <record id="rate_plan_view_form" model="ir.ui.view">
+            <field name="name">rate_plan_view_form</field>
+            <field name="model">hotel.rate.plan</field>
+            <field name="arch" type="xml">
+                <form string="rate_plan_form" delete="0">
+                    <header>
+                        <button name="convert_to_daily_prices" type="object" string="Convert"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="room_type_id"/>
+                                <field name="name" force_save="1"/>
+                                <field name="base_adult"/>
+                                <field name="max_adult"/>
+                                <field name="rock_rate"/>
+                                <field name="tax_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="rate_type_id"/>
+                                <field name="web_description"/>
+                                <field name="base_child"/>
+                                <field name="max_child"/>
+                                <field name="company_id"/>
+                                <field name="include_breakfast"/>
+                                <field name="include_lunch"/>
+                                <field name="include_dinner"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="extra_adult"/>
+                            </group>
+                            <group>
+                                <field name="extra_child"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="prices" string="Prices">
+                                <field name="price_ids">
+                                    <tree editable="bottom">
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="daily_prices" string="Daily Prices">
+                                <field name="day_price_ids">
+                                    <tree editable="bottom">
+                                        <field name="date"/>
+                                        <field name="price"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="rate_plan_action" model="ir.actions.act_window">
+            <field name="name">Rate Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.rate.plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_rate_plan" name="Rate Plan" action="rate_plan_action" sequence="90"
+                  groups="hotel_booking.rate_plan_menu_group"
+                  parent="hotel_booking.menu_hotel_configuration"/>
+    </data>
+</odoo>

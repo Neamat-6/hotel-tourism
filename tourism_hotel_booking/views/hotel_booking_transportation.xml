@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_hotel_booking_transportation_form" model="ir.ui.view">
+        <field name="name">hotel.booking.transportation.form</field>
+        <field name="model">hotel.booking.transportation</field>
+        <field name="arch" type="xml">
+            <form string="Transportation">
+                <sheet>
+                  <div class="oe_button_box" name="button_box">
+                        <button name="action_open_bills" type="object" class="oe_stat_button"
+                                icon="fa-credit-card">
+                            <div class="o_stat_info">
+                                <field name="total_billed_amount" class="o_stat_value"/>
+                                <span class="o_stat_text">Billed</span>
+                            </div>
+                        </button>
+                        <button name="action_open_invoices" type="object" class="oe_stat_button"
+                                icon="fa-credit-card">
+                            <div class="o_stat_info">
+                                <field name="total_invoiced_amount" class="o_stat_value"/>
+                                <span class="o_stat_text">Invoiced</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <!-- Left: Travel Agent Related -->
+                        <group>
+                            <field name="travel_agent_name"/>
+                            <field name="travel_agent_hotel_transportation_contract_id"
+                                   attrs="{'readonly': [('travel_agent_name', '=', False)]}" 
+                                   domain="[('contract_type', '=', 'purchase')]"/>
+                            <field name="travel_agent_available_package_ids" invisible="1"/>
+                            <field name="travel_agent_package_id" 
+                                domain="[('id', 'in', travel_agent_available_package_ids)]"
+                                attrs="{'readonly': [('travel_agent_hotel_transportation_contract_id', '=', False)]}"/>
+                        </group>
+
+                        <!-- Right: Customer & Package Related -->
+                        <group>
+                            <field name="partner_id"/>        
+                            <field name="customer_hotel_transportation_contract_id"
+                                   attrs="{'readonly': [('partner_id', '=', False)]}" 
+                                   domain="[('contract_type', '=', 'sell')]"/>
+                            <field name="customer_available_package_ids" invisible="1"/>
+                            <field name="customer_package_id" 
+                                domain="[('id', 'in', customer_available_package_ids)]"
+                                attrs="{'readonly': [('customer_hotel_transportation_contract_id', '=', False)]}"/>
+                        </group>
+                    </group>
+
+                     <group>
+                        <group>
+                            <field name="supervisor"/>
+                        </group>
+                        <group>
+                            <field name="phone"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="makkah_hotel"/>
+                            <field name="makkah_arrival_date"/>
+                            <field name="makkah_departure_date"/>
+                        </group>
+                        <group>
+                            <field name="madinah_hotel"/>
+                            <field name="madinah_arrival_date"/>
+                            <field name="madinah_departure_date"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="arrival_flight_number"/>
+                        </group>
+                        <group>
+                            <field name="departure_flight_number"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="flight_arrival_date"/>
+                        </group>
+                        <group>
+                            <field name="flight_departure_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="operation_number"/>
+                        </group>
+                        <group>
+                            <field name="circular_number"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="number_of_guests"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Transportation Service">
+                            <field name="transportation_booking_ids">
+                                <tree editable="bottom">
+                                    <field name="customer_available_package_ids" invisible="1"/>
+                                    <field name="customer_package_id"/> 
+                                    <field name="product_id" domain="[('detailed_type', '=', 'service')]"/>
+                                    <field name="bus_type_id"/>
+                                    <field name="no_of_bus"/>
+                                    <field name="no_of_passengers"/>
+                                    <field name="departure_date"/>
+                                    <field name="return_date"/>
+                                    <field name="days"/>
+                                    <field name="purchase_tax_ids" widget="many2many_tags" 
+                                           domain="[('type_tax_use','=','purchase')]"/>
+                                    <field name="sales_tax_ids" widget="many2many_tags" 
+                                           domain="[('type_tax_use','=','sale')]"/>
+                                    <field name="cost_price" force_save="1"/>
+                                    <field name="sell_price" force_save="1"/>
+                                    <field name="account_move_id" readonly="1"/>
+                                    <field name="account_move" readonly="1"/>
+                                    <button name="create_transportation_bill" string="Create Bill" type="object" 
+                                            class="oe_highlight" 
+                                            attrs="{'invisible':[('account_move_id','!=',False)]}"/>
+                                    <button name="create_transportation_invoice" string="Create Invoice" type="object" 
+                                            class="oe_highlight" 
+                                            attrs="{'invisible':[('account_move','!=',False)]}"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_cost_tax" widget='monetary' string="Total Cost With Tax"/>
+                                <field name="total_income" widget='monetary' string="Total Income With Tax"/>
+                                <field name="total_purchase_taxes" widget='monetary'/>
+                                <field name="total_sales_taxes" widget='monetary'/>
+                                <field name="difference" widget='monetary'/>
+                            </group>
+                        </page>
+                        <page string="Transportation Lines">
+                            <field name="transportation_destination_lines">
+                                <tree editable="bottom">
+                                    <field name="from_destination_id"/>
+                                    <field name="to_destination_id"/>
+                                    <field name="datetime"/>
+                                    <field name="state"/>
+                                    <field name="move"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hotel_booking_transportation_tree" model="ir.ui.view">
+        <field name="name">hotel.booking.transportation.tree</field>
+        <field name="model">hotel.booking.transportation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="customer_package_id"/>
+                <field name="travel_agent_package_id"/>
+                <field name="partner_id"/>
+                <field name="customer_hotel_transportation_contract_id"/>
+                <field name="travel_agent_name"/>
+                <field name="travel_agent_hotel_transportation_contract_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hotel_booking_transportation" model="ir.actions.act_window">
+        <field name="name">Transportation</field>
+        <field name="res_model">hotel.booking.transportation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hotel_booking_transportation" name="Transportation" parent="tourism_hotel_booking.menu_hotel_root" action="action_hotel_booking_transportation"/>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shomoos_country,shomoos.country,model_shomoos_country,,1,1,1,1
+access_shomoos_identity_type,shomoos.identity.type,model_shomoos_identity_type,,1,1,1,1
+access_shomoos_nationality,shomoos.nationality,model_shomoos_nationality,,1,1,1,1
+access_shomoos_response_code,shomoos.response.code,model_shomoos_response_code,,1,1,1,1
+access_warning_wizard,warning.wizard,model_warning_wizard,,1,1,1,1

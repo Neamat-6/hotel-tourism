@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_available_current" model="ir.ui.view">
+            <field name="name">hotel.room.availability.sheet.open.wiz</field>
+            <field name="model">hotel.room.availability.sheet.open</field>
+            <field name="arch" type="xml">
+                <form  >
+                    <group>
+                        <group>
+                            <field name="hotel_id" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="open_room_availability_sheet" string="_Apply" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_update_available_current" model="ir.actions.act_window">
+            <field name="name">Open Room Availability Sheet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.room.availability.sheet.open</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_update_available_current"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

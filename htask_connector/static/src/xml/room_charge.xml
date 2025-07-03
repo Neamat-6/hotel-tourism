@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<!--        <t t-name="PostChargeWidget" owl="1">-->
+    <!--        <div class='control-button js_select_driver'>-->
+
+    <!--            <i class='fa fa-truck' /> -->
+
+    <!--        </div>-->
+    <!--    </t>-->
+
+
+    <t t-name="PostChargeWidget" owl="1">
+        <div class="modal-dialog" role="dialog">
+            <div class="popup pos_post_charge">
+                <p class="title" style="background-color: rgb(110,200,155); color: #fff;">Post Charge to Room</p>
+
+                <div class="room_retrieve">
+                    <input type="text" class="room_no input-field" placeholder="Room No."/>
+                    <div class="button" t-on-click="trigger('click-get_room')">
+                            <span> Retrieve Room</span>
+                    </div>
+
+                    <!--                    <button class="get_room">Retrieve Room</button>-->
+                </div>
+
+                <div id="room-info" class="row">
+                    <p id="room-status"></p>
+                    <table id="room-info-table" text-align="center"/>
+                    <br/>
+                    <div class="container">
+                        <form>
+                            <ul class="flex-outer">
+                                <li>
+                                    <label style="font-size: 16px" for="charge_desc">Charge Description</label>
+
+                                    <input style="font-size: 16px; width: 60%; margin-top: 10px;"
+                                           class='charge_desc form-control' name='charge_desc' type="text"
+                                           placeholder='Description' required=""/>
+                                </li>
+                                <li>
+                                    <label style="font-size: 16px" for="post_comment">Comment</label>
+                                    <input style="font-size: 16px; width: 60%" class='post_comment form-control'
+                                           type="text" name='post_comment' placeholder='Comment Here!' required=""/>
+                                </li>
+
+                            </ul>
+                        </form>
+                    </div>
+
+
+                </div>
+
+                <div class="footer" style="background-color: rgb(110,200,155); color: #fff;">
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+
+                    <!--                    <div class="button cancel" t-on-click="trigger('close-this-popup')">-->
+                    <!--                        Cancel-->
+                    <!--                    </div>-->
+
+                    <div id="btn-post" class="button" t-on-click="trigger('click-post')">
+                            <span> Post</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </t>
+
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+                    <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+
+            <t t-if='receipt.room_no'>
+                <br/>
+                <br/>
+                <div class="pos-receipt-header">
+               		        Room: <t t-esc="receipt.room_no"/>
+                </div>
+
+            </t>
+        </xpath>
+<!--         		<xpath expr="//div[hasclass('orderlines')]" position="before">
+                       <t t-if="receipt.client.name">
+                                 
+                            
+                            <div class="pos-receipt-header">
+                       <br/>
+
+                                <span>Customer : <t t-esc="receipt.client.name"/></span>
+                </div>
+            </t>
+                    
+                     
+        </xpath> -->
+
+    </t>
+
+
+</templates>

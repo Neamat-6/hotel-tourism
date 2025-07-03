@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_room_type" model="ir.ui.view">
+        <field name="name">room.tree</field>
+        <field name="model">room.type</field>
+        <field name="arch" type="xml">
+            <tree delete="0">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_room_type" model="ir.ui.view">
+        <field name="name">room.type.form</field>
+        <field name="model">room.type</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-key" type="object" name="action_view_rooms">
+                            <field widget="statinfo" name="room_count" string="Rooms"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. 001"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="mini_adults"/>
+                            <field name="mini_children"/>
+                            <field name="price"/>
+                        </group>
+                        <group>
+                            <field name="max_adults"/>
+                            <field name="max_children"/>
+                            <field name="is_virtual"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_room_type" model="ir.actions.act_window">
+        <field name="name">Room Type</field>
+        <field name="res_model">room.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Floor -->
+    <menuitem id="menu_room_type" name="Room Type" action="action_room_type" sequence="90"
+              parent="hotel_booking.menu_hotel_configuration" groups="hotel_booking.menu_room_type_group"/>
+
+
+</odoo>

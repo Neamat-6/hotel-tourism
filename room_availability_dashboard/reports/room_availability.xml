@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_room_availability_report">
+            <field name="name">Room Availability</field>
+            <field name="model">room.availability.dashboard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">room_availability_dashboard.room_availability_report</field>
+            <field name="report_file">room_availability_dashboard.room_availability_report</field>
+            <field name="binding_model_id" ref="model_room_availability_dashboard"/>
+<!--			<field name="paperformat_id" ref="hotel_room_availability.paperformat_room_type_inventory_landscape"/>-->
+        </record>
+		<template id="room_availability_report">
+			<t t-call="web.html_container">
+				<t t-call="web.basic_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+						<t t-foreach="docs" t-as="doc">
+							<style>
+								.text-bold{ font-weight: bold; }
+								table.GeneratedTable {
+								  width: 100%;
+								  background-color: #ffffff;
+								  border-collapse: collapse;
+								  border-width: 2px;
+								  border-color: black;
+								  border-style: solid;
+								  color: #000000;
+								}
+
+								table.GeneratedTable td, table.GeneratedTable th {
+								  border-width: 2px;
+								  border-color: black;
+								  border-style: solid;
+								  padding: 3px;
+								}
+							</style>
+							<div class="header" style="font-family:Arial !important">
+								<div class="row pt-5">
+									<div class="col-3">
+										<h4 t-esc="doc.hotel_id.name"/>
+									</div>
+									<div class="col-3"></div>
+									<div class="col-3"></div>
+									<div class="col-3">
+										<h4>Room Availability</h4>
+									</div>
+								</div>
+								<hr style="border-style:solid none none none;border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;margin: 16px 0px; border-width: medium; border-style: none; border-top-color: initial; background-color: rgb(204, 204, 204); clear: both; font-size: 0px; min-height: 1px; line-height: 0;" width="100%"/>
+							</div>
+							<h5>
+								From: <span t-esc="doc.start_date.strftime('%d/%m/%Y')"/> To: <span t-esc="doc.end_date.strftime('%d/%m/%Y')"/>
+							</h5>
+							<br/>
+							<table class="GeneratedTable">
+								<tbody>
+									<tr>
+										<td class="text-bold text-center">Date</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['date']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Day</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['day']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Check In</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['check_in_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Arrival</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['arrival_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Actual Check Out</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['check_out_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Expected Check Out</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['exp_check_out_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Cancelled</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['cancelled_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Actual In-house</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['inhouse_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Expected In-house</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['exp_inhouse_count']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Total Rooms</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['total_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Actual Booked Rooms</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['booked_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Expected Booked Rooms</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['exp_booked_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Actual Available Rooms</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['available_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Expected Available Rooms</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['exp_available_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">(%) Actual Occupancy</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['occupancy']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">(%) Expected Occupancy</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['exp_occupancy']"/>
+											</td>
+										</t>
+									</tr>
+								</tbody>
+							</table>
+						</t>
+					</div>
+				</t>
+			</t>
+		</template>
+
+    </data>
+</odoo>

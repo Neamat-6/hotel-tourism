@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="room_availability_action_dashboard" model="ir.actions.client">
+    <field name="name">Room Availability Dashboard</field>
+    <field name="tag">room_availability_dashboard</field>
+  </record>
+
+  <menuitem id="menu_room_availability_dashboard"
+    name="Room Availability Dashboard"
+    action="room_availability_action_dashboard"
+    parent="hotel_booking.menu_hotels_task_root"
+    groups="room_availability_dashboard.group_room_availability_dashboard"
+    sequence="1" />
+
+
+  <record id="room_gantt_action_dashboard" model="ir.actions.client">
+    <field name="name">Room Gantt Dashboard</field>
+    <field name="tag">room_gantt_dashboard</field>
+  </record>
+
+<!--  <menuitem id="menu_room_gantt_dashboard"-->
+<!--    name="Room Gantt Dashboard"-->
+<!--    action="room_gantt_action_dashboard"-->
+<!--    parent="hotel_booking.menu_hotels_task_root"-->
+<!--    sequence="2" />-->
+</odoo>

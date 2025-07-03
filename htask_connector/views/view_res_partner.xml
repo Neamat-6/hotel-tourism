@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_res_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+
+            <field name="type" position="after" >
+                <field name="is_guest" invisible="1"/>
+                <field name="guest_type" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="gender" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="id_type" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="id_no" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="id_expiry_date" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="vip_status" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+            </field>
+
+            <field name="email" position="before">
+                <field name="fax" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+            </field>
+
+            <field name="vat" position="before">
+                <field name="full_addr" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="nationality" attrs="{'invisible': ['|', ('nationality', '=', False), ('is_guest', '=', False)]}"/>
+                <field name="nationality_str" string="Nationality" attrs="{'invisible': ['|', ('is_guest', '=', False), ('nationality', '!=', False)]}"/>
+                <field name="birth_city" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="birth_country" attrs="{'invisible': ['|', ('birth_country', '=', False), ('is_guest', '=', False)]}"/>
+                <field name="birth_country_str" string="Birth Country" attrs="{'invisible': ['|', ('is_guest', '=', False), ('birth_country', '!=', False)]}"/>
+                <field name="spouse_birth_date" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+                <field name="reg_no" attrs="{'invisible': [('is_guest', '=', False)]}"/>
+            </field>
+            
+            <field name="country_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_guest', '=', False), ('country_id', '=', False)],'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </field>
+
+            <field name="country_id" position="after">
+                <field name="country_str" placeholder="Country" class="o_address_country" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': ['|', ('is_guest', '=', False), ('country_id', '!=', False)]}"/>
+            </field>
+
+            <field name="state_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_guest', '=', False), ('state_id', '=', False)], 'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </field>
+
+            <field name="state_id" position="after">
+                <field name="state_str" class="o_address_state" placeholder="State" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)], 'invisible': ['|', ('is_guest', '=', False), ('state_id', '!=', False)]}"/>
+            </field>
+
+            
+            <page name="internal_notes" position="before">
+                <page name="htask" string="HTask" attrs="{'invisible': [('is_guest', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="htask_id_external" />
+                            <field name="htask_last_sync_date" />
+                            <field name="is_hotel_customer"/>
+                            <field name="is_city_ledger_customer"/>
+                        </group>
+                        <group>
+                            <field name="is_blacklisted" />
+                            <field name="blacklist_reason" />
+                        </group>
+                        
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="action_guests" model="ir.actions.act_window">
+        <field name="name">Guests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_is_guest': True}</field>
+        <field name="domain">[('is_guest', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            There are no guests yet!
+          </p>
+        </field>
+    </record>
+
+    <!-- HTask Connector Root Menu -->
+    <menuitem id="htask_connector_root_menu" name="HTask Connector" groups="htask_connector.htask_connector_manager_group"/>
+
+    <!-- HTask Guests MenuItem -->
+    <menuitem id="htask_guests_menuitem" sequence="1" parent="htask_connector_root_menu" action="htask_connector.action_guests" name="Guests" groups="htask_connector.htask_connector_manager_group"/>
+</odoo>

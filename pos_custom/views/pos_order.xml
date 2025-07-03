@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!-- Inherit Form View to Modify it -->
+<record id="view_pos_order_filter" model="ir.ui.view">
+    <field name="name">view_pos_order_filter</field>
+    <field name="model">pos.order</field>
+    <field name="inherit_id" ref="point_of_sale.view_pos_order_filter"/>
+    <field name="arch" type="xml">
+        <xpath expr="//filter[@name='posted']" position="after">
+            <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancel')]"/>
+            <filter string="Posted Guest Folio" name="guest_folio" domain="[('posted_guest_folio', '=', True)]"/>
+        </xpath>
+        <xpath expr="//filter[@name='status']" position="after">
+            <filter string="Posted Guest Folio" name="guest_folio" domain="[]" context="{'group_by': 'posted_guest_folio'}"/>
+        </xpath>
+
+    </field>
+</record>
+    </data>
+</odoo>

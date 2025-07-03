@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_apply_booking_discount_form" model="ir.ui.view">
+            <field name="name">folio_apply_booking_discount_form</field>
+            <field name="model">booking.apply.discount</field>
+            <field name="inherit_id" ref="hotel_booking.apply_booking_discount_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="before">
+                    <field name="folio_id" readonly="1" force_save="1"/>
+                    <field name="open_discount" invisible="1"/>
+                    <field name="discount" attrs="{'invisible': [('open_discount','!=',True)], 'required': [('open_discount', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

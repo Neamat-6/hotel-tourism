@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+htask_account_type_manager,htask_account_type_manager,htask_connector.model_htask_account_type,,1,1,1,1
+htask_account_configuration_manager,htask_account_configuration_manager,htask_connector.model_htask_account_configuration,,1,1,1,1
+htask_hotel_folio_manager,htask_hotel_folio_manager,htask_connector.model_hotel_folio,,1,1,1,1
+htask_hotel_folio_line_manager,htask_hotel_folio_line_manager,htask_connector.model_hotel_folio_line,,1,1,1,1
+htask_hotel_folio_detail_manager,htask_hotel_folio_detail_manager,htask_connector.model_hotel_folio_detail,,1,1,1,1
+htask_sync_revenues,htask_sync_revenues,htask_connector.model_htask_sync_revenues,,1,1,1,1
+manager_report,manager_report,htask_connector.model_manager_report,,1,1,1,1

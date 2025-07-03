@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="update_room_status_view_form" model="ir.ui.view">
+            <field name="name">update_room_status_view_form</field>
+            <field name="model">update.room.status</field>
+            <field name="arch" type="xml">
+                <form string="update_room_status_form">
+                    <sheet>
+                        <group>
+                            <field name="update_type" invisible="1"/>
+                            <field name="room_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="state" attrs="{'invisible': [('update_type', '!=', 'housekeeping')], 'required': [('update_type', '=', 'housekeeping')]}" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="stay_state" attrs="{'invisible': [('update_type', '!=', 'stayover')], 'required': [('update_type', '=', 'stayover')]}"/>
+                            <field name="housekeeper" attrs="{'invisible': [('update_type', '!=', 'housekeeper')], 'required': [('update_type', '=', 'housekeeper')]}" options="{'no_open': True, 'no_create': True}" domain="[('department_id.name', '=', 'Housekeeping')]"/>
+                            <field name="release_room" attrs="{'invisible': [('update_type', '!=', 'ooo')]}"/>
+                            <field name="date_from" attrs="{'invisible': [('update_type', 'not in', ['ooo'])], 'required': [('update_type', 'in', ['ooo'])]}"/>
+                            <field name="date_to" attrs="{'invisible': [('update_type', 'not in', ['ooo'])], 'required': [('update_type', 'in', ['ooo'])]}"/>
+                            <field name="ooo_reason_id" attrs="{'invisible': ['|', ('update_type', '!=', 'ooo'), ('release_room', '=', True)], 'required': [('update_type', '=', 'ooo'), ('release_room', '=', False)]}"/>
+                        </group>
+                        <footer>
+                            <button name="update_state" string="Apply" type="object" class="oe_highlight"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

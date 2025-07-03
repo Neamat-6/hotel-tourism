@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="settled_booking_form_view" model="ir.ui.view">
+        <field name="name">settled_booking_form_view</field>
+        <field name="model">settled.booking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_draft" string="Reset To Draft" type="object" class="oe_highlight"
+                            states="confirm"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="settled_advance_payment" widget="toggle"/>
+                            <field name="partner_id"/>
+                            <field name="partner_advance_payment"/>
+                            <field name="note"/>
+                        </group>
+                        <group>
+                            <label for="date_from" string="Date"/>
+                            <div class="o_row">
+                                <field name="date_from"/>
+                                <i class="fa fa-long-arrow-right mx-2 oe_edit_only"
+                                   aria-label="Arrow icon" title="Arrow"/>
+                                <field name="date_to"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="booking_amount"/>
+                            <field name="hotel_ids" widget="many2many_tags" force_save="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div class="row">
+                            <div class="col-3"></div>
+                            <div class="col-4">
+                                <button name="select_all_booking" type="object" string="Select All Bookings"
+                                        class="oe_highlight"/>
+                            </div>
+                            <div class="col-4">
+                                <button name="unselect_all_booking" type="object" string="Unselect All Bookings"
+                                        class="oe_highlight"/>
+                            </div>
+                        </div>
+                    </group>
+                    <notebook>
+                        <page string="Bookings">
+                            <field name="hotel_booking_ids" force_save="1"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True,'no_quick_create': True}">
+                                <tree editable="bottom">
+                                    <field name="is_selected"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="company_booking_source" readonly="1"/>
+                                    <field name="company_id" readonly="1"/>
+                                    <field name="new_check_in" readonly="1"/>
+                                    <field name="new_check_out" readonly="1"/>
+                                    <field name="amount_total" readonly="1"/>
+                                    <field name="company_paid" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="settled_booking_tree_view" model="ir.ui.view">
+        <field name="name">Settled Booking</field>
+        <field name="model">settled.booking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_settled_booking_view" model="ir.actions.act_window">
+        <field name="name">Settled Booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">settled.booking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="settled_booking_menu" name="Settled City Ledger Booking"
+              parent="hotel_booking.menu_hotel_payment" action="action_settled_booking_view" sequence="2"/>
+
+
+</odoo>

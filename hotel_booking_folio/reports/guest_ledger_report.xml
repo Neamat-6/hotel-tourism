@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_guest_ledger" model="report.paperformat">
+            <field name="name">Guest Ledger Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_guest_ledger_report">
+            <field name="name">Guest Ledger</field>
+            <field name="model">guest.ledger</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.guest_ledger_report</field>
+            <field name="report_file">hotel_booking_folio.guest_ledger_report</field>
+            <field name="binding_model_id" ref="model_guest_ledger"/>
+            <field name="paperformat_id" ref="hotel_booking_folio.format_guest_ledger"/>
+        </record>
+
+        <template id="guest_ledger_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                            width: 100%;
+                            border-collapse: collapse;
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            font-size: 14px;
+                            color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                            border: 1px solid #000000;
+                            padding: 0; /* Remove extra padding */
+                            text-align: center; /* Center-align text */
+                            }
+
+                            table.GeneratedTable th {
+                            background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                            font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                            font-size: 12px; /* Adjust font size for compactness */
+                            word-wrap: break-word; /* Break long words */
+                            white-space: normal; /* Allow wrapping to new lines */
+                            }
+
+                            .m-0 {
+                            margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                            padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+
+                        <t t-foreach="docs" t-as="doc">
+                            <b>
+                                <h4 class="text-center">Guest Ledger Report <span>
+                                    <span t-field="doc.date"/>
+                                </span></h4>
+                            </b>
+                            <table class="GeneratedTable m-2">
+                                <thead style="display: table-row-group">
+                                    <tr>
+                                        <th class="text-center">Room #</th>
+                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Guest Name</th>
+                                        <th class="text-center">Arrival</th>
+                                        <th class="text-center">Departure</th>
+                                        <th class="text-center">Days</th>
+                                        <th class="text-center">Rate</th>
+                                        <th class="text-center">#Rm</th>
+                                        <th class="text-center">Pax/Child</th>
+                                        <th class="text-center">B</th>
+                                        <th class="text-center">L</th>
+                                        <th class="text-center">D</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Charge Posted</th>
+                                        <th class="text-center">Paid</th>
+                                        <th class="text-center">Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr style="page-break-inside: avoid !important;">
+                                            <td class="text-center">
+                                                <span t-field="line.room_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.room_type_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.partner_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_in"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.check_out"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.days"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.rate"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.rate_plan_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.adults"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.breakfast"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.lunch"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.dinner"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.state"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.virtual"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.actual"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.balance"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-1">Total</div>
+                                <div class="col-2">Nights</div>
+                                <div class="col-1"><strong><span t-field="doc.total_nights"/></strong></div>
+                                <div class="col-1">Adults</div>
+                                <div class="col-1"><strong><span t-field="doc.total_adults"/></strong></div>
+                                <div class="col-1">Rooms</div>
+                                <div class="col-1"><strong><span t-esc="len(doc.line_ids)"/></strong></div>
+                                <div class="col-1">Meals</div>
+                                <div class="col-4"><strong><span t-field="doc.total_breakfast"/> / <span
+                                        t-field="doc.total_lunch"/> / <span t-field="doc.total_dinner"/></strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">Total</div>
+                                <div class="col-2">Charge Posted</div>
+                                <div class="col-1"><strong><span t-field="doc.total_virtual"/></strong></div>
+                                <div class="col-1">Paid</div>
+                                <div class="col-1"><strong><span t-field="doc.total_actual"/></strong></div>
+                                <div class="col-1">Balance</div>
+                                <div class="col-1"><strong><span t-esc="doc.total_balance"/></strong></div>
+                            </div>
+                        </t>
+                        <br/>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

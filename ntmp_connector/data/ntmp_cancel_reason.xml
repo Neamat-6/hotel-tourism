@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_cancel_reason_0" model="ntmp.cancel.reason">
+            <field name="code">0</field>
+            <field name="name">No Reason / Not applicable</field>
+        </record>
+        <record id="ntmp_cancel_reason_1" model="ntmp.cancel.reason">
+            <field name="code">1</field>
+            <field name="name">Cancelled by Customer</field>
+        </record>
+        <record id="ntmp_cancel_reason_2" model="ntmp.cancel.reason">
+            <field name="code">2</field>
+            <field name="name">Cancelled by Hotel</field>
+        </record>
+        <record id="ntmp_cancel_reason_3" model="ntmp.cancel.reason">
+            <field name="code">3</field>
+            <field name="name">Customer Find better deal</field>
+        </record>
+        <record id="ntmp_cancel_reason_4" model="ntmp.cancel.reason">
+            <field name="code">4</field>
+            <field name="name">Customer was not satisfied</field>
+        </record>
+        <record id="ntmp_cancel_reason_5" model="ntmp.cancel.reason">
+            <field name="code">5</field>
+            <field name="name">Customer does not arrived on given date</field>
+        </record>
+        <record id="ntmp_cancel_reason_6" model="ntmp.cancel.reason">
+            <field name="code">6</field>
+            <field name="name">Customer changed the dates</field>
+        </record>
+        <record id="ntmp_cancel_reason_7" model="ntmp.cancel.reason">
+            <field name="code">7</field>
+            <field name="name">Customer cancelled this booking but rebooked again with different dates or travelers.</field>
+        </record>
+        <record id="ntmp_cancel_reason_8" model="ntmp.cancel.reason">
+            <field name="code">8</field>
+            <field name="name">Other Reason</field>
+        </record>
+    </data>
+</odoo>

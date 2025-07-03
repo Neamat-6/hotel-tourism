@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="visit_purpose_view_tree" model="ir.ui.view">
+            <field name="name">visit_purpose_view_tree</field>
+            <field name="model">ntmp.visit.purpose</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="name_en"/>
+                </tree>
+            </field>
+        </record>
+        <record id="visit_purpose_action" model="ir.actions.act_window">
+            <field name="name">Purpose of Visits</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ntmp.visit.purpose</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="visit_purpose_menu" name="Purpose of Visits" parent="ntmp_root_menu"
+                  action="visit_purpose_action" sequence="1"/>
+    </data>
+</odoo>

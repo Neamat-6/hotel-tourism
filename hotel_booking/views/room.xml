@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_hotel_room" model="ir.ui.view">
+        <field name="name">hotel.room.tree</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state_selection == 'clean'" decoration-danger="state_selection == 'dirty'">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Room Number"/>
+                <field name="hotel_id"/>
+                <field name="room_type"/>
+                <field name="floor_id"/>
+                <field name="price"/>
+                <field name="state_selection" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_hotel_room" model="ir.ui.view">
+        <field name="name">hotel.room.form</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <sheet>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. 001"/>
+                        </h1>
+                    </div>
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="telephone_extension" placeholder="e.g 101"/>
+                            <field name="hotel_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="room_type" options="{'no_open': True, 'no_create': True}" required="1" domain="[('company_id', '=', company_id)]"/>
+                            <field name="floor_id" options="{'no_open': True, 'no_create': True}" domain="[('hotel_id', '=', hotel_id)]"/>
+                            <field name="state" required="1" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="stay_state" required="1" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="booking_ok" widget="boolean_toggle"/>
+                            <field name="sequence"/>
+                            <field name="room_size" placeholder="e.g. 60 Square Feet"/>
+                            <field name="bed_type"/>
+                            <field name="booking_line_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Amenities">
+                            <field name="facility_line_ids" widget="many2many">
+                                <tree editable="bottom">
+                                    <field name="facility_id" required="1" string="Amenity"/>
+                                    <field name="qty"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="facility_id"/>
+                                        <field name="qty"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Photos">
+                            <field name="image_ids">
+                                <kanban class="o_kanban_mobile">
+                                    <field name="image"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                                <a t-if="!read_only_mode" type="delete" class="pull-right">Delete</a>
+                                                <center>
+                                                    <img t-att-src="'data:image/png;base64,'+record.image.raw_value"
+                                                         style="padding-top:24px;padding-bottom:24px;max-width:100%;"
+                                                         alt="image"/>
+                                                    <span>
+                                                        <field name="name"/>
+                                                    </span>
+                                                </center>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <field name="image" widget="image"/>
+                                    <field name="name" placeholder="Description"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="note" placeholder="Internal Note ..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_kanban_view">
+        <field name="name">hotel.room.kanban</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban" sample="1" create="0" js_class="hotel_room_kanban">
+                <field name="id"/>
+                <field name="room_type_id"/>
+                <field name="state"/>
+                <field name="stay_state"/>
+                <field name="name"/>
+                <field name="color"/>
+                <field name="state_selection"/>
+                <field name="type"/>
+                <field name="booking_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <div class="row" id="row1">
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="state"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="stay_state"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" id="row2">
+                                    <div class="col-12 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="booking_guest_name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" id="row2">
+                                    <div class="col-12 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="room_type"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row" id="row3">
+                                    <div class="col-12 text-center">
+                                        <strong class="o_kanban_record_title oe_partner_heading">
+                                            <field name="booking_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row" id="row4">
+                                    <div class="col-4 text-center">
+                                        <field name="booking_checkin"/>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <t t-if="record.booking_total_nights.raw_value">
+                                            <field name="booking_total_nights"/>Night
+                                        </t>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <field name="booking_checkout"/>
+                                    </div>
+                                </div>
+                                <div class="row" id="row5">
+                                    <div class="col-4">
+                                        <field name="booking_date"/>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right">
+                                    </div>
+                                </div>
+                                <div class="row" t-if="record.booking_id.raw_value">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Total
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="booking_total_amount"/>
+                                    </div>
+                                </div>
+                                <div class="row" t-if="record.booking_id.raw_value">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Paid
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="booking_paid_amount"/>
+                                    </div>
+                                </div>
+                                <div class="row" t-if="record.booking_id.raw_value">
+                                    <div class="col-4 o_kanban_record_title oe_partner_heading">
+                                        Due
+                                    </div>
+                                    <div class="col-4 text-center">
+                                    </div>
+                                    <div class="col-4 text-right o_kanban_record_title oe_partner_heading">
+                                        <field name="booking_due_amount"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-3" style="display: none;">
+                                <div class="oe_kanban_bottom_left">
+                                    <div class="o_hotel_room_kanban_boxes">
+                                        <a class="o_hotel_room_kanban_box" name="action_view_reservations"
+                                           type="object">
+                                            <div>
+                                                <span class="o_label">Reservations</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hotel_room_calendar" model="ir.ui.view">
+        <field name="name">hotel.room.calendar</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <calendar date_start="hotel_booking_date" string="Rooms" mode="month" color="stay_state" event_limit="5"
+                      hide_time="true" js_class="project_calendar" event_open_popup="true" quick_add="false">
+                <field name="name" filters="1" invisible="1"/>
+                <field name="hotel_booking_date"/>
+                <field name="booking_id"/>
+                <field name="booking_checkin"/>
+                <field name="booking_checkout"/>
+                <field name="name" filters="1" invisible="1"/>
+                <field name="stay_state" filters="1" invisible="1"/>
+                <field name="state" filters="1" invisible="1"/>
+                <field name="state_selection" filters="1" invisible="1"/>
+            </calendar>
+        </field>
+    </record>
+
+
+   <record id="hotel_room_view_gantt" model="ir.ui.view">
+       <field name="name">Hotel Room Gantt View</field>
+       <field name="model">hotel.room</field>
+       <field name="arch" type="xml">
+           <gantt js_class="planning_gantt"
+                   date_start="hotel_booking_date" 
+                   date_stop="hotel_booking_date_out"
+                   default_group_by="room_type"
+                   default_scale="week"
+                   color="state"
+                   plan="false"
+                   string="Rooms"
+                   total_row="True"
+                   scales="day,week,month,year"
+                   precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                   sample="1">
+                <field name="name"/>
+                <templates>
+                    <div t-name="gantt-popover" class="o_gantt_popover">
+                        <div class="o_gantt_popover_content">
+                            <ul class="o_gantt_popover_list">
+                                <li>
+                                    <div>
+                                        <strong>Check-in Date:</strong>
+                                        <t t-esc="hotel_booking_date.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <strong>Check-out Date:</strong>
+                                        <t t-esc="hotel_booking_date_out.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <strong>Folio</strong>
+                                        <t t-esc="booking_id"/>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record> 
+
+
+    <record id="action_hotel_rooms" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">hotel.room</field>
+        <field name="view_mode">kanban,form,tree,calendar,gantt</field>
+        <field name="view_ids" eval="[
+        (5, 0, 0),
+        (0, 0, {'view_mode': 'kanban', 'view_id': ref('res_partner_kanban_view')}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_hotel_room')}),
+        ]"
+        />
+    </record>
+
+    <!-- Menu Floor -->
+    <menuitem id="menu_front_office" name="Front Office" sequence="20"
+              groups="hotel_booking.front_office_group"/>
+
+    <menuitem id="menu_hotel_rooms" name="Rooms" action="action_hotel_rooms" sequence="2" parent="menu_front_office"
+              groups="hotel_booking.hotel_rooms_menu_group"/>
+
+    <menuitem id="menu_front_office_hotel_booking1" name="Reservation Management"
+              action="hotel_booking.action_hotel_booking"
+              parent="menu_front_office" groups="hotel_booking.hotel_rooms_menu_group"
+              sequence="5"/>
+
+</odoo>

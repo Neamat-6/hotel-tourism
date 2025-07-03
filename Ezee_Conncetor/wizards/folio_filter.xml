@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_folio_filter_view_form" model="ir.ui.view">
+            <field name="name">ezee_folio_filter_view_form</field>
+            <field name="model">folio.filter</field>
+            <field name="inherit_id" ref="hotel_booking_folio.folio_filter_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="get_online_bookings" type="object" string="Get Online Bookings" class="oe_highlight" icon="fa-globe"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

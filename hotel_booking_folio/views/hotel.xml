@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custom_view_form_hotel_hotel" model="ir.ui.view">
+            <field name="name">custom_view_form_hotel_hotel</field>
+            <field name="model">hotel.hotel</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_hotel"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='hotel_rate']" position="after">
+                    <field name="allow_overbooking"/>
+                    <field name="unsettled_invoice"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

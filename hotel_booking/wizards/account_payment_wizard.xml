@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_payment_wizard" model="ir.ui.view">
+        <field name="name">Account Payment</field>
+        <field name="model">account.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="audit_date"/>
+                            <field name="company_ids" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="user_ids" widget="many2many_tags"
+                                   domain="[('company_id','in',company_ids)]"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="print_report" class="oe_highlight" type="object" string="Print PDF"/>
+                    <button string="Cancel" class="btn btn-danger" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Account Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="report_main_menu" name="Reporting" sequence="14" groups="reporting_group"/>
+
+    <menuitem id="booking_reports_root_accounting" name="Hotel Booking Reports" parent="account.menu_finance"
+              groups="accounting_reporting_group"
+              sequence="20"/>
+
+    <menuitem id="menu_account_payment_wizard" name="Report Payment"
+              parent="hotel_booking.booking_reports_root_accounting"
+              action="action_account_payment_wizard" sequence="1"/>
+
+    <menuitem id="menu_account_payment" name="Account Payment" parent="hotel_booking.booking_reports_root_accounting"
+              action="account.action_account_payments" sequence="2"/>
+
+
+    #duplicated menu
+    <menuitem id="booking_reports_root_accounting_menu_item" name="Accounting Reports" parent="hotel_booking.booking_reporting_main_menu"
+              sequence="20"/>
+
+    <menuitem id="menu_account_payment_wizard" name="Report Payment" parent="hotel_booking.booking_reports_root_accounting_menu_item"
+              action="action_account_payment_wizard" sequence="1"/>
+
+    <menuitem id="menu_account_payment" name="Account Payment" parent="hotel_booking.booking_reports_root_accounting_menu_item"
+              action="account.action_account_payments" sequence="2"/>
+
+
+    <!--    <menuitem id="menu_account_general_ledger" name="General Ledger" parent="hotel_booking.report_main_menu"-->
+    <!--              action="account.action_account_moves_ledger_general" sequence="3"/>-->
+
+</odoo>
+

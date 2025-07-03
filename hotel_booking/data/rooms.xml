@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <function model="ir.model.data" name="write">
+            <value model="ir.model.data" eval="obj().search([('module', '=', 'hotel_booking'), ('name', '=', 'data_room_001')]).id"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <function model="ir.model.data" name="write">
+            <value model="ir.model.data" eval="obj().search([('module', '=', 'hotel_booking'), ('name', '=', 'data_room_002')]).id"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <function model="ir.model.data" name="write">
+            <value model="ir.model.data" eval="obj().search([('module', '=', 'hotel_booking'), ('name', '=', 'data_room_003')]).id"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+        <record id="hotel_room_status_dirty" model="hotel.room.status">
+            <field name="name">Dirty</field>
+            <field name="is_default" eval="True"/>
+        </record>
+        <record id="hotel_room_status_clean" model="hotel.room.status">
+            <field name="name">Clean</field>
+        </record>
+        <record id="hotel_room_stay_status_vacant" model="hotel.room.stay.status">
+            <field name="name">Vacant</field>
+        </record>
+
+
+        <!-- 001 -->
+        <record id="data_room_001" model="hotel.room">
+            <field name="name">001</field>
+            <field name="sequence">10</field>
+            <field name="floor_id" ref="data_floor_ground" />
+            <field name="room_type_id" ref="data_room_standard" />
+            <field name="state" ref="hotel_room_status_dirty" />
+            <field name="stay_state" ref="hotel_room_stay_status_vacant" />
+        </record>
+
+        <!-- 002 -->
+        <record id="data_room_002" model="hotel.room">
+            <field name="name">002</field>
+            <field name="sequence">20</field>
+            <field name="floor_id" ref="data_floor_ground" />
+            <field name="room_type_id" ref="data_room_standard" />
+            <field name="state" ref="hotel_room_status_dirty" />
+            <field name="stay_state" ref="hotel_room_stay_status_vacant" />
+        </record>
+
+        <!-- 003 -->
+        <record id="data_room_003" model="hotel.room">
+            <field name="name">003</field>
+            <field name="sequence">30</field>
+            <field name="floor_id" ref="data_floor_ground" />
+            <field name="room_type_id" ref="data_room_standard" />
+            <field name="state" ref="hotel_room_status_dirty" />
+            <field name="stay_state" ref="hotel_room_stay_status_vacant" />
+        </record>
+
+
+
+    </data>
+</odoo>

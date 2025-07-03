@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aiosell_view_form_room_type" model="ir.ui.view">
+            <field name="name">aiosell_view_form_room_type</field>
+            <field name="model">room.type</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_room_type"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price']" position="after">
+                    <field name="aiosell_code"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

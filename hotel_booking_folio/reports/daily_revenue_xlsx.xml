@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_daily_revenue_xlsx_report">
+            <field name="name">Daily Revenue XLSX</field>
+            <field name="model">daily.revenue</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">hotel_booking_folio.daily_revenue_xlsx_report</field>
+            <field name="report_file">hotel_booking_folio.daily_revenue_xlsx_report</field>
+            <field name="binding_model_id" ref="model_daily_revenue"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_hotel_floor" model="ir.ui.view">
+        <field name="name">hotel.floor.tree</field>
+        <field name="model">hotel.floor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="hotel_id"/>
+                <field name="room_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_hotel_floor" model="ir.ui.view">
+        <field name="name">hotel.floor.form</field>
+        <field name="model">hotel.floor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Ground Floor"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="hotel_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Rooms">
+                            <field name="room_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="room_type_id"/>
+                                    <field name="booking_ok" widget="boolean_toggle"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                        <field name="booking_ok" widget="boolean_toggle"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hotel_floor" model="ir.actions.act_window">
+        <field name="name">Floors</field>
+        <field name="res_model">hotel.floor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Floor -->
+<!--    <menuitem id="menu_hotel_floor" name="Floors" parent="menu_hotel_configuration" action="action_hotel_floor" sequence="100"/>-->
+
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="saudi_einvoice_knk.report_simplified_tax_invoice_document">
+        <t t-foreach="o" t-as="do">
+            <t t-set="doc" t-value="do.booking_id"/>
+            <t t-set="show_vat" t-value="0"/>
+            <t t-call="hotel_booking.folio_electronic_template_body"/>
+        </t>
+    </template>
+
+
+    <template id="saudi_einvoice_knk.report_simplified_tax_invoice">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="saudi_einvoice_knk.report_simplified_tax_invoice_document"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

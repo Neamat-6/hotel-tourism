@@ -1,0 +1,4 @@
+.chatbot-highlight {
+  outline: 3px solid rgba(255, 165, 0, 0.9);
+  transition: outline 0.2s ease-in-out;
+}

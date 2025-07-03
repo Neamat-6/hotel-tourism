@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <function model="ir.model.data" name="write">
+            <value model="ir.model.data" eval="obj().search([('module', '=', 'base'), ('name', '=', 'main_company')]).id"/>
+            <value eval="{'noupdate': False}"/>
+        </function>
+<!--        <record id="base.main_company" model="res.company" >-->
+<!--            <field name="related_hotel_id" ref="hotel_booking.data_hotel_hotel1"/>-->
+<!--        </record>-->
+    </data>
+</odoo>

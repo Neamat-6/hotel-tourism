@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aiosell_view_form_hotel_booking" model="ir.ui.view">
+            <field name="name">aiosell_view_form_hotel_booking</field>
+            <field name="model">hotel.booking</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="aiosell" string="Aiosell">
+                        <group>
+                            <field name="aiosell_channel" readonly="1" force_save="1"/>
+                            <field name="aiosell_booking_ref" readonly="1" force_save="1"/>
+                            <field name="aiosell_cm_booking_ref" readonly="1" force_save="1"/>
+                            <field name="aiosell_segment" readonly="1" force_save="1"/>
+                            <field name="aiosell_pah" readonly="1" force_save="1"/>
+                            <field name="aiosell_booking_date" readonly="1" force_save="1"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='apply_daily_price']" position="after">
+                    <field name="aiosell_apply_daily_price" attrs="{'invisible': [('aiosell_booking_ref', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='apply_daily_price']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('aiosell_booking_ref', '!=', False)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']//field[@name='price_unit']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|',('booking_state', 'not in', ['draft', 'confirmed']),('edit_price', '!=', True)], 'column_invisible': ['|', ('parent.apply_daily_price', '=', True), ('parent.aiosell_apply_daily_price', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

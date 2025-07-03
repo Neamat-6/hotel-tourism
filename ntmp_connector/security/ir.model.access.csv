@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ntmp_nationality,ntmp_nationality,model_ntmp_nationality,base.group_user,1,1,1,1
+access_visit_purpose,visit_purpose,model_ntmp_visit_purpose,base.group_user,1,1,1,1
+access_ntmp_payment_type,ntmp_payment_type,model_ntmp_payment_type,base.group_user,1,1,1,1
+access_ntmp_gender,ntmp_gender,model_ntmp_gender,base.group_user,1,1,1,1
+access_ntmp_customer_type,ntmp_customer_type,model_ntmp_customer_type,base.group_user,1,1,1,1
+access_ntmp_room_type,ntmp_room_type,model_ntmp_room_type,base.group_user,1,1,1,1
+access_ntmp_transaction_type,ntmp_transaction_type,model_ntmp_transaction_type,base.group_user,1,1,1,1
+access_ntmp_rent_type,ntmp_rent_type,model_ntmp_rent_type,base.group_user,1,1,1,1
+access_ntmp_cancel_reason,ntmp_cancel_reason,model_ntmp_cancel_reason,base.group_user,1,1,1,1
+access_ntmp_expense_type,ntmp_expense_type,model_ntmp_expense_type,base.group_user,1,1,1,1
+access_ntmp_response_code,ntmp_response_code,model_ntmp_response_code,base.group_user,1,1,1,1
+access_folio_cancel,folio_cancel,model_folio_cancel,base.group_user,1,1,1,1

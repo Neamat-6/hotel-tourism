@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_rate_plan_view_tree" model="ir.ui.view">
+            <field name="name">ezee_rate_plan_view_tree</field>
+            <field name="model">ezee.rate.plan</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="room_type_id"/>
+                    <field name="room_type_code"/>
+                    <field name="rate_type_id"/>
+                    <field name="rate_type_code"/>
+                    <field name="hotel_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ezee_rate_plan_action" model="ir.actions.act_window">
+            <field name="name">Ezee Rate Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ezee.rate.plan</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ezee_rate_plan_menu" name="Ezee Rate Plan" parent="Ezee_Conncetor.ezee_config_menu"
+                  action="ezee_rate_plan_action" sequence="3"/>
+    </data>
+</odoo>

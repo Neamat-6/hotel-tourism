@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="close_cashier_server_action" model="ir.actions.server">
+            <field name="name">Close Cashier</field>
+            <field name="model_id" ref="model_account_payment"/>
+            <field name="binding_model_id" ref="model_account_payment"/>
+            <field name="state">code</field>
+            <field name="binding_view_types">list,form</field>
+            <field name="code">action = records.action_close_cashier()</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+
+        <record id="paperformat_action_report_confirmation" model="report.paperformat">
+            <field name="name">ID CARD</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="custom_booking"
+                model="hotel.booking"
+                report_type="qweb-pdf"
+                string="Customer Booking Info"
+                name="tourism_hotel_booking.custom_template_for_booking"
+                file="tourism_hotel_booking.custom_template_for_booking"
+        />
+
+        <report
+                id="vendor_custom_booking"
+                model="hotel.booking"
+                report_type="qweb-pdf"
+                string="Vendor Booking Info"
+                name="tourism_hotel_booking.vendor_custom_template_for_booking"
+                file="tourism_hotel_booking.vendor_custom_template_for_booking"
+                paperformat="tourism_hotel_booking.paperformat_action_report_confirmation"
+        />
+
+
+        <report
+                id="customer_hotel_booking"
+                model="hotel.booking"
+                report_type="qweb-pdf"
+                string="Customer Booking Info"
+                name="tourism_hotel_booking.customer_hotel_booking_template"
+                file="tourism_hotel_booking.customer_hotel_booking_template"
+                paperformat="tourism_hotel_booking.paperformat_action_report_confirmation"
+        />
+
+    </data>
+</odoo>
+

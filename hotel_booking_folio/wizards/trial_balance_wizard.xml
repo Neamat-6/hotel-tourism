@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="trial_balance_wizard_form" model="ir.ui.view">
+        <field name="name">Trail Balance Report</field>
+        <field name="model">trial.balance.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="day" required="1"/>
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="company_ids" widget="many2many_tags"/>-->
+<!--                        </group>-->
+                    </group>
+                    <div class="row">
+                        <div class="col-5"/>
+                        <div class="col-7">
+                            <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                    icon="fa-search"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <field name="line_ids" readonly="1">
+                        <tree>
+                            <field name="day"/>
+                            <field name="particular"/>
+<!--                            <field name="amount"/>-->
+                            <field name="day_amount"/>
+                            <field name="month_amount"/>
+                            <field name="year_amount"/>
+<!--                            <field name="company_id"/>-->
+                        </tree>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="print_pdf" type="object" string="Print PDF" icon="fa-file-pdf-o"/>
+                    <button string="Cancel" class="btn btn-danger" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_trial_balance_wizard" model="ir.actions.act_window">
+        <field name="name">Trial Balance Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">trial.balance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_trial_balance_wizard" name="Trial Balance Report"
+              parent="hotel_booking.booking_reports_root_accounting"
+              action="action_trial_balance_wizard" sequence="5"/>
+
+<!--    <menuitem id="menu_trial_balance_wizard_item" name="Trial Balance Report"-->
+<!--              parent="hotel_booking.booking_reports_root_accounting_menu_item"-->
+<!--              action="action_trial_balance_wizard" sequence="5"/>-->
+
+
+</odoo>
+

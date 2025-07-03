@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="customer_hotel_booking_template_eg" inherit_id="hotel_booking.customer_hotel_booking_template">
+            <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr[1]" position="replace">
+                <tr>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        Total (Excluding VAT and Service ‬‬ Charge)
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                        ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫)ﺑﺪﻭﻥ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬ ‫ﻭﺿﺮﻳﺒﺔ‬‫الخدمة(‬
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        <span t-esc="doc.get_total_exclude_vat_municipality()"/>
+                    </td>
+                </tr>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/table[3]/tbody/tr[3]" position="replace">
+                <tr>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        ‫‪Service Charge Tax‬ % ‬‬
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                        dir="rtl">
+                        ضريبة رسوم الخدمة%
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        <span t-esc="doc.get_total_municipality()"/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+
+        <template id="guest_register_form_report_eg" inherit_id="hotel_booking.guest_register_form_report">
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[1]/tbody/tr[1]" position="replace">
+                <tr>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        Total (Excluding VAT and Service Charge Tax)
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                        ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫)ﺑﺪﻭﻥ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬ ‫ﻭﺿﺮﻳﺒﺔ‬‫رسوم الخدمة(‬
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        <t t-esc='"%.2f" % doc.get_total_exclude_vat_municipality()'/>
+                    </td>
+                </tr>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[1]/tbody/tr[3]" position="replace">
+                <tr>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        ‫‪Service Charge Tax‬ % ‬‬
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                        dir="rtl">
+                        رسوم الخدمة%
+                    </td>
+                    <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:15px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                        <t t-esc='"%.2f" % doc.get_total_municipality()'/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+
+        <template id="folio_invoice_form_report_eg" inherit_id="hotel_booking.folio_invoice_form_report">
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[4]/tbody/tr[1]/td[6]" position="replace">
+                <td class="tg-lqy6">
+                    Service Charge
+                    <br/>
+                    Tax
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[5]/tbody/tr[1]/td[3]" position="replace">
+                <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                    Total (Excluding VAT and Service Charge‬‬ Tax)
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[5]/tbody/tr[1]/td[4]" position="replace">
+                <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                    ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫)ﺑﺪﻭﻥ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬ ‫ﻭﺿﺮﻳﺒﺔ‬<br/>‫رسوم الخدمة(‬
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[5]/tbody/tr[3]/td[3]" position="replace">
+                <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                    ‫‪Service Charge Tax‬ % ‬‬
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/t[@t-foreach='docs']/table[5]/tbody/tr[3]/td[4]" position="replace">
+                <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                    dir="rtl">
+                    رسوم الخدمة%
+                </td>
+            </xpath>
+        </template>
+    </data>
+</odoo>

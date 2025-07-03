@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="action_room_availability_report_excel" model="ir.actions.report">
+          <field name="name">Room Availability</field>
+          <field name="model">room.available.wizard</field>
+            <field name="report_type">xlsx</field>
+          <field name="report_name">hotel_booking_folio.room_availability_xlsx_report</field>
+          <field name="report_file">Room Availability Xls</field>
+          <field name="binding_type">report</field>
+        </record>
+
+    <record model="ir.actions.report" id="action_room_availability_report">
+      <field name="name">Room Availability</field>
+      <field name="model">room.available.wizard</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">hotel_booking_folio.room_availability_report</field>
+      <field name="report_file">hotel_booking_folio.room_availability_report</field>
+      <field name="binding_model_id" ref="model_room_available_wizard" />
+    </record>
+    <template id="room_availability_report">
+      <t t-call="web.html_container">
+        <t t-call="web.basic_layout">
+          <xpath expr="." position="inside">
+            <link rel='stylesheet' href="/hotel_booking_folio/static/src/css/report_style.css" />
+          </xpath>
+          <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+            <t t-foreach="docs" t-as="doc">
+              <h3 class="text-center" style="text-align:center">Room Availability Report</h3>
+              <!-- add currecnt datetime -->
+              <h4 class="text-center GeneratedTable" style="text-align:center">
+                <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')" />
+              </h4>
+
+              <div class="row" style="margin-bottom:10px;">
+                  <div class="col-12">
+                      <h4 class="d-inline-block">Hotel: <t t-esc="doc.hotel_id.name" /></h4>
+                      <h4 class="float-right">Audit Date: <t t-esc="doc.audit_date" /></h4>
+                  </div>
+              </div>
+              <div class="text-center" style="text-align:center">
+                <table class="table table-bordered table-sm">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Room</th>
+                      <th class="text-center">Room Type</th>
+                      <th class="text-center">Total Beds</th>
+                      <th class="text-center">Assigned Beds</th>
+                      <th class="text-center">Available Beds</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <t t-foreach="doc.line_ids" t-as="line">
+                      <tr style="page-break-inside:avoid">
+                        <td class="text-center">
+                          <span t-field="line.room_id.name" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.room_type_id.name" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.total_beds" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.assigned_beds" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.available_beds" />
+                        </td>
+                      </tr>
+                    </t>
+                  </tbody>
+                </table>
+              </div>
+            </t>
+          </div>
+        </t>
+      </t>
+    </template>
+    </data>
+</odoo>

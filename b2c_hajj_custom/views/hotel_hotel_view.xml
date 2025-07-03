@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hotel_hotel_form_view_inherit" model="ir.ui.view">
+        <field name="name">hotel.hotel.form.view.inherit</field>
+        <field name="model">hotel.hotel</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_hotel_hotel"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_generate_rooms" type="object" string="Generate Rooms"/>
+                    <button name="action_update_rooms" type="object" string="Update Rooms"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="is_camp"/>
+                <field name="type"/>
+                <field name="contract_no"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

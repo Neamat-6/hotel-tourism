@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_expense_type_0" model="ntmp.expense.type">
+            <field name="code">0</field>
+            <field name="name">Not Applicable (For example charged for damage)</field>
+        </record>
+        <record id="ntmp_expense_type_1" model="ntmp.expense.type">
+            <field name="code">1</field>
+            <field name="name">Other</field>
+        </record>
+        <record id="ntmp_expense_type_2" model="ntmp.expense.type">
+            <field name="code">2</field>
+            <field name="name">Laundry</field>
+        </record>
+        <record id="ntmp_expense_type_3" model="ntmp.expense.type">
+            <field name="code">3</field>
+            <field name="name">Wifi - Internet</field>
+        </record>
+        <record id="ntmp_expense_type_4" model="ntmp.expense.type">
+            <field name="code">4</field>
+            <field name="name">Car Parking</field>
+        </record>
+        <record id="ntmp_expense_type_5" model="ntmp.expense.type">
+            <field name="code">5</field>
+            <field name="name">Food</field>
+        </record>
+        <record id="ntmp_expense_type_6" model="ntmp.expense.type">
+            <field name="code">6</field>
+            <field name="name">Food &amp; Beverages</field>
+        </record>
+        <record id="ntmp_expense_type_7" model="ntmp.expense.type">
+            <field name="code">7</field>
+            <field name="name">Beverages</field>
+        </record>
+        <record id="ntmp_expense_type_8" model="ntmp.expense.type">
+            <field name="code">8</field>
+            <field name="name">Cold Drinks</field>
+        </record>
+        <record id="ntmp_expense_type_9" model="ntmp.expense.type">
+            <field name="code">9</field>
+            <field name="name">Hot Drinks</field>
+        </record>
+        <record id="ntmp_expense_type_10" model="ntmp.expense.type">
+            <field name="code">10</field>
+            <field name="name">Breakfast</field>
+        </record>
+        <record id="ntmp_expense_type_11" model="ntmp.expense.type">
+            <field name="code">11</field>
+            <field name="name">Lunch</field>
+        </record>
+        <record id="ntmp_expense_type_12" model="ntmp.expense.type">
+            <field name="code">12</field>
+            <field name="name">Dinner</field>
+        </record>
+        <record id="ntmp_expense_type_13" model="ntmp.expense.type">
+            <field name="code">13</field>
+            <field name="name">Bakery &amp; Cakes</field>
+        </record>
+        <record id="ntmp_expense_type_14" model="ntmp.expense.type">
+            <field name="code">14</field>
+            <field name="name">Swimming pool</field>
+        </record>
+        <record id="ntmp_expense_type_15" model="ntmp.expense.type">
+            <field name="code">15</field>
+            <field name="name">Gym</field>
+        </record>
+        <record id="ntmp_expense_type_16" model="ntmp.expense.type">
+            <field name="code">16</field>
+            <field name="name">SPA &amp; Beauty Services</field>
+        </record>
+        <record id="ntmp_expense_type_17" model="ntmp.expense.type">
+            <field name="code">17</field>
+            <field name="name">Pick &amp; Drop (Transport Services)</field>
+        </record>
+        <record id="ntmp_expense_type_18" model="ntmp.expense.type">
+            <field name="code">18</field>
+            <field name="name">Minibar</field>
+        </record>
+        <record id="ntmp_expense_type_19" model="ntmp.expense.type">
+            <field name="code">19</field>
+            <field name="name">Cable - TV</field>
+        </record>
+        <record id="ntmp_expense_type_20" model="ntmp.expense.type">
+            <field name="code">20</field>
+            <field name="name">Extra Bed</field>
+        </record>
+        <record id="ntmp_expense_type_21" model="ntmp.expense.type">
+            <field name="code">21</field>
+            <field name="name">Hairdresser</field>
+        </record>
+        <record id="ntmp_expense_type_22" model="ntmp.expense.type">
+            <field name="code">22</field>
+            <field name="name">Shopping</field>
+        </record>
+        <record id="ntmp_expense_type_23" model="ntmp.expense.type">
+            <field name="code">23</field>
+            <field name="name">Organized Tours Services</field>
+        </record>
+        <record id="ntmp_expense_type_24" model="ntmp.expense.type">
+            <field name="code">24</field>
+            <field name="name">Tour Guide Services</field>
+        </record>
+    </data>
+</odoo>

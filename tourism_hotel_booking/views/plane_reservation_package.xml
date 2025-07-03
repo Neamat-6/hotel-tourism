@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="plane_reservation_package_form_view" model="ir.ui.view">
+        <field name="name">plane.reservation.package.form.view</field>
+        <field name="model">plane.reservation.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="plane_contract_id" required="1"/>
+                            <field name="plane_company_id"/>
+                            <field name="vendor"/>
+                        </group>
+                        <group>
+                            <field name="plane_type_ids" invisible="1"/>
+                            <field name="plane_type_id" domain="[('id','in',plane_type_ids)]"/>
+                            <field name="unit_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

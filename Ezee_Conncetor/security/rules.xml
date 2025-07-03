@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_room_type_comp_rule" model="ir.rule">
+            <field name="name">Ezee Room Type company rule</field>
+            <field name="model_id" ref="model_ezee_room_type"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="ezee_rate_type_comp_rule" model="ir.rule">
+            <field name="name">Ezee Rate Type company rule</field>
+            <field name="model_id" ref="model_ezee_rate_type"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="ezee_rate_plan_comp_rule" model="ir.rule">
+            <field name="name">Ezee Rate Plan company rule</field>
+            <field name="model_id" ref="model_ezee_rate_plan"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        <record id="ezee_extra_charge_comp_rule" model="ir.rule">
+            <field name="name">Ezee Extra Charge company rule</field>
+            <field name="model_id" ref="model_ezee_extra_charge"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

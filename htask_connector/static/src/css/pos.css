@@ -1,0 +1,62 @@
+.pos_post_charge {
+    height: 600px !important;
+    width: 800px !important;
+}
+.pos_post_charge #room-info-table,#room-info-table-void {
+    font-size: medium;
+}
+
+.pos_post_charge #room-info-table,#room-info-table-void th{
+    text-align: end;
+    padding-right: 10px;
+}
+
+.pos_post_charge #room-info-table,#room-info-table-void td{
+    font-weight: bolder;
+    text-align: start;
+    padding-left: 10px;
+}
+
+.pos_post_charge div.room_retrieve {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}
+
+.pos_post_charge .room_no {
+    margin-right: 15px;
+    width: 60%;
+}
+
+.pos_post_charge .get_room{
+    /* margin-top: 0px; */
+    /* margin-right: 10px; */
+    /* width: 120px !important;
+    height: 42px !important; */
+    vertical-align: middle;
+    background-color: aliceblue;
+    /* border-radius: 12px; */
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 70px;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 180px;
+  text-align: start;
+  margin-left: 70px;
+}
+ 
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 220px;
+}

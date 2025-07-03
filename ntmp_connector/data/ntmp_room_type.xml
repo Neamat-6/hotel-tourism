@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_room_type_1" model="ntmp.room.type">
+            <field name="code">1</field>
+            <field name="name">غرفة نوم مفردة</field>
+            <field name="name_en">Single Bed Room</field>
+        </record>
+        <record id="ntmp_room_type_2" model="ntmp.room.type">
+            <field name="code">2</field>
+            <field name="name">غرفة نوم مزدوجة</field>
+            <field name="name_en">Double Bed Room / Kind Bed Room</field>
+        </record>
+        <record id="ntmp_room_type_3" model="ntmp.room.type">
+            <field name="code">3</field>
+            <field name="name">جناح عادي</field>
+            <field name="name_en">Regular Suite</field>
+        </record>
+        <record id="ntmp_room_type_4" model="ntmp.room.type">
+            <field name="code">4</field>
+            <field name="name">شقة استوديو / شقة مع غرفة فرددية</field>
+            <field name="name_en">Studio Apartment / Apartment with Single Room</field>
+        </record>
+        <record id="ntmp_room_type_5" model="ntmp.room.type">
+            <field name="code">5</field>
+            <field name="name">وحدة سكنية بغرفتين</field>
+            <field name="name_en">Furnished Apartment with 2 rooms</field>
+        </record>
+        <record id="ntmp_room_type_6" model="ntmp.room.type">
+            <field name="code">6</field>
+            <field name="name">وحدة سكنية بثلاث غرف</field>
+            <field name="name_en">Furnished Apartment with 3 rooms</field>
+        </record>
+        <record id="ntmp_room_type_7" model="ntmp.room.type">
+            <field name="code">7</field>
+            <field name="name">فيلا</field>
+            <field name="name_en">Villa</field>
+        </record>
+        <record id="ntmp_room_type_8" model="ntmp.room.type">
+            <field name="code">8</field>
+            <field name="name">غرفه بثلاث اسره</field>
+            <field name="name_en">Room with 3 beds</field>
+        </record>
+        <record id="ntmp_room_type_9" model="ntmp.room.type">
+            <field name="code">9</field>
+            <field name="name">غرفه باربع اسره</field>
+            <field name="name_en">Room with 4 beds</field>
+        </record>
+        <record id="ntmp_room_type_10" model="ntmp.room.type">
+            <field name="code">10</field>
+            <field name="name">غرفه بخمس اسره</field>
+            <field name="name_en">Room with 5 beds</field>
+        </record>
+        <record id="ntmp_room_type_11" model="ntmp.room.type">
+            <field name="code">11</field>
+            <field name="name">غرفه بست اسره</field>
+            <field name="name_en">Room with 6 beds</field>
+        </record>
+        <record id="ntmp_room_type_12" model="ntmp.room.type">
+            <field name="code">12</field>
+            <field name="name">غرفه بسبع اسره او اكثر</field>
+            <field name="name_en">Room with 7 beds or more</field>
+        </record>
+        <record id="ntmp_room_type_13" model="ntmp.room.type">
+            <field name="code">13</field>
+            <field name="name">اخرى</field>
+            <field name="name_en">Other</field>
+        </record>
+        <record id="ntmp_room_type_14" model="ntmp.room.type">
+            <field name="code">14</field>
+            <field name="name">جناح تنفيذي / فاخر</field>
+            <field name="name_en">Executive / Luxury Suite</field>
+        </record>
+    </data>
+</odoo>

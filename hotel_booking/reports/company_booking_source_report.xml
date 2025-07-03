@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="format_company_booking_source_report" model="report.paperformat">
+            <field name="name">Company Booking Source</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record model="ir.actions.report" id="action_company_booking_source_report">
+            <field name="name">Company Booking Source</field>
+            <field name="model">company.booking.source</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.company_booking_source_report</field>
+            <field name="report_file">hotel_booking.company_booking_source_report</field>
+            <field name="binding_model_id" ref="model_company_booking_source"/>
+            <field name="paperformat_id" ref="hotel_booking.format_hotel_booking_source_report"/>
+        </record>
+
+        <template id="company_booking_source_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <t t-foreach="docs" t-as="doc">
+                            <b class="text-left">
+                                <span dir="ltr">
+                                    <t t-if="doc.date_from">
+                                        &#160;&#160;&#160;&#160; Date From:
+                                        <t t-esc="doc.date_from"/>
+                                    </t>
+                                    <t t-if="doc.date_to">
+                                        &#160;&#160;&#160;&#160; Date To:
+                                        <t t-esc="doc.date_to"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="doc.company_booking_source">
+                                        &#160;&#160;&#160;&#160; Company Booking Source :
+                                        <t t-esc="doc.company_booking_source"/>
+                                    </t>
+                                    <t t-if="not doc.company_booking_source">
+                                        &#160;&#160;&#160;&#160; Company Booking Source :
+                                        ALL Sources
+                                    </t>
+                                    <t t-if="doc.related_hotel">
+                                        &#160;&#160;&#160;&#160; Hotels:
+                                        <t t-esc="doc.related_hotel.mapped('name')"/>
+                                    </t>
+                                </span>
+                            </b>
+                            <br/>
+                            <b>
+                                <h4 class="text-center">Company Booking Source</h4>
+                            </b>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Client Name</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Paid</th>
+                                        <th class="text-center">Remain</th>
+                                        <th class="text-center">Hotel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td class="text-center">
+                                                <span t-field="line.company_booking_source"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.subtotal"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.total_paid"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.balance"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.related_hotel"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                        <br/>
+                        <div>
+                            <b>
+                                <span>
+                                    Total Amount:
+                                    <t t-esc="doc.total_amount"/>
+                                </span>
+                            </b>
+                            <br/>
+                            <b>
+                                <span>
+                                    Total Paid:
+                                    <t t-esc="doc.total_paid"/>
+                                </span>
+                            </b>
+                            <br/>
+                            <b>
+                                <span>
+                                    Total Balance:
+                                    <t t-esc="doc.balance"/>
+                                </span>
+                            </b>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

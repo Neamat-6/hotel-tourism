@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_work_order_report" model="report.paperformat">
+            <field name="name">Work Order Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_work_order_report">
+            <field name="name">Work Order</field>
+            <field name="model">work.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.work_order_report</field>
+            <field name="report_file">hotel_booking.work_order_report</field>
+            <field name="binding_model_id" ref="model_work_order"/>
+            <field name="paperformat_id" ref="hotel_booking.format_work_order_report"/>
+        </record>
+
+        <template id="work_order_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                            width: 100%;
+                            background-color: #ffffff;
+                            border-collapse: collapse;
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            font-size: 14px;
+                            color: #000000;
+                            }
+
+                            table.GeneratedTable td, table.GeneratedTable th {
+                            border-width: 1px;
+                            border-color: #000000;
+                            border-style: solid;
+                            padding: 2px;
+                            color: #000000;
+                            }
+                        </style>
+                        <t t-set="current_date" t-value="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="text-right" style="margin-right:30px">
+                                <b>
+                                    <span class="text-right" style="margin-right:450px">Date:
+                                        <span t-esc="current_date"/>
+                                    </span>
+                                </b>
+                                <br/>
+                                <b>
+                                    <span class="text-right">Employee:
+                                        <span t-field="doc.employee_id"/>
+                                        &#160;&#160;&#160;&#160; Department:
+                                        <span t-field="doc.department_id"/>
+                                        &#160;&#160;&#160;&#160; Type:
+                                        <span t-field="doc.type"/>
+                                    </span>
+                                </b>
+                            </div>
+                            <br/>
+                            <b>
+                                <h4 class="text-center">Work Order Report</h4>
+                            </b>
+                            <br/>
+                            <table class="GeneratedTable m-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Room</th>
+                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Department</th>
+                                        <th class="text-center">Start</th>
+                                        <th class="text-center">End</th>
+                                        <th class="text-center">Duration</th>
+                                        <th class="text-center">Employee</th>
+                                        <th class="text-center">Priority</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td class="text-center">
+                                                <span t-field="line.room_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.type"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.department_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.date_start"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.date_stop"/>
+                                            </td>
+                                            <t t-set="date_stop" t-value="line.date_stop"/>
+                                            <t t-set="date_start" t-value="line.date_start"/>
+                                            <td class="text-center">
+                                                <span t-esc="date_stop - date_start"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.employee_id"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="line.priority"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

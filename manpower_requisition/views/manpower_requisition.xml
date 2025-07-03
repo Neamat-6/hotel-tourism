@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="manpower_requisition_view_tree" model="ir.ui.view">
+            <field name="name">manpower_requisition_view_tree</field>
+            <field name="model">manpower.requisition</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="active" invisible="1"/>
+                    <field name="name"/>
+                    <field name="request_date"/>
+                    <field name="location"/>
+                    <field name="requirement_number"/>
+                    <field name="manager_id"/>
+                    <field name="required_title" widget="many2many_tags"/>
+                    <field name="type"/>
+                    <field name="state" widget="badge" decoration-warning="state == 'submit'" decoration-success="state == 'approve'" decoration-danger="state == 'reject'"/>
+                </tree>
+            </field>
+        </record>
+        <record id="manpower_requisition_view_form" model="ir.ui.view">
+            <field name="name">manpower_requisition_view_form</field>
+            <field name="model">manpower.requisition</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_submit" type="object" string="Submit" class="oe_highlight" states="draft"/>
+                        <button name="button_hr_approve" type="object" string="Approve" class="oe_highlight" groups="hr.group_hr_manager"
+                            attrs="{'invisible': &quot;['|', '|', ('hr_user_ids', 'not in', [uid]), ('state', '!=', 'submit'), ('hr_approve', '=', True)]&quot;}"/>
+                        <button name="button_reject" type="object" string="Reject" class="oe_highlight" groups="hr.group_hr_manager"
+                            attrs="{'invisible': &quot;['|', ('hr_user_ids', 'not in', [uid]), ('state', '!=', 'submit')]&quot;}"/>
+                        <button name="button_manager_approve" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': &quot;['|', '|', ('department_manager_id', '!=', uid), ('state', '!=', 'submit'), ('manager_approve', '=', True)]&quot;}"/>
+                        <button name="button_reject" type="object" string="Reject" class="oe_highlight"
+                            attrs="{'invisible': &quot;['|', ('department_manager_id', '!=', uid), ('state', '!=', 'submit')]&quot;}"/>
+                        <button name="button_parent_approve" type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': &quot;['|', ('parent_manager_id', '!=', uid), ('state', '!=', 'submit')]&quot;}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>
+                    </header>
+                    <sheet>
+                        <field name="qr_image" widget="image" class="oe_avatar"/>
+                        <group>
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="name"/>
+                                <field name="barcode"/>
+                                <field name="request_date"/>
+                                <field name="location"/>
+                                <field name="requirement_number"/>
+                                <field name="salary"/>
+                            </group>
+                            <group>
+                                <field name="manager_id"/>
+                                <field name="required_title" widget="many2many_tags"/>
+                                <field name="type"/>
+                                <field name="specific_requirements"/>
+                                <field name="working_hours"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="transfer" string="Transfer">
+                                <field name="transferred_employee_id"/>
+                                <field name="transfer_from"/>
+                                <field name="transfer_to"/>
+                                <field name="transfer_reason"/>
+                            </group>
+                            <group name="resignation" string="Resignation/Termination">
+                                <field name="leaving_employee_id" widget="many2many_tags"/>
+                                <field name="resignation_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="new_project" string="New Project">
+                                <field name="project_id"/>
+                                <field name="actual_headcount"/>
+                            </group>
+                            <group name="additional" string="Additional Manpower">
+                                <field name="requirement_reason"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="department_id"/>
+                                <field name="parent_department_id"/>
+                                <field name="employee_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="need_hr_approve"/>
+                                <field name="need_manager_approve"/>
+                                <field name="need_parent_approve" attrs="{'invisible': [('parent_department_id', '=', False)]}"/>
+                                <field name="department_manager_id" invisible="1"/>
+                                <field name="parent_manager_id" invisible="1"/>
+                                <field name="hr_user_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="hr_approve" readonly="1" force_save="1"/>
+                                <field name="manager_approve" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="manpower_requisition_action" model="ir.actions.act_window">
+            <field name="name">Manpower Requisition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">manpower.requisition</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="manpower_requisition_menu" name="Manpower Requisition"
+                  action="manpower_requisition_action" sequence="50"/>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hotel_room_generate_view_form" model="ir.ui.view">
+            <field name="name">hotel_room_generate_view_form</field>
+            <field name="model">hotel.room.generate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="hotel_id" readonly="1" force_save="1"/>
+                            <field name="company_id" readonly="1" force_save="1"/>
+                            <field name="room_type_id" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="floor_id" options="{'no_create': True, 'no_edit': True}"/>
+                            <field name="start"/>
+                            <field name="count"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_generate_rooms" type="object" string="Generate" class="oe_highlight"/>
+                        <button special="cancel" class="btn-secondary" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

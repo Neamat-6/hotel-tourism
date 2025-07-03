@@ -1,0 +1,317 @@
+arabic_title,code,english_title
+الإمارات  العربية,T2_101,Arab Emirates
+الاردن,T2_102,Jordan
+البحرين,T2_103,Bahrain
+سوريا,T2_104,Syria
+العراق,T2_105,Iraq
+عمان,T2_106,Oman
+فلسطين,T2_107,Palestine
+قطر,T2_108,Country
+الكويت,T2_109,Kuwait
+لبنان,T2_110,Lebanon
+اليمن,T2_111,Yemen
+اليمن الجنوبي,T2_112,Southern Yemen
+المملكة العربية السعودية,T2_113,Saudi Arabia
+يمني جنوبي-السلاطين,T2_114,Yemeni the sultans
+بني حارث,T2_115,Bani Harith
+الكويت  -بدون,T2_116,Kuwait - without
+افراد القبائل,T2_117,Member of the tribes
+من سكان البحرين,T2_118,Residents of Bahrain
+قبائل مجاورة للعطفين,T2_119,Tribes adj to Ataf
+اجنبي بجواز سعودي,T2_120,Alien  KSA Passprt
+فلسطيني بوثيقة مصرية,T2_121,Palestinian Egyptian
+فلسطيني بوثيقةلبناني,T2_122,Palestinian Lebanese
+فلسطيني بوثيقةاردنية,T2_123,Palestinian Jordan
+فلسطيني بوثيقةعراقية,T2_124,Palestinian Iraqi
+فلسطيني بوثيقة سورية,T2_125,Palestinian Syria
+وثيقة قطريه,T2_126,document Syria
+وثيقة عمانيه,T2_127,The document Omani
+وثيقة اماراتيه,T2_128,The document EMIRIAN
+وثيقة بحرينيه,T2_129,Document Industry
+عرب ثمانية وأربعون,T2_130,Arabs 48
+قبائل نازحة/الحليفه,T2_131,Tribe/AlHal
+اليمن - لحج,T2_132,Yemen - pilgrimage
+قبائل نازحة/الكويت,T2_133,Tribes  / Kuwait
+غير كويتي,T2_134,Unknown
+غير بحريني,T2_135,Unknown
+غير قطري,T2_136,Unknown
+غير اماراتي,T2_137,Unknown
+غير عماني,T2_138,Unknown
+مقيم/نازح,T2_139,Resident/Displaced
+مقيم/مولود,T2_140,Resident/New Born
+مقيم/طالب جنسية,T2_141,Resident/Citizenship Request
+مقيم/أفراد القبائل,T2_142,Resident/Tribes
+مقيم/غير معروف,T2_143,Resident/Unknown
+مقيم/لا يحمل وثيقة,T2_144,Holding a Document
+قبيلة الصيعر,T2_145,ALSAYAR
+المناهيل والمهرة,T2_146,ALMNAHIL AND ALMAHRH
+تونس,T2_201,Tunisia
+الجزائر,T2_202,Algeria
+جيبوتى,T2_203,Djibouti
+السودان,T2_204,Sudan
+الصومال,T2_205,Somalia
+ليبيا,T2_206,Libya
+مصر,T2_207,Egypt
+المغرب,T2_208,Morocco
+موريتانيا,T2_209,Mauritania
+افغانستان,T2_301,Afghanistan
+اندونيسيا,T2_302,Indonesia
+ايران,T2_303,Iran
+باكستان,T2_304,Pakistan
+بنجلاديش,T2_305,Bangladesh
+بروني,T2_306,Brunei
+جمهورية ميانمار,T2_307,Myanmar
+تايلند,T2_308,Thailand
+تركيا,T2_309,Turkey
+جزر ملاديف,T2_310,Maldives
+روسيا الاتحادية,T2_311,Russia
+سنغافورة,T2_312,Singapore
+سري لنكا,T2_313,Sri Lanka
+تايوان الصين,T2_314,Taiwan China
+الفلبين,T2_315,Philippines
+فيتنام,T2_316,Vietnam
+كمبوديا,T2_317,Cambodia
+كوريا الجنوبية,T2_318,South Korea
+ماليزيا,T2_319,Malaysia
+نيبال,T2_320,Nepal
+الهند,T2_321,India
+هونج كونج الصين,T2_322,HONG KONG CHINA
+اليابان,T2_323,Japan
+بهوتان,T2_324,Bhutan
+الصين الشعبية,T2_325,China
+قبرص,T2_326,Cyprus
+كوريا الشمالية,T2_328,North Korea
+لاوس,T2_329,Laos
+منغوليا,T2_330,Mongolia
+ماكاو الصين,T2_331,Macao China
+تركستان,T2_332,Turkistan
+مقيم بلوشي,T2_333,NULL
+بخارستان,T2_334,Bucharest
+القبائل النازحة,T2_335,Tribes emigrated
+كازاخستان,T2_336,Kazakhstan
+ازبكستان,T2_337,Uzbekistan
+تركمانستان,T2_338,Turkmenistan
+طاجكستان,T2_339,Tajikistan
+قرغيزستان,T2_340,kyrgyzstan
+سقطرة,T2_341,Socotra
+مهرة,T2_342,Muhrah
+اذربيجان,T2_343,Azerbaijan
+الشاشان,T2_344,Chechnya
+داغستان,T2_345,Dagestan
+انقوش,T2_346,Anquosh
+تتارستان,T2_347,Tatarstan
+مكررلقرغيزيا لايستخدم,T2_348,Kyrgyzstan not used
+تيمور الشرقية,T2_349,East Timor
+مقيم,T2_350,Resident
+ميانمار/مقيم,T2_351,NULL
+ميانمار/جواز باكستان,T2_352,-
+ميانمار/جوازبنجلا دش,T2_353,-
+اثيوبيا,T2_401,Ethiopia
+اوغندة,T2_402,Uganda
+بوتسوانا,T2_403,Botswana
+بورندي,T2_404,Burundi
+تشاد,T2_405,Chad
+تنزانيا,T2_406,Tanzania
+توجو,T2_407,Togo
+جابون,T2_408,Answer
+غامبيا,T2_409,Gambia
+جزر القمر,T2_410,Comoros
+جنوب  افريقيا,T2_411,South Africa
+ناميبيا,T2_412,Namibia
+بنين,T2_413,Benin
+رواندا,T2_414,Rwanda
+زمبابوي,T2_415,Zimbabwe
+زائير,T2_416,Zaire
+زامبيا,T2_417,Zambia
+ساحل العاج,T2_418,Ivory Coast
+السنغال,T2_419,Senegal
+سيراليون,T2_420,Sierra Leone
+غانا,T2_421,Ghana
+غينيا,T2_422,Guinea
+غينيابيساو,T2_423,Guinea Bissau
+بوركينافاسو,T2_424,Burkina Faso
+الكاميرون,T2_425,Cameroon
+الكونغو,T2_426,Congo
+كينيا,T2_427,Kenya
+ليسوتو,T2_428,Lesotho
+ليبيريا,T2_429,Liberia
+مالي,T2_430,Mali
+ملاوي,T2_432,Malawi
+موريشيوس,T2_433,Mauritius
+موزمبيق,T2_434,Mozambique
+نيجيريا,T2_435,Nigeria
+النيجر,T2_436,Niger
+افريقيا الوسطى,T2_437,Central Africa
+انجولا,T2_438,Angola
+الراس  الاخضر,T2_439,Cape Verde
+غينيا الاستوائية,T2_440,Equatorial Guinea
+ملاجاسي,T2_441,Mlajasi
+ساوتومي/برنسبى,T2_442,Sao Tome/FranceBank
+جزر سيشل,T2_443,Seychelles Islands
+سوزيلاند,T2_444,Swaziland
+بوفثاتسوانا,T2_445,Bovthatswana
+رينيون,T2_446,Reunion
+ترانسكي,T2_447,Transkei
+فيندا,T2_448,Venda
+ارتيريا,T2_449,Eritrea
+دول افريقية اخري,T2_450,Other African States
+سانت هيلانة,T2_451,Saint Helena
+جزيرةمايوت,T2_452,Comorian island
+جمهورية جنوب السودان,T2_453,Republic of South
+كاب فيرد,T2_454,CAPE VERDE
+اسبانيا,T2_501,Spain
+البانيا,T2_502,Albania
+المانيا,T2_503,Germany
+ايرلندا,T2_504,Ireland
+ايطاليا,T2_505,Italy
+المملكة المتحدة,T2_506,United Kingdom
+البرتغال,T2_507,Portugal
+بلغاريا,T2_508,Bulgaria
+بلجيكا,T2_509,Belgium
+بولندا,T2_510,Poland
+رمزقديم تشكوسلوفاكيا,T2_511,old to Czechoslovak
+الدانمارك,T2_512,Denmark
+رومانيا,T2_513,Romania
+السويد,T2_514,Sweden
+سويسرا,T2_515,Switzerland
+فرنسا,T2_516,France
+فنلندا,T2_517,Finland
+صربيا,T2_518,SERBIA
+هولندا,T2_519,Netherlands
+يوغسلافيا,T2_520,Yugoslavia
+اليونان,T2_521,Greece
+اندورا,T2_522,Andorra
+النمسا,T2_523,Austria
+الجبل الأ سود,T2_524,MONTENEGRO
+هنغاريا,T2_525,Hungary
+ايسلندا,T2_526,Iceland
+ليختنشتين,T2_527,Liechtenstein
+لوكسمبورغ,T2_528,Luxembourg
+مالطا,T2_529,Malta
+موناكو,T2_530,Monaco
+النرويج,T2_531,Norway
+سان مورينو,T2_532,San Moreno
+مدينة الفاتيكان,T2_533,Vatican City
+جبل طارق,T2_534,Gibraltar
+اوكرانيا,T2_536,Ukraine
+روسيا البيضاء,T2_537,Byelorussia
+ارمينيا,T2_539,Armenia
+مولدافيا,T2_540,Moldova
+جورجيا,T2_541,Georgia
+ليتوانيا,T2_542,Lithuania
+استونيا,T2_543,Estonia
+لاتفيا,T2_544,Latvia
+البوسنة والهرسك,T2_545,Bosnia / Herzegovina
+كرواتيا,T2_546,Croatia
+سلوفينيا,T2_547,Slovenia
+صربيا والجبل الأسود,T2_548,Serbia / Montenegro
+مقدونيا,T2_549,Macedonia
+كوسوفوا,T2_550,Kosovo
+رمزقديم للجبل الاسود,T2_551,code to Montenegro
+تشيك,T2_552,CZECH REPUBLIC
+سلوفاكيا,T2_553,Slovakia
+جزر فيرو,T2_554,Faroe Islands
+ميتروبوليتان فرنسية,T2_555,FRANCE METROPOLITAN
+الولايات  المتحدة,T2_601,United States
+الارجنتين,T2_602,Argentina
+بربادوس,T2_603,Barbados
+البرازيل,T2_604,Brazil
+بنما,T2_605,Panama
+ترينداد وتوباجو,T2_606,Trinidad and Tobago
+جامايكا,T2_607,Jamaica
+جوانا,T2_608,Joanna
+فنزويلا,T2_609,Venezuela
+كندا,T2_610,Canada
+كولمبيا,T2_611,Columbia
+جزر البهاما,T2_612,Bahamas
+كوستاريكا,T2_613,Costa Rica
+كوبا,T2_614,Cuba
+دومينيكا,T2_615,Dominica
+جمهورية دمينكان,T2_616,Republic Dominica
+السلفادور,T2_617,El Salvador
+جرانادا,T2_618,Granada
+جواتيمالا,T2_619,Guatemala
+هايتي,T2_620,Haiti
+هوندوراس,T2_621,Honduras
+المكسيك,T2_622,Mexico
+نيكاراجوا,T2_623,Nicaragua
+سانت  لوسيا,T2_624,Saint Lucia
+سان فينسنت,T2_625,Saintt Vincent
+بوليفيا,T2_626,Bolivia
+شيلي,T2_627,Chile
+اكوادور,T2_628,Ecuador
+باراجواي,T2_629,Paraguay
+بيرو,T2_630,Peru
+سورينام,T2_631,Suriname
+اوراجواي,T2_632,Orajoa
+س  بييري وميكويلن,T2_633,Saint Pierre Miquel
+جرينلاند,T2_634,Greenland
+بيليز,T2_635,Belize
+بيرمودا,T2_636,Bermda
+ج الترك  والقوقاز,T2_637,Turk/Caucasus Island
+سان كريستوفرنيفز,T2_638,San Cristovernivz
+انجويلا,T2_639,Anguilla
+انتيكوا,T2_640,Antiques
+ج فيرجن البريطانية,T2_641,British Virgin
+جزر كايمون,T2_642,Cayman Islands
+مونت  سيرات,T2_643,Monte Sirat
+جيودي لوب,T2_644,Gyude Lube
+مارتينيكو,T2_645,Martinico
+عروبا,T2_646,Arabism
+بونيري,T2_647,Bonaire
+كيوراكو,T2_648,Curako
+سان استاتيوس,T2_649,San Astatios
+سابا,T2_650,Saba
+سان مارتين,T2_651,San Martin
+بورتوريكو,T2_652,Puerto Rico
+ج فيرجن الامريكية,T2_653,Virgin Islands of US
+جزر فاكلاند,T2_654,Falkland Islands
+جيانا الفرنسية,T2_655,French Guyana
+الامم المتحدة,T2_656,United Nations
+جزر كوك,T2_657,Cook Islands
+باربودا,T2_659,Barbuda
+انتيل الهولندية,T2_660,NETHERLANDS ANTILLES
+جزر كوكوس,T2_661,COCOS ISLAND
+البريطانية في المحيط,T2_662,BRITISH INDIAN OCEAN
+سانت كيتس  ونافيس,T2_663,SAINT KITTS & NEVIS
+جنوب جورجيا,T2_664,SOUTH GEORGIA
+استراليا,T2_701,Australia
+نيوزيلندا,T2_702,New Zealand
+بابوا نيوغينا,T2_703,Papua yoga
+نيو,T2_704,New
+انتاركتيكا,T2_705,Antarctica
+جزر نورفولك,T2_706,Norfolk Island
+توكيلاو,T2_707,Tokelau
+جزيرةكريسماس,T2_708,Christmas Island
+جزيرةكوكو-كيلنج,T2_709,koko Island- Kellenj
+فرنسا الجنوب القطبية,T2_710,FRENCH SOUTH
+جزيرة هيرد وماكدونلد,T2_711,HEARD DONALD ISLANDS
+جزر بيتكايرن,T2_712,PITCAIRN ISLANDS
+جزر فيجي,T2_801,Fiji Islands
+كيريباتي,T2_802,Kiribati
+نورو,T2_803,Nauru
+جزر سليمان,T2_804,Solomon Islands
+تونجا,T2_805,Tonga
+توفالو,T2_806,Tuvalu
+فانيوتو,T2_807,Vanuoto
+ساموا الغربية,T2_808,Western Samoa
+ساموا الامريكية,T2_809,American Samoa
+جوام,T2_810,Guam
+جزر ماريانا,T2_811,Mariana Islands
+ميكرونيسيا,T2_812,Micronesia
+جزر ماريشال,T2_813,Marechal Islands
+بيلو,T2_814,Belo
+بولينيسياالفرنسية,T2_815,French Polynesia
+جزر والس  وفوتونا,T2_816,Islands Wallis
+كاليدونيا الجديد,T2_817,New Caledonia
+مدغشقر,T2_818,Madagascar
+قبيلة بالعبيد,T2_819,Balobid
+قبيلة النسي,T2_820,NULL
+قبائل مجاورة للعبر,T2_821,TRIBES ADJACENT
+قبيلة الحرث,T2_822,NULL
+قبيلة نهد,T2_823,NULL
+جزر مينور,T2_824,US MINOR ISLANDS
+مقيم اجنبي - الاشاجعة,T2_825,NULL
+مقيم اجنبي - العدوان,T2_826,NULL
+غير معروف,T2_900,Unknown
+اخرى,T2_901,OTHER

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="room_type_form_view_inherit_custom" model="ir.ui.view">
+        <field name="name">room.type.custom.view</field>
+        <field name="model">room.type</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_room_type"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_virtual']" position="after">
+                <field name="is_camp"/>
+                <field name="gender" attrs="{'required': [('is_camp', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <group string="Hajj Information">
+                    <field name="nationality_ids" widget="many2many_tags"/>
+                    <field name="region"/>
+                    <field name="res_land_ids" widget="many2many_tags"/>
+                    <field name="relationship"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

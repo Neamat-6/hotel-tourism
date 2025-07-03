@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_rate_plan" model="ir.ui.view">
+            <field name="name">view.update.rate.plan</field>
+            <field name="model">hotel.rate.plan.update</field>
+            <field name="arch" type="xml">
+                <form string="Update Room Priccelist">
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="room_availability_id" invisible="0"/>
+                            <field name="room_type_id" required="1"/>
+                            <field name="base_rate" required="1"/>
+                        </group>
+                        <group>
+                            <field name="date_to"/>
+                            <field name="hotel_id" invisible="0"/>
+                            <field name="rate_plan_id" required="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="extra_adult"/>
+                        </group>
+                        <group>
+                            <field name="extra_child"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="update_rate_plan" string="Update" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_update_rate_plan" model="ir.actions.act_window">
+            <field name="name">Update Rate Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.rate.plan.update</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

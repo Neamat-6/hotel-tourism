@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hotel_user_role_hotel_user_role,hotel_user_role.hotel_user_role,model_hotel_user_role_hotel_user_role,base.group_user,1,1,1,1

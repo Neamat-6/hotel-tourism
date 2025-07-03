@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_customer_type_1" model="ntmp.customer.type">
+            <field name="code">1</field>
+            <field name="name">مواطن</field>
+            <field name="name_en">Citizen</field>
+        </record>
+        <record id="ntmp_customer_type_2" model="ntmp.customer.type">
+            <field name="code">2</field>
+            <field name="name">مواطن خليجي</field>
+            <field name="name_en">Gulf Citizen</field>
+        </record>
+        <record id="ntmp_customer_type_3" model="ntmp.customer.type">
+            <field name="code">3</field>
+            <field name="name">زائر</field>
+            <field name="name_en">Visitor</field>
+        </record>
+        <record id="ntmp_customer_type_4" model="ntmp.customer.type">
+            <field name="code">4</field>
+            <field name="name">مقيم</field>
+            <field name="name_en">Resident</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hotel_rate_type_form_inherit" model="ir.ui.view">
+        <field name="name">hotel.rate.type.form.inherit</field>
+        <field name="model">hotel.rate.type</field>
+        <field name="inherit_id" ref="hotel_booking.rate_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="ezee_rate_type_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

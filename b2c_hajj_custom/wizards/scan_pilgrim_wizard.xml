@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="action_scan_pilgrims" model="ir.actions.act_window">
+        <field name="name">Scan Pilgrims</field>
+        <field name="res_model">scan.pilgrim.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <record id="view_scan_pilgrim_form" model="ir.ui.view">
+        <field name="name">scan.pilgrim.wizard.form</field>
+        <field name="model">scan.pilgrim.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Scan Pilgrim">
+                <group>
+                    <field name="status"/>
+                    <field name="line_ids">
+                        <tree editable="bottom">
+                            <field name="partner_id" widget="m2o_mobile_scan" options="{'no_create': True,'code_field': 'pilgrim_id'}"/>
+                            <field name="mobile"  force_save="1"/>
+                            <field name="email"  force_save="1"/>
+                            <field name="pilgrim_id"  force_save="1"/>
+                            <field name="main_makkah"  force_save="1"/>
+                            <field name="main_madinah"  force_save="1"/>
+                            <field name="makkah_room"  force_save="1"/>
+                            <field name="madinah_room"  force_save="1"/>
+                        </tree>
+                </field>
+                </group>
+                <footer class="footer text-center">
+                    <button name="action_update_status" string="Update Status" type="object" class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel" style="margin-left: 10px;"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_scan_pilgrims"
+              action="b2c_hajj_custom.action_scan_pilgrims"
+              parent="b2c_hajj_custom.b2c_main_menu"
+              name="Scan Pilgrims"/>
+
+    </data>
+</odoo>

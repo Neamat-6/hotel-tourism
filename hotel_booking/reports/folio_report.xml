@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_folio" model="report.paperformat">
+            <field name="name">Folio Medium Margin</field>
+            <field name="default" eval="True"/>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="folio_report_action" model="ir.actions.report">
+            <field name="name">Folio Report</field>
+            <field name="model">booking.folio</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.folio_report</field>
+            <field name="report_file">hotel_booking.folio_report</field>
+            <field name="paperformat_id" ref="paperformat_folio"/>
+            <field name="print_report_name">'Folio Report- %s' % (object.name).replace('/', '')</field>
+            <field name="binding_model_id" ref="hotel_booking.model_booking_folio"/>
+            <field name="binding_type">report</field>
+        </record>
+        <template id="folio_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family:Arial !important;">
+                            <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                            <t t-set="hotel" t-value="doc.booking_id.hotel_id"/>
+                            <t t-set="company" t-value="doc.booking_id.hotel_id.company_id"/>
+                            <t t-set="booking" t-value="doc.booking_id"/>
+                            <t t-set="guest" t-value="doc.booking_id.partner_id"/>
+                            <t t-set="booking_line" t-value="doc.booking_line_id"/>
+                            <t t-set="room" t-value="doc.booking_line_id.room_id"/>
+                            <!--hotel info-->
+                            <table class="GeneratedTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <t t-esc="hotel.name"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <t t-esc="company.partner_id.contact_address"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            Phone:<t t-esc="company.phone"/>;
+                                            E-mail:
+                                            <t t-esc="company.email"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            Website:
+                                            <t t-esc="company.website"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--guest info-->
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Folio No./Res No.
+                                        </td>
+                                        <td>
+                                            :<t t-esc="doc.name"/>/
+                                            <t t-esc="booking.name"/>
+                                        </td>
+                                        <td>
+                                            Date
+                                        </td>
+                                        <td>
+                                            :
+                                            <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S %p')"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Guest Name
+                                        </td>
+                                        <td>
+                                            :
+                                            <t t-esc="guest.name"/>
+                                        </td>
+                                        <td>
+                                            Travel Agent
+                                        </td>
+                                        <td>
+                                            :
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Company Name
+                                        </td>
+                                        <td>
+                                            :
+                                        </td>
+                                        <td>
+                                            Tax Id
+                                        </td>
+                                        <td>
+                                            :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--booking-->
+                            <table class="GeneratedTable">
+                                <colgroup>
+                                    <col width='15%'/>
+                                    <col width='15%'/>
+                                    <col width='20%'/>
+                                    <col width='15%'/>
+                                    <col width='35%'/>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td class="with-border">
+                                            <span class="bold-text">Nationality</span>
+                                            <br/>
+                                            <t t-esc="guest.country_id.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span class="bold-text">No Of Pax</span>
+                                            <br/>
+                                            <t t-esc="sum([booking_line.number_of_adults, booking_line.number_of_children])"/>
+
+                                        </td>
+                                        <td class="with-border">
+                                            <span class="bold-text">Adult / Child</span>
+                                            <br/>
+                                            <t t-esc="booking_line.number_of_adults"/>/
+                                            <t t-esc="booking_line.number_of_children"/>
+                                        </td>
+                                        <td class="with-border">G.R. Card No</td>
+                                        <td class="with-border">
+                                            <span class="bold-text">Room No</span>
+                                            <br/>
+                                            <t t-esc="doc.room_id.name"/>
+                                            <!--                                            <t t-esc="doc.room_id"/>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="with-border">Date of Arrival</td>
+                                        <td class="with-border">
+                                            <t t-esc="booking.check_in.strftime('%Y-%m-%d')"/>
+                                        </td>
+                                        <td class="with-border">Date of Departure</td>
+                                        <td class="with-border">
+                                            <t t-esc="booking.check_out.strftime('%Y-%m-%d')"/>
+                                        </td>
+                                        <td class="with-border">Tariff</td>
+                                    </tr>
+                                    <tr id="arrival_departure_time">
+                                        <td class="with-border">Time Of Arrival</td>
+                                        <td class="with-border">
+                                            <t t-esc="booking.check_in.strftime('%H:%M:%S %p')"/>
+                                        </td>
+                                        <td class="with-border">Time of Departure</td>
+                                        <td class="with-border">
+                                            <t t-esc="booking.check_out.strftime('%H:%M:%S %p')"/>
+                                        </td>
+                                        <td class="with-border">Rate Type</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--folio table-->
+                            <table class="GeneratedTable">
+                                <colgroup>
+                                    <col width='15%'/>
+                                    <col width='10%'/>
+                                    <col width='30%'/>
+                                    <col width='15%'/>
+                                    <col width='15%'/>
+                                    <col width='15%'/>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Ref.No.</th>
+                                        <th>Particular</th>
+                                        <th>Charges</th>
+                                        <th>Payment</th>
+                                        <th>Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.line_ids" t-as="line">
+                                        <td class="with-border">
+                                            <t t-esc="line.day"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <t t-esc="line.description"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <t t-esc="line.particulars"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <t t-if="not line.payment_id">
+                                                <t t-esc="line.amount"/>
+                                            </t>
+                                            <t t-else="">0</t>
+                                        </td>
+                                        <td class="with-border">
+                                            <t t-if="line.payment_id">
+                                                <t t-esc="line.amount"/>
+                                            </t>
+                                            <t t-else="">0</t>
+                                        </td>
+                                        <td class="with-border"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="with-border bold-text text-center" colspan="3">Grand Total</td>
+                                        <td class="with-border" colspan="1">
+                                            <t t-esc="sum(doc.line_ids.filtered(lambda l: not l.payment_id).mapped('amount'))"/>
+                                        </td>
+                                        <td class="with-border" colspan="1">
+                                            <t t-esc="sum(doc.line_ids.filtered(lambda l: l.payment_id).mapped('amount'))"/>
+                                        </td>
+                                        <td class="with-border" colspan="1"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="with-border bold-text text-center" colspan="1">This Folio is in
+                                            <t t-esc="doc.currency_id.name"/>
+                                        </td>
+                                        <td class="with-border" colspan="3">
+                                            <t t-esc="doc.number_in_words"/>
+                                        </td>
+                                        <td class="with-border text-center" colspan="1">Total Paid</td>
+                                        <td class="with-border" colspan="1">
+                                            <t t-esc="booking.amount_paid"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" style="border: none !important;"></td>
+                                        <td class="with-border text-center" colspan="1">Balance</td>
+                                        <td class="with-border" colspan="1">
+                                            <t t-esc="booking.amount_due"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--bill-->
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <td class="bold-text">
+                                            Bill To
+                                        </td>
+                                        <td>
+                                            :
+                                            <t t-esc="guest.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold-text">
+                                            Bill to Reg No.
+                                        </td>
+                                        <td>
+                                            :
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold-text">
+                                            Address
+                                        </td>
+                                        <td>
+                                            :
+                                            <t t-esc="guest.contact_address"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold-text">( Guest Signature )</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!--hotel sign-->
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <td class="bold-text">
+                                            <ul style="list-style-type: none;padding: 15px;margin:0">
+                                                <li>For M/S Hotels Task</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold-text">
+                                            <ul style="list-style-type: none;padding: 3px;padding-left: 15px;margin: 0">
+                                                <li>Authorised Signature</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="GeneratedTable" style="height:300px">
+                                <tbody>
+                                    <tr>
+                                        <td class="bold-text text-center">
+                                            Thank you for your stay with us. Please visit us again.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

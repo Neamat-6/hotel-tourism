@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="company_ledger_report_view_form" model="ir.ui.view">
+            <field name="name">company_ledger_report_view_form</field>
+            <field name="model">company.ledger.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="company_booking_source_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_source_folios" type="object" string="Search"
+                                        class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="company_booking_source"/>
+                                <field name="credit_limit"/>
+                                <field name="due_amount"/>
+                                <field name="balance"/>
+                                <field name="advanced_payment"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_company_ledger_report_view" model="ir.actions.act_window">
+            <field name="name">Company Ledger Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">company.ledger.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="_company_ledger_report_view_menu" name="Company Ledger Report"
+                  parent="hotel_booking.booking_reporting_menu"
+                  action="action_company_ledger_report_view" sequence="57"/>
+
+        #duplicated menu
+        <menuitem id="company_ledger_report_menu_item" name="Company Ledger Report"
+                  parent="hotel_booking.booking_reporting_menu_item"
+                  action="action_company_ledger_report_view" sequence="57"/>
+    </data>
+</odoo>

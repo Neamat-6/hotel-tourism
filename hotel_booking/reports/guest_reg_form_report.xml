@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="customer_hotel_booking_report">
+            <field name="name">Confirmation Booking (Without Prices)</field>
+            <field name="model">hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.customer_confirmation_booking_template</field>
+            <field name="report_file">hotel_booking.customer_confirmation_booking_template</field>
+            <field name="print_report_name">(object._get_confirm_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_hotel_booking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="hotel_booking.paperformat_action_report_confirmation"/>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <record model="ir.actions.report" id="action_guest_reg_form_report">
+            <field name="name">Guest Registration Form (Without Prices)</field>
+            <field name="model">hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.guest_reg_form_report</field>
+            <field name="report_file">hotel_booking.guest_reg_form_report</field>
+            <field name="binding_model_id" ref="model_hotel_booking"/>
+            <field name="binding_type">report</field>
+            <field name="binding_view_types">form</field>
+        </record>
+
+        <template id="guest_reg_form_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <br/>
+                    <br/>
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;font-size:13px;">
+                        <t t-foreach="docs" t-as="doc">
+                            <br/>
+                            <br/>
+                            <h5 class="text-center">Guest Registration Form</h5>
+                            <div style="border:1px solid black;padding-left:10px;padding-right:10px;">
+                                <!--1-->
+                                       <t t-set="checkin_date" t-value="doc.check_in.date()"/>
+                                        <t t-set="time_float" t-value="doc.company_id.hotel_check_in_point"/>
+                                        <t t-set="meridian" t-value="doc.company_id.hotel_check_in_am_pm"/>
+
+                                        <t t-set="checkout_date" t-value="doc.check_out.date()"/>
+                                        <t t-set="time_float_out" t-value="doc.company_id.hotel_check_out_point"/>
+                                        <t t-set="meridian_out" t-value="doc.company_id.hotel_check_out_am_pm"/>
+
+                                        <t t-set="hours" t-value="int(time_float)"/>
+                                        <t t-set="minutes" t-value="int(round((time_float - hours) * 60))"/>
+                                        <t t-set="time_str_in" t-value="('%02d:%02d' % (hours, minutes))"/>
+
+                                         <t t-set="hours_out" t-value="int(time_float_out)"/>
+                                        <t t-set="minutes_out" t-value="int(round((time_float_out - hours_out) * 60))"/>
+                                        <t t-set="time_str_out" t-value="('%02d:%02d' % (hours_out, minutes_out))"/>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Registration No.</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.name"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Check In Date</strong>
+                                    </div>
+                                    <div class="col-3">
+                                       <t t-esc="checkin_date"/>
+                                        <t t-esc="time_str_in"/>
+                                        <t t-esc="meridian"/>
+                                    </div>
+                                </div>
+                                <!--2-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Check Out Date</strong>
+                                    </div>
+                                    <div class="col-3">
+                                         <t t-esc="checkout_date"/>
+                                         <t t-esc="time_str_out"/>
+                                         <t t-esc="meridian_out"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>No Nights</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.total_nights"/>
+                                    </div>
+                                </div>
+                                <!--3-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Desk User</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.create_uid"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Business Source</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.business_source_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <!--folios-->
+                            <t t-foreach="doc.folio_ids.filtered(lambda f: f.state != 'cancelled')" t-as="folio">
+                                <t t-set="book_line" t-value="folio.booking_line_id"/>
+                                <div style="border:1px solid black;padding-left:10px;padding-right:10px;">
+                                    <!--1-->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <strong>Folio No.</strong>
+                                        </div>
+                                        <div class="col-3">
+                                            <span t-field="folio.name"/>
+                                        </div>
+                                        <div class="col-3">
+                                            <strong>Room</strong>
+                                        </div>
+                                        <div class="col-3">
+                                            <t t-if="folio.room_id">
+                                                <span t-field="folio.room_id.name"/>
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <!--2-->
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <strong>No of Persons</strong>
+                                        </div>
+                                        <div class="col-3">
+                                            <span t-field="book_line.number_of_adults"/>
+                                            Adult(s)
+                                            <span t-field="book_line.number_of_children"/>
+                                            Child(ren)
+                                        </div>
+                                        <div class="col-3">
+                                            <strong>Room Type</strong>
+                                        </div>
+                                        <div class="col-3">
+                                            <span t-field="book_line.room_type"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </t>
+                            <!--Guest-->
+                            <div style="border:1px solid black;padding-left:10px;padding-right:10px;">
+                                <t t-set="guest" t-value="doc.partner_id"/>
+                                <!--1-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Name</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span t-field="guest.name"/>
+                                    </div>
+                                </div>
+                                <!--2-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Address</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span t-field="guest.contact_address"/>
+                                    </div>
+                                </div>
+                                <!--3-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>City</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="guest.city"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>National ID</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="guest.national_id"/>
+                                    </div>
+                                </div>
+                                <!--4-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>State</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="guest.state_id"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Country</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="guest.country_id"/>
+                                    </div>
+                                </div>
+                                <!--5-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>E-mail</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="guest.email"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Mobile</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-esc="guest.mobile"/>
+                                    </div>
+                                </div>
+                                <!--5-->
+                                <div class="row" t-if="guest.passport_no">
+                                    <div class="col-3">
+                                        <strong>Passport No</strong>
+                                    </div>
+                                    <div class="col-9">
+                                        <span t-field="guest.passport_no"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <!--payments-->
+                            <div style="border:1px solid black;padding-left:10px;padding-right:10px;">
+                                <!--1-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Untaxed Amount</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.amount_untaxed"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Taxes</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.amount_tax"/>
+                                    </div>
+                                </div>
+                                <!--2-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Total</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.amount_total"/>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Paid Amount</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.amount_paid"/>
+                                    </div>
+                                </div>
+                                <!--3-->
+                                <div class="row">
+                                    <div class="col-3">
+                                        <strong>Due Amount</strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <span t-field="doc.amount_due"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <!--vehicle and ID-->
+                            <!--                            <div style="border:1px solid black;padding-left:10px;padding-right:10px;">-->
+                            <!--                                &lt;!&ndash;1&ndash;&gt;-->
+                            <!--                                <div class="row">-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>Vehicle Make</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>ID Type</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                                &lt;!&ndash;2&ndash;&gt;-->
+                            <!--                                <div class="row">-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>Vehicle Model</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>ID Number</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                                &lt;!&ndash;2&ndash;&gt;-->
+                            <!--                                <div class="row">-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>License Plate</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+                            <!--                                        <strong>ID Country</strong>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-3">-->
+
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                            <t t-if="doc.get_register_form_terms()" dir="rtl">
+                                <div style="border:1px solid black; padding:5px; text-align:right; direction:rtl;">
+                                    <span t-raw="doc.get_register_form_terms()"/>
+                                </div>
+                            </t>
+                            <br/>
+                            <div class="row">
+                                <div class="col-3 text-center" style="border-top:2px solid black;">
+                                    <strong>(GUEST SIGNATURE)</strong>
+                                </div>
+                                <div class="col-3"></div>
+                                <div class="col-3"></div>
+                                <div class="col-3 text-center" style="border-top:2px solid black;">
+                                    <strong>(ATTEND BY)</strong>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="customer_confirmation_booking_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.basic_layout">
+                        <div class="page" style="margin: 40px;">
+                            <t t-if="not o or not 'company_id' in o">
+                                <t t-set="company" t-value="res_company"/>
+                            </t>
+
+                            <div style="margin-top:10px;margin-bottom:20px;margin-right:0px;margin-left:0px;"
+                                 width="100%">
+                                <table style="width: 100%;">
+                                    <tr width="100%">
+                                        <td width="50%">
+                                            <div class="text-left">
+                                                <img style="margin: 10px; margin-top: 30px"
+                                                     t-att-src="'data:image/png;base64,%s' % to_text(doc.company_id.logo)"
+                                                     width="250"/>
+                                            </div>
+                                        </td>
+                                        <td width="50%">
+                                            <div>
+                                                <h5 style="color: #455360; margin-bottom: 3px;">Hotel Booking
+                                                    Confirmation
+                                                </h5>
+                                                <p style="margin-bottom: 3px;font-weight:bold">Booking Status:
+                                                    <span t-field="doc.state"/>
+                                                </p>
+                                                <h4 t-field="doc.hotel_id" style="margin-bottom: 3px;"/>
+                                                <p style="margin-bottom: 3px; color: #455360;">
+                                                    <span t-field="doc.hotel_id.address"/>
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <small>
+                                <!--                                Dear Sir,-->
+                                <!--                                <br/>-->
+                                Thank you for choosing [<span t-field="doc.hotel_id"/>]
+                                for your stay. We are delighted to welcome you and hope you have a memorable experience
+                                with us. We look forward to hosting you and ensuring your visit is comfortable and
+                                enjoyable.
+                                <br/>
+                                <!--                                يسرنا في فندق-->
+                                <!--                                <span t-field="doc.hotel_id"/>,-->
+                                <!--                                <br/>-->
+                                <!--                                أن نرحب بك ونتطلع إلى استضافتك خلال رحلتك ادارة الفندق تتمنى لكم اقامة سعيدة-->
+                            </small>
+                            <br/>
+                            <t t-if="doc.get_booking_confirm_terms()">
+                                <div style="text-align:left; font-size: 10px">
+                                    <strong>Generale Information</strong>
+                                </div>
+                            </t>
+                            <!--                            <style>-->
+                            <!--                                .details_table td {-->
+                            <!--                                    padding: 5px;-->
+                            <!--                                }-->
+                            <!--                            </style>-->
+
+                            <table style="border-collapse:collapse;border-spacing:0;width:100%" class="tg">
+                                <thead>
+                                    <tr>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Hotel:
+                                        </th>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-field="doc.hotel_id"/>
+                                        </th>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Booking Source
+                                        </th>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-field="doc.booking_source"/>
+                                        </th>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:left;vertical-align:top;word-break:normal">
+                                            Client
+                                        </th>
+                                        <th style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:0px 20px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-if="doc.booking_source=='direct'" t-field="doc.partner_id"/>
+                                            <span t-if="doc.booking_source=='company'"
+                                                  t-field="doc.company_booking_source"/>
+                                            <span t-if="doc.booking_source=='online_agent'"
+                                                  t-field="doc.online_travel_agent_source"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Guest Name:
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-field="doc.partner_id.name"/>
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Booking Ref No.
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal"
+                                            colspan="3">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Mail:
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.guest_email or doc.partner_id.email"/>
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Mobile
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal"
+                                            colspan="3">
+                                            <span t-esc="doc.guest_mobile or doc.partner_id.mobile"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <t t-set="checkin_date" t-value="doc.check_in.date()"/>
+                                        <t t-set="time_float" t-value="doc.company_id.hotel_check_in_point"/>
+                                        <t t-set="meridian" t-value="doc.company_id.hotel_check_in_am_pm"/>
+
+                                        <t t-set="checkout_date" t-value="doc.check_out.date()"/>
+                                        <t t-set="time_float_out" t-value="doc.company_id.hotel_check_out_point"/>
+                                        <t t-set="meridian_out" t-value="doc.company_id.hotel_check_out_am_pm"/>
+
+                                        <t t-set="hours" t-value="int(time_float)"/>
+                                        <t t-set="minutes" t-value="int(round((time_float - hours) * 60))"/>
+                                        <t t-set="time_str_in" t-value="('%02d:%02d' % (hours, minutes))"/>
+
+                                         <t t-set="hours_out" t-value="int(time_float_out)"/>
+                                        <t t-set="minutes_out" t-value="int(round((time_float_out - hours_out) * 60))"/>
+                                        <t t-set="time_str_out" t-value="('%02d:%02d' % (hours_out, minutes_out))"/>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Check In
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            <t t-esc="checkin_date"/>
+                                            <t t-esc="time_str_in"/>
+                                            <t t-esc="meridian"/>
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal">
+                                            Check Out
+                                        </td>
+                                        <td style="border-color:#a6afb8;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:0px 20px;text-align:center;vertical-align:top;word-break:normal"
+                                            colspan="3">
+                                           <t t-esc="checkout_date"/>
+                                            <t t-esc="time_str_out"/>
+                                            <t t-esc="meridian_out"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!--                            <table class="details_table" style="width: 100%; font-size: 12px;">-->
+                            <!--                                <tr>-->
+                            <!--                                    <td style="width:25%">Hotel :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-field="doc.hotel_id"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td style="width:25%">Client :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-field="doc.partner_id"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr>-->
+                            <!--                                    <td style="width:25%" t-id="doc.guest_name">Guest Name :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-field="doc.guest_name"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td style="width:25%">Booking Reference Number :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-field="doc.name"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr>-->
+                            <!--                                    <td style="width:25%">Mail :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-esc="doc.guest_email or doc.partner_id.email"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td style="width:25%">Mobile :</td>-->
+                            <!--                                    <td style="width:25%;font-weight:bold">-->
+                            <!--                                        <span t-esc="doc.guest_mobile or doc.partner_id.mobile"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+
+                            <!--                            </table>-->
+
+                            <table style="font-size: 12px; border-color: #000; margin: 10px 0; text-align: center;"
+                                   class="table table-bordered">
+                                <thead style="background-color: #A6AFB8;">
+                                    <th style="padding:4px 20px;width: 20%;">ROOM TYPE</th>
+                                    <th style="padding:4px 20px;width: 14%;">PRICE PER NIGHT</th>
+                                    <th style="padding:4px 20px;width: 14%;">NO. OF ROOMS</th>
+                                    <th style="padding:4px 20px;width: 10%;">SUBTOTAL</th>
+                                    <th style="padding:4px 20px;width: 14%;">TOTAL TAX</th>
+                                    <th style="padding:4px 20px;width: 10%;">TOTAL</th>
+                                    <!--                                    <th style="width: 8%;">GUESTS</th>-->
+                                    <!--                                    <th style="width: 10%;">CONF NO</th>-->
+                                    <!--                                    <th style="width: 8%;">RATE</th>-->
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.line_ids" t-as="line">
+                                        <td style="padding:0px 20px;">
+                                            <span t-field="line.room_type.name"/>
+                                        </td>
+                                        <td style="padding:3px 20px;">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td style="padding:3px 20px;" t-if="not doc.quick_group_booking">
+                                            <span t-esc="int(line.count)"/>
+                                        </td>
+                                        <td style="padding:3px 20px;" t-if="doc.quick_group_booking">
+                                            <span t-esc="line.number_of_rooms"/>
+                                        </td>
+                                        <td style="padding:3px 20px;">
+                                            <span t-esc="line.price_subtotal"/>
+                                        </td>
+                                        <td style="padding:3px 20px;">
+                                            <span t-field="line.price_tax"/>
+                                        </td>
+                                        <td style="padding:3px 20px;">
+                                            <span t-field="line.price_total"/>
+                                        </td>
+                                        <!--                                        <td><span class="pull-right" t-field="line.cost"/></td>-->
+                                        <!--                                        <td><span class="pull-right" t-field="line.total_amount"/></td>-->
+                                        <!--                                        <td><span t-field="line.check_in" t-options='{"format": "dd/MM/yyyy"}' widget="date"/></td>-->
+                                        <!--                                        <td><span t-field="line.check_out" t-options='{"format": "dd/MM/yyyy"}' widget="date"/></td>-->
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table style="font-size: 12px; border-color: #000; margin: 10px 0; text-align: center;"
+                                   class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:4px 20px;width: 80%;font-weight:bold">
+                                            <span class="pull-right">Total</span>
+                                        </td>
+                                        <td style="padding:4px 20px;width: 20%;font-weight:bold">
+                                            <span class="pull-right" t-field="doc.amount_untaxed"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:4px 20px;width: 100%;font-weight:bold">
+                                            <span class="pull-right">Total Tax</span>
+                                        </td>
+                                        <td style="padding:4px 20px;width: 20%;font-weight:bold">
+                                            <span class="pull-right" t-field="doc.amount_tax"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:4px 20px;width: 68%;"></td>
+                                        <td style="padding:4px 20px;width: 24%; background-color: #A6AFB8;font-weight:bold">
+                                            <span class="pull-right" t-field="doc.amount_total"/>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <br/>
+
+                            <t t-if="doc.get_booking_confirm_terms()">
+                                <div style="text-align:left; font-size: 10px">
+                                    <strong>Terms &amp; Conditions</strong>
+                                    <span t-esc="doc.get_booking_confirm_terms()"/>
+                                </div>
+                            </t>
+                            <h5>Bank Details</h5>
+                            <table class="details_table table table-bordered" style="width: 100%; font-size: 12px">
+                                <tr>
+                                    <td style="padding:4px 20px;width:25%">Bank Name:</td>
+                                    <td style="padding:4px 20px;width:25%;border:none">
+                                        <span t-esc="company.bank_name"/>
+                                    </td>
+                                    <td style="padding:4px 20px;width:25%;border:none"></td>
+                                    <td style="padding:4px 20px;width:25%;border:none"></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:4px 20px;width:25%" t-id="doc.guest_name">Account Name:</td>
+                                    <td style="padding:4px 20px;width:25%">
+                                        <span t-esc="company.account_name"/>
+                                    </td>
+                                    <td style="padding:4px 20px;width:25%">Account Number:</td>
+                                    <td style="padding:4px 20px;width:25%">
+                                        <span t-esc="company.account_number"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:4px 20px;width:25%">IBAN:</td>
+                                    <td style="padding:4px 20px;width:25%">
+                                        <span t-field="company.account_iban"/>
+                                    </td>
+                                    <td style="padding:4px 20px;width:25%">Swift Code:</td>
+                                    <td style="padding:4px 20px;width:25%">
+                                        <span t-field="company.account_swift"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div style="width: 100%;">
+                                <div>
+                                    Booked By:
+                                    <strong t-field="doc.user_id"/>
+                                    <br/>
+                                    <span t-esc="doc.user_id.function"/>
+                                    <br/>
+                                    <span t-esc="doc.user_id.email"/>
+                                    <br/>
+                                    <span t-esc="doc.user_id.mobile"/>
+                                </div>
+                            </div>
+                            <div class="footer" style="margin-top:-11px;">
+                                <hr style="border-style:solid none none none;border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;margin: 16px 0px; border-width: medium; border-style: none; border-top-color: initial; background-color: rgb(204, 204, 204); clear: both; font-size: 0px; min-height: 1px; line-height: 0;"
+                                    width="100%"/>
+                                <div class="row">
+                                    <div style="font-size:12px;font-weight:bold" class="col-3">
+                                        <span t-esc="doc.company_id.website"/>
+                                    </div>
+                                    <div style="font-size:10px;font-weight:bold" class="col-3">Email :
+                                        <span t-esc="doc.company_id.email"/>
+                                    </div>
+                                    <div style="font-size:12px;font-weight:bold" class="col-3">Phone :
+                                        <span t-esc="doc.company_id.phone"/>
+                                    </div>
+                                    <div style="font-size:12px;font-weight:bold" class="col-3">Tax :
+                                        <span t-esc="doc.company_id.vat"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

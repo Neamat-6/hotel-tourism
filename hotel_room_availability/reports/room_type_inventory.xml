@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record id="paperformat_room_type_inventory_landscape" model="report.paperformat">
+			<field name="name">PDF Room Type Inventory Landscape</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Landscape</field>
+			<field name="margin_top">25</field>
+			<field name="margin_bottom">15</field>
+			<field name="margin_left">7</field>
+			<field name="margin_right">7</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">25</field>
+			<field name="dpi">90</field>
+		</record>
+        <record model="ir.actions.report" id="action_room_type_inventory_report">
+            <field name="name">Inventory By Room Type</field>
+            <field name="model">room.availability</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_room_availability.room_type_inventory_report</field>
+            <field name="report_file">hotel_room_availability.room_type_inventory_report</field>
+            <field name="binding_model_id" ref="model_room_availability"/>
+			<field name="paperformat_id" ref="paperformat_room_type_inventory_landscape"/>
+            <field name="binding_type">report</field>
+			<field name="binding_view_types">form</field>
+        </record>
+		<template id="room_type_inventory_report">
+			<t t-call="web.html_container">
+				<t t-call="web.basic_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+						<t t-foreach="docs" t-as="doc">
+							<style>
+								.text-bold{ font-weight: bold; }
+								table.GeneratedTable {
+								  width: 100%;
+								  background-color: #ffffff;
+								  border-collapse: collapse;
+								  border-width: 2px;
+								  border-color: black;
+								  border-style: solid;
+								  color: #000000;
+								}
+
+								table.GeneratedTable td, table.GeneratedTable th {
+								  border-width: 2px;
+								  border-color: black;
+								  border-style: solid;
+								  padding: 3px;
+								}
+							</style>
+							<div class="header" style="font-family:Arial !important">
+								<div class="row pt-5">
+									<div class="col-3">
+										<h4 t-esc="doc.company_id.name"/>
+									</div>
+									<div class="col-3"></div>
+									<div class="col-3"></div>
+									<div class="col-3">
+										<h4>Inventory By Room Type</h4>
+									</div>
+								</div>
+								<hr style="border-style:solid none none none;border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;margin: 16px 0px; border-width: medium; border-style: none; border-top-color: initial; background-color: rgb(204, 204, 204); clear: both; font-size: 0px; min-height: 1px; line-height: 0;" width="100%"/>
+							</div>
+							<h5>
+								From: <span t-esc="doc.date_from.strftime('%d/%m/%Y')"/> To: <span t-esc="doc.date_to.strftime('%d/%m/%Y')"/>
+							</h5>
+							<br/>
+							<table class="GeneratedTable">
+								<tbody>
+									<tr>
+										<td class="text-bold text-center">Month</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['month']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Date</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['date']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Day</td>
+										<t t-foreach="days" t-as="day">
+											<td class="text-bold text-center">
+												<t t-esc="day['day']"/>
+											</td>
+										</t>
+									</tr>
+									<t t-set="total_rooms" t-value="0"/>
+									<t t-foreach="room_types" t-as="room_type">
+										<tr>
+											<td class="text-bold text-center" colspan="100">
+												<t t-esc="room_type.name"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="text-bold text-center">Total</td>
+											<t t-foreach="room_type.get_inventory(date_start, date_end)" t-as="d">
+												<td class="text-center">
+													<t t-esc="d['total_rooms']"/>
+												</td>
+											</t>
+										</tr>
+										<tr>
+											<td class="text-bold text-center">Booked</td>
+											<t t-foreach="room_type.get_inventory(date_start, date_end)" t-as="d">
+												<td class="text-center">
+													<t t-esc="d['booked_rooms']"/>
+												</td>
+											</t>
+										</tr>
+										<tr>
+											<td class="text-bold text-center">Available</td>
+											<t t-foreach="room_type.get_inventory(date_start, date_end)" t-as="d">
+												<td class="text-center">
+													<t t-esc="d['available_rooms']"/>
+												</td>
+											</t>
+										</tr>
+									</t>
+									<tr>
+										<td class="text-bold text-center" colspan="100">
+											TOTAL
+										</td>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Total Rooms</td>
+										<t t-foreach="room_types.get_inventory(date_start, date_end)" t-as="d">
+											<td class="text-bold text-center">
+												<t t-esc="d['total_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Total Booked</td>
+										<t t-foreach="room_types.get_inventory(date_start, date_end)" t-as="d">
+											<td class="text-bold text-center">
+												<t t-esc="d['booked_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Total Available</td>
+										<t t-foreach="room_types.get_inventory(date_start, date_end)" t-as="d">
+											<td class="text-bold text-center">
+												<t t-esc="d['available_rooms']"/>
+											</td>
+										</t>
+									</tr>
+									<tr>
+										<td class="text-bold text-center">Occupancy</td>
+										<t t-foreach="room_types.get_inventory(date_start, date_end)" t-as="d">
+											<td class="text-bold text-center">
+												<t t-esc="d['occupancy']"/>%
+											</td>
+										</t>
+									</tr>
+								</tbody>
+							</table>
+						</t>
+					</div>
+				</t>
+			</t>
+		</template>
+    </data>
+</odoo>

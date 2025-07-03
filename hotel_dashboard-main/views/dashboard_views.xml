@@ -1,0 +1,309 @@
+<odoo>
+    <data>
+        <!-- Define the Custom Dashboard Template -->
+        <template id="custom_dashboard_template">
+            <t t-call="web.layout">
+                <t t-set="title">Hotel Dashboard</t>
+                <head>
+                    <!-- Add Bootstrap CSS -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"/>
+                    <!-- Add Font Awesome CSS -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                    
+                    <style>
+                        .logo-icon {
+                            display: inline-block;
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            background-color: #007bff; /* Customize the background color */
+                            color: white;
+                            text-align: center;
+                            font-size: 1.5rem;
+                            line-height: 40px;
+                            font-weight: bold;
+                        }
+
+                        /* Ensure the header items are aligned properly on small screens */
+                        @media (max-width: 767px) {
+                            .header-items {
+                                display: none;
+                            }
+                            .toggle-btn {
+                                display: block;
+                            }
+                        }
+
+                        /* Custom style for the toggle button */
+                        .navbar-toggler-icon {
+                            background-color: white;
+                        }
+                    </style>
+                    
+                </head>
+                <body>
+                    <div class="o_portal_dashboard">
+                        <!-- Custom Header -->
+                        <header class="d-flex align-items-center justify-content-between p-3 bg-light border-bottom">
+                            <!-- Left Section: Logo -->
+                            <div class="d-flex align-items-center">
+                                <!-- Logo as Icon (H) -->
+                                <span class="logo-icon">H</span>
+                                <h1 class="m-0 ms-2" style="font-size: 1.5rem;">TASK</h1>
+                            </div>
+
+                            <!-- Center Section: Search Bar -->
+                            <div class="d-flex align-items-center">
+                                <input type="text" class="form-control me-2" placeholder="Quick Search" style="width: 250px;" />
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+
+                            <!-- Right Section: Icons (for larger screens) -->
+                            <div class="d-flex align-items-center header-items">
+                                <i class="fa fa-calendar me-3" style="font-size: 1.25rem;"></i>
+                                <i class="fa fa-envelope me-3" style="font-size: 1.25rem;"></i>
+                                <i class="fa fa-user me-3" style="font-size: 1.25rem;"></i>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-hotel me-2"></i> Hotels Task <span class="badge bg-primary">28372</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Option 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Option 2</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Toggle Button for Small Screens -->
+                            <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </header>
+
+                        <!-- Collapsible Menu for Small Screens -->
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <div class="d-flex justify-content-end p-3 bg-light border-bottom">
+                                <i class="fa fa-calendar me-3" style="font-size: 1.25rem;"></i>
+                                <i class="fa fa-envelope me-3" style="font-size: 1.25rem;"></i>
+                                <i class="fa fa-user me-3" style="font-size: 1.25rem;"></i>
+                            </div>
+                        </div>
+
+                    <div class="o_portal_dashboard m-4">
+                        <!-- Dashboard Section -->
+                        <h5>Dashboard</h5>
+                        <div class="row border rounded p-3">
+                            <!-- Arrival Chart -->
+                            <div class="col-md-2 text-center">
+                                <h5>Arrival</h5>
+                                <canvas id="arrivalChart" width="100" height="100"></canvas>
+                                <p>Pending (1)</p>
+                                <p>Arrived (0)</p>
+                            </div>
+
+                            <!-- Departure Chart -->
+                            <div class="col-md-2 text-center">
+                                <h5>Departure</h5>
+                                <canvas id="departureChart" width="100" height="100"></canvas>
+                                <p>Pending (1)</p>
+                                <p>Checked Out (0)</p>
+                            </div>
+
+                            <!-- Guest In House -->
+                            <div class="col-md-2 text-center">
+                                <h5>Guest In House</h5>
+                                <canvas id="guestInHouseChart" width="100" height="100"></canvas>
+                                <p>Adult (9)</p>
+                                <p>Child (3)</p>
+                            </div>
+
+                            <!-- Room Status -->
+                            <div class="col-md-2 text-center">
+                                <h5>Room Status</h5>
+                                <canvas id="roomStatusChart" width="100" height="100"></canvas>
+                                <p>Vacant (267)</p>
+                                <p>Sold (2)</p>
+                            </div>
+
+                            <!-- Housekeeping Status -->
+                            <div class="col-md-4">
+                                <h5 class="text-center">Housekeeping Status</h5>
+                                <canvas id="housekeepingChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="o_portal_dashboard m-4">
+                    <div class="row">
+                        <!-- Notifications Section -->
+                        <div class="col-md-6">
+                            <h5>Notifications</h5>
+                            <div class="row border rounded p-3">
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-envelope fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Work Order</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-calendar fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Booking Inquiry</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-dollar-sign fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Payment Failed</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-bed fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Overbooking</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-file-alt fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Guest Portal</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-comments fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Guest Message</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-credit-card fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Cardverify Failed</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-tasks fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Tasks</p>
+                                </div>
+                                <div class="col-4 text-center mb-2">
+                                    <i class="fa fa-thumbs-up fa-2x"></i>
+                                    <h6>0</h6>
+                                    <p>Review</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Feeds Section -->
+                        <div class="col-md-6">
+                            <h5>Activity Feeds</h5>
+                            <div class="border rounded p-3">
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <div>
+                                        <p class="mb-0">Booking inserted for room type Quad Room, RES: #1538-1 by user demo2</p>
+                                        <small>1345h ago</small>
+                                    </div>
+                                    <span class="badge badge-success">New Booking</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <div>
+                                        <p class="mb-0">Booking inserted for room type Quad Room, RES: #1538-2 by user demo2</p>
+                                        <small>1345h ago</small>
+                                    </div>
+                                    <span class="badge badge-success">New Booking</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                                    <div>
+                                        <p class="mb-0">Booking was cancelled via PMS for room type Quad Room, Folio: #Fo6110 by user demo2</p>
+                                        <small>1347h ago</small>
+                                    </div>
+                                    <span class="badge badge-danger">Cancellation</span>
+                                </div>
+                                <!-- Add more activity feed items dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        // Data for the charts
+                        const arrivalData = [1, 0];
+                        const departureData = [1, 0];
+                        const guestInHouseData = [9, 3];
+                        const roomStatusData = [267, 2, 0, 0, 2];
+                        const housekeepingData = [234, 268, 40, 2];
+
+                        // Arrival Chart
+                        new Chart(document.getElementById("arrivalChart"), {
+                            type: "doughnut",
+                            data: {
+                                labels: ["Pending", "Arrived"],
+                                datasets: [{ data: arrivalData, backgroundColor: ["#007bff", "#ffc107"] }],
+                            },
+                        });
+
+                        // Departure Chart
+                        new Chart(document.getElementById("departureChart"), {
+                            type: "doughnut",
+                            data: {
+                                labels: ["Pending", "Checked Out"],
+                                datasets: [{ data: departureData, backgroundColor: ["#007bff", "#ffc107"] }],
+                            },
+                        });
+
+                        // Guest In House Chart
+                        new Chart(document.getElementById("guestInHouseChart"), {
+                            type: "doughnut",
+                            data: {
+                                labels: ["Adult", "Child"],
+                                datasets: [{ data: guestInHouseData, backgroundColor: ["#007bff", "#ffc107"] }],
+                            },
+                        });
+
+                        // Room Status Chart
+                        new Chart(document.getElementById("roomStatusChart"), {
+                            type: "doughnut",
+                            data: {
+                                labels: ["Vacant", "Sold", "Day Use", "Complimentary", "Blocked"],
+                                datasets: [{ data: roomStatusData, backgroundColor: ["#007bff", "#ffc107", "#28a745", "#6c757d", "#dc3545"] }],
+                            },
+                        });
+
+                        // Housekeeping Status Chart
+                        new Chart(document.getElementById("housekeepingChart"), {
+                            type: "bar",
+                            data: {
+                                labels: ["Clean", "HK Assign", "Dirty", "Block"],
+                                datasets: [
+                                    {
+                                        data: housekeepingData,
+                                        backgroundColor: ["#007bff", "#28a745", "#ffc107", "#dc3545"],
+                                    },
+                                ],
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: { legend: { display: false } },
+                            },
+                        });
+                    });
+                </script>
+            </body>
+                
+            </t>
+        </template>
+
+        <!-- Define the Action for the Dashboard -->
+        <record id="action_custom_dashboard" model="ir.actions.act_url">
+            <field name="name">Custom Dashboard</field>
+            <field name="url">/custom_dashboard</field>
+            <field name="type">ir.actions.act_url</field>
+        </record>
+
+        <!-- Define the Menu Item for the Dashboard -->
+        <menuitem id="custom_dashboard_menu"
+                  name="Custom Dashboard"
+                  parent="menu_dashboard_root"
+                  action="action_custom_dashboard" />
+        
+    </data>
+</odoo>

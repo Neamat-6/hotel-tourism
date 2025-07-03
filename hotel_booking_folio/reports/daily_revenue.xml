@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="format_daily_revenue_report" model="report.paperformat">
+      <field name="name">Daily Revenue Paper Format</field>
+      <field name="default" eval="True" />
+      <field name="format">A4</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Landscape</field>
+      <field name="margin_top">50</field>
+      <field name="margin_bottom">30</field>
+      <field name="margin_left">7</field>
+      <field name="margin_right">7</field>
+      <field name="header_line" eval="False" />
+      <field name="header_spacing">10</field>
+      <field name="dpi">90</field>
+    </record>
+
+    <record model="ir.actions.report" id="action_daily_revenue_report">
+      <field name="name">Daily Revenue</field>
+      <field name="model">daily.revenue</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">hotel_booking_folio.daily_revenue_report</field>
+      <field name="report_file">hotel_booking_folio.daily_revenue_report</field>
+      <field name="binding_model_id" ref="model_daily_revenue" />
+      <field name="paperformat_id" ref="hotel_booking_folio.format_daily_revenue_report" />
+    </record>
+
+    <template id="daily_revenue_report">
+      <t t-call="web.html_container">
+        <t t-call="web.basic_layout">
+          <xpath expr="." position="inside">
+            <link rel='stylesheet' href="/hotel_booking_folio/static/src/css/report_style.css" />
+          </xpath>
+          <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+            <t t-foreach="docs" t-as="doc">
+              <h4 class="text-center" style="text-align:center">Daily Revenue Report</h4>
+              <div class="text-center" style="text-align:center">
+                <table class="GeneratedTable">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Guest Name</th>
+                      <th class="text-center">Day</th>
+                      <th class="text-center">Bookings</th>
+                      <th t-if="doc.display_folio_numbers" class="text-center">Folios</th>
+                      <th t-if="not doc.tax_revenue_mode" class="text-center">Total Room Charge</th>
+                      <th t-if="not doc.tax_revenue_mode" class="text-center">Total Services</th>
+                      <th class="text-center">Total Vat</th>
+                      <th class="text-center">Total Municipality</th>
+                      <!-- <th class="text-center">Total Payment</th> -->
+                      <th class="text-center">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <t t-foreach="doc.line_ids" t-as="line">
+                      <tr style="page-break-inside:avoid">
+                        <td class="text-center">
+                          <span t-field="line.partner_id" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.day" />
+                        </td>
+                        <td class="text-center" style="white-space: normal;">
+                          <span t-field="line.booking_ids" />
+                        </td>
+                        <td t-if="doc.display_folio_numbers" class="text-center"
+                          style="width:200px;white-space: normal;">
+                          <span t-field="line.folio_ids" />
+                        </td>
+                        <td t-if="not doc.tax_revenue_mode" class="text-center">
+                          <span t-field="line.total_room_charge" />
+                        </td>
+                        <td t-if="not doc.tax_revenue_mode" class="text-center">
+                          <span t-field="line.total_service" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.total_vat" />
+                        </td>
+                        <td class="text-center">
+                          <span t-field="line.total_municipality" />
+                        </td>
+                        <!-- <td class="text-center">
+                                                  <span t-field="line.total_payment"/>
+                                              </td> -->
+                        <td class="text-center">
+                          <span t-field="line.total" />
+                        </td>
+                      </tr>
+                    </t>
+                    <tr>
+                      <td class="text-center" t-att-colspan="4 if doc.display_folio_numbers else 3">
+                        Total
+                      </td>
+                      <td t-if="not doc.tax_revenue_mode" class="text-center">
+                        <span  t-field="doc.total_room_charge" />
+                      </td>
+                      <td t-if="not doc.tax_revenue_mode" class="text-center">
+                        <span t-field="doc.total_service" />
+                      </td>
+                      <td class="text-center">
+                        <span t-field="doc.total_vat" />
+                      </td>
+                      <td class="text-center">
+                        <span t-field="doc.total_municipality" />
+                      </td>
+                      <!-- <td class="text-center">
+                                              <span t-field="doc.total_payment"/>
+                                          </td> -->
+                      <td class="text-center">
+                        <span t-field="doc.total" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </t>
+          </div>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>

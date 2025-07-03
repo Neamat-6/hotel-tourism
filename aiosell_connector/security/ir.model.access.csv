@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_aiosell_connector,aiosell_connector,model_aiosell_connector,base.group_user,1,1,1,1
+access_aiosell_connector_line,aiosell_connector_line,model_aiosell_connector_line,base.group_user,1,1,1,1

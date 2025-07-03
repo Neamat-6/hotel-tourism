@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hotel_booking_form_view_inherit" model="ir.ui.view">
+        <field name="name">hotel_booking_form_view_inherit</field>
+        <field name="model">hotel.booking</field>
+        <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="button_assign_guests" type="object" string="Assign Guests"
+                        attrs="{'invisible': [('package_id', '=', False)]}"/>
+<!--                <button name="delete_guest_lines" type="object" string="Delete Guests"/>-->
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+<!--                <button name="action_open_guests"-->
+<!--                        type="object"-->
+<!--                        class="oe_stat_button"-->
+<!--                        icon="fa-users">-->
+<!--                        <div class="o_stat_info">-->
+<!--                            <span class="o_stat_value">-->
+<!--                                <field name="guest_count" widget="statinfo"/>-->
+<!--                            </span>-->
+<!--                            <span class="o_stat_text">Guests</span>-->
+<!--                        </div>-->
+<!--                </button>-->
+                        <button name="action_open_transfers" type="object" class="oe_stat_button" icon="fa-exchange" attrs="{'invisible':[('transfer_count','=',0)]}">
+                            <div class="o_stat_info">
+                                <field name="transfer_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Check-In/Out</span>
+                            </div>
+                        </button>
+        </xpath>
+            <xpath expr="//field[@name='season_id']" position="after">
+                <field name="package_id" options="{'no_open': True, 'no_create': True}"/>
+            </xpath>
+<!--            <xpath expr="//page[@name='guest']/group" position="inside">-->
+<!--                <field name="package_assign_type" attrs="{'invisible': [('package_id', '=', False)]}"/>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='guest_ids']//field[@name='guest_name']" position="after">
+                <field name="package_id" invisible="1"/>
+                <field name="allowed_member_ids" invisible="1"/>
+                <field name="partner_ids" widget="many2many_tags" readonly="1" force_save="1" invisible="1"/>
+                <field name="gender"/>
+                <field name="booked_room_type"/>
+                <field name="pilgrim_type" />
+                <field name="main_member_id" />
+                <field name="folio_id"/>
+                <field name="room_type_id"/>
+                <field name="room_id"/>
+            </xpath>
+            <xpath expr="//field[@name='guest_ids']/tree" position="inside">
+                <field name="nationality_id" optional="hide"/>
+                <field name="region" optional="hide"/>
+                <field name="language" context="{'active_test': False}" optional="hide"/>
+                <field name="relationship" optional="hide"/>
+<!--                <button name="button_display_guest" type="object" string="Display" class="oe_highlight"/>-->
+                <button name="button_switch_bed" type="object" string="switch Bed" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//page[@name='guest']" position="after">
+                <page name="room_summary" string="Guest Room Summary">
+                    <field name="room_summary_ids" no_label="1" force_save="1">
+                        <tree>
+                            <field name="is_camp"/>
+                            <field name="room_id"/>
+                            <field name="booked_room_type" attrs="{'invisible': [('is_camp', '=',  True)]}" optional="show"/>
+                            <field name="booked_beds" attrs="{'invisible': [('is_camp', '=',  False)]}"  optional="show"/>
+                            <field name="room_type" attrs="{'invisible': [('is_camp', '=',  True)]}"  optional="show"/>
+                            <field name="room_gender" attrs="{'invisible': [('is_camp', '=',  False)]}"  optional="show"/>
+                            <field name="assigned_beds"/>
+                            <field name="unassigned_beds"/>
+
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='folio_ids']//field[@name='room_id']" position="after">
+                <field name="room_gender"/>
+<!--                <field name="room_gender"-->
+<!--                       attrs="{'column_invisible': [('parent.package_assign_type', '!=', 'gender')]}"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="booking_guest_view_form" model="ir.ui.view">
+        <field name="name">booking_guest_view_form</field>
+        <field name="model">booking.guest</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="guest_title"/>
+                            <field name="guest_name"/>
+                            <field name="partner_id"/>
+                            <field name="gender"/>
+                            <field name="booked_room_type"/>
+                            <field name="folio_id"/>
+                            <field name="room_type_id"/>
+                            <field name="room_id"/>
+                            <field name="guest_mobile"/>
+                            <field name="guest_email"/>
+                        </group>
+                        <group>
+                            <field name="guest_address"/>
+                            <field name="guest_country_id"/>
+                            <field name="guest_state_id"/>
+                            <field name="guest_city"/>
+                            <field name="guest_zip_code"/>
+                            <field name="nationality_id"/>
+                            <field name="region"/>
+                            <field name="language" context="{'active_test': False}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="package_id" invisible="1"/>
+                        <field name="pilgrim_type" attrs="{'required': [('package_id', '!=', False)]}"/>
+                        <field name="allowed_member_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="partner_ids" widget="many2many_tags" attrs="{'invisible': [('pilgrim_type', '!=', 'main')],'readonly': [('pilgrim_type', '=', 'member')]}"/>
+                        <field name="main_member_id" readonly="0" attrs="{'invisible': [('pilgrim_type', '!=', 'member')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="booking_guest_view_tree" model="ir.ui.view">
+        <field name="name">booking_guest_view_tree</field>
+        <field name="model">booking.guest</field>
+        <field name="arch" type="xml">
+            <tree string="booking_guest_tree" multi_edit="1" editable="bottom">
+                <field name="guest_name" readonly="1"/>
+                <field name="gender" readonly="1"/>
+                <field name="pilgrim_type" readonly="1"/>
+                <field name="main_member_id" readonly="1"/>
+                <field name="booked_room_type" readonly="1"/>
+                <field name="folio_id" readonly="0"/>
+                <field name="room_id" readonly="1"/>
+                <field name="guest_mobile" readonly="1"/>
+                <field name="guest_email" readonly="1"/>
+<!--                <field name="tour_guide_id" readonly="1"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="booking_config_menuitem" parent="b2c_main_menu" name="Configuration"
+              sequence="20"/>
+    <menuitem id="hotels_menuitem" name="Hotels" parent="booking_config_menuitem"
+              action="hotel_booking.action_hotel_hotel" sequence="1"/>
+    <menuitem id="room_type_menuitem" name="Room Type" parent="booking_config_menuitem"
+              action="hotel_booking.action_room_type" sequence="2"/>
+    <menuitem id="rate_type_menuitem" name="Rate Type" parent="booking_config_menuitem"
+              action="hotel_booking.rate_type_action" sequence="3"/>
+    <menuitem id="rate_plan_menuitem" name="Rate Plan" parent="booking_config_menuitem"
+              action="hotel_booking.rate_plan_action" sequence="4"/>
+    <menuitem id="booking_package_menuitem" name="Booking Package" parent="booking_config_menuitem"
+              action="booking_package_action_view" sequence="5"/>
+
+</odoo>

@@ -1,0 +1,30 @@
+.o_dashboard_container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.dashboard-card {
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.chart-container {
+    position: relative;
+    height: 150px;
+}
+
+.list-group-item {
+    font-size: 0.9rem;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}

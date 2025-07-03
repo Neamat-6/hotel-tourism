@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ezee_extra_charge_view_tree" model="ir.ui.view">
+            <field name="name">ezee_extra_charge_view_tree</field>
+            <field name="model">ezee.extra.charge</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0">
+                    <field name="name"/>
+                    <field name="ezee_id"/>
+                    <field name="short_code"/>
+                    <field name="rate"/>
+                    <field name="hotel_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ezee_extra_charge_action" model="ir.actions.act_window">
+            <field name="name">Ezee Extra Charges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ezee.extra.charge</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ezee_config_menu" name="Ezee Configurations" parent="hotel_booking.menu_hotel_configuration"
+                  action="ezee_extra_charge_action" sequence="10"/>
+        <menuitem id="ezee_extra_charge_menu" name="Ezee Extra Charges" parent="Ezee_Conncetor.ezee_config_menu"
+                  action="ezee_extra_charge_action" sequence="10"/>
+    </data>
+</odoo>

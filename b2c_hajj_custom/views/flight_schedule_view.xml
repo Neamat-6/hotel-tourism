@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="flight_schedule_tree_view" model="ir.ui.view">
+        <field name="name">flight.schedule.tree.view</field>
+        <field name="model">flight.schedule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="contract_type"/>
+                <field name="arrival_flight_no"/>
+                <field name="departure_flight_no"/>
+                <field name="arrival_date"/>
+                <field name="departure_date"/>
+                <field name="arrival_airport_id"/>
+                <field name="departure_airport_id"/>
+                <field name="arrival_hall_no"/>
+                <field name="departure_hall_no"/>
+                <field name="pilgrims_no"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="flight_schedule_form_view" model="ir.ui.view">
+        <field name="name">flight.schedule.form.view</field>
+        <field name="model">flight.schedule</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_purchase_order" type="object" string="Create Purchase Order" states="draft"
+                            class="btn-primary"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset To Draft" states="confirm"
+                            class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="contract_type"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="unit_price" required="1"/>
+                            <field name="purchase_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="pilgrims_no" required="1"/>
+                            <field name="booked_no"/>
+                            <field name="available_no"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Arrival">
+                            <field name="arrival_flight_no"/>
+                            <field name="arrival_date"/>
+                            <field name="arrival_airport_id"/>
+                            <field name="arrival_hall_no"/>
+                        </group>
+                        <group string="Departure">
+                            <field name="departure_flight_no"/>
+                            <field name="departure_date"/>
+                            <field name="departure_airport_id"/>
+                            <field name="departure_hall_no"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="flight_schedule_action_view" model="ir.actions.act_window">
+        <field name="name">Flight Contract</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">flight.schedule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="flight_schedule_menu" name="Flight Contract" parent="booking_config_menuitem"
+              action="flight_schedule_action_view" sequence="7"/>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="package_price_view_tree" model="ir.ui.view">
+            <field name="name">package_price_view_tree</field>
+            <field name="model">package.price</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="room_type"/>
+                    <field name="makkah_price"/>
+                    <field name="madinah_price"/>
+                    <field name="main_hotel_price"/>
+                    <field name="arf_price"/>
+                    <field name="minnah_price"/>
+                    <field name="flight_price"/>
+                    <field name="extra_price"/>
+                    <field name="pilgrim_count_sale"/>
+                    <field name="total_price_per_pilgrim"/>
+                    <field name="total_price_per_group"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="package_price_view_form" model="ir.ui.view">
+            <field name="name">package_price_view_form</field>
+            <field name="model">package.price</field>
+            <field name="arch" type="xml">
+                <form string="package_price_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="room_type"/>
+                                <field name="price_type"/>
+                                <field name="madinah_price"/>
+                                <field name="arf_price"/>
+                                <field name="flight_price"/>
+                                <field name="total_price_per_pilgrim"/>
+                                <field name="pilgrim_count_sale"/>
+                                <field name="pilgrim_count_purchase"/>
+                            </group>
+                            <group>
+
+                                <field name="makkah_price"/>
+                                <field name="main_hotel_price"/>
+                                <field name="minnah_price"/>
+                                <field name="extra_price"/>
+                                <field name="total_price_per_group"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

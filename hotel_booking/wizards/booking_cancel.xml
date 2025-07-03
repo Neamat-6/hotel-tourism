@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="booking_cancel_view_form" model="ir.ui.view">
+            <field name="name">booking_cancel_view_form</field>
+            <field name="model">booking.cancel</field>
+            <field name="arch" type="xml">
+                <form string="booking_cancel_form">
+                    <sheet>
+                        <group>
+                            <field name="booking_id" invisible="1"/>
+                            <field name="reason_id"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_cancel" string="Cancel Booking" type="object" class="oe_highlight"/>
+                        <button string="Close" class="btn btn_default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

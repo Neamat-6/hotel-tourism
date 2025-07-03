@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_low_margin" model="report.paperformat">
+            <field name="name">Low Margin</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="reservation_confirmation_report" model="ir.actions.report">
+            <field name="name">Reservation Confirmation</field>
+            <field name="model">tourism.hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tourism_hotel_booking.reservation_confirmation</field>
+            <field name="report_file">tourism_hotel_booking.reservation_confirmation</field>
+            <field name="paperformat_id" ref="tourism_hotel_booking.paperformat_low_margin"/>
+            <field name="print_report_name">'Reservation Confirmation - %s' % (object.name).replace('/', '')</field>
+            <field name="binding_model_id" ref="tourism_hotel_booking.model_tourism_hotel_booking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="reservation_confirmation">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-family:Arial !important;font-size:23px !important;">
+                    <div class="header">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <img style="margin: 10px; margin-top: 30px" t-attf-src="/web/binary/company_logo?company={{ doc.company_id.id }}" width="100"/>
+                            </div>
+                            <div class="col-8 text-center" style="  margin: 0;position: absolute;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);">
+                                <h3>Reservation Confirmed</h3>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                        <hr style="border-style:solid none none none;border-image-width:3;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;margin: 16px 0px; border-width: medium; border-style: none; border-top-color: initial; background-color: rgb(204, 204, 204); clear: both; font-size: 0px; min-height: 1px; line-height: 0;" width="100%"/>
+                    </div>
+                    <style>
+                        table {
+                        width:100%;
+                        margin-top:15px;
+                        border:1px solid #b3adad;
+                        border-collapse:collapse;
+                        padding:5px;
+                        font-family:Arial !important;
+                        font-weight: bold;
+                        }
+                        table th {
+
+                        padding:5px;
+                        background: #f0f0f0;
+                        color: #313030;
+                        }
+                        table td {
+                        text-align:center;
+                        padding:9px;
+                        background: #ffffff;
+                        color: #313030;
+                        }
+                        .checked{color: orange}
+                    </style>
+                    <div class="row">
+                        <div class="col-2">
+                            <img t-if="doc.hotel_id.image_1920" t-att-src="image_data_uri(doc.hotel_id.image_1920)" style="margin: 10px; margin-top: 30px;max-height: 150px;" width="150"/>
+                        </div>
+                        <div class="col-6 text-center">
+                            <ul style="list-style-type: none;padding-top: 30px;">
+                                <li><h4><span t-field="doc.hotel_id"/></h4></li>
+                                <li><span t-field="doc.hotel_id.country_id"/></li>
+                                <li><span t-field="doc.hotel_id.state_id"/></li>
+                                <li><span t-field="doc.hotel_id.address"/></li>
+                                <li>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '1' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '2' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '3' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '4' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '5' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '6' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate == '7' else 'fa fa-star'"></span>
+                                    <span t-esc="doc.hotel_id.hotel_rate"/>
+                                    <t t-if="doc.hotel_id.hotel_rate == '1'">Star</t>
+                                    <t t-else="">
+                                        Stars
+                                    </t>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-4">
+                            <ul style="list-style-type: none;padding-top: 30px;">
+                                <t t-foreach="doc.hotel_id.facility_line_ids" t-as="facility">
+                                    <li><img t-if="facility.image" t-att-src="image_data_uri(facility.image)" style="margin: 10px;max-height: 40px;" width="40"/><span t-esc="facility.facility_id or facility.description"/></li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                    <br/>
+                    <p>Guest Name : <span t-esc="doc.guest_name or doc.partner_id.name"/></p>
+                    <br/>
+                    <table style="font-size: 12px; border-color: #000; margin: 10px 0; text-align: center;" class="table table-bordered">
+                        <thead style="background-color: #A6AFB8;">
+                            <th style="width: 14%;">ROOM TYPE</th>
+                            <th style="width: 10%;">VIEW</th>
+                            <th style="width: 10%;">MEAL</th>
+                            <th style="width: 14%;">CHECK IN</th>
+                            <th style="width: 14%;">CHECK OUT</th>
+                            <th style="width: 8%;">NIGHTS</th>
+                            <th style="width: 8%;">GUESTS</th>
+                            <th style="width: 12%;">CONF NO</th>
+                            <th style="width: 10%;">NO. of Rooms</th>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.line_ids" t-as="line">
+                                <td><span t-field="line.room_id"/></td>
+                                <td><span t-field="line.room_view_id"/></td>
+                                <td><span t-if="line.meal_id" t-esc="', '.join(line.meal_id.mapped('name'))"/></td>
+                                <td><span t-field="line.check_in" t-options='{"format": "dd/MM/yyyy"}' widget="date"/></td>
+                                <td><span t-field="line.check_out" t-options='{"format": "dd/MM/yyyy"}' widget="date"/></td>
+                                <td><span t-esc="int(line.date_diff)"/></td>
+                                <td><span t-field="line.number_of_adults"/></td>
+                                <td><span t-field="doc.name"/></td>
+                                <td><span t-esc="int(line.count)"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <p class="text-center">Your confirmation number is: <span t-field="doc.hotel_booking_reference"/> Select your preferences before your stay.</p>
+                    <br/>
+                    <div class="footer">
+                        <hr style="border-style:solid none none none;border-image-width:1;border-image-source:none;border-image-slice:100%;border-image-repeat:stretch;border-image-outset:0;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;margin: 16px 0px; border-width: medium; border-style: none; border-top-color: initial; background-color: rgb(204, 204, 204); clear: both; font-size: 0px; min-height: 1px; line-height: 0;" width="100%"/>
+                        <div class="row text-center">
+                            <div style="font-size:12px;font-weight:bold" class="col-3"><span t-esc="doc.company_id.website"/></div>
+                            <div style="font-size:12px;font-weight:bold" class="col-3">Email : <span t-esc="doc.company_id.email"/></div>
+                            <div style="font-size:12px;font-weight:bold" class="col-3">Phone : <span t-esc="doc.company_id.phone"/></div>
+                            <div style="font-size:12px;font-weight:bold" class="col-3">Tax : <span t-esc="doc.company_id.vat"/></div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

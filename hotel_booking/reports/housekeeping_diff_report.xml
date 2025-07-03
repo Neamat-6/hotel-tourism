@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="format_housekeeping_diff_report" model="report.paperformat">
+            <field name="name">Discrepancy Report Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="housekeeping_diff_report_action" model="ir.actions.report">
+            <field name="name">Discrepancy Report</field>
+            <field name="model">housekeeping.diff</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.housekeeping_diff_report</field>
+            <field name="report_file">hotel_booking.housekeeping_diff_report</field>
+            <field name="binding_model_id" ref="hotel_booking.model_housekeeping_diff"/>
+            <field name="binding_type">report</field>
+            <!--            <field name="print_report_name">'Discrepancy Report'</field>-->
+        </record>
+        <template id="housekeeping_diff_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page" style="font-family:Arial !important;">
+                            <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                            <h2 class="text-center">Discrepancy Report</h2>
+                            <table class="GeneratedTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Room Name</th>
+                                        <th class="text-center">Type Room</th>
+                                        <th class="text-center">Stayover Status</th>
+                                        <th class="text-center">Housekeeping Stayover Status</th>
+                                        <th class="text-center">Number of guests</th>
+                                        <th class="text-center">Housekeeping Number of guests</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.room_ids" t-as="room">
+                                        <td class="text-center">
+                                            <span t-field="room.name"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="room.room_type"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="room.stay_state"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="room.housekeeping_stay_state"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="room.number_of_guests"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-field="room.housekeeping_number_of_guests"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4">
+                                    <p><strong>Housekeeping Sign</strong></p>
+                                </div>
+                                <div class="col-4">
+                                    <p><strong>Accounting Sign</strong></p>
+                                </div>
+                                <div class="col-4">
+                                    <p><strong>Front Office Sign</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

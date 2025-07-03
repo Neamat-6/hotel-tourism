@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_room_kanban_view" model="ir.ui.view">
+            <field name="name">folio_room_kanban_view</field>
+            <field name="model">hotel.room</field>
+            <field name="inherit_id" ref="hotel_booking.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='row5']" position="replace">
+                    <div class="row" id="row5">
+                        <div class="col-4">
+                            <field name="booking_date"/>
+                        </div>
+                        <field name="total_beds" invisible="1"/>
+                        <field name="available_beds" invisible="1"/>
+                        <t t-if="record.total_beds.raw_value">
+                        <div class="col-8 text-center">
+                            <span style="font-size: 15px; font-weight: bold;">Beds: </span>
+                            <t t-foreach="record.total_beds.raw_value" t-as="i">
+                                <t t-if="i &lt; record.available_beds.raw_value">
+                                    <i class="fa fa-bed fa-lg text-success"></i>
+                                </t>
+                                <t t-else="">
+                                    <i class="fa fa-bed fa-lg text-danger"></i>
+                                </t>
+
+                            </t>
+                        </div>
+                        </t>
+<!--                        <div class="col-4 text-center">-->
+<!--                            <t t-if="record.total_beds.raw_value">-->
+<!--                                Tot.Beds: <strong><field name="total_beds"/></strong>-->
+<!--                            </t>-->
+<!--                        </div>-->
+<!--                        <div class="col-4 text-right">-->
+<!--                            <t t-set="bed_count" t-value="record.available_beds.raw_value"/>-->
+<!--                            Avl.Beds:-->
+<!--                            <t t-if="record.available_beds.raw_value">-->
+<!--                                 <t t-foreach="record.available_beds.raw_value" t-as="i">-->
+<!--                                    <i class="fa fa-bed"></i>-->
+<!--                                </t>-->
+<!--&lt;!&ndash;                                <strong><field name="record.available_beds.raw_value"/></strong>&ndash;&gt;-->
+<!--                            </t>-->
+<!--                            <t t-else="">-->
+<!--                                <span class="text-danger"><strong><field name="available_beds"/></strong></span>-->
+<!--                            </t>-->
+<!--                        </div>-->
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

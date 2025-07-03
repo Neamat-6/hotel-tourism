@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_view_form" model="ir.ui.view">
+            <field name="name">folio_view_form</field>
+            <field name="model">booking.folio</field>
+            <field name="inherit_id" ref="hotel_booking.folio_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                        <field name="amend_stay" invisible="1"/>
+                        <field name="change_room" invisible="1"/>
+                        <field name="today_is_checkin" invisible="1"/>
+                        <field name="today_is_checkout" invisible="1"/>
+                        <field name="checkout_charge" invisible="1"/>
+                        <field name="book_by_bed" invisible="1"/>
+                        <field name="next_folio" invisible="1"/>
+                        <field name="type_payment" invisible="1"/>
+                        <field name="undo_check_in" invisible="1"/>
+                        <field name="undo_check_out" invisible="1"/>
+                        <field name="day_use" invisible="1"/>
+                        <field name="folio_day_use" invisible="1"/>
+<!--                        <button name="button_confirm" string="Confirm" type="object" class="btn-primary"-->
+<!--                                groups="hotel_booking_folio.group_confirm_folio"-->
+<!--                                states="draft"/>-->
+                        <button name="button_check_in" string="Check In" type="object" class="btn-primary"
+                                groups="hotel_booking_folio.group_check_in"
+                                attrs="{'invisible': ['|',('today_is_checkin', '=', False),('state','=','draft')]}"/>
+                        <button name="button_check_out" string="Check Out" type="object" class="btn-primary"
+                                groups="hotel_booking_folio.group_check_out" attrs="{'invisible': [('today_is_checkout', '=', False)]}"/>
+                        <button name="button_check_out_charge" string="Charge Check Out" type="object"
+                                class="btn-primary" groups="hotel_booking_folio.group_check_out_charge"
+                                attrs="{'invisible': ['|', ('today_is_checkout', '=', False), ('checkout_charge', '=', False)]}"/>
+                        <button name="button_register_payment" string="Register Payment" type="object"
+                                class="btn-primary" groups="hotel_booking_folio.group_register_payment"
+                                attrs="{'invisible': [('state', 'in', ['draft','checked_out', 'cancelled'])]}"/>
+                        <button name="button_add_service" string="Add Service" type="object" class="btn-primary"
+                                groups="hotel_booking_folio.group_add_service"
+                                attrs="{'invisible': [('state', 'in', ['checked_out', 'cancelled'])]}"/>
+                        <button name="button_open_room_charge_wizard" string="Manual Charge" type="object" class="btn-primary"
+                                attrs="{'invisible': [('state', 'in', ['checked_out', 'cancelled'])]}"/>
+                        <button name="button_amend_stay" string="Amend Stay" type="object" states="confirmed,checked_in"
+                                groups="hotel_booking.group_amend_stay"/>
+                        <button name="button_change_room" string="Assign / Change Room" type="object"
+                                states="confirmed,checked_in"
+                                class="btn-primary"
+                                groups="hotel_booking.group_change_room"/>
+                        <button name="button_open_discount_wizard" string="Apply Discount" type="object"
+                                class="btn-primary"
+                                groups="hotel_booking.group_booking_discount"
+                                attrs="{'invisible': [('state', 'in', ['checked_out', 'cancelled'])]}"/>
+                        <button name="button_cancel_discount" string="Remove Discount" type="object"
+                                class="btn-primary"
+                                groups="hotel_booking.group_booking_discount"
+                                attrs="{'invisible': [('state', 'in', ['checked_out', 'cancelled'])]}"/>
+                        <button name="button_update_room_charge" string="Update Room Charge" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': [('state', 'in', ['checked_out', 'cancelled'])]}"
+                                groups="hotel_booking_folio.group_update_room_charge_user"/>
+                        <button name="button_undo_check_in" string="Undo Check In" type="object"
+                                attrs="{'invisible': [('undo_check_in', '=', False)]}"
+                                groups="hotel_booking_folio.group_undo_check_in_user"/>
+                        <button name="button_undo_check_out" string="Undo Check Out" type="object"
+                                attrs="{'invisible': [('undo_check_out', '=', False)]}"
+                                groups="hotel_booking_folio.group_undo_check_out_user"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="draft,confirmed"
+                                groups="hotel_booking_folio.group_cancel_folio"/>
+                        <button name="button_next_folio" type="object" string="Next Folio"
+                                attrs="{'invisible': [('next_folio', '=', False)]}"/>
+                        <button name="button_refund_payment" type="object" string="Refund / Transfer Payment"
+                                groups="hotel_booking_folio.group_refund_payment"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('state', 'in', ['checked_out', 'cancelled']),('type_payment','=','city_ledger')]}"/>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirmed,checked_in,checked_out"/>
+                    </header>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <label for="booking_name"/>
+                        <h3>
+                            <field name="booking_name" class="oe_inline"/>
+                        </h3>
+                    </div>
+                    <group string="Check in/out">
+                        <group>
+                            <field name="check_in" invisible="1" force_save="1"/>
+                            <field name="new_check_in" required="1" force_save="1" readonly="1" />
+                            <field name="total_nights" force_save="1"
+                                   attrs="{'readonly': ['|', '|', ('day_use', '=', True),('folio_day_use', '=', True), ('state', 'not in', ['draft', 'confirmed'])]}"/>
+                            <field name="day_use" readonly="1" force_save="1" attrs="{'invisible': [('day_use', '=', False)]}"/>
+                            <field name="folio_day_use" readonly="1" force_save="1" attrs="{'invisible': [('folio_day_use', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="check_out" invisible="1" force_save="1"/>
+                            <field name="new_check_out" required="1" force_save="1" readonly="1" />
+                            <field name="number_of_guests"/>
+                        </group>
+                    </group>
+                    <group string="Room Assign">
+                        <group>
+                            <field name="state_selection" invisible="1"/>
+                            <field name="room_id" options="{'no_create': True, 'no_open': True}" readonly="1"
+                                   force_save="1"
+                                   decoration-danger="state_selection == 'dirty'"
+                                   decoration-success="state_selection == 'clean'"/>
+                            <field name="note"/>
+                            <field name="available_room_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="rate_plan_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="room_type_id" readonly="1" force_save="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <group string="Guest Info" name="guest">
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <group invisible="1" string="Booking Info" name="booking_info">
+                        <group>
+                            <field name="hotel_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="reservation_type"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="audit_date"/>
+                        </group>
+                        <group>
+                            <field name="booking_source"/>
+                            <field name="travel_agent_booking_source"/>
+                            <field name="online_travel_agent_source" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="company_booking_source"/>
+                        </group>
+                    </group>
+                    <group string="Notes" name="notes" invisible="1">
+                        <group>
+                            <field name="booking_note"/>
+                        </group>
+                        <group>
+                            <field name="payment_number"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="after">
+                    <group class="oe_subtotal_footer oe_left" style="float: left !important;">
+                        <field name="service_price_municipality" widget="monetary" readonly="1"
+                               string="Service Total Municipality"/>
+                        <field name="service_price_vat" widget="monetary" readonly="1" string="Service Total VAT"/>
+                        <field name="service_price_tax" widget="monetary" readonly="1" string="Service Total TAX"/>
+                        <field name="service_price_subtotal" widget="monetary" readonly="1" string="Services Subtotal"/>
+                        <field name="service_price_total" widget="monetary" readonly="1" string="Services Total"/>
+                        <separator name="discount" string="Total Discount"/>
+                        <field name="room_price_discount"/>
+                        <field name="service_price_discount"/>
+                        <field name="price_discount"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" style="float: right !important">
+                        <field name="price_municipality" widget="monetary" readonly="1"
+                               string="Room Charge Municipality"/>
+                        <field name="price_vat" widget="monetary" readonly="1" string="Room Charge VAT"/>
+                        <field name="room_price_tax" widget="monetary" readonly="1" string="Room Charge Tax"/>
+                        <field name="room_price_subtotal" widget="monetary" readonly="1" string="Room Charge Subtotal"/>
+                        <field name="room_price_total" widget="monetary" readonly="1" string="Room Charge Total"/>
+                        <separator name="total" string="Totals"/>
+                        <field name="price_tax" widget="monetary" readonly="1" string="Total Taxes"/>
+                        <field name="price_subtotal" widget="monetary" readonly="1" string="Untaxed Amount"/>
+                        <field name="price_total" widget="monetary" readonly="1" string="Total"/>
+                        <field name="price_paid" widget="monetary" readonly="1" string="Paid Amount"/>
+                        <field name="price_due" widget="monetary" readonly="1" string="Due Amount"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree" position="inside">
+                    <field name="tax_type" readonly="1" optional="hide"/>
+                    <field name="is_service_tax" readonly="1" optional="hide"/>
+                    <field name="is_city_ledger" readonly="1" optional="hide"/>
+                    <field name="discount_amount" readonly="1" optional="hide"/>
+                    <field name="type" readonly="1" optional="hide"/>
+                    <field name="is_cancellation_fee" readonly="1" optional="hide"/>
+                    <field name="room_charge_type" readonly="1" optional="hide"/>
+                    <field name="related_line_id" readonly="1" optional="hide" widget="selection"/>
+                    <field name="number_of_adults" readonly="1" />
+                    <field name="show_delete" invisible="1"/>
+                    <field name="folio_state" invisible="1"/>
+                    <field name="delete_group" invisible="1"/>
+                    <button name="action_button_delete"  type="object" title="Delete"
+                            class="btn btn-danger fa fa-trash-o"
+                            attrs="{'invisible': ['|', '|', ('show_delete', '=', False),('folio_state', '=', 'checked_out'), ('delete_group', '=', False)]}" />
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page name="beds" string="Beds" attrs="{'invisible': [('book_by_bed', '=', False)]}">
+                        <field name="bed_ids">
+                            <tree editable="bottom" create="1" delete="0">
+                                <field name="today_is_checkin" invisible="1"/>
+                                <field name="today_is_checkout" invisible="1"/>
+                                <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="bed_type_id"/>
+                                <field name="checked_in_date" readonly="1" force_save="1"/>
+                                <field name="checked_out_date" readonly="1" force_save="1"/>
+                                <button name="button_check_in" type="object" string="Check In" class="oe_highlight"
+                                        attrs="{'invisible': [('today_is_checkin', '=', False)]}"/>
+                                <button name="button_check_out" type="object" string="Check Out" class="oe_highlight"
+                                        attrs="{'invisible': [('today_is_checkout', '=', False)]}"/>
+                                <field name="state" widget="badge" readonly="1" force_save="1"
+                                       decoration-muted="state == 'draft'"
+                                       decoration-success="state in ['checked_in', 'checked_out']"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <group>
+                                <field name="total_beds"/>
+                            </group>
+                            <group>
+                                <field name="available_beds" readonly="1" force_save="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="booking" string="Booking">
+                        <group>
+                            <group>
+                                <field name="hotel_id" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="reservation_type" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="company_code"/>
+                                <field name="is_allotted"/>
+                                <field name="ref"/>
+                            </group>
+                            <group>
+                                <field name="booking_source_id"/>
+                                <field name="business_source_id"/>
+                                <field name="payment_type"/>
+                                <field name="account_company_id"/>
+                                <field name="book_all_available_rooms"/>
+                                <field name="quick_group_booking"/>
+                                <field name="complimentary_room"/>
+                                <field name="house_use"/>
+                                <field name="price_include_tax"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="price_history" string="Price History">
+                        <field name="price_ids">
+                            <tree editable="bottom" create="0" delete="0">
+                                <field name="create_date"/>
+                                <field name="create_uid"/>
+                                <field name="day" readonly="1" force_save="1"/>
+                                <field name="amount" readonly="1" force_save="1"/>
+                                <field name="vat" readonly="1" force_save="1"/>
+                                <field name="municipality" readonly="1" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--folio tree-->
+        <record id="folio_view_tree" model="ir.ui.view">
+            <field name="name">folio_view_tree</field>
+            <field name="model">booking.folio</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="booking_id"/>
+                    <field name="name"/>
+                    <field name="booking_partner_id"/>
+                    <field name="filter_type" invisible="1"/>
+                    <field name="room_type_id"/>
+                    <field name="room_id"/>
+                    <field name="check_in_date" string="Check In"/>
+                    <field name="check_out_date" string="Check Out"/>
+                    <field name="business_source_id"/>
+                    <field name="price_subtotal"/>
+                    <field name="price_tax"/>
+                    <field name="price_total"/>
+                    <field name="price_paid"/>
+                    <field name="price_due"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state" widget="badge"
+                           decoration-muted="state == 'draft'"
+                           decoration-success="state in ['checked_in', 'checked_out']"
+                           decoration-warning="state == 'confirmed'"
+                           decoration-danger="state == 'cancelled'"
+                    />
+
+                </tree>
+            </field>
+        </record>
+        <record id="folio_view_search" model="ir.ui.view">
+            <field name="name">folio_view_search</field>
+            <field name="model">booking.folio</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Ref"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Booking" name="booking" domain="[]" context="{'group_by': 'booking_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_gantt_booking_folio" model="ir.ui.view">
+            <field name="name">Booking Folio Gantt View</field>
+            <field name="model">booking.folio</field>
+            <field name="arch" type="xml">
+                <gantt js_class="planning_gantt"
+                       date_start="check_in_date"
+                       date_stop="check_out_date"
+                       default_group_by="room_type_id"
+                       default_scale="week"
+                       string="Folios"
+                       total_row="True"
+                       scales="day,week,month,year"
+                       precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                       display_unavailability="1"
+                       sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <div t-name="gantt-popover" class="o_gantt_popover">
+                            <div class="o_gantt_popover_content">
+                                <ul class="o_gantt_popover_list">
+                                    <li>
+                                        <div>
+                                            <strong>Check-in Date:</strong>
+                                            <t t-esc="check_in_date.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <strong>Check-out Date:</strong>
+                                            <t t-esc="check_out_date.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </templates>
+                </gantt>
+            </field>
+        </record>
+
+
+        <record id="action_hotel_booking_folio" model="ir.actions.act_window">
+            <field name="name">Booking Folios</field>
+            <field name="res_model">booking.folio</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="search_view_id" ref="folio_view_search"/>
+        </record>
+        <record id="action_hotel_booking_today_arrival" model="ir.actions.act_window">
+            <field name="name">Today Arrival</field>
+            <field name="res_model">booking.folio</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="search_view_id" ref="folio_view_search"/>
+            <field name="domain">[('filter_type', '=', 'today_arrival')]</field>
+            <field name="context">{'group_by': ['booking_id']}</field>
+        </record>
+        <record id="action_hotel_booking_today_departure" model="ir.actions.act_window">
+            <field name="name">Today Departure</field>
+            <field name="res_model">booking.folio</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="search_view_id" ref="folio_view_search"/>
+            <field name="domain">[('filter_type', '=', 'today_check_out')]</field>
+            <field name="context">{'group_by': ['booking_id']}</field>
+        </record>
+        <record id="action_hotel_booking_today_inhouse" model="ir.actions.act_window">
+            <field name="name">Today In-House</field>
+            <field name="res_model">booking.folio</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="search_view_id" ref="folio_view_search"/>
+            <field name="domain">[('filter_type', '=', 'inhouse')]</field>
+            <field name="context">{'group_by': ['booking_id']}</field>
+        </record>
+        <record id="unsettled_folio_action" model="ir.actions.act_window">
+            <field name="name">Unsettled Folios</field>
+            <field name="res_model">booking.folio</field>
+            <field name="view_mode">tree,form,gantt</field>
+            <field name="search_view_id" ref="folio_view_search"/>
+            <field name="domain">[('state', '=', 'checked_out'), ('unsettled_invoice', '=', True)]</field>
+        </record>
+        <menuitem id="unsettled_folio_menu" name="Unsettled Folios" action="unsettled_folio_action"
+                  parent="account.menu_finance_reports" sequence="10"/>
+        <menuitem id="booking_folio_menu" name="Booking Folios" action="action_hotel_booking_folio"
+                  parent="account.menu_finance_reports" sequence="10"/>
+        <!--        <menuitem id="menu_hotel_booking_today_arrival" name="Today Arrival" action="action_hotel_booking_today_arrival"-->
+        <!--                  parent="hotel_booking.menu_front_office" sequence="2"/>-->
+        <!--        <menuitem id="menu_hotel_booking_today_departure" name="Today Departure" action="action_hotel_booking_today_departure"-->
+        <!--                  parent="hotel_booking.menu_front_office" sequence="3"/>-->
+        <!--        <menuitem id="menu_hotel_booking_today_inhouse" name="Today In-House" action="action_hotel_booking_today_inhouse"-->
+        <!--                  parent="hotel_booking.menu_front_office" sequence="4"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="group_room_availability_dashboard" model="res.groups">
+            <field name="name">Room Availability Dashboard</field>
+        </record>
+    </data>
+</odoo>

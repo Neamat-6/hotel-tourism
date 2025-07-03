@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.report" id="action_booking_line_xlsx_report">
+            <field name="name">Booking Inhouse XLSX</field>
+            <field name="model">booking.line.report</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">tourism_hotel_booking.booking_line_xlsx_report</field>
+            <field name="report_file">tourism_hotel_booking.booking_line_xlsx_report</field>
+            <field name="binding_model_id" ref="model_booking_line_report"/>
+        </record>
+    </data>
+</odoo>

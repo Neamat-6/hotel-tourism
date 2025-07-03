@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="aiosell_connector_view_form" model="ir.ui.view">
+            <field name="name">aiosell_connector_view_form</field>
+            <field name="model">aiosell.connector</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_update_inventory" type="object" string="Update Inventory" icon="fa-refresh"
+                                attrs="{'invisible': [('action_type', '!=', 'update_inventory')]}"/>
+                        <button name="button_update_rate" type="object" string="Update Rate" icon="fa-refresh"
+                                attrs="{'invisible': [('action_type', '!=', 'update_rate')]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="action_type" widget="radio" options="{'horizontal': True}"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                                <field name="room_type_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('action_type', '!=', 'update_inventory')]}"/>
+                                <field name="rate_plan_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('action_type', '!=', 'update_rate')]}"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                                <field name="company_id"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids">
+                            <tree create="0" edit="0" delete="0" editable="bottom">
+                                <field name="date" readonly="1" force_save="1"/>
+                                <field name="room_type_id" readonly="1" force_save="1"/>
+                                <field name="qty_available" readonly="1" force_save="1"
+                                       attrs="{'column_invisible': [('parent.action_type', '!=', 'update_inventory')]}"/>
+                                <field name="rate_plan_id" readonly="1" force_save="1"/>
+                                <field name="rate" readonly="1" force_save="1"
+                                       attrs="{'column_invisible': [('parent.action_type', '!=', 'update_rate')]}"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="aiosell_connector_action" model="ir.actions.act_window">
+            <field name="name">Aiosell Connector</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">aiosell.connector</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="aiosell_connector_menu" name="Aiosell Connector" action="aiosell_connector_action" sequence="55"/>
+    </data>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="booking_arrival_view_form" model="ir.ui.view">
+            <field name="name">booking_arrival_view_form</field>
+            <field name="model">booking.arrival</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="check_in_from"/>
+                                <field name="room_type_id" widget="selection"/>
+                            </group>
+                            <group>
+                                <field name="check_in_to"/>
+                                <field name="booking_source"/>
+                                <field name="include_notes" string="Include Notes"/>
+                                <field name="online_travel_agent_source"
+                                       attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                                <field name="company_booking_source"
+                                       attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                            </group>
+                            <group>
+                                <field name="related_hotel" widget="many2many_tags" options="{'no_create': True}"/>
+                                <field name="total_amount"/>
+                                <field name="print_subtotal"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="get_booking_folios" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <field name="line_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="ref"/>
+                                <field name="partner_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="room_id" optional="show"/>
+                                <field name="no_guests" optional="hide"/>
+                                <field name="room_type_id" optional="show"/>
+                                <field name="booking_source" optional="show"/>
+                                <field name="online_travel_agent_source" optional="hide"/>
+                                <field name="company_booking_source" optional="hide"/>
+                                <field name="total_nights" optional="hide"/>
+                                <field name="rate_type" optional="hide"/>
+                                <field name="related_hotel" optional="hide"/>
+                                <field name="subtotal" optional="hide"/>
+                                <field name="note" optional="hide"/>
+                            </tree>
+                        </field>
+                        <footer>
+                            <button name="print_pdf" type="object" string="Print" icon="fa-file-pdf-o"/>
+                            <button name="print_xlsx" type="object" string="Print Excel" icon="fa-file-pdf-o"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="booking_arrival_action" model="ir.actions.act_window">
+            <field name="name">Booking Arrival</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">booking.arrival</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="booking_reports_root_front_office" name="Front Office Reports"
+                  parent="hotel_booking.menu_front_office"
+                  groups="front_office_report_menu"
+                  sequence="18"/>
+        <menuitem id="booking_arrival_menu" name="Arrival Report"
+                  parent="hotel_booking.booking_reports_root_front_office"
+                  action="booking_arrival_action" sequence="19"/>
+
+        #duplicated menu
+        <menuitem id="booking_reports_root_front_office_menu_item" name="Front Office Reports"
+                  parent="hotel_booking.booking_reporting_main_menu"
+                  groups="front_office_report_menu"
+                  sequence="18"/>
+
+        <menuitem id="booking_arrival_menu_item" name="Arrival Report"
+                  parent="hotel_booking.booking_reports_root_front_office_menu_item"
+                  action="booking_arrival_action" sequence="19"/>
+
+
+    </data>
+</odoo>

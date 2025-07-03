@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="folio_change_room_view_form" model="ir.ui.view">
+            <field name="name">folio_change_room_view_form</field>
+            <field name="model">folio.change.room</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="has_charge_access" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="new_room_type_ids" invisible="1"/>
+                            <field name="folio_id" readonly="1" force_save="1" options="{'no_open': True}"/>
+                            <field name="available_room_ids" invisible="1" widget="many2many_tags"/>
+                            <field name="available_room2_ids" invisible="1" widget="many2many_tags"/>
+                            <field name="check_in" readonly="1" force_save="1"/>
+                            <field name="check_out" readonly="1" force_save="1"/>
+                            <field name="folio_state" invisible="1"/>
+                            <field name="unassign" attrs="{'invisible': [('folio_state', 'not in', ['draft', 'confirmed'])]}"/>
+                            <field name="enable_change_room_type" attrs="{'invisible': [('unassign', '=', True)]}"/>
+                            <field name="no_charge" attrs="{'invisible': ['|', ('enable_change_room_type', '=', False), ('has_charge_access', '=', False)]}"/>
+                            <field name="charged_line_ids" attrs="{'invisible': ['|', '|', ('enable_change_room_type', '=', False), ('has_charge_access', '=', False), ('no_charge', '=', True)]}">
+                                <tree create="0" edit="0" editable="bottom">
+                                    <field name="day" readonly="1" force_save="1"/>
+                                    <field name="particulars" readonly="1" force_save="1"/>
+                                    <field name="amount" readonly="1" force_save="1"/>
+                                </tree>
+                            </field>
+                            <field name="room_type_id" readonly="1" force_save="1" attrs="{'invisible': [('enable_change_room_type', '=', False)]}"/>
+                            <field name="new_room_type_id" attrs="{'invisible': [('enable_change_room_type', '=', False)], 'required': [('enable_change_room_type', '=', True)]}" options="{'no_open': True, 'no_edit': True, 'no_create': True}"/>
+                            <field name="rate_plan_id" attrs="{'invisible': [('enable_change_room_type', '=', False)], 'required': [('enable_change_room_type', '=', True)]}" options="{'no_open': True, 'no_edit': True, 'no_create': True}"/>
+                            <field name="price_unit" attrs="{'invisible': ['|', '|', ('enable_change_room_type', '=', False), ('has_charge_access', '=', False), ('no_charge', '=', True)], 'required': [('enable_change_room_type', '=', True)]}"/>
+                            <field name="price_include_tax" attrs="{'invisible': ['|', '|', ('enable_change_room_type', '=', False), ('has_charge_access', '=', False), ('no_charge', '=', True)]}"/>
+                            <field name="tax_ids" widget="many2many_tags" attrs="{'invisible': ['|', '|', ('enable_change_room_type', '=', False), ('has_charge_access', '=', False), ('no_charge', '=', True)]}" options="{'no_open': True, 'no_edit': True, 'no_create': True}" />
+                            <field name="old_room_id" readonly="1" force_save="1" attrs="{'invisible': [('enable_change_room_type', '=', True)]}"/>
+                            <field name="new_room_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}" attrs="{'invisible': ['|',('enable_change_room_type', '=', True), ('unassign', '=', True)]}"/>
+                            <field name="new_room2_id" options="{'no_open': True, 'no_edit': True, 'no_create': True}" attrs="{'invisible': [('enable_change_room_type', '=', False)]}"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="button_change_room_type" type="object" string="Change Room Type" class="oe_highlight" attrs="{'invisible': [('enable_change_room_type', '=', False)]}"/>
+                        <button name="button_change_room" type="object" string="Change Room" class="oe_highlight" attrs="{'invisible': [('enable_change_room_type', '=', True)]}"/>
+                        <button string="Close" class="btn btn_default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

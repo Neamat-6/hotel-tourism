@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="data_product_standard_room_charge" model="product.template">
+        <field name="name">Standard Room Charge</field>
+    </record>
+
+
+</odoo>

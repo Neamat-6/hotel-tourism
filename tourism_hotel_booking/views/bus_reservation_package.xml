@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="bus_reservation_package_form_view" model="ir.ui.view">
+        <field name="name">bus.reservation.package.form.view</field>
+        <field name="model">bus.reservation.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bus_contract_id" required="1"/>
+                            <field name="transportation_company_id"/>
+                            <field name="vendor"/>
+                        </group>
+                        <group>
+                            <field name="bus_type_id" domain="[('id','in',bus_type_ids)]" required="1"/>
+                            <field name="bus_type_ids" invisible="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="unit_price"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

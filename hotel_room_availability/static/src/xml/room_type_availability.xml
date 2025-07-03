@@ -1,0 +1,42 @@
+<templates>
+    <t t-name="hotel_room_availability.RoomTypeAvailability">
+        <div class="oe_room_availability_weekly">
+            <table style="overflow-y: auto; max-height: 700px;" class="table table-condensed table-responsive table-striped table-bordered ">
+                <tr class="default-tr" style="position: sticky; top: 0;">
+                    <th class="oe_timesheet_first_col oe_postion" colspan="4"/>
+                    <t t-set="day_count" t-value="0"/>
+                    <t t-foreach="widget.dates" t-as="date"  >
+                        <th  t-if="date" t-att-id="'dom_date_head-'+day_count" t-att-data-date="moment(date).format('YYYY-MM-DD')" t-att-class="'oe_timesheet_weekly_date_head' + (moment().format('DD-MM-YYYY') === moment(date).format('DD-MM-YYYY') ? ' oe_timesheet_weekly_today' : '')">
+                            <t t-esc="moment(date).format('ddd')"/><br/>
+                            <t t-esc="moment(date).format('MMM DD')"/>
+                        </th>
+                        <t t-set="day_count" t-value="day_count + 1"/>
+                    </t>
+                    <th class="oe_timesheet_weekly_date_head">Total</th>
+                </tr>
+                <t t-foreach="widget.rooms_types" t-as="room_type">
+                    <tbody class="div_panel">
+                        <tr>
+                            <td class="accordian_td bg-primary" t-att-colspan="widget.dates.length+5">
+                                <button class="accordian_btn closed_row" type="button" data-toggle="collapse" t-att-data-hotel="room_type.hotel_id[0]"  t-att-data-room-type="room_type.id" t-att-data-target="'#collapseExpand-'+room_type.id" aria-expanded="false" t-att-aria-controls="'collapseExpand-'+room_type.id">
+                                    <t t-esc="room_type.name"/>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="tbody_group collapse" t-att-id="'collapseExpand-'+room_type.id">
+                        <t t-foreach="room_type.room_ids" t-as="room">
+                            <tr caption="Room" class="input-tr room_tr" t-att-id="'room_tr-'+room[0]">
+                                <th class="oe_timesheet_weekly_account oe_postion oe_whitesmoke"
+                                    t-att-id="'room_caption-'+room[0]" colspan="4"
+                                    t-attf-style="background-color:{{ room[2]}}">
+                                    <t t-esc="room[1]"/>
+                                </th>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </table>
+        </div>
+    </t>
+</templates>

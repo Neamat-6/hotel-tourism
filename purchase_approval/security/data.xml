@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="group_first_approver" model="res.groups">
+        <field name="name">First Approval</field>
+    </record>
+    <record id="group_second_approver" model="res.groups">
+        <field name="name">Second Approval</field>
+    </record>
+    </data>
+</odoo>

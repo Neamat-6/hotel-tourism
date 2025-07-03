@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="room_status_view_tree" model="ir.ui.view">
+            <field name="name">room_status_view_tree</field>
+            <field name="model">hotel.room.status</field>
+            <field name="arch" type="xml">
+                <tree string="room_status_tree" delete="0" create="0" edit="0">
+                    <field name="name"/>
+                    <field name="is_default"/>
+                    <field name="color" widget="color"/>
+                </tree>
+            </field>
+        </record>
+        <record id="room_status_action" model="ir.actions.act_window">
+            <field name="name">Room Status</field>
+            <field name="res_model">hotel.room.status</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <record id="room_stay_status_view_tree" model="ir.ui.view">
+            <field name="name">room_stay_status_view_tree</field>
+            <field name="model">hotel.room.stay.status</field>
+            <field name="arch" type="xml">
+                <tree string="room_stay_status_tree" delete="0" create="0" edit="0">
+                    <field name="name"/>
+                    <field name="is_default"/>
+                    <field name="color" widget="color"/>
+                </tree>
+            </field>
+        </record>
+        <record id="room_stay_status_action" model="ir.actions.act_window">
+            <field name="name">Room Stayover Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.room.stay.status</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="menu_room_status" name="Room Status" action="room_status_action" sequence="90"
+                  parent="hotel_booking.menu_hotel_configuration"/>
+        <menuitem id="menu_room_stay_status" groups="hotel_booking.menu_room_stay_status_group"
+                  name="Room Stayover Status" action="room_stay_status_action" sequence="91"
+                  parent="hotel_booking.menu_hotel_configuration"/>
+    </data>
+</odoo>

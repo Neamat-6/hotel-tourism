@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="trail_balance_report" model="report.paperformat">
+            <field name="name">Trail Balance Report Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record model="ir.actions.report" id="action_trail_balance_report">
+            <field name="name">Trail Balance Report</field>
+            <field name="model">trial.balance.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking_folio.trial_balance_report</field>
+            <field name="report_file">hotel_booking_folio.trial_balance_report</field>
+            <field name="print_report_name">'Manager Report - %s' % (object.user_id.name).replace('/', '')</field>
+            <field name="binding_model_id" ref="model_trial_balance_wizard"/>
+        </record>
+
+        <template id="trial_balance_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;margin-top:-48px;">
+                        <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .head {
+        margin-bottom: 10px;
+    }
+    .head h3 {
+        margin: 0;
+    }
+    .head h3:first-child {
+        color: #001f5c;
+        font-weight: bold;
+        font-size: 19px;
+    }
+    .head h3:last-child {
+        color: #8a0000;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: right;
+    }
+    hr {
+        border: 1px solid black;
+    }
+    table.GeneratedTable {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+    table.GeneratedTable th,
+    table.GeneratedTable td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    table.GeneratedTable th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+    table.GeneratedTable .total-row {
+        font-weight: bold;
+        background-color: #f9f9f9;
+    }
+    .page span {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .GeneratedTable tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .GeneratedTable tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+                        <t t-foreach="docs" t-as="doc">
+                            <div class="head">
+                                <h3 style="text-align: left;margin: 0;color:#001f5c;font-weight: bold;font-size: 19px;margin-bottom:-18px;">
+                                    Hotels Task
+                                </h3>
+                                <h3 style="text-align: right;margin: 0;color:#8a0000;font-weight: bold;font-size: 20px;">
+                                    Manager Report
+                                </h3>
+                            </div>
+                            <hr style="color:black;"/>
+                            <div style="font-weight: bold;">
+                                <span>As on Date
+                                    <t t-esc="doc.day"/>
+                                </span>
+                                <span style="margin-left: 20px;">PTD:
+                                    <t t-esc="doc.month"/>
+                                </span>
+                                <span style="margin-left: 20px;">YTD:
+                                    <t t-esc="doc.year"/>
+                                </span>
+                                <span style="margin-left: 20px;">Currency
+                                    <t t-esc="doc.currency_id.name"/>
+                                </span>
+                            </div>
+                            <hr style="color:black;"/>
+                            <table class="GeneratedTable">
+                                <thead>
+                                    <tr>
+                                        <th>Particulars</th>
+                                        <th class="text-center">Today (SAR)</th>
+                                        <th class="text-center">PTD (SAR)</th>
+                                        <th class="text-center">YTD (SAR)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="current_type" t-value="None"/>
+                                    <t t-set="line_count" t-value="len(doc.line_ids)"/>
+                                    <t t-foreach="sorted(doc.line_ids, key=lambda r: (str(r.type), r.type))"
+                                       t-as="line">
+                                        <t t-if="line.type != current_type">
+                                            <t t-set="i" t-value="0"/>
+                                        </t>
+                                        <t t-set="i" t-value="i + 1"/>
+                                        <t t-if="line.type != current_type">
+                                            <t t-if="i != 1">
+                                                <tr>
+                                                    <td colspan="5" style="height: 10px;"></td>
+                                                </tr>
+                                            </t>
+                                            <tr>
+                                                <td colspan="5" style="font-size:17px;">
+                                                    <strong>
+                                                        <t t-if="line.type and line.type == 'room_charge'">
+                                                            Room Charge
+                                                        </t>
+                                                        <t t-if="line.type and line.type != 'room_charge'">
+                                                            <t t-esc="line.type"/>
+                                                        </t>
+                                                        <t t-if="not line.type">
+                                                            Payment
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <t t-set="current_type" t-value="line.type"/>
+                                        </t>
+                                        <tr>
+                                            <td>
+                                                <t t-esc="line.particular"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.day_amount"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.month_amount"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="line.year_amount"/>
+                                            </td>
+                                        </tr>
+                                        <t t-if="(i + 1) &lt; line_count and sorted(doc.line_ids, key=lambda r: (str(r.type), r.type))[i].type != line.type">
+                                            <tr class="total-row">
+                                                <td colspan="2">Total</td>
+                                                <td><!-- <t t-esc="doc.total_today"/> --></td>
+                                                <td><!-- <t t-esc="doc.total_month"/> --></td>
+                                                <td><!-- <t t-esc="doc.total_year"/> --></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <!--                                    <tr class="total-row">-->
+                                    <!--                                    </tr>-->
+                                </tbody>
+                            </table>
+                            <hr/>
+                            <table class="GeneratedTable">
+                                <tbody>
+                                    <tr>
+                                        <strong>City Ledger</strong>
+                                    </tr>
+                                    <tr>
+                                        <td>Opening Balance</td>
+                                        <td>
+                                            <t t-esc="doc.opening_balance_day"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.opening_balance_month"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.opening_balance_year"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Received</td>
+                                        <td>
+                                            <t t-esc="doc.payment_received_day"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.payment_received_month"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.payment_received_year"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Charges Raised</td>
+                                        <td>
+                                            <t t-esc="doc.changes_raised_day"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.changes_raised_month"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.changes_raised_year"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Closing Balance</td>
+                                        <td>
+                                            <t t-esc="doc.closing_balance_day"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.closing_balance_month"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.closing_balance_year"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hotel_room_update_view_form" model="ir.ui.view">
+            <field name="name">hotel_room_update_view_form</field>
+            <field name="model">hotel.room.update</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="hotel_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="floor_ids" widget="many2many_tags" options="{'no_create': True, 'no_edit': True}"/>
+                            </group>
+                            <group>
+                                <field name="room_type_ids" widget="many2many_tags" options="{'no_create': True, 'no_edit': True}"/>
+                            </group>
+                        </group>
+                        <div class="row">
+                            <div class="col-5"/>
+                            <div class="col-7">
+                                <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                        icon="fa-search"/>
+                            </div>
+                        </div>
+                        <notebook>
+                            <page name="lines" string="Lines">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="room_id" readonly="1" force_save="1"/>
+                                        <field name="old_name" readonly="1" force_save="1"/>
+                                        <field name="new_name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="button_update_rooms" type="object" string="Update" class="oe_highlight"/>
+                        <button special="cancel" class="btn-secondary" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

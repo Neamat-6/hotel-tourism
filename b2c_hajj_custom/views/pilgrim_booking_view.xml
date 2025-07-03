@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pilgrim_booking_form" model="ir.ui.view">
+        <field name="name">pilgrim.booking.form</field>
+        <field name="model">pilgrim.booking</field>
+        <field name="arch" type="xml">
+            <form string="Pilgrim Booking">
+                <header>
+                    <button name="create_booking" string="Create Booking" type="object" class="oe_highlight"
+                            states="draft"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" states="hotel_confirm"
+                            class="btn-secondary"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,hotel_confirm"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_invoice" type="object" class="oe_stat_button"
+                                icon="fa-credit-card">
+                            <div class="o_stat_info">
+                                <field name="total_cost" class="o_stat_value"/>
+                                <span class="o_stat_text">Invoiced</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="pilgrim_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="room_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="package_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="pilgrim_cost" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pilgrims">
+                            <field name="line_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="name" required="True"/>
+                                    <field name="gender" required="True"/>
+                                    <field name="pilgrim_type" required="True"/>
+                                    <field name="main_member_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pilgrim_booking_tree" model="ir.ui.view">
+        <field name="name">pilgrim.booking.tree</field>
+        <field name="model">pilgrim.booking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="package_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_pilgrim_booking_view" model="ir.actions.act_window">
+        <field name="name">Pilgrim Booking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pilgrim.booking</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="pilgrim_booking_menu" name="Pilgrim Booking" parent="b2c_hajj_custom.b2c_main_menu"
+              action="action_pilgrim_booking_view" sequence="10"/>
+
+</odoo>

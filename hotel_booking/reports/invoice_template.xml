@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="format_booking_folio_report" model="report.paperformat">
+            <field name="name">Folio Medium Margin</field>
+            <field name="default" eval="True"/>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record model="ir.actions.report" id="action_folio_invoice_form_report">
+            <field name="name">Folio Invoice</field>
+            <field name="model">hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.folio_invoice_form_report</field>
+            <field name="report_file">hotel_booking.folio_invoice_form_report</field>
+            <field name="binding_model_id" ref="model_hotel_booking"/>
+            <field name="binding_type">report</field>
+            <field name="binding_view_types">form</field>
+            <field name="paperformat_id" ref="hotel_booking.format_booking_folio_report"/>
+        </record>
+
+        <template id="folio_invoice_form_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <t t-foreach="docs" t-as="doc">
+
+                            <h6 class="text-center">ﻓﺎﺗﻮﺭﺓ مبدئيه</h6>
+                            <h6 class="text-center">Proforma Invoice</h6>
+                            <table style="border-collapse:collapse;border-spacing:0" class="tg">
+                                <thead>
+                                    <tr>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Invoice Number
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            رقم الفاتوره
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <br/>
+                            <table class="tg" style="undefined;table-layout: fixed; width: 100%">
+                                <thead>
+                                    <tr>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            تاريخ أصدار الفاتوره
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">
+<!--                                            <span t-esc="doc.check_out"/>-->
+                                            <span t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/>
+
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.check_out_hijri"/>
+                                        </td>
+                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            Invoice Issue Date:
+                                        </td>
+                                    </tr>
+
+<!--                                    <tr>-->
+<!--                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:left;vertical-align:top;word-break:normal">-->
+<!--                                            تاريخ التوريد-->
+<!--                                        </td>-->
+<!--                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">-->
+<!--                                            <span t-esc="doc.check_out"/>-->
+<!--                                        </td>-->
+<!--                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:center;vertical-align:top;word-break:normal">-->
+<!--                                            <span t-esc="doc.check_out_hijri"/>-->
+<!--                                        </td>-->
+<!--                                        <td style="color:black;border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:3px 0px;text-align:right;vertical-align:top;word-break:normal">-->
+<!--                                            Date of Supply:-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+                                </thead>
+                            </table>
+                            <br/>
+
+                            <style type="text/css">
+                                .tg {
+                                border-collapse: collapse;
+                                border-spacing: 0;
+                                <!--        table-layout: fixed;-->
+                                width: 100%;
+                                }
+                                .tg td, .tg th {
+                                border-color: inherit;
+                                border-style: solid;
+                                border-width: 1px;
+                                font-family: Arial, sans-serif;
+                                font-size: 12px;
+                                overflow: hidden;
+                                padding: 4px 0px;
+                                text-align: left;
+                                vertical-align: top;
+                                word-break: normal;
+                                }
+                                .tg th {
+                                font-weight: normal;
+                                }
+                                .tg .tg-09ep {
+                                background-color: #9b9b9b;
+                                color: #ffffff;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-align: right;
+                                vertical-align: top;
+                                }
+                                .tg .tg-ucic {
+                                background-color: #9b9b9b;
+                                color: #ffffff;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-align: left;
+                                vertical-align: top;
+                                }
+                                .tg .tg-lqy6 {
+                                text-align: right;
+                                vertical-align: top;
+                                }
+                                .tg .tg-g0pb {
+                                background-color: #9b9b9b;
+                                border-color: inherit;
+                                color: #ffffff;
+                                font-size: 16px;
+                                font-weight: bold;
+                                text-align: left;
+                                vertical-align: top;
+                                }
+                                .tg .tg-0lax {
+                                text-align: left;
+                                vertical-align: top;
+                                white-space: normal; /* Allow text to wrap */
+                                }
+                            </style>
+                            <t t-if="doc.booking_source == 'direct'">
+                                <t t-set="partner" t-value="doc.partner_id"/>
+                            </t>
+                            <t t-elif="doc.booking_source == 'company'">
+                                <t t-set="partner" t-value="doc.company_booking_source"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="partner" t-value="doc.online_travel_agent_source"/>
+                            </t>
+                            <table class="tg" style="undefined;table-layout: fixed; width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th class="tg-g0pb">Seller:</th>
+                                        <th class="tg-ucic"></th>
+                                        <th class="tg-09ep">:المورد</th>
+                                        <th class="tg-ucic">Buyer:</th>
+                                        <th class="tg-ucic"></th>
+                                        <th class="tg-09ep">:العميل</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="tg-0lax">Name:</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.name"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻻﺳﻢ‪:‬‬</td>
+                                        <td class="tg-0lax">Name:</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.name"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻻﺳﻢ‪:‬‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">Buuilding No.</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.building_no"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺍﻟﻤﺒﻨﻲ‪.‬‬</td>
+                                        <td class="tg-0lax">Buuilding No.</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.building_no"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺍﻟﻤﺒﻨﻲ‪.‬‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">Street Name</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.street"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺍﻟﺸﺎﺭﻉ‬</td>
+                                        <td class="tg-0lax">Street Name</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.street"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺍﻟﺸﺎﺭﻉ‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‪District‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.district"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺤﻲ‬</td>
+                                        <td class="tg-0lax">‫‪District‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.district"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺤﻲ‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">City</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.city"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﻤﺪﻳﻨﺔ‬</td>
+                                        <td class="tg-0lax">City</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.city"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﻤﺪﻳﻨﺔ‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‪Country‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.country_id.name"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺒﻠﺪ‬</td>
+                                        <td class="tg-0lax">‫‪Country‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.country_id.name"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺒﻠﺪ‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‪Code‬‬‫‪Postal‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.zip"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺮﻣﺰ‬‫ﺍﻟﺒﺮﻳﺪﻱ‬</td>
+                                        <td class="tg-0lax">‫‪Code‬‬‫‪Postal‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.zip"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺮﻣﺰ‬‫ﺍﻟﺒﺮﻳﺪﻱ‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‬‬‫‪Additional‬‬
+                                            <span style="font-weight:400;font-style:normal">‪No.</span>
+                                        </td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.additional_no"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺮﻗﻢ‬‫ﺍﻻﺿﺎﻓﻲ‬ ‫ﻟﻠﻌﻨﻮﺍﻥ‪.‬‬</td>
+                                        <td class="tg-0lax">‫‬‬‫‪Additional‬‬
+                                            <span style="font-weight:400;font-style:normal">‪No.</span>
+                                        </td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.additional_no"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺍﻟﺮﻗﻢ‬‫ﺍﻻﺿﺎﻓﻲ‬ ‫ﻟﻠﻌﻨﻮﺍﻥ‪.‬‬</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‪Number:‬‬‫‪VAT‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.vat"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺗﺴﺠﻴﻞ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ <span
+                                                style="font-weight:400;font-style:normal">ﺍﻟﻤﻀﺎﻓﺔ‬</span>‪:‬‬
+                                        </td>
+                                        <td class="tg-0lax">‫‪Number:‬‬‫‪VAT‬‬</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.vat"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺗﺴﺠﻴﻞ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ <span
+                                                style="font-weight:400;font-style:normal">ﺍﻟﻤﻀﺎﻓﺔ‬</span>‪:‬‬
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tg-0lax">‫‪Buyer‬‬ ‫‪Other‬‬ ID:</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="doc.hotel_id.company_id.partner_id.other_id"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﻣﻌﺮﻑ‬ ‫ﺍﺧﺮ‪:‬‬</td>
+                                        <td class="tg-0lax">‫‪Buyer‬‬ ‫‪Other‬‬ ID:</td>
+                                        <td class="tg-0lax">
+                                            <span t-esc="partner.other_id"/>
+                                        </td>
+                                        <td class="tg-lqy6">‫ﻣﻌﺮﻑ‬‫ﺍﻟﻤﺸﺘﺮﻱ‬ ‫ﺍﻵﺧﺮ‪:‬‬</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <!--                            <table class="tg" style="undefined;table-layout: fixed; width: 100%">-->
+                            <!--                                <thead>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <th class="tg-g0pb" colspan="2">-->
+                            <!--                                            <span style="font-weight:700;font-style:normal">Stay‬‬</span>-->
+                            <!--                                            ‫‪Information‬‬‫‪:-->
+                            <!--                                        </th>-->
+                            <!--                                        <th class="tg-09ep" colspan="2">:معلومات القائمه</th>-->
+                            <!--                                    </tr>-->
+                            <!--                                </thead>-->
+                            <!--                                <tbody>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td class="tg-0lax">Room Type:</td>-->
+                            <!--                                        <td class="tg-0lax" colspan="2"></td>-->
+                            <!--                                        <td class="tg-lqy6">‫ﻧﻮﻉ‬‫ﺍﻟﻐﺮﻓﺔ‪:‬‬</td>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td class="tg-0lax">Room No.</td>-->
+                            <!--                                        <td class="tg-0lax" colspan="2"></td>-->
+                            <!--                                        <td class="tg-lqy6">‫ﺭﻗﻢ‬‫ﺍﻟﻐﺮﻓﺔ‪.‬‬</td>-->
+                            <!--                                    </tr>-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td class="tg-0lax">Bill To:</td>-->
+                            <!--                                        <td class="tg-0lax" colspan="2"></td>-->
+                            <!--                                        <td class="tg-lqy6">‫ﻓﺎﺗﻮﺭﻩ‬‫ ﺍﻟﻲ‪:‬‬</td>-->
+                            <!--                                    </tr>-->
+                            <!--                                </tbody>-->
+                            <!--                            </table>-->
+                            <!--                            <br/>-->
+                            <table style="border-collapse:collapse;border-spacing:0; width: 100%"
+                                   class="tg">
+                                <thead>
+                                    <tr>
+                                        <th class="tg-g0pb"
+                                            colspan="4">Line Items:
+                                        </th>
+                                        <th class="tg-g0pb" style="text-align: right;"
+                                            colspan="5">:‫ﺗﻮﺻﻴﻒ‬‫ﺍﻟﺴﻠﻌﺔ‬ ‫ﺍﻭ‬ ‫ﺍﻟﺨﺪﻣﺔ‬
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="tg-lqy6">
+                                            Room Type
+                                            <br/>
+                                            نوع ﺍﻟﻮﺣﺪﻩ
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Unit price
+                                            <br/>
+                                            ﺳﻌﺮ ﺍﻟﻮﺣﺪﻩ
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Quantity
+                                            <br/>
+                                            ﺍﻟﻜﻤﻴﺔ
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Amount Taxable
+                                            <br/>
+                                            ﺍﻟﻤﺒﻠﻎ ﺍﻟﺨﺎﺿﻊ
+                                            <br/>
+                                            ﻟﻠﻀﺮﻳﺒﺔ
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Discount
+                                            <br/>
+                                            ﺍﻟﺨﺼﻮﻣﺎﺕ
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Municipality
+                                            <br/>
+                                            Tax
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            VAT Tax
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Amount Tax
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            Subtotal Item
+                                            <br/>
+                                            Including VAT
+                                            <br/>
+                                            المجموع ﺷﺎﻣﻞ ﺿﺮﻳﺒﺔ
+                                            <br/>
+                                            ﺍﻟﻘﻴﻤﺔ ﺍﻟﻤﻀﺎﻓﺔ)
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="doc.folio_ids.filtered(lambda f: f.state != 'cancelled')" t-as="folio">
+                                        <tr>
+                                            <td class="tg-0lax">
+                                                <span t-esc="folio.room_type_id.name"/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.room_price_subtotal / (folio.total_nights or 1)"/>-->
+                                                <span t-esc="'%.2f' % (float(folio.room_price_subtotal) / (folio.total_nights or 1))"/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <span t-esc="folio.total_nights"/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.room_price_subtotal"/>-->
+                                                <span t-esc='"%.2f" % folio.room_price_subtotal'/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio."/>-->
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.price_municipality"/>-->
+                                                <span t-esc='"%.2f" % folio.price_municipality'/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.price_vat"/>-->
+                                                <span t-esc='"%.2f" % folio.price_vat'/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.room_price_tax"/>-->
+                                                <span t-esc='"%.2f" % folio.room_price_tax'/>
+                                            </td>
+                                            <td class="tg-lqy6">
+                                                <!--                                                <span t-esc="folio.room_price_total"/>-->
+                                                <span t-esc='"%.2f" % folio.room_price_total'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr t-foreach="doc.service_ids" t-as="line">
+                                        <t t-set="folio_service"
+                                           t-value="line.folio_id.line_ids.filtered(lambda l: l.particulars == line.service_id.name)"/>
+                                        <t t-set="folio_service_municipality" t-value="[]"/>
+                                        <t t-set="folio_service_vat" t-value="[]"/>
+                                        <t t-set="municipality_amount" t-value="0"/>
+                                        <t t-set="vat_amount" t-value="0"/>
+                                        <t t-set="service_amount" t-value="0"/>
+                                        <t t-if="folio_service">
+                                            <t t-set="folio_service_municipality"
+                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'municipality')"/>
+                                            <t t-set="folio_service_vat"
+                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'vat')"/>
+                                            <t t-if="folio_service_municipality">
+                                                <t t-set="municipality_amount"
+                                                   t-value="sum(folio_service_municipality.mapped('amount'))"/>
+                                            </t>
+                                            <t t-if="folio_service_vat">
+                                                <t t-set="vat_amount" t-value="sum(folio_service_vat.mapped('amount'))"/>
+                                            </t>
+                                            <t t-set="service_amount" t-value="sum(folio_service.mapped('amount'))"/>
+                                        </t>
+                                        <td class="tg-0lax">
+                                            <span t-esc="line.service_id.name"/>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="line.price"/>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <t t-if="line.price_type == 'fixed'">
+                                                1
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="line.folio_id.number_of_guests"/>
+                                            </t>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="round(service_amount, 2)"/>
+                                        </td>
+                                        <td class="tg-lqy6"/>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="round(municipality_amount, 2)"/>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="round(vat_amount, 2)"/>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="round((municipality_amount + vat_amount), 2)"/>
+                                        </td>
+                                        <td class="tg-lqy6">
+                                            <span t-esc="round((municipality_amount + vat_amount + service_amount), 2)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table style="border-collapse:collapse;border-spacing:0;table-layout: fixed; width: 100%"
+                                   class="tg">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color:#9b9b9b;border-color:inherit;border-style:solid;border-width:1px;color:#ffffff;font-family:Arial, sans-serif;font-size:16px;font-weight:normal;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"
+                                            colspan="3">
+                                            <span style="font-weight:bold">Total Amounts:</span>
+                                        </th>
+                                        <th style="background-color:#9b9b9b;border-color:inherit;border-style:solid;border-width:1px;color:#ffffff;font-family:Arial, sans-serif;font-size:16px;font-weight:normal;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                                            colspan="2">
+                                            <span style="font-weight:bold">:أجمالي المبلغ</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total (Excluding VAT and Municipal‬‬ Tax)
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫)ﺑﺪﻭﻥ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬ ‫ﻭﺿﺮﻳﺒﺔ‬<br/>‫ﺍﻟﺒﻠﺪﻳﺔ(‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('room_price_subtotal'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            ‫‪Discount‬‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﻣﺠﻤﻮﻉ‬‫ﺍﻟﺨﺼﻮﻣﺎﺕ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="doc.price_discount"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            ‫‪Municipality city Tax‬ % ‬‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal"
+                                            dir="rtl">
+                                            رسوم الأيواء السياحي2,5%
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_municipality'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Taxable Amount (Excluding VAT)
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻻﺟﻤﺎﻟﻲ‬‫ﺍﻟﺨﺎﺿﻊ‬ ‫ﻟﻠﻀﺮﻳﺒﺔ)ﻏﻴﺮ‬ ‫ﺷﺎﻣﻞ‬ ‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬<br/>‫ﺍﻟﻤﻀﺎﻓﺔ(‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <!--                                            <span t-esc="sum(doc.folio_ids.mapped('price_municipality')) + sum(doc.folio_ids.mapped('room_price_subtotal'))"/>-->
+                                            <t t-esc='"%.2f" % (sum(doc.folio_ids.mapped("price_municipality")) + sum(doc.folio_ids.mapped("room_price_subtotal"))) '/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total VAT
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﻣﺠﻤﻮﻉ‬‫ﺿﺮﻳﺒﺔ‬ ‫ﺍﻟﻘﻴﻤﺔ‬ ‫ﺍﻟﻤﻀﺎﻓﺔ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <!--                                            <span t-esc="sum(doc.folio_ids.mapped('price_vat'))"/>-->
+                                            <t t-esc='"%.2f" % sum(doc.folio_ids.mapped("price_vat"))'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Amount Paid
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻟﻤﺒﻠﻎ‬‫ﺍﻟﻤﺪﻓﻮﻉ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_paid'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Amount Due
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﺟﻤﺎﻟﻲ‬‫ﺍﻟﻤﺒﻠﻎ‬ ‫ﺍﻟﻤﺴﺘﺤﻖ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_due'))"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal"></td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            Total Amount
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:right;vertical-align:top;word-break:normal">
+                                            ‫ﺍﻟﻤﺒﻠﻎ‬‫ﺍﻻﺟﻤﺎﻟﻲ‬
+                                        </td>
+                                        <td style="border-color:inherit;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:4px 0px;text-align:left;vertical-align:top;word-break:normal">
+                                            <span t-esc="sum(doc.folio_ids.mapped('price_total'))"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

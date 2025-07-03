@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_contract_hotel" model="ir.ui.view">
+        <field name="name">hotel.contract.tree</field>
+        <field name="model">hotel.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="hotel"/>
+                <field name="num_room"/>
+                <field name="vendor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tree_transportation_contract_hotel" model="ir.ui.view">
+        <field name="name">hotel.contract.tree</field>
+        <field name="model">hotel.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vendor"/>
+                <field name="transportation_type"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--Form-->
+    <record id="view_form_contract_hotel" model="ir.ui.view">
+        <field name="name">hotel.contract.form</field>
+        <field name="model">hotel.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" class="oe_highlight" states="draft" string="Confirm"/>
+                    <button name="create_bill" type="object" class="oe_highlight"
+                            string="Create Transportation Bill"
+                            attrs="{'invisible': ['|',('state','!=','confirmed'),('contract_type', '!=', 'transportation')]}"/>
+                    <!--                    <button name="create_purchase_contract" type="object" class="oe_highlight" states="confirmed" string="Create Purchase"/>-->
+                    <!--                    <button name="create_bill" type="object" class="oe_highlight" states="confirmed"-->
+                    <!--                            string="Create Bill"/>-->
+                    <button name="action_open_wizard" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','confirmed'),('contract_type', '=', 'transportation')]}"
+                            string="Create Contract Bills"/>
+
+                    <button name="action_cancel" type="object" class="oe_highlight" states="confirmed,purchase"
+                            string="Cancel Contract"/>
+                    <button name="action_draft" type="object" class="oe_highlight" states="confirmed,purchase"
+                            string="Reset To Draft"/>
+                    <!--                    <button name="action_update_bill" type="object" class="oe_highlight" string="Update Bill" states="draft"/>-->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,purchase"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_bills" type="object" class="oe_stat_button"
+                                icon="fa-credit-card">
+                            <div class="o_stat_info">
+                                <field name="bill_total" class="o_stat_value"/>
+                                <span class="o_stat_text">Bills</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <div class="oe_title oe_inline">
+                                <label for="name"/>
+                                <h1>
+                                    <field name="name" placeholder="e.g.Contract code" required="1"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </h1>
+                            </div>
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                            <field name="contract_type" attrs="{'readonly': [('state', '!=', 'draft')]}" invisible="1"/>
+                            <field name="transportation_type"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('contract_type', '!=', 'transportation')],'required': [('contract_type', '=', 'transportation')]}"/>
+                            <field name="transportation_company"
+                                   attrs="{'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type','!=','bus')],'readonly': [('state', '!=', 'draft')],'required': [('contract_type', '=', 'transportation'),('transportation_type','=','bus')]}"/>
+                            <field name="plane_company"
+                                   attrs="{'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type','!=','plane')],'readonly': [('state', '!=', 'draft')],'required': [('contract_type', '=', 'transportation'),('transportation_type','=','plane')]}"/>
+                            <field name="hotel"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('contract_type', '=', 'transportation')],
+                                   'required': [('contract_type', '!=', 'transportation')]}"/>
+                            <!--                            <field name="account_invoice_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                            <!--                            invisible="1"-->
+                            <field name="num_room"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('contract_type', '=', 'transportation')]}"/>
+                            <field name="vendor" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="start_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('contract_type', '=', 'transportation')]}"/>
+                            <field name="end_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('contract_type', '=', 'transportation')]}"/>
+                            <field name="departure_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type', '!=', 'plane')]}"/>
+                            <field name="return_date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')],'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type', '!=', 'plane')]}"/>
+                        </group>
+                        <group>
+                            <field name="tax_id" attrs="{'invisible': [('contract_type', '=', 'transportation')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contract Line">
+                            <field name="contract_line"
+                                   attrs="{'invisible': [('contract_type', '=', 'transportation')]}">
+                                <tree editable="bottom">
+                                    <field name="hotel_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="room_type" domain="[('hotel_id','=',hotel_id)]"/>
+                                    <field name="count"/>
+                                    <field name="start_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="end_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="new_start_date" optional="1"/>
+                                    <field name="new_end_date" optional="1"/>
+                                    <field name="date_difference"/>
+                                    <field name="price"/>
+                                    <field name="total"/>
+                                    <field name="contract_id" invisible="1"/>
+                                    <!--                                    <field name="account_move_id" readonly="1"/>-->
+                                    <!--                                    <button name="create_bill" type="object" class="oe_highlight" string="Create Bill"-->
+                                    <!--                                            attrs="{'invisible': [('account_move_id', '!=',False)]}"/>-->
+                                </tree>
+                            </field>
+                            <field name="plane_contract_ids"
+                                   attrs="{'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type','=','bus')],'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="plane_type_id"
+                                           attrs="{'required': [('transportation_type', '=', 'plane')]}"/>
+                                    <field name="number_of_seats"/>
+                                    <field name="transportation_type" invisible="1"/>
+                                    <field name="unit_price"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                            <field name="transportation_contract_ids"
+                                   attrs="{'invisible': ['|',('contract_type', '!=', 'transportation'),('transportation_type','!=','bus')],'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="bus_type_id"
+                                           attrs="{'required': [('transportation_type', '=', 'bus')]}"/>
+                                    <field name="transportation_type" invisible="1"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="duration"/>
+                                    <field name="unit_price"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Log Line">
+                            <field name="log_line">
+                                <tree editable="bottom" create="0" edit="0">
+                                    <field name="room_id"/>
+                                    <field name="date"/>
+                                    <field name="count"/>
+                                    <field name="user_id"/>
+                                    <field name="create_date"/>
+                                    <field name="log_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <!--                    <field name="total" string="Total"/>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action-->
+    <record id="action_contract_hotel" model="ir.actions.act_window">
+        <field name="name">Contract</field>
+        <field name="res_model">hotel.contract</field>
+        <field name="context">{'default_contract_type':'hotel'}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_contract_hotel')}),
+        ]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create New Hotel Contract
+            </p>
+        </field>
+    </record>
+
+    <record id="action_transportation_contract" model="ir.actions.act_window">
+        <field name="name">Transportation Contract</field>
+        <field name="res_model">hotel.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_contract_type':'transportation'}</field>
+        <field name="domain">[('contract_type','=','transportation')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_transportation_contract_hotel')}),
+        ]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create New Transportation Contract
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Hotels -->
+    <menuitem id="menu_contract_hotel" name="Contract / Allotment" parent="menu_hotel_configuration"
+              action="action_contract_hotel" sequence="51"/>
+
+    <menuitem id="menu_transportation_contract" name="Transportation Contract" parent="menu_hotel_configuration"
+              action="action_transportation_contract" sequence="52"/>
+
+
+</odoo>

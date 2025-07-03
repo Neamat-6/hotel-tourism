@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="view_tree_hotel_room" model="ir.ui.view">
+        <field name="name">hotel.room.tree</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="price"/>
+                <field name="hotel_id"/>
+                <field name="booking_ok" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_hotel_room" model="ir.ui.view">
+        <field name="name">hotel.room.form</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title oe_inline">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. 001"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="telephone_extension" placeholder="e.g 101"/>
+                            <field name="floor_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="hotel_id" options="{'no_open': True, 'no_create': True}" required="1"/>
+                            <field name="room_size" placeholder="e.g. 60 Square Feet"/>
+                        </group>
+                        <group>
+                            <field name="booking_ok" widget="boolean_toggle"/>
+                            <field name="sequence"/>
+<!--                            <field name="product_id" required="1"/>-->
+<!--                            <field name="booking_id" readonly="1"/>-->
+                            <field name="booking_line_id" readonly="1"/>
+<!--                            <field name="room_c"/>-->
+<!--                            <field name="room_vvv"/>-->
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Facilities">
+                            <field name="facility_line_ids">
+                                <tree editable="bottom">
+                                    <field name="facility_id" required="1" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="qty"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="facility_id"/>
+                                        <field name="qty"/>
+                                        <field name="description"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Photos">
+                            <field name="image_ids">
+                                <kanban class="o_kanban_mobile">
+                                    <field name="image"/>
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                                <a t-if="!read_only_mode" type="delete" class="pull-right">Delete</a>
+                                                <center>
+                                                    <img t-att-src="'data:image/png;base64,'+record.image.raw_value" style="padding-top:24px;padding-bottom:24px;max-width:100%;" alt="image"/>
+                                                    <span><field name="name"/></span>
+                                                </center>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <field name="image" widget="image"/>
+                                    <field name="name" placeholder="Description"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="note" placeholder="Internal Note ..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hotel_rooms" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">hotel.room</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Floor -->
+    <menuitem id="menu_hotel_rooms" name="Rooms" parent="menu_hotel_configuration" action="action_hotel_rooms" sequence="90"/>
+
+
+</odoo>

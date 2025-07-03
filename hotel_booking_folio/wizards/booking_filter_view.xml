@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="reservation_filter_view_form" model="ir.ui.view">
+            <field name="name">reservation_filter_view_form</field>
+            <field name="model">reservation.filter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="button_create_booking" type="object" string="Create Booking"
+                                class="oe_highlight"/>
+                    </header>
+
+                    <div class="oe_title">
+                        <h1>
+                            Reservation Management
+                        </h1>
+                    </div>
+                    <br/>
+                    <group>
+                        <group>
+                            <field name="check_in_from"/>
+                            <field name="check_out_from"/>
+                        </group>
+                        <group>
+                            <field name="check_in_to"/>
+                            <field name="check_out_to"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <!--                            <field name="advanced_search"/>-->
+                            <field name="booking_source"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group>
+                            <field name="company_booking_source"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                                   attrs="{'invisible': [('booking_source', '!=', 'company')]}"/>
+                            <field name="online_travel_agent_source"
+                                   attrs="{'invisible': [('booking_source', '!=', 'online_agent')]}"/>
+                            <field name="state"/>
+                            <field name="payment_type_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="related_hotel" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="partner_id"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="reference_number"/>
+                        </group>
+                            <group string="Yes/No">
+                              <field name="include_cancelled"/>
+                              <field name="day_use"/>
+                              <field name="complimentary_room"/>
+                              <field name="house_use"/>
+                            </group>
+                        <group>
+                            <field name="booking_id"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="user_id" widget="many2one_avatar_user" options="{'no_create': True}"/>
+                            <field name="total_amount_booking"/>
+                            <field name="total_no_rooms"/>
+                            <field name="reservation_no"/>
+                        </group>
+                    </group>
+                    <div class="row">
+                        <div class="col-5"/>
+                        <div class="col-7">
+                            <button name="button_search" type="object" string="Search" class="oe_highlight"
+                                    icon="fa-search"/>
+                        </div>
+                    </div>
+                    <field name="line_ids">
+                        <tree create="0" edit="0" delete="0" editable="bottom">
+                            <field name="booking_id" options="{'no_open': True}" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="company_booking_source"/>
+                            <field name="customer_credit_limit"/>
+                            <field name="balance"/>
+                            <field name="related_hotel" options="{'no_create': True}" readonly="1"/>
+                            <field name="check_in"/>
+                            <field name="check_out"/>
+                            <field name="no_nights"/>
+                            <field name="no_rooms"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="payment_type_id"/>
+                            <field name="price_subtotal"/>
+                            <field name="price_total"/>
+                            <field name="price_tax" optional="hide"/>
+                            <field name="price_paid"/>
+                            <field name="price_due"/>
+                            <field name="company_paid"/>
+                            <field name="paid_amount_city_ledger"/>
+                            <field name="city_ledger_balance"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="state" widget="badge"
+                                   decoration-muted="state == 'draft'"
+                                   decoration-success="state in ['checked_in', 'checked_out']"
+                                   decoration-warning="state == 'confirmed'"
+                                   decoration-danger="state == 'cancelled'"/>
+                            <button name="button_display_booking" type="object" string="Display Booking"/>
+                            <button name="button_open_booking" type="object" string="Open Booking"/>
+                        </tree>
+                    </field>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="reservation_filter_action" model="ir.actions.act_window">
+            <field name="name">Reservation Booking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">reservation.filter</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="reservation_filter_reservation_menu" name="Reservation Management"
+                  parent="hotel_booking.menu_hotels_task_root"
+                  action="reservation_filter_action" sequence="2"/>
+    </data>
+</odoo>

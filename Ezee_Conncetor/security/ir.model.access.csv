@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ezee_rate_plan,ezee_rate_plan,model_ezee_rate_plan,,1,1,1,1
+access_ezee_rate_type,ezee_rate_type,model_ezee_rate_type,,1,1,1,1
+access_ezee_room_type,ezee_room_type,model_ezee_room_type,,1,1,1,1
+access_ezee_extra_charge,ezee_extra_charge,model_ezee_extra_charge,,1,1,1,1
+access_ezee_connector,ezee_connector,model_ezee_connector,,1,1,1,1
+access_ezee_connector_line,ezee_connector_line,model_ezee_connector_line,,1,1,1,1
+access_ezee_booking_wizard,ezee_booking_wizard,model_ezee_booking_wizard,,1,1,1,1

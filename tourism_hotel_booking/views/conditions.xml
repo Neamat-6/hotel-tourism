@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_hotel_conditions_tree_view">
+      <field name="name">view.hotel.conditions.tree.view</field>
+      <field name="model">conditions.terms</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name='sequence' widget='handle'/>
+            <field name="name"/>
+            <field name="terms"/>
+       </tree>
+      </field>
+    </record>
+
+    <record id="action_hotel_conditions" model="ir.actions.act_window">
+        <field name="name">Conditions</field>
+        <field name="res_model">conditions.terms</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_hotel_conditions" name="Conditions And Terms"
+              parent="menu_hotel_configuration" action="action_hotel_conditions" sequence="100"/>
+
+    <record model="ir.ui.view" id="view_hotel_room_view_tree_view">
+      <field name="name">view.hotel.room.view.tree.view</field>
+      <field name="model">hotel.room.view</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name='sequence' widget='handle'/>
+            <field name="name"/>
+       </tree>
+      </field>
+    </record>
+
+    <record id="action_room_view" model="ir.actions.act_window">
+        <field name="name">Room View</field>
+        <field name="res_model">hotel.room.view</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_hotel_room_views" name="Room View"
+              parent="menu_hotel_configuration" action="action_room_view" sequence="100"/>
+
+    <record model="ir.ui.view" id="view_hotel_meal_tree_view">
+      <field name="name">view.hotel.meal.tree.view</field>
+      <field name="model">hotel.meal</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name='sequence' widget='handle'/>
+            <field name="name"/>
+       </tree>
+      </field>
+    </record>
+
+    <record id="action_meal" model="ir.actions.act_window">
+        <field name="name">Meal</field>
+        <field name="res_model">hotel.meal</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_hotel_meals" name="Meals"
+              parent="menu_hotel_configuration" action="action_meal" sequence="100"/>
+
+
+</odoo>

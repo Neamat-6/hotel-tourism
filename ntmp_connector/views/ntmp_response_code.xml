@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ntmp_response_code_view_tree" model="ir.ui.view">
+            <field name="name">ntmp_response_code_view_tree</field>
+            <field name="model">ntmp.response.code</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="api_name"/>
+                    <field name="category"/>
+                    <field name="http_code"/>
+                    <field name="error_code"/>
+                    <field name="error_description"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ntmp_response_code_action" model="ir.actions.act_window">
+            <field name="name">Response Codes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ntmp.response.code</field>
+            <field name="view_mode">tree</field>
+        </record>
+        <menuitem id="ntmp_response_code_menu" name="Response Codes"
+                  parent="ntmp_root_menu" action="ntmp_response_code_action" sequence="11"/>
+    </data>
+</odoo>

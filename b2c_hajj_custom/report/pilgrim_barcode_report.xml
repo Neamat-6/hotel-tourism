@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_pilgrim_barcode"
+            model="res.partner"
+            string="Pilgrim Barcode"
+            report_type="qweb-pdf"
+            name="b2c_hajj_custom.report_pilgrim_barcode"
+            file="b2c_hajj_custom.report_pilgrim_barcode"
+            print_report_name="'Pilgrim - %s' % (object.name)"
+        />
+
+<template id="report_pilgrim_barcode">
+    <t t-call="web.html_container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <t t-foreach="docs" t-as="partner">
+                <div style="
+                    width: 320px;
+                    margin: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 10px;
+                    padding: 15px;
+                    text-align: center;
+                    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+                    page-break-inside: avoid;
+                    break-inside: avoid;
+                ">
+                    <div style="margin-bottom: 10px;">
+                        <t t-if="partner.image_1920">
+                            <img t-att-src="'data:image/png;base64,%s' % partner.image_1920.decode()"
+                                 style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;" />
+                        </t>
+                    </div>
+                    <p><strong>Name:</strong> <t t-esc="partner.name"/></p>
+                    <p><strong>Mobile:</strong> <t t-esc="partner.mobile"/></p>
+                    <p><strong>Email:</strong> <t t-esc="partner.email"/></p>
+                    <p><strong>Passport Number:</strong> <t t-esc="partner.passport_no"/></p>
+
+                    <div style="margin-top: 15px;">
+                        <t t-if="partner.qr_code">
+                            <img t-att-src="'data:image/png;base64,%s' % partner.qr_code.decode()" width="100"/>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</template>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Hotels Task" id="hotel_menus.menu_root"
+                  web_icon="hotel_menus,static/img/hotel_menu.jpg" sequence="1"/>
+
+          <record model="ir.ui.menu" id="hotel_booking.menu_front_office">
+            <field name='sequence'>0</field>
+              <field name="parent_id" ref="hotel_menus.menu_root"></field>
+              <field name="web_icon">hotel_menus,static/img/front_office.png</field>
+          </record>
+
+        <record model="ir.ui.menu" id="hotel_booking.menu_hotels_task_root">
+            <field name='sequence'>1</field>
+            <field name="parent_id" ref="hotel_menus.menu_root"></field>
+        </record>
+
+        <record model="ir.ui.menu" id="hotel_booking.housekeeping_root_menu">
+            <field name='sequence'>2</field>
+            <field name="parent_id" ref="hotel_menus.menu_root"></field>
+        </record>
+
+        <record model="ir.ui.menu" id="account.menu_finance">
+            <field name='sequence'>55</field>
+            <field name="parent_id" eval="False"/>
+        </record>
+
+        <record model="ir.ui.menu" id="hotel_booking.booking_reporting_main_menu">
+            <field name='sequence'>4</field>
+            <field name="parent_id" ref="hotel_menus.menu_root"></field>
+        </record>
+
+    </data>
+</odoo>

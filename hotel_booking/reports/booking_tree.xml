@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="format_hotel_booking_tree_report" model="report.paperformat">
+            <field name="name">Booking Source Paper Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        <record model="ir.actions.report" id="action_booking_tree_report">
+            <field name="name">Bookings</field>
+            <field name="model">hotel.booking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_booking.booking_tree_report</field>
+            <field name="report_file">hotel_booking.booking_tree_report</field>
+            <field name="binding_model_id" ref="model_hotel_booking"/>
+			<field name="binding_type">report</field>
+			<field name="binding_view_types">list</field>
+        </record>
+        <template id="booking_tree_report">
+			<t t-call="web.html_container">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family:Arial,Helvetica,sans-serif !important;">
+                        <style>
+                            table.GeneratedTable {
+                                width: 100%;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: #000000;
+                                border-style: solid;
+                                font-size: 14px;
+                                color: #000000;
+                            }
+
+                            table.GeneratedTable th, table.GeneratedTable td {
+                                border: 1px solid #000000;
+                                padding: 0; /* Remove extra padding */
+                                text-align: center; /* Center align text */
+                                white-space: nowrap; /* Prevent extra line breaks */
+                            }
+
+                            table.GeneratedTable th {
+                                background-color: #f5f5f5; /* Optional: Add a light background to headers */
+                                font-weight: bold;
+                            }
+
+                            table.GeneratedTable td {
+                                font-size: 12px; /* Adjust font size for compactness */
+                            }
+
+                            .m-0 {
+                                margin: 0 !important; /* Remove margins for Bootstrap classes */
+                            }
+
+                            .p-0 {
+                                padding: 0 !important; /* Remove padding for Bootstrap classes */
+                            }
+                        </style>
+                        <table class="GeneratedTable">
+                            <colgroup>
+                                <col width='15%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                                <col width='15%'/>
+                                <col width='20%'/>
+                                <col width='10%'/>
+                                <col width='15%'/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Guest Name</th>
+                                    <th class="text-center">Booking#</th>
+                                    <th class="text-center">Check In</th>
+                                    <th class="text-center">Check Out</th>
+                                    <th class="text-center">Rooms</th>
+                                    <th class="text-center">Business Source</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr>
+                                        <td class="with-border">
+                                            <span t-field="doc.partner_id"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.name"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.check_in"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.check_out"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.rooms"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.business_source_id"/>
+                                        </td>
+                                        <td class="with-border">
+                                            <span t-field="doc.state"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

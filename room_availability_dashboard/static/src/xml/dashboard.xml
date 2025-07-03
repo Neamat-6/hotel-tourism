@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="RoomAvailabilityDashboard">
+        <div class="oh_dashboards" style="margin-top: 20px;">
+            <div class="container-fluid o_availability_dashboard">
+            </div>
+        </div>
+    </t>
+    <t t-name="DashboardRoomAvailability">
+        <div class="row main-section" style="margin-left: 170px;">
+            <div class="inner_select" style="display: flex;width:100%;">
+                <p style="margin-left: 20px;">From Date :</p>
+                <p>
+                    <input type="date" class="inner_select" id="start_date" name="start_date" />
+                </p>
+                <p>To Date :</p>
+                <p>
+                    <input type="date" class="inner_select" id="end_date" name="end_date" />
+                </p>
+                <button style="margin-left: 20px;border-radius: 8px; background-color: #c4c4f2" id="download-availability">
+                    Download
+                </button>
+                <button style="margin-left: 20px;border-radius: 8px; background-color: #c4c4f2" id="send-mail">
+                    Send Mail
+                </button>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="RoomAvailabilityDashboardChart">
+        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+            <div class="main-section">
+                <div class="hr_notification" style="background: #fff;margin-bottom: 15px;margin-top: 15px;box-shadow:5px 11px 30px;">
+                    <div class="hr_notification_head" style="font-size: 17px;text-align: center;padding: 12px 0;color: #fff;font-weight: 300;background: #000080;margin-bottom: 9px;">
+                        Rooms Availability
+                    </div>
+                    <p style="display: none;">Company :</p>
+                    <p style="display: none;">
+                        <input type="text" id="company_input" name="company_input" t-att-value="widget.company"/>
+                    </p>
+                    <div class="col-sm-12 col-lg-12" style="padding:0;">
+                        <div class="text-color">
+                            <div class="media" style="overflow-y: auto;height: 704px;">
+                                <div class="media-body">
+                                    <table class="table table-sm" id="availability-table">
+                                        <tbody id="availability-tbody">
+                                            <tr>
+                                                <td style="font-weight: bold;">Date</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #c4c4f2;width: 50px;height: 35px;">
+                                                        <t t-esc="day[0]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Day</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #c4c4f2;width: 50px;height: 35px;">
+                                                        <t t-esc="day[1]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Check In</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-check-in bg-success" t-att-value="day[3]" style="border-radius: 8px;width: 50px;height: 35px;">
+                                                        <span id="tot_check_in_booking"><t t-esc="day[2]"/></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Arrival</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-arrival bg-success" t-att-value="day[24]" style="border-radius: 8px;width: 50px;height: 35px;">
+                                                        <span id="tot_arrival_booking"><t t-esc="day[23]"/></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Actual Check Out</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-check-out bg-danger" t-att-value="day[5]" style="border-radius: 8px;width: 50px;height: 35px;"><t t-esc="day[4]"/></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Expected Check Out</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-exp-check-out bg-danger" t-att-value="day[16]" style="border-radius: 8px;width: 50px;height: 35px;"><t t-esc="day[15]"/></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Cancelled</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-cancelled bg-danger" t-att-value="day[11]" style="border-radius: 8px;width: 50px;height: 35px;"><t t-esc="day[10]"/></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Actual In-house</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-inhouse bg-warning" t-att-value="day[13]" style="border-radius: 8px;width: 50px;height: 35px;"><t t-esc="day[12]"/></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Expected In-house</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-exp-inhouse bg-warning" t-att-value="day[18]" style="border-radius: 8px;width: 50px;height: 35px;"><t t-esc="day[17]"/></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Total Rooms</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[6]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Unconfirmed Allotments</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-allotment1" t-att-value="day[26]" style="border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[25]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Confirmed Allotments</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-allotment2" t-att-value="day[28]" style="border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[27]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Actual Booked Rooms</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-booked" t-att-value="day[14]" style="border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[7]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Expected Booked Rooms</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button class="click-view-exp-booked" t-att-value="day[22]" style="border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[19]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Actual Available Rooms</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[8]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">Expected Available Rooms</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[20]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">(%) Actual Occupancy</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[9]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold;">(%) Expected Occupancy</td>
+                                                <td t-foreach="widget.days" t-as="day">
+                                                    <button style="cursor:default;border-radius: 8px; background-color: #00cbf5;width: 50px;height: 35px;">
+                                                        <t t-esc="day[21]"/>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

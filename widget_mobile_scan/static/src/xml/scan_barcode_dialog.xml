@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <div t-name="ScanBarcodeDialog">
+        <div class="col-12 controls">
+            <fieldset class="reader-config-group">
+                <div>
+                    <a style="color: #fff; border-radius: 0px; margin-bottom: 5px; margin-right: 5px;" 
+                        class="btn btn-primary startButton">
+                        <i class="fa fa-barcode"></i>
+                        Start
+                    </a>
+                    <a style="display: none; color: #fff; border-radius: 0px; margin-bottom: 5px; margin-right: 5px;" 
+                        class="btn btn-danger resetButton">
+                        <i class="fa fa-barcode"></i>
+                        Stop
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-1">
+                        <label>
+                            <span>Camera</span>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <select name="input-stream_constraints deviceSelection" id="deviceSelection">
+                        </select>
+                    </div>
+                    <div class="col-5">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-12">
+            <video  id="scan_video" class="scan_video" style="border: 1px solid gray; width: 100%; height: 300px; object-fit: cover; display: block;"/>
+        </div>
+	</div>
+</template>

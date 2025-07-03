@@ -1,0 +1,317 @@
+arabic_title,code,english_title
+الإمارات  العربية,101,Arab Emirates
+الاردن,102,Jordan
+البحرين,103,Bahrain
+سوريا,104,Syria
+العراق,105,Iraq
+عمان,106,Oman
+فلسطين,107,Palestine
+قطر,108,Country
+الكويت,109,Kuwait
+لبنان,110,Lebanon
+اليمن,111,Yemen
+اليمن الجنوبي,112,Southern Yemen
+المملكة العربية السعودية,113,Saudi Arabia
+يمني جنوبي-السلاطين,114,Yemeni the sultans
+بني حارث,115,Bani Harith
+الكويت  -بدون,116,Kuwait - without
+افراد القبائل,117,Member of the tribes
+من سكان البحرين,118,Residents of Bahrain
+قبائل مجاورة للعطفين,119,Tribes adj to Ataf
+اجنبي بجواز سعودي,120,Alien  KSA Passprt
+فلسطيني بوثيقة مصرية,121,Palestinian Egyptian
+فلسطيني بوثيقةلبناني,122,Palestinian Lebanese
+فلسطيني بوثيقةاردنية,123,Palestinian Jordan
+فلسطيني بوثيقةعراقية,124,Palestinian Iraqi
+فلسطيني بوثيقة سورية,125,Palestinian Syria
+وثيقة قطريه,126,document Syria
+وثيقة عمانيه,127,The document Omani
+وثيقة اماراتيه,128,The document EMIRIAN
+وثيقة بحرينيه,129,Document Industry
+عرب ثمانية وأربعون,130,Arabs 48
+قبائل نازحة/الحليفه,131,Tribe/AlHal
+اليمن - لحج,132,Yemen - pilgrimage
+قبائل نازحة/الكويت,133,Tribes  / Kuwait
+غير كويتي,134,Unknown
+غير بحريني,135,Unknown
+غير قطري,136,Unknown
+غير اماراتي,137,Unknown
+غير عماني,138,Unknown
+مقيم/نازح,139,Resident/Displaced
+مقيم/مولود,140,Resident/New Born
+مقيم/طالب جنسية,141,Resident/Citizenship Request
+مقيم/أفراد القبائل,142,Resident/Tribes
+مقيم/غير معروف,143,Resident/Unknown
+مقيم/لا يحمل وثيقة,144,Holding a Document
+قبيلة الصيعر,145,ALSAYAR
+المناهيل والمهرة,146,ALMNAHIL AND ALMAHRH
+تونس,201,Tunisia
+الجزائر,202,Algeria
+جيبوتى,203,Djibouti
+السودان,204,Sudan
+الصومال,205,Somalia
+ليبيا,206,Libya
+مصر,207,Egypt
+المغرب,208,Morocco
+موريتانيا,209,Mauritania
+افغانستان,301,Afghanistan
+اندونيسيا,302,Indonesia
+ايران,303,Iran
+باكستان,304,Pakistan
+بنجلاديش,305,Bangladesh
+بروني,306,Brunei
+جمهورية ميانمار,307,Myanmar
+تايلند,308,Thailand
+تركيا,309,Turkey
+جزر ملاديف,310,Maldives
+روسيا الاتحادية,311,Russia
+سنغافورة,312,Singapore
+سري لنكا,313,Sri Lanka
+تايوان الصين,314,Taiwan China
+الفلبين,315,Philippines
+فيتنام,316,Vietnam
+كمبوديا,317,Cambodia
+كوريا الجنوبية,318,South Korea
+ماليزيا,319,Malaysia
+نيبال,320,Nepal
+الهند,321,India
+هونج كونج الصين,322,HONG KONG CHINA
+اليابان,323,Japan
+بهوتان,324,Bhutan
+الصين الشعبية,325,China
+قبرص,326,Cyprus
+كوريا الشمالية,328,North Korea
+لاوس,329,Laos
+منغوليا,330,Mongolia
+ماكاو الصين,331,Macao China
+تركستان,332,Turkistan
+مقيم بلوشي,333,NULL
+بخارستان,334,Bucharest
+القبائل النازحة,335,Tribes emigrated
+كازاخستان,336,Kazakhstan
+ازبكستان,337,Uzbekistan
+تركمانستان,338,Turkmenistan
+طاجكستان,339,Tajikistan
+قرغيزستان,340,kyrgyzstan
+سقطرة,341,Socotra
+مهرة,342,Muhrah
+اذربيجان,343,Azerbaijan
+الشاشان,344,Chechnya
+داغستان,345,Dagestan
+انقوش,346,Anquosh
+تتارستان,347,Tatarstan
+مكررلقرغيزيا لايستخدم,348,Kyrgyzstan not used
+تيمور الشرقية,349,East Timor
+مقيم,350,Resident
+ميانمار/مقيم,351,NULL
+ميانمار/جواز باكستان,352,-
+ميانمار/جوازبنجلا دش,353,-
+اثيوبيا,401,Ethiopia
+اوغندة,402,Uganda
+بوتسوانا,403,Botswana
+بورندي,404,Burundi
+تشاد,405,Chad
+تنزانيا,406,Tanzania
+توجو,407,Togo
+جابون,408,Answer
+غامبيا,409,Gambia
+جزر القمر,410,Comoros
+جنوب  افريقيا,411,South Africa
+ناميبيا,412,Namibia
+بنين,413,Benin
+رواندا,414,Rwanda
+زمبابوي,415,Zimbabwe
+زائير,416,Zaire
+زامبيا,417,Zambia
+ساحل العاج,418,Ivory Coast
+السنغال,419,Senegal
+سيراليون,420,Sierra Leone
+غانا,421,Ghana
+غينيا,422,Guinea
+غينيابيساو,423,Guinea Bissau
+بوركينافاسو,424,Burkina Faso
+الكاميرون,425,Cameroon
+الكونغو,426,Congo
+كينيا,427,Kenya
+ليسوتو,428,Lesotho
+ليبيريا,429,Liberia
+مالي,430,Mali
+ملاوي,432,Malawi
+موريشيوس,433,Mauritius
+موزمبيق,434,Mozambique
+نيجيريا,435,Nigeria
+النيجر,436,Niger
+افريقيا الوسطى,437,Central Africa
+انجولا,438,Angola
+الراس  الاخضر,439,Cape Verde
+غينيا الاستوائية,440,Equatorial Guinea
+ملاجاسي,441,Mlajasi
+ساوتومي/برنسبى,442,Sao Tome/FranceBank
+جزر سيشل,443,Seychelles Islands
+سوزيلاند,444,Swaziland
+بوفثاتسوانا,445,Bovthatswana
+رينيون,446,Reunion
+ترانسكي,447,Transkei
+فيندا,448,Venda
+ارتيريا,449,Eritrea
+دول افريقية اخري,450,Other African States
+سانت هيلانة,451,Saint Helena
+جزيرةمايوت,452,Comorian island
+جمهورية جنوب السودان,453,Republic of South
+كاب فيرد,454,CAPE VERDE
+اسبانيا,501,Spain
+البانيا,502,Albania
+المانيا,503,Germany
+ايرلندا,504,Ireland
+ايطاليا,505,Italy
+المملكة المتحدة,506,United Kingdom
+البرتغال,507,Portugal
+بلغاريا,508,Bulgaria
+بلجيكا,509,Belgium
+بولندا,510,Poland
+رمزقديم تشكوسلوفاكيا,511,old to Czechoslovak
+الدانمارك,512,Denmark
+رومانيا,513,Romania
+السويد,514,Sweden
+سويسرا,515,Switzerland
+فرنسا,516,France
+فنلندا,517,Finland
+صربيا,518,SERBIA
+هولندا,519,Netherlands
+يوغسلافيا,520,Yugoslavia
+اليونان,521,Greece
+اندورا,522,Andorra
+النمسا,523,Austria
+الجبل الأ سود,524,MONTENEGRO
+هنغاريا,525,Hungary
+ايسلندا,526,Iceland
+ليختنشتين,527,Liechtenstein
+لوكسمبورغ,528,Luxembourg
+مالطا,529,Malta
+موناكو,530,Monaco
+النرويج,531,Norway
+سان مورينو,532,San Moreno
+مدينة الفاتيكان,533,Vatican City
+جبل طارق,534,Gibraltar
+اوكرانيا,536,Ukraine
+روسيا البيضاء,537,Byelorussia
+ارمينيا,539,Armenia
+مولدافيا,540,Moldova
+جورجيا,541,Georgia
+ليتوانيا,542,Lithuania
+استونيا,543,Estonia
+لاتفيا,544,Latvia
+البوسنة والهرسك,545,Bosnia / Herzegovina
+كرواتيا,546,Croatia
+سلوفينيا,547,Slovenia
+صربيا والجبل الأسود,548,Serbia / Montenegro
+مقدونيا,549,Macedonia
+كوسوفوا,550,Kosovo
+رمزقديم للجبل الاسود,551,code to Montenegro
+تشيك,552,CZECH REPUBLIC
+سلوفاكيا,553,Slovakia
+جزر فيرو,554,Faroe Islands
+ميتروبوليتان فرنسية,555,FRANCE METROPOLITAN
+الولايات  المتحدة,601,United States
+الارجنتين,602,Argentina
+بربادوس,603,Barbados
+البرازيل,604,Brazil
+بنما,605,Panama
+ترينداد وتوباجو,606,Trinidad and Tobago
+جامايكا,607,Jamaica
+جوانا,608,Joanna
+فنزويلا,609,Venezuela
+كندا,610,Canada
+كولمبيا,611,Columbia
+جزر البهاما,612,Bahamas
+كوستاريكا,613,Costa Rica
+كوبا,614,Cuba
+دومينيكا,615,Dominica
+جمهورية دمينكان,616,Republic Dominica
+السلفادور,617,El Salvador
+جرانادا,618,Granada
+جواتيمالا,619,Guatemala
+هايتي,620,Haiti
+هوندوراس,621,Honduras
+المكسيك,622,Mexico
+نيكاراجوا,623,Nicaragua
+سانت  لوسيا,624,Saint Lucia
+سان فينسنت,625,Saintt Vincent
+بوليفيا,626,Bolivia
+شيلي,627,Chile
+اكوادور,628,Ecuador
+باراجواي,629,Paraguay
+بيرو,630,Peru
+سورينام,631,Suriname
+اوراجواي,632,Orajoa
+س  بييري وميكويلن,633,Saint Pierre Miquel
+جرينلاند,634,Greenland
+بيليز,635,Belize
+بيرمودا,636,Bermda
+ج الترك  والقوقاز,637,Turk/Caucasus Island
+سان كريستوفرنيفز,638,San Cristovernivz
+انجويلا,639,Anguilla
+انتيكوا,640,Antiques
+ج فيرجن البريطانية,641,British Virgin
+جزر كايمون,642,Cayman Islands
+مونت  سيرات,643,Monte Sirat
+جيودي لوب,644,Gyude Lube
+مارتينيكو,645,Martinico
+عروبا,646,Arabism
+بونيري,647,Bonaire
+كيوراكو,648,Curako
+سان استاتيوس,649,San Astatios
+سابا,650,Saba
+سان مارتين,651,San Martin
+بورتوريكو,652,Puerto Rico
+ج فيرجن الامريكية,653,Virgin Islands of US
+جزر فاكلاند,654,Falkland Islands
+جيانا الفرنسية,655,French Guyana
+الامم المتحدة,656,United Nations
+جزر كوك,657,Cook Islands
+باربودا,659,Barbuda
+انتيل الهولندية,660,NETHERLANDS ANTILLES
+جزر كوكوس,661,COCOS ISLAND
+البريطانية في المحيط,662,BRITISH INDIAN OCEAN
+سانت كيتس  ونافيس,663,SAINT KITTS & NEVIS
+جنوب جورجيا,664,SOUTH GEORGIA
+استراليا,701,Australia
+نيوزيلندا,702,New Zealand
+بابوا نيوغينا,703,Papua yoga
+نيو,704,New
+انتاركتيكا,705,Antarctica
+جزر نورفولك,706,Norfolk Island
+توكيلاو,707,Tokelau
+جزيرةكريسماس,708,Christmas Island
+جزيرةكوكو-كيلنج,709,koko Island- Kellenj
+فرنسا الجنوب القطبية,710,FRENCH SOUTH
+جزيرة هيرد وماكدونلد,711,HEARD DONALD ISLANDS
+جزر بيتكايرن,712,PITCAIRN ISLANDS
+جزر فيجي,801,Fiji Islands
+كيريباتي,802,Kiribati
+نورو,803,Nauru
+جزر سليمان,804,Solomon Islands
+تونجا,805,Tonga
+توفالو,806,Tuvalu
+فانيوتو,807,Vanuoto
+ساموا الغربية,808,Western Samoa
+ساموا الامريكية,809,American Samoa
+جوام,810,Guam
+جزر ماريانا,811,Mariana Islands
+ميكرونيسيا,812,Micronesia
+جزر ماريشال,813,Marechal Islands
+بيلو,814,Belo
+بولينيسياالفرنسية,815,French Polynesia
+جزر والس  وفوتونا,816,Islands Wallis
+كاليدونيا الجديد,817,New Caledonia
+مدغشقر,818,Madagascar
+قبيلة بالعبيد,819,Balobid
+قبيلة النسي,820,NULL
+قبائل مجاورة للعبر,821,TRIBES ADJACENT
+قبيلة الحرث,822,NULL
+قبيلة نهد,823,NULL
+جزر مينور,824,US MINOR ISLANDS
+مقيم اجنبي - الاشاجعة,825,NULL
+مقيم اجنبي - العدوان,826,NULL
+غير معروف,900,Unknown
+اخرى,901,OTHER
