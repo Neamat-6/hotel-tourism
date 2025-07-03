@@ -13,8 +13,7 @@ class PilgrimBooking(models.Model):
     _rec_name = 'partner_id'
     _inherit = ["mail.thread", 'portal.mixin']
 
-    partner_id = fields.Many2one('res.partner', domain="[('package_id', '!=', False), ('pilgrim_type', '=', 'main')]",
-                                 required=True)
+    partner_id = fields.Many2one('res.partner',required=True)
     package_id = fields.Many2one('booking.package', required=True)
     pilgrim_count = fields.Integer()
     pilgrim_cost = fields.Float()
