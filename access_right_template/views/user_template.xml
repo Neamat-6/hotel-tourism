@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="user_template_view_form" model="ir.ui.view">
+            <field name="name">user.template.view.form</field>
+            <field name="model">user.template</field>
+            <field name="arch" type="xml">
+                <form string="Branch">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="groups_ids" options="{'no_create':1,'no_create_edit':1}"/>
+                            </group>
+                            <group>
+                                <field name="hide_menu_access_ids" options="{'no_create':1,'no_create_edit':1}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="user_template_view_tree" model="ir.ui.view">
+            <field name="name">user.template.view.tree</field>
+            <field name="model">user.template</field>
+            <field name="arch" type="xml">
+                <tree string="Template">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_user_template" model="ir.actions.act_window">
+            <field name="name">User Template</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">user.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a new branch.
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="menu_user_template" name="User Template" parent="base.menu_users"
+                  action="action_user_template"/>
+
+    </data>
+</odoo>

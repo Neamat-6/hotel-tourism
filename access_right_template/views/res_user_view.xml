@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="view_users_form_inherit_template" model="ir.ui.view">
+            <field name="name">view.users.form.inherit.template</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/notebook/page[1]/group[1]" position="after">
+                    <group name="User Template">
+                        <field name="user_template_id"/>
+                    </group>
+                </xpath>
+                <!--                <xpath expr="//notebook" position="inside">-->
+                <!--                    <page string="Hide Menu">-->
+                <!--                        <tree>-->
+                <!--                            <field name="hide_menu_access_ids" options="{'no_create':1,'no_create_edit':1}"/>-->
+                <!--                        </tree>-->
+                <!--                    </page>-->
+                <!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>
