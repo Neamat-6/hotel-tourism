@@ -6,7 +6,7 @@ class PlaneReservationPackage(models.Model):
     _description = 'Plane Reservation Package'
 
     reservation_package_id = fields.Many2one("reservation.package")
-    plane_contract_id = fields.Many2one("hotel.contract", domain=[('contract_type', '=', 'transportation'),('state','!=',''),
+    plane_contract_id = fields.Many2one("tourism.hotel.contract", domain=[('contract_type', '=', 'transportation'),('state','!=',''),
                                                                  ('transportation_type', '=', 'plane')], string='Plane Contract')
     plane_company_id = fields.Many2one('res.partner', related='plane_contract_id.plane_company')
     vendor = fields.Many2one('res.partner', related='plane_contract_id.vendor')

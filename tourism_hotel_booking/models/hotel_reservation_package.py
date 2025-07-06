@@ -6,11 +6,11 @@ class HotelReservationPackage(models.Model):
     _description = 'Hotel Reservation Package'
 
     reservation_package_id = fields.Many2one("reservation.package")
-    hotel_id = fields.Many2one("hotel.hotel", string='Hotel', related='hotel_contract_id.hotel')
-    hotel_contract_id = fields.Many2one("hotel.contract", domain=[('contract_type', '=', 'hotel'), ('state', '!=', 'draft')])
-    hotel_ids = fields.Many2many("hotel.hotel", string='Hotel')
-    room_type_ids = fields.Many2many("hotel.room")
-    room_type = fields.Many2one("hotel.room")
+    hotel_id = fields.Many2one("tourism.hotel.hotel", string='Hotel', related='hotel_contract_id.hotel')
+    hotel_contract_id = fields.Many2one("tourism.hotel.contract", domain=[('contract_type', '=', 'hotel'), ('state', '!=', 'draft')])
+    hotel_ids = fields.Many2many("tourism.hotel.hotel", string='Hotel')
+    room_type_ids = fields.Many2many("tourism.hotel.room")
+    room_type = fields.Many2one("tourism.hotel.room")
     start_date = fields.Date("Start Date", related='hotel_contract_id.start_date', readonly=False)
     end_date = fields.Date("End Date", related='hotel_contract_id.end_date', readonly=False)
     unit_price = fields.Float("Unit Price")

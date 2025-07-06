@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
 from . import room
 from . import hotel_default_room
+from . import room_type
+from . import floor
+from . import facility
 from . import booking
 from . import booking_line
 from . import res_partner
+# from . import config
 from . import account_move
 from . import dashboard2
+# from . import company
 from . import transfer
+from . import res_users
 from . import hotels
+from . import pricelist
+from . import services
 from . import conditions
 from . import purchase
 from . import res_company

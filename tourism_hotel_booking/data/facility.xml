@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record id="data_tourism_facility_bed" model="tourism.hotel.facility">
+            <field name="name">Bed</field>
+        </record>
+
+        <record id="data_tourism_facility_kitchen" model="tourism.hotel.facility">
+            <field name="name">Kitchen</field>
+        </record>
+
+        <record id="data_tourism_facility_swimming_pool" model="tourism.hotel.facility">
+            <field name="name">Swimming Pool</field>
+        </record>
+
+        <record id="data_tourism_facility_air_condition" model="tourism.hotel.facility">
+            <field name="name">Air Condition</field>
+        </record>
+
+        <record id="data_tourism_facility_wifi" model="tourism.hotel.facility">
+            <field name="name">Wifi</field>
+        </record>
+
+        <record id="data_tourism_facility_car_parking" model="tourism.hotel.facility">
+            <field name="name">Car Parking</field>
+        </record>
+
+        <record id="data_facility_fitness_center" model="tourism.hotel.facility">
+            <field name="name">Fitness Center</field>
+        </record>
+
+
+    </data>
+
+</odoo>

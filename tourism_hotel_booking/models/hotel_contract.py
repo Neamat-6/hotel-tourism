@@ -3,8 +3,16 @@ from odoo import api, fields, models, _
 
 
 class HotelContract(models.Model):
-    _inherit = "hotel.contract"
+    _name = "tourism.hotel.contract"
 
+    name = fields.Char(string="Contract #")
+    hotel = fields.Many2one('tourism.hotel.hotel', string="Hotel")
+    num_room = fields.Char('Room Count')
+    vendor = fields.Many2one('res.partner', string="Supplier")
+    contract_line = fields.One2many('tourism.hotel.contract.line', 'contract_id')
+    log_line = fields.One2many('tourism.hotel.contract.log.line', 'log_id')
+    total = fields.Float('Total', compute="_amoun_total")
+    invoice_id_con = fields.Many2one('purchase.order', 'purchase')
     account_invoice_id = fields.Many2one('account.move', 'Bill', readonly=True)
     state = fields.Selection(
         [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('purchase', 'Purchase'), ('cancel', 'Cancelled')], 'State',
@@ -36,6 +44,19 @@ class HotelContract(models.Model):
         for rec in self:
             rec.bill_total = sum(rec.invoice_ids.filtered(lambda d: d.move_type == 'in_invoice').mapped('amount_total'))
 
+    def unlink(self):
+        for rec in self:
+            if rec.state != 'draft':
+                raise UserError(_('Cannot delete a record which is in state \'%s\'.') % (rec.state,))
+        return super(HotelContract, self).unlink()
+
+    def action_confirm(self):
+        for rec in self:
+            rec.state = 'confirmed'
+
+    def action_cancel(self):
+        for rec in self:
+            rec.state = 'cancel'
 
     def action_draft(self):
         for rec in self:
@@ -54,8 +75,8 @@ class HotelContract(models.Model):
                     'name': line.room_type.name,
                     'price_unit': line.price,
                     'quantity': float(line.date_difference) * line.count,
-                    'check_in': line.start_date,
-                    'check_out': line.end_date,
+                    'tourism_check_in': line.start_date,
+                    'tourism_check_out': line.end_date,
                     'number_of_days': line.date_difference,
                     'account_id': self.hotel.journal_id.default_account_id.id,
                 }))
@@ -140,6 +161,17 @@ class HotelContract(models.Model):
                     'type': 'ir.actions.act_window'
                 }
 
+    @api.depends('contract_line.total')
+    def _amoun_total(self):
+        for order in self:
+            total = 0.0
+            for line in order.contract_line:
+                total += line.total
+
+            order.update({
+                'total': total,
+
+            })
 
     def create_bill(self):
         if self.is_draft:
@@ -154,8 +186,8 @@ class HotelContract(models.Model):
                             'name': line.room_type.name,
                             'price_unit': line.price,
                             'quantity': float(line.date_difference) * line.count,
-                            'check_in': line.start_date,
-                            'check_out': line.end_date,
+                            'tourism_check_in': line.start_date,
+                            'tourism_check_out': line.end_date,
                             'number_of_days': line.date_difference,
                             'account_id': self.hotel.journal_id.default_account_id.id,
                         }))
@@ -252,7 +284,7 @@ class HotelContract(models.Model):
                 'price_subtotal': u.total
             }))
         inv_create_obj = invoice_obj.create({
-            'hotel': self.hotel.id,
+            'tourism_hotel': self.hotel.id,
             'partner_id': self.vendor.id,
             'tax_totals_json': self.total,
             'order_line': data
@@ -299,15 +331,15 @@ class HotelContract(models.Model):
 
 
 class HotelContractLine(models.Model):
-    _inherit = "hotel.contract.line"
+    _name = "tourism.hotel.contract.line"
 
-    room_type = fields.Many2one('hotel.room', string="Room Type", required=True)
+    room_type = fields.Many2one('tourism.hotel.room', string="Room Type", required=True)
     count = fields.Float('Room Count')
     start_date = fields.Date('Start Date', default=fields.Date.context_today)
     end_date = fields.Date('End Date', default=fields.Date.context_today)
     new_start_date = fields.Date('Start Date')
     new_end_date = fields.Date('End Date')
-    contract_id = fields.Many2one('hotel.contract')
+    contract_id = fields.Many2one('tourism.hotel.contract')
     price = fields.Float('Price', digits=(12, 5))
     total = fields.Float('Total', compute='compute_total', store=True)
     date_difference = fields.Char(' Total Days', compute='time_function')
@@ -315,7 +347,7 @@ class HotelContractLine(models.Model):
     state = fields.Selection(
         [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('purchase', 'Purchase'), ('cancel', 'Cancelled')],
         'State', related='contract_id.state', store=True)
-    hotel_id = fields.Many2one('hotel.hotel', string='Hotel', related='contract_id.hotel', store=True)
+    hotel_id = fields.Many2one('tourism.hotel.hotel', string='Hotel', related='contract_id.hotel', store=True)
     account_move_id = fields.Many2one('account.move', string='Bill')
 
     @api.depends('date_difference', 'count', 'price')
@@ -353,8 +385,8 @@ class HotelContractLine(models.Model):
                 'name': line.room_type.name,
                 'price_unit': line.price,
                 'quantity': float(line.date_difference) * line.count,
-                'check_in': line.start_date,
-                'check_out': line.end_date,
+                'tourism_check_in': line.start_date,
+                'tourism_check_out': line.end_date,
                 'number_of_days': line.date_difference,
             }))
         bill_create_obj = account_move_obj.create({
@@ -371,7 +403,7 @@ class HotelContractLine(models.Model):
 class PlaneContractLine(models.Model):
     _name = 'plane.contract.line'
 
-    contract_id = fields.Many2one('hotel.contract')
+    contract_id = fields.Many2one('tourism.hotel.contract')
     plane_type_id = fields.Many2one(comodel_name="plane.type", string="Plane Type")
     number_of_seats = fields.Integer("Seats Number")
     unit_price = fields.Float("Unit Price")
@@ -391,7 +423,7 @@ class PlaneContractLine(models.Model):
 class TransportationContractLine(models.Model):
     _name = 'transportation.contract.line'
 
-    contract_id = fields.Many2one('hotel.contract')
+    contract_id = fields.Many2one('tourism.hotel.contract')
     bus_type_id = fields.Many2one(comodel_name="bus.type", string="Bus Type")
     start_date = fields.Date("Start Date")
     end_date = fields.Date("End Date")

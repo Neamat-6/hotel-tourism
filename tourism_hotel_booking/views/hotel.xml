@@ -48,7 +48,7 @@
     <!-- Tree -->
     <record id="view_tree_hotel_hotel" model="ir.ui.view">
         <field name="name">hotel.hotel.tree</field>
-        <field name="model">hotel.hotel</field>
+        <field name="model">tourism.hotel.hotel</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" widget="handle"/>
@@ -61,7 +61,7 @@
     <!--Form-->
     <record id="view_form_hotel_hotel" model="ir.ui.view">
         <field name="name">hotel.hotel.form</field>
-        <field name="model">hotel.hotel</field>
+        <field name="model">tourism.hotel.hotel</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -135,7 +135,7 @@
 
     <record id="facility_view_tree" model="ir.ui.view">
         <field name="name">facility_view_tree</field>
-        <field name="model">hotel.room.facility</field>
+        <field name="model">tourism.hotel.room.facility</field>
         <field name="arch" type="xml">
             <tree string="facility_tree">
                 <field name="facility_id"/>
@@ -149,12 +149,12 @@
     <!-- Action-->
     <record id="action_hotel_hotel" model="ir.actions.act_window">
         <field name="name">Hotels</field>
-        <field name="res_model">hotel.hotel</field>
+        <field name="res_model">tourism.hotel.hotel</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record id="action_hotel_room_facility" model="ir.actions.act_window">
         <field name="name">Hotels</field>
-        <field name="res_model">hotel.room.facility</field>
+        <field name="res_model">tourism.hotel.room.facility</field>
         <field name="view_mode">tree,form</field>
     </record>
 

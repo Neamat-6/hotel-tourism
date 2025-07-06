@@ -4,7 +4,7 @@
 
     <record id="view_tree_hotel_floor" model="ir.ui.view">
         <field name="name">hotel.floor.tree</field>
-        <field name="model">hotel.floor</field>
+        <field name="model">tourism.hotel.floor</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" widget="handle"/>
@@ -17,7 +17,7 @@
 
     <record id="view_form_hotel_floor" model="ir.ui.view">
         <field name="name">hotel.floor.form</field>
-        <field name="model">hotel.floor</field>
+        <field name="model">tourism.hotel.floor</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -62,7 +62,7 @@
 
     <record id="action_hotel_floor" model="ir.actions.act_window">
         <field name="name">Floors</field>
-        <field name="res_model">hotel.floor</field>
+        <field name="res_model">tourism.hotel.floor</field>
         <field name="view_mode">tree,form</field>
     </record>
 

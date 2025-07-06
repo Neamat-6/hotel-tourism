@@ -34,14 +34,14 @@ class HotelBookingLine(models.Model):
     tax_id = fields.Many2one('account.tax', string='Tax')
     purchase_tax_id = fields.Many2one('account.tax', string='Purchase Tax')
     booking_id = fields.Many2one('tourism.hotel.booking', required=True, ondelete="cascade")
-    hotel_id = fields.Many2one('hotel.hotel', required=True)
-    room_type_id = fields.Many2one('hotel.room.type', string='Room Type', domain="[('hotel_id','=',hotel_id)]")
+    hotel_id = fields.Many2one('tourism.hotel.hotel', required=True)
+    room_type_id = fields.Many2one('tourism.hotel.room.type', string='Room Type', domain="[('hotel_id','=',hotel_id)]")
     room_id_domain = fields.Char(
         compute="_compute_room_id_domain",
         readonly=True,
         store=False,
     )
-    room_id = fields.Many2one('hotel.room', string='Room', required=True)
+    room_id = fields.Many2one('tourism.hotel.room', string='Room', required=True)
     room_view_id = fields.Many2one('hotel.room.view', string="Room View")
     meal_id = fields.Many2many('hotel.meal', string="Meal")
     # cost_price = fields.Float('Price', compute='_compute_price', store=True, readonly=False)
@@ -54,7 +54,7 @@ class HotelBookingLine(models.Model):
     rooms_display = fields.Char("Room", compute='compute_rooms_display')
     number_of_adults = fields.Integer(string='Adults', default=1, )
     number_of_children = fields.Integer(string='Children', default=0, )
-    pricelist_id = fields.Many2one('hotel.pricelist')
+    pricelist_id = fields.Many2one('tourism.hotel.pricelist')
     check_in = fields.Datetime(string='Check In', default=fields.Datetime.now(), required=True)
     check_out = fields.Datetime(string='Check Out', default=fields.Datetime.now(), required=True)
     number_of_days = fields.Integer(string='Days', compute='_compute_total_days', store=True)
@@ -72,7 +72,7 @@ class HotelBookingLine(models.Model):
     service_ids = fields.One2many('tourism.booking.services', 'line_id')
     count = fields.Float('Number Of Room', default=1.0)
     total_amount = fields.Float('Total', compute='get_total_amount', store=True)
-    contract_id = fields.Many2one('hotel.contract', compute='get_contract')
+    contract_id = fields.Many2one('tourism.hotel.contract', compute='get_contract')
     vendor_id = fields.Many2one('res.partner')
     state_id = fields.Many2one('res.country.state', string='City', domain="[('country_id.code', '=', 'SA')]")
     hotel_rate = fields.Selection([
@@ -127,7 +127,7 @@ class HotelBookingLine(models.Model):
         if self.account_move_id:
             if vals.get('room_id', False):
                 if self.account_move_id.invoice_line_ids:
-                    room_id = self.env['hotel.room'].browse(vals['room_id'])
+                    room_id = self.env['tourism.hotel.room'].browse(vals['room_id'])
                     self.account_move_id.invoice_line_ids[0].write({
                         'name': room_id.name,
                         'product_id': room_id.product_id.id,
@@ -160,7 +160,7 @@ class HotelBookingLine(models.Model):
         if self.booking_id.move_id:
             if vals.get('room_id', False):
                 if self.booking_id.move_id.invoice_line_ids:
-                    room_id = self.env['hotel.room'].browse(vals['room_id'])
+                    room_id = self.env['tourism.hotel.room'].browse(vals['room_id'])
                     self.booking_id.move_id.invoice_line_ids[0].write({
                         'name': room_id.name,
                         'product_id': room_id.product_id.id,
@@ -198,7 +198,7 @@ class HotelBookingLine(models.Model):
                 date_list = [(date_from + timedelta(days=i)) for i in range(0, int(rec.date_diff))]
                 remove_ids = []
                 for i in date_list:
-                    for room in self.env['hotel.room'].search(domain):
+                    for room in self.env['tourism.hotel.room'].search(domain):
                         line_rec = line_obj.search([
                             ('date', '=', i.date()),
                             ('company_id', '=', rec.hotel_id.id),
@@ -229,7 +229,7 @@ class HotelBookingLine(models.Model):
     @api.depends('room_id', 'hotel_id', 'check_in', 'check_out')
     def get_contract(self):
         for rec in self:
-            contracts = self.env['hotel.contract.line'].search(
+            contracts = self.env['tourism.hotel.contract.line'].search(
                 [('room_type', '=', rec.room_id.id), ('hotel_id', '=', rec.hotel_id.id),
                  ('start_date', '<=', rec.check_in), ('end_date', '>=', rec.check_out)], limit=1)
             rec.contract_id = contracts.contract_id.id
@@ -308,7 +308,7 @@ class HotelBookingLine(models.Model):
                         purchase_rec = purchase_obj.search([
                             ('start_date', '<=', i.date()),
                             ('end_date', '>=', i.date()),
-                            ('order_id.hotel', '=', rec.hotel_id.id),
+                            ('order_id.tourism_hotel', '=', rec.hotel_id.id),
                             ('product_id', '=', rec.room_id.product_id.id)], limit=1)
                         total += purchase_rec.price_unit
                     rec.cost = total
@@ -544,10 +544,10 @@ class HotelBookingLine(models.Model):
 
     def get_default_hotel_id(self):
         if self._context.get("default_room_id"):
-            return self.env['hotel.room'].browse(self._context['default_room_id']).hotel_id.id
+            return self.env['tourism.hotel.room'].browse(self._context['default_room_id']).hotel_id.id
         hotel_id = self.env.user.hotel_booking_dashboard_hotel_id
         if not hotel_id:
-            hotel_id = self.env['hotel.hotel'].search([], order="sequence", limit=1)
+            hotel_id = self.env['tourism.hotel.hotel'].search([], order="sequence", limit=1)
         if not hotel_id:
             return False
         return hotel_id.id
@@ -600,7 +600,7 @@ class HotelBookingLine(models.Model):
     #             if d in date_list_other:
     #                 count += 1
     #
-    #     no_of_rooms = len(self.env['hotel.room'].search([('booking_ok', '=', True), ('room_type_id', '=', self.room_type_id.id)]))
+    #     no_of_rooms = len(self.env['tourism.hotel.room'].search([('booking_ok', '=', True), ('room_type_id', '=', self.room_type_id.id)]))
     #
     #     # if count >= no_of_rooms:
     #     #     raise UserError("Already booked")
@@ -636,7 +636,7 @@ class HotelBookingLine(models.Model):
     #         if d in date_list_other:
     #             count += 1
     #
-    # no_of_rooms = len(self.env['hotel.room'].search([('booking_ok', '=', True), ('room_type_id', '=', self.room_type_id.id)]))
+    # no_of_rooms = len(self.env['tourism.hotel.room'].search([('booking_ok', '=', True), ('room_type_id', '=', self.room_type_id.id)]))
     #
     # print(count)
     # if count >= no_of_rooms:
@@ -786,7 +786,7 @@ class HotelBookingLine(models.Model):
         room_type_id = room_type_id or self.room_type_id.id
         room_id = room_id or self.room_id.id
 
-        for pricelist in self.env['hotel.pricelist'].search([('hotel_id', '=', hotel_id)], order="sequence"):
+        for pricelist in self.env['tourism.hotel.pricelist'].search([('hotel_id', '=', hotel_id)], order="sequence"):
 
             if pricelist.type == "room_type":
                 if room_type_id in pricelist.room_type_ids.ids:
@@ -854,8 +854,8 @@ class HotelBookingLine(models.Model):
                                                                          )
 
         available_rooms = []
-        for room_id in self.env["hotel.room"].search([]):
-            booking = self.env["hotel.booking"].get_booking(date=self.check_in.date(), room_id=room_id,
+        for room_id in self.env["tourism.hotel.room"].search([]):
+            booking = self.env["tourism.hotel.booking"].get_booking(date=self.check_in.date(), room_id=room_id,
                                                             data=booking_data)
             if not booking:
                 available_rooms.append(room_id.id)

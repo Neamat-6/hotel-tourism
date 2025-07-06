@@ -4,7 +4,7 @@
 
     <record id="view_tree_hotel_pricelist" model="ir.ui.view">
         <field name="name">hotel.pricelist.tree</field>
-        <field name="model">hotel.pricelist</field>
+        <field name="model">tourism.hotel.pricelist</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="sequence" widget="handle"/>
@@ -16,7 +16,7 @@
 
     <record id="view_form_hotel_pricelist" model="ir.ui.view">
         <field name="name">hotel.pricelist.form</field>
-        <field name="model">hotel.pricelist</field>
+        <field name="model">tourism.hotel.pricelist</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -55,7 +55,7 @@
 
     <record id="action_hotel_pricelist" model="ir.actions.act_window">
         <field name="name">Pricelists</field>
-        <field name="res_model">hotel.pricelist</field>
+        <field name="res_model">tourism.hotel.pricelist</field>
         <field name="view_mode">tree,form</field>
     </record>
 

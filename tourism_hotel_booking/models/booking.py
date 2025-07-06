@@ -18,6 +18,15 @@ class HotelBookingContact(models.Model):
     is_transportation_company = fields.Boolean("Is Transportation Company")
 
 
+class TourismHotelContractLogLine(models.Model):
+    _name = "tourism.hotel.contract.log.line"
+    room_id = fields.Many2one('tourism.hotel.room', string="Room Type")
+    count = fields.Float('Room Count')
+    date = fields.Date('Start Date')
+    log_id = fields.Many2one('tourism.hotel.contract')
+    user_id = fields.Many2one('res.users')
+
+
 class ServiceVoucher(models.Model):
     _name = 'service.voucher'
     _description = 'service voucher'
@@ -45,7 +54,7 @@ class Services(models.Model):
 
     booking_id = fields.Many2one('tourism.hotel.booking')
     line_id = fields.Many2one('tourism.hotel.booking.line')
-    service_id = fields.Many2one('hotel.services', string='Service')
+    service_id = fields.Many2one('tourism.hotel.services', string='Service')
     price_type = fields.Selection([('fixed', 'Fixed'), ('multiply_with_guest', 'Multiply With No.of.Guests'), ],
                                   default="fixed", string="Price Type")
     type = fields.Selection([('every_day', 'Every Day'), ('every_day_checkin', 'Every Day Except Checkin'),
@@ -145,7 +154,7 @@ class Services(models.Model):
         }
 
     def print_vouchers(self):
-        return self.env.ref('hotel_booking.service_voucher_report').report_action(self)
+        return self.env.ref('tourism_hotel_booking.service_voucher_report').report_action(self)
 
     @api.depends('line_id', 'service_id', 'price_type', 'type')
     def _compute_amount(self):
@@ -441,18 +450,18 @@ class TourismHotelBooking(models.Model):
     visa_booking_ids = fields.One2many('visa.booking', 'booking_id')
 
     # ARCHIVED FIELDS
-    hotel_id = fields.Many2one('hotel.hotel', compute='get_default_hotel_id')
-    pricelist_id = fields.Many2one('hotel.pricelist')
+    hotel_id = fields.Many2one('tourism.hotel.hotel', compute='get_default_hotel_id')
+    pricelist_id = fields.Many2one('tourism.hotel.pricelist')
     number_of_adults = fields.Integer(string='Adults', default=1, track_visibility="onchange")
     number_of_children = fields.Integer(string='Children', default=0, track_visibility="onchange")
     check_in = fields.Date(string='Check In')
     check_out = fields.Date(string='Check Out')
-    room_type_id = fields.Many2one('hotel.room.type', string='Room Type', domain="[('hotel_id','=',hotel_id)]")
-    room_id = fields.Many2one('hotel.room', string='Room',
+    room_type_id = fields.Many2one('tourism.hotel.room.type', string='Room Type', domain="[('hotel_id','=',hotel_id)]")
+    room_id = fields.Many2one('tourism.hotel.room', string='Room',
                               domain="[('room_type_id', '=', room_type_id),('hotel_id','=',hotel_id)]",
                               track_visibility="onchange")
-    terms_id = fields.Many2one('conditions.terms', string="Terms & Conditions",
-                               default=lambda self: self.env['conditions.terms'].search([], limit=1))
+    terms_id = fields.Many2one('tourism.conditions.terms', string="Terms & Conditions",
+                               default=lambda self: self.env['tourism.conditions.terms'].search([], limit=1))
 
     # actual_check_in = fields.Datetime(string="Actual Check-In", compute="compute_actual_check_in_out")
     # actual_check_out = fields.Datetime(string="Actual Check-Out", compute="compute_actual_check_in_out")
@@ -468,7 +477,7 @@ class TourismHotelBooking(models.Model):
     country_id = fields.Many2one('res.country', string='Country')
     national_id = fields.Char(string='National ID')
     passport_no = fields.Char(string='Passport ID')
-    condition_id = fields.Many2one('conditions.terms', copy=True, store=True)
+    condition_id = fields.Many2one('tourism.conditions.terms', copy=True, store=True)
     conditions = fields.Html('Conditions', readonly=False, copy=True, store=True)
     customer_type = fields.Selection([('new', 'New Customer'), ('existing', 'Existing Customer')],
                                      string='Customer Type', default='new')
@@ -787,7 +796,7 @@ class TourismHotelBooking(models.Model):
         tax_ids = self.env.company.hotel_default_tax_ids.ids
         invoice_line_vals = []
         for line in self.line_ids:
-            hotel_hotel_obj = self.env['hotel.hotel'].sudo().search([('partner_id', '=', line.vendor_id.id)],
+            hotel_hotel_obj = self.env['tourism.hotel.hotel'].sudo().search([('partner_id', '=', line.vendor_id.id)],
                                                                     limit=1)
             services = line.service_ids or self.service_ids
             for prod in services:
@@ -826,7 +835,7 @@ class TourismHotelBooking(models.Model):
                     'name': ' Room Charge ',
                     'quantity': tot_qty,
                     'price_unit': line.price,
-                    'source_booking_id': line.id,
+                    'tourism_source_booking_id': line.id,
                     'tax_ids': line.tax_id,
                     'account_id': hotel_hotel_obj.account_journal_id.default_account_id.id
                 })]
@@ -836,17 +845,17 @@ class TourismHotelBooking(models.Model):
                     'name': ' Room Charge ',
                     'quantity': tot_qty,
                     'price_unit': line.m_price,
-                    'source_booking_id': line.id,
+                    'tourism_source_booking_id': line.id,
                     'tax_ids': line.tax_id,
                 })]
         for rec in self.line_ids:
             if rec.check_dir:
-                journal_id = self.env['hotel.hotel'].sudo().search([('partner_id', '=', rec.vendor_id.id)],
+                journal_id = self.env['tourism.hotel.hotel'].sudo().search([('partner_id', '=', rec.vendor_id.id)],
                                                                    limit=1).account_journal_id.id
                 move_vals = {
                     'move_type': 'out_invoice',
                     'partner_id': self.partner_id.id,
-                    'booking_id': self.id,
+                    'tourism_booking_id': self.id,
                     'narration': self.conditions,
                     # 'journal_id': journal_id,
                     'invoice_user_id': self._uid,
@@ -857,7 +866,7 @@ class TourismHotelBooking(models.Model):
                 move_vals = {
                     'move_type': 'out_invoice',
                     'partner_id': self.partner_id.id,
-                    'booking_id': self.id,
+                    'tourism_booking_id': self.id,
                     'narration': self.conditions,
                     'invoice_user_id': self._uid,
                     'invoice_date': fields.Date.today(),
@@ -1045,25 +1054,25 @@ class TourismHotelBooking(models.Model):
         action['domain'] = [('id', 'in', self.invoice_ids.ids)]
         action['context'] = {
             'default_move_type': 'out_invoice',
-            'default_booking_id': self.id,
+            'default_tourism_booking_id': self.id,
             'partner_id': self.partner_id.id,
         }
         return action
 
     def action_open_purchases(self):
         action = self.env.ref('purchase.purchase_rfq').read()[0]
-        action['domain'] = [('booking_id', '=', self.id)]
+        action['domain'] = [('tourism_booking_id', '=', self.id)]
         return action
 
     def action_open_bills(self):
         action = self.env.ref('account.action_move_in_invoice_type').read()[0]
-        action['domain'] = [('booking_id', '=', self.id), ('move_type', '=', 'in_invoice')]
+        action['domain'] = [('tourism_booking_id', '=', self.id), ('move_type', '=', 'in_invoice')]
         return action
 
     def action_open_invoice(self):
         action = self.env.ref('account.action_move_out_invoice_type').read()[0]
         action['display_name'] = _('Invoices')
-        action['domain'] = [('booking_id', '=', self.id), ('move_type', '=', 'out_invoice')]
+        action['domain'] = [('tourism_booking_id', '=', self.id), ('move_type', '=', 'out_invoice')]
         return action
 
     def get_booking_data(self, date_from, date_to):

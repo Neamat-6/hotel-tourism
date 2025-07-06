@@ -8,7 +8,7 @@ class HotelTransfer(models.Model):
 
     name = fields.Char(compute="_compute_name")
     state = fields.Selection([('draft', 'Draft'), ('done', 'Done')], default="draft", string="Status")
-    room_id = fields.Many2one('hotel.room', required=True)
+    room_id = fields.Many2one('tourism.hotel.room', required=True)
     type = fields.Selection([('in', 'Check In'), ('out', 'Check Out')], string='Type', required=True)
     transfer_time = fields.Datetime(default=fields.Datetime.now, string="Time")
     booking_line_id = fields.Many2one('tourism.hotel.booking.line', string="Booking #", required=True)
@@ -19,11 +19,11 @@ class HotelTransfer(models.Model):
         available_rooms = []
 
         if self.type == "in" and self.booking_line_id:
-            room_ids = self.env['hotel.room'].search([('room_type_id', '=', self.booking_line_id.room_type_id.id), ('booking_line_id', '=', False)])
+            room_ids = self.env['tourism.hotel.room'].search([('room_type_id', '=', self.booking_line_id.room_type_id.id), ('booking_line_id', '=', False)])
             available_rooms += room_ids.ids
 
         if self.type == "out" and self.booking_line_id:
-            room_ids = self.env['hotel.room'].search([('room_type_id', '=', self.booking_line_id.room_type_id.id), ('booking_line_id', '!=', False)])
+            room_ids = self.env['tourism.hotel.room'].search([('room_type_id', '=', self.booking_line_id.room_type_id.id), ('booking_line_id', '!=', False)])
             available_rooms += room_ids.ids
 
         return {

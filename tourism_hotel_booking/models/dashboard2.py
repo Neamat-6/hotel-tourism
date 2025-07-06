@@ -22,13 +22,13 @@ class HotelBookingDashboard(models.TransientModel):
         }
 
     name = fields.Char(default='Booking Dashboard')
-    hotel_id = fields.Many2one("hotel.hotel")
+    hotel_id = fields.Many2one("tourism.hotel.hotel")
     date_from = fields.Date(default=lambda x: x.default_dates()['date_from'])
     date_to = fields.Date(default=lambda x: x.default_dates()['date_to'])
-    search_room_type_ids = fields.Many2many('hotel.room.type', domain="[('hotel_id','=',hotel_id)]")
-    search_room_ids = fields.Many2many('hotel.room', domain="[('hotel_id','=',hotel_id)]")
-    search_floor_ids = fields.Many2many('hotel.floor', domain="[('hotel_id','=',hotel_id)]")
-    search_facilities_ids = fields.Many2many('hotel.facility')
+    search_room_type_ids = fields.Many2many('tourism.hotel.room.type', domain="[('hotel_id','=',hotel_id)]")
+    search_room_ids = fields.Many2many('tourism.hotel.room', domain="[('hotel_id','=',hotel_id)]")
+    search_floor_ids = fields.Many2many('tourism.hotel.floor', domain="[('hotel_id','=',hotel_id)]")
+    search_facilities_ids = fields.Many2many('tourism.hotel.facility')
     display_mode = fields.Selection([('all', 'All'), ('vacant_only', 'With Vacancy'), ('booked_only', 'Booked'), ], default="all")
     booking_screen = fields.Text()
     # booking_screen2 = fields.Text(compute="compute_booking_screen")
@@ -82,7 +82,7 @@ class HotelBookingDashboard(models.TransientModel):
     def button_staying(self):
         self.ensure_one()
         action = self.env.ref('tourism_hotel_booking.action_hotel_booking').read()[0]
-        booking_ids = self.env['hotel.room'].search([('booking_id', '!=', False)]).mapped('booking_id')
+        booking_ids = self.env['tourism.hotel.room'].search([('booking_id', '!=', False)]).mapped('booking_id')
         if not booking_ids:
             raise UserError("Nothing Found.")
         action['domain'] = [('id', 'in', booking_ids.ids)]
@@ -111,7 +111,7 @@ class HotelBookingDashboard(models.TransientModel):
 
     def get_rooms_sorted(self, hotel_id=None):
         rooms = []
-        for floor in self.env['hotel.floor'].search([('hotel_id', '=', hotel_id or -1)], order='sequence'):
+        for floor in self.env['tourism.hotel.floor'].search([('hotel_id', '=', hotel_id or -1)], order='sequence'):
             for room in floor.room_ids.sorted('sequence'):
 
                 if self.search_room_ids:
@@ -177,7 +177,7 @@ class HotelBookingDashboard(models.TransientModel):
         row = 0
         for room_id in room_ids:
             row += 1
-            row_data = [{"class": "bsv-td-cell", "body": [{"type": "action", "text": room_id.name, "class": "bsv-row-head", "model": "hotel.room", "res_id": room_id.id, "flags": {'mode': 'readonly'}}]}]
+            row_data = [{"class": "bsv-td-cell", "body": [{"type": "action", "text": room_id.name, "class": "bsv-row-head", "model": "tourism.hotel.room", "res_id": room_id.id, "flags": {'mode': 'readonly'}}]}]
 
             col = 0
             for date in self.get_dates_between(date_from, date_to):
@@ -253,7 +253,7 @@ class HotelBookingDashboard(models.TransientModel):
         #     row += 1
         #
         #     row_data = [
-        #         {"type": "button_action", "name": room_id.name, "model": "hotel.room", "res_id": room_id.id},
+        #         {"type": "button_action", "name": room_id.name, "model": "tourism.hotel.room", "res_id": room_id.id},
         #     ]
         #
         #     col = 0
@@ -324,7 +324,7 @@ class HotelBookingDashboard(models.TransientModel):
         return data
 
     def booking_data_by_room_type(self, calendar_date, hotel_id):
-        room_types = self.env['hotel.room.type'].search([('hotel_id', '=', hotel_id)])
+        room_types = self.env['tourism.hotel.room.type'].search([('hotel_id', '=', hotel_id)])
 
         data = []
         for room_type in room_types:

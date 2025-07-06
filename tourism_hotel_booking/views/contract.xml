@@ -4,7 +4,7 @@
 
     <record id="view_tree_contract_hotel" model="ir.ui.view">
         <field name="name">hotel.contract.tree</field>
-        <field name="model">hotel.contract</field>
+        <field name="model">tourism.hotel.contract</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="hotel"/>
@@ -16,7 +16,7 @@
 
     <record id="view_tree_transportation_contract_hotel" model="ir.ui.view">
         <field name="name">hotel.contract.tree</field>
-        <field name="model">hotel.contract</field>
+        <field name="model">tourism.hotel.contract</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="vendor"/>
@@ -29,7 +29,7 @@
     <!--Form-->
     <record id="view_form_contract_hotel" model="ir.ui.view">
         <field name="name">hotel.contract.form</field>
-        <field name="model">hotel.contract</field>
+        <field name="model">tourism.hotel.contract</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -173,7 +173,7 @@
     <!-- Action-->
     <record id="action_contract_hotel" model="ir.actions.act_window">
         <field name="name">Contract</field>
-        <field name="res_model">hotel.contract</field>
+        <field name="res_model">tourism.hotel.contract</field>
         <field name="context">{'default_contract_type':'hotel'}</field>
         <field name="view_mode">tree,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
@@ -188,7 +188,7 @@
 
     <record id="action_transportation_contract" model="ir.actions.act_window">
         <field name="name">Transportation Contract</field>
-        <field name="res_model">hotel.contract</field>
+        <field name="res_model">tourism.hotel.contract</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'default_contract_type':'transportation'}</field>
         <field name="domain">[('contract_type','=','transportation')]</field>

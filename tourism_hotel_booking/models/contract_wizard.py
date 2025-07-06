@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 class ContractWizard(models.TransientModel):
     _name = 'contract.wizard'
 
-    contract_line_ids = fields.Many2many('hotel.contract.line')
+    contract_line_ids = fields.Many2many('tourism.hotel.contract.line')
 
     def create_bill(self):
         self.check_dates()

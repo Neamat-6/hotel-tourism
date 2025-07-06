@@ -39,7 +39,7 @@ class VisaBooking(models.Model):
                 invoice_create_obj = account_move_obj.create({
                     'move_type': 'out_invoice',
                     'partner_id': line.booking_id.travel_agent_name.id,
-                    'booking_id': line.booking_id.id,
+                    'tourism_booking_id': line.booking_id.id,
                     'visa_booking_id': line.id,
                     'date': line.create_date,
                     'invoice_date': line.create_date,
@@ -60,7 +60,7 @@ class VisaBooking(models.Model):
                 invoice_create_obj = account_move_obj.create({
                     'move_type': 'out_invoice',
                     'partner_id': line.booking_id.travel_agent_name.id,
-                    'booking_id': line.booking_id.id,
+                    'tourism_booking_id': line.booking_id.id,
                     'visa_booking_id': line.id,
                     'date': line.create_date,
                     'invoice_date': line.create_date,
@@ -84,7 +84,7 @@ class VisaBooking(models.Model):
                     invoice_update_obj = account_move_obj.update({
                         'move_type': 'out_invoice',
                         'partner_id': line.booking_id.travel_agent_name.id,
-                        'booking_id': line.booking_id.id,
+                        'tourism_booking_id': line.booking_id.id,
                         'visa_booking_id': line.id,
                         'date': line.create_date,
                         'invoice_date': line.create_date,
@@ -106,7 +106,7 @@ class VisaBooking(models.Model):
                     invoice_update_obj = account_move_obj.update({
                         'move_type': 'out_invoice',
                         'partner_id': line.booking_id.travel_agent_name.id,
-                        'booking_id': line.booking_id.id,
+                        'tourism_booking_id': line.booking_id.id,
                         'visa_booking_id': line.id,
                         'date': line.create_date,
                         'invoice_date': line.create_date,

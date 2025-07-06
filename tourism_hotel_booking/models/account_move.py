@@ -6,12 +6,12 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     tourism_booking_id = fields.Many2one('tourism.hotel.booking', store=True)
-    tourism_booking_room_id = fields.Many2one('hotel.room', compute='_compute_tourism_booking_data', store=False)  # For the report
-    tourism_booking_room_type_id = fields.Many2one('hotel.room.type', compute='_compute_tourism_booking_data',
+    tourism_booking_room_id = fields.Many2one('tourism.hotel.room', compute='_compute_tourism_booking_data', store=False)  # For the report
+    tourism_booking_room_type_id = fields.Many2one('tourism.hotel.room.type', compute='_compute_tourism_booking_data',
                                            store=False)  # For the report
     visa_booking_id = fields.Many2one('visa.booking')
     transportation_booking_id = fields.Many2one('transportation.booking')
-    hotel_contract_id = fields.Many2one('hotel.contract')
+    hotel_contract_id = fields.Many2one('tourism.hotel.contract')
 
     def _compute_tourism_booking_data(self):
         for move in self:
@@ -23,10 +23,10 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     tourism_source_booking_id = fields.Many2one('tourism.hotel.booking.line')
-    tourism_hotel_id = fields.Many2one('hotel.hotel', related='tourism_source_booking_id.hotel_id', store=True)
-    tourism_room_type_id = fields.Many2one('hotel.room.type', string='Room Type', related='tourism_source_booking_id.room_type_id',
+    tourism_hotel_id = fields.Many2one('tourism.hotel.hotel', related='tourism_source_booking_id.hotel_id', store=True)
+    tourism_room_type_id = fields.Many2one('tourism.hotel.room.type', string='Room Type', related='tourism_source_booking_id.room_type_id',
                                    store=True)
-    tourism_room_id = fields.Many2one('hotel.room', string='Room', related='tourism_source_booking_id.room_id', store=True)
+    tourism_room_id = fields.Many2one('tourism.hotel.room', string='Room', related='tourism_source_booking_id.room_id', store=True)
     tourism_price = fields.Float('Price', related='tourism_source_booking_id.price', store=True)
     tourism_number_of_adults = fields.Integer(string='Adults', related='tourism_source_booking_id.number_of_adults', store=True)
     tourism_number_of_children = fields.Integer(string='Children', related='tourism_source_booking_id.number_of_children', store=True)

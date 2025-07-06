@@ -9,7 +9,7 @@ class HotelDefaultRoom(models.Model):
                                  required=True, delegate=True,
                                  ondelete='cascade')
 
-    floor_id = fields.Many2one('hotel.floor')
+    floor_id = fields.Many2one('tourism.hotel.floor')
     sequence = fields.Integer('Sequence', default=10)
     booking_ok = fields.Boolean('Can be booked', default=True)
     telephone_extension = fields.Char(string='Telephone Ext.')

@@ -3,7 +3,7 @@
 
     <record model="ir.ui.view" id="view_hotel_conditions_tree_view">
       <field name="name">view.hotel.conditions.tree.view</field>
-      <field name="model">conditions.terms</field>
+      <field name="model">tourism.conditions.terms</field>
       <field name="arch" type="xml">
         <tree editable="bottom">
             <field name='sequence' widget='handle'/>
@@ -15,7 +15,7 @@
 
     <record id="action_hotel_conditions" model="ir.actions.act_window">
         <field name="name">Conditions</field>
-        <field name="res_model">conditions.terms</field>
+        <field name="res_model">tourism.conditions.terms</field>
         <field name="view_mode">tree</field>
     </record>
 

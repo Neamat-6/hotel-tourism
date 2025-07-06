@@ -3,11 +3,13 @@ from odoo import api, fields, models
 
 
 class Conditions(models.Model):
-    _inherit= 'conditions.terms'
+    _name = 'tourism.conditions.terms'
     _description = "Terms & Conditions"
     _rec_name = 'name'
 
     sequence = fields.Integer(defualt=10)
+    name = fields.Char('Name', required=True)
+    terms = fields.Html('Conditions And Terms', required=True)
 
 
 class HotelRoomView(models.Model):
