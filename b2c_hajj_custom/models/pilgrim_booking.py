@@ -13,6 +13,7 @@ class PilgrimBooking(models.Model):
     _rec_name = 'partner_id'
     _inherit = ["mail.thread", 'portal.mixin']
 
+    source = fields.Selection([('person','Direct'), ('company','Company')],required=True)
     partner_id = fields.Many2one('res.partner',required=True)
     package_id = fields.Many2one('booking.package', required=True)
     pilgrim_count = fields.Integer()
@@ -20,8 +21,23 @@ class PilgrimBooking(models.Model):
     total_cost = fields.Float(compute='compute_total_cost', store=True)
     room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
     line_ids = fields.One2many('pilgrim.booking.line', 'book_id')
-    state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
+    state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed Waiting Payment'),('confirmed', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
     move_id = fields.Many2one('account.move', copy=False)
+
+    @api.onchange('source')
+    def _onchange_source(self):
+        self.partner_id = False
+        domain = []
+        if self.source == 'person':
+            domain = [('is_company', '=', False)]
+        elif self.source == 'company':
+            domain = [('is_company', '=', True)]
+
+        return {
+            'domain': {
+                'partner_id': domain
+            }
+        }
 
     @api.depends('pilgrim_count', 'pilgrim_cost')
     def compute_total_cost(self):
@@ -95,10 +111,11 @@ class PilgrimBooking(models.Model):
             else:
                 print('hhhhhhhhhhhhhhhhhhhhhhhh')
                 rec.update_invoice()
-            rec.partner_id.write({'package_id': rec.package_id,
-                                  'makkah_room_type': rec.room_type,
-                                   'madinah_room_type': rec.room_type,
-                                   'hotel_room_type': rec.room_type})
+            if rec.source == 'person':
+                rec.partner_id.write({'package_id': rec.package_id,
+                                      'makkah_room_type': rec.room_type,
+                                       'madinah_room_type': rec.room_type,
+                                       'hotel_room_type': rec.room_type})
             for line in rec.line_ids:
                 vals = line.get_pilgrim_data()
                 if line.partner_id:
@@ -108,11 +125,23 @@ class PilgrimBooking(models.Model):
                     line.write({'partner_id': pilgrim.id})
             rec.state = 'hotel_confirm'
 
+    def action_confirm(self):
+        for rec in self:
+            if rec.move_id:
+                # if rec.move_id.payment_state != 'paid':
+                if rec.move_id.amount_residual != 0:
+                    raise UserError("The linked invoice must be fully paid before confirming.")
+                rec.state = 'confirmed'
+            else:
+                raise UserError("Must create invoice first")
+
+
     def action_reset_to_draft(self):
         for rec in self:
-            rec.partner_id.sudo().update({
-                'package_id': False,
-            })
+            if rec.source == 'person':
+                rec.partner_id.sudo().update({
+                    'package_id': False,
+                })
             for line in rec.line_ids:
                 line.partner_id.write({
                     'package_id': False,
@@ -123,9 +152,10 @@ class PilgrimBooking(models.Model):
 
     def action_cancel(self):
         for rec in self:
-            rec.partner_id.sudo().update({
-                'package_id': False,
-            })
+            if rec.source == 'person':
+                rec.partner_id.sudo().update({
+                    'package_id': False,
+                })
             for line in rec.line_ids:
                 line.partner_id.write({
                     'package_id': False,
@@ -177,7 +207,8 @@ class PilgrimBookingLine(models.Model):
     def onchange_pilgrim_type(self):
         for rec in self:
             if rec.pilgrim_type == 'member':
-                rec.main_member_id = rec.book_id.partner_id.id
+                if rec.book_id.source == 'person':
+                    rec.main_member_id = rec.book_id.partner_id.id
             else:
                 rec.main_member_id = False
 

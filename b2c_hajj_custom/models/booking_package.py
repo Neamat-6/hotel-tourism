@@ -29,7 +29,8 @@ class BookingPackage(models.Model):
     flight_purchase_price = fields.Float(string="Flight Purchase Price", compute='compute_flight_price', store=True)
 
     #  makkah
-    main_makkah = fields.Many2one('hotel.hotel', domain=[('type', '=', 'makkah')], string='Makkah Hotel', tracking=True)
+    main_makkah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'makkah')]", string='Makkah Hotel', tracking=True)
+    actual_main_makkah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_makkah)]", string='Actual Makkah Hotel')
     makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah)]")
     makkah_date_from = fields.Date("Contract Start Date", related='makkah_contract_id.date_from', store=True)
     makkah_date_to = fields.Date("Contract End Date", related='makkah_contract_id.date_to', store=True)
@@ -86,7 +87,8 @@ class BookingPackage(models.Model):
     makkah_quad_female_available_beds = fields.Integer(compute='compute_makkah_quad_female_available_beds',  tracking=True, store=True)
 
     # madinah
-    main_madinah = fields.Many2one('hotel.hotel', domain=[('type', '=', 'madinah')], string='Madinah Hotel', tracking=True)
+    main_madinah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'madinah')]", string='Madinah Hotel', tracking=True)
+    actual_main_madinah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_madinah)]", string='Actual Madinah Hotel')
     madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah)]")
     madinah_date_from = fields.Date("Contract Start Date", related='madinah_contract_id.date_from', store=True)
     madinah_date_to = fields.Date("Contract End Date", related='madinah_contract_id.date_to', store=True)
@@ -140,7 +142,7 @@ class BookingPackage(models.Model):
     madinah_quad_female_available_beds = fields.Integer(compute='compute_madinah_quad_female_available_beds', tracking=True, store=True)
 
     #  arfa
-    main_arfa = fields.Many2one('hotel.hotel', domain=[('type', '=', 'arfa')], string='Arfa Hotel', tracking=True)
+    main_arfa = fields.Many2one('hotel.hotel', domain="[('type', '=', 'arfa')]", string='Arfa Hotel', tracking=True)
     main_arfa_company_id = fields.Many2one('res.company', related='main_arfa.company_id', store=True)
     arfa_arrival_date = fields.Date("Arfa Arrival Date", tracking=True)
     arfa_departure_date = fields.Date("Arfa Departure Date", tracking=True)
@@ -161,7 +163,7 @@ class BookingPackage(models.Model):
 
 
     # minnah
-    main_minnah = fields.Many2one('hotel.hotel', domain=[('type', '=', 'minnah')], string='Minnah Hotel', tracking=True)
+    main_minnah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'minnah')]", string='Minnah Hotel', tracking=True)
     main_minnah_company_id = fields.Many2one('res.company', related='main_minnah.company_id', store=True)
     minnah_arrival_date = fields.Date("Minnah Arrival Date", tracking=True)
     minnah_departure_date = fields.Date("Minnah Departure Date", tracking=True)
@@ -182,7 +184,8 @@ class BookingPackage(models.Model):
 
 
     # main shift
-    main_hotel = fields.Many2one('hotel.hotel', "Main Shift", domain=[('type', 'in', ['hotel','makkah'])], tracking=True)
+    main_hotel = fields.Many2one('hotel.hotel', "Main Shift", domain="[('type', 'in', ['hotel','makkah'])]", tracking=True)
+    actual_main_hotel = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_hotel)]", string='Actual Main Shift')
     main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel)]")
     main_hotel_date_from = fields.Date("Contract Start Date", related='main_hotel_contract_id.date_from', store=True)
     main_hotel_date_to = fields.Date("Contract End Date", related='main_hotel_contract_id.date_to', store=True)

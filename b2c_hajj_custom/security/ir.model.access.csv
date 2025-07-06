@@ -31,3 +31,4 @@ access_scan_pilgrim_wizard,access_scan_pilgrim_wizard,model_scan_pilgrim_wizard,
 access_scan_pilgrim_line,access_scan_pilgrim_line,model_scan_pilgrim_line,,1,1,1,1
 access_pilgrim_transport,access_pilgrim_transport,model_pilgrim_transport,,1,1,1,1
 access_booking_package_activity_line,access_booking_package_activity_line,model_booking_package_activity_line,,1,1,1,1
+access_actual_hotel,access_actual_hotel,model_actual_hotel,,1,1,1,1

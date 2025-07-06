@@ -41,6 +41,7 @@
         'report/pilgrim_barcode_report.xml',
         'wizards/scan_pilgrim_wizard.xml',
         'wizards/pilgrim_transport.xml',
+        'views/actual_hotel.xml',
     ],
     'installable': True,
     'application': True,
