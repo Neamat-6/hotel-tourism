@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 
 class HotelContract(models.Model):
@@ -13,8 +14,7 @@ class HotelContract(models.Model):
     start = fields.Integer(default=101)
     count = fields.Integer(default=1)
     type = fields.Selection([('hotel', 'Hotel'), ('transportation', 'Transportation')],
-                            "Contract Type", required=True,
-                            copy=False)
+                            "Contract Type", copy=False)
     line_ids = fields.One2many(comodel_name="hotel.contract.management.line", inverse_name="contract_id")
     purchase_order_id = fields.Many2one('purchase.order', string="Purchase Order", readonly=True, copy=False)
     state = fields.Selection([
@@ -123,6 +123,11 @@ class HotelContract(models.Model):
 class HotelContractLine(models.Model):
     _name = 'hotel.contract.management.line'
 
+    _sql_constraints = [
+        ('unique_room_type_per_contract', 'unique(contract_id, room_type_id)',
+         'Room type must be unique per contract.')
+    ]
+
     contract_id = fields.Many2one('hotel.contract.management')
     hotel_id = fields.Many2one('hotel.hotel', related='contract_id.hotel_id')
     room_type_id = fields.Many2one('room.type', required=True, domain="[('company_id.related_hotel_id', '=', hotel_id)]")
@@ -132,7 +137,55 @@ class HotelContractLine(models.Model):
     unit_price = fields.Monetary("Unit Price", required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, readonly=1)
     currency_id = fields.Many2one('res.currency', readonly=True, default=lambda x: x.env.company.currency_id)
+    booked_count = fields.Integer(string="Booked Count", compute="_compute_booked_count", store=False)
 
+    @api.constrains('count', 'booked_count')
+    def _check_booked_less_than_count(self):
+        for rec in self:
+            if rec.booked_count > rec.count:
+                raise ValidationError(f"Booked count ({rec.booked_count}) cannot exceed total count ({rec.count}) for {rec.room_type_id.name}.")
+
+    def _compute_booked_count(self):
+        Package = self.env['booking.package'].sudo()
+        for line in self:
+            hotel_type = line.contract_id.hotel_id.type  # 'makkah', 'madinah', or 'hotel'
+
+            if hotel_type == 'makkah':
+                domain = [('makkah_contract_id', '=', line.contract_id.id)]
+                qty_field = {
+                    2: 'makkah_no_double',
+                    3: 'makkah_no_triple',
+                    4: 'makkah_no_quad'
+                }
+            elif hotel_type == 'madinah':
+                domain = [('madinah_contract_id', '=', line.contract_id.id)]
+                qty_field = {
+                    2: 'madinah_no_double',
+                    3: 'madinah_no_triple',
+                    4: 'madinah_no_quad'
+                }
+            elif hotel_type == 'hotel':
+                domain = [('main_hotel_contract_id', '=', line.contract_id.id)]
+                qty_field = {
+                    2: 'hotel_no_double',
+                    3: 'hotel_no_triple',
+                    4: 'hotel_no_quad'
+                }
+            else:
+                line.booked_count = 0
+                continue  # Unknown type — skip
+
+            # Find matching packages
+            packages = Package.search(domain)
+
+            # Determine quantity field based on room type
+            mini = line.room_type_id.mini_adults
+            field_name = qty_field.get(mini)
+
+            if field_name:
+                line.booked_count = sum(getattr(p, field_name, 0) for p in packages)
+            else:
+                line.booked_count = 0
 
 # class TransportationLine(models.Model):
 #     _name = 'transportation.line'

@@ -605,72 +605,105 @@ class BookingPackage(models.Model):
 
     # add constrains on check in / out
 
-    @api.onchange('main_makkah', 'makkah_arrival_date', 'makkah_departure_date')
+    @api.onchange('main_makkah', 'makkah_arrival_date', 'makkah_departure_date', 'makkah_contract_id')
     def onchange_makkah_data(self):
         logger.info('onchange_makkah_data')
         self.makkah_double_plan_id = False
         self.makkah_triple_plan_id = False
         self.makkah_quad_plan_id = False
         if self.main_makkah and self.makkah_arrival_date and self.makkah_departure_date:
-            available_rooms = self.get_available_rooms(self.main_makkah, self.makkah_arrival_date,
-                                                       self.makkah_departure_date)
-            logger.info(f'onchange_makkah_data available_rooms {available_rooms}')
-            not_assigned_booking = self.env['hotel.booking'].search([
-                ('state', '!=', 'cancelled'),
-                ('hotel_id', '=', self.main_makkah.id),
-                ('new_check_in', '<', self.makkah_departure_date),
-                ('new_check_out', '>', self.makkah_arrival_date),
-            ])
-            logger.info(f'onchange_makkah_data not_assigned_booking {not_assigned_booking}')
-            not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
-            double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
-            triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
-            quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
-            logger.info(f'onchange_makkah_data double_rooms_decrease {double_rooms_decrease}')
-            logger.info(f'onchange_makkah_data triple_rooms_decrease {triple_rooms_decrease}')
-            logger.info(f'onchange_makkah_data quad_rooms_decrease {quad_rooms_decrease}')
-            available_rooms = self.env['hotel.room'].browse(available_rooms)
-            double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
-            triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
-            quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
-            self.makkah_double_available = len(double_rooms) - len(double_rooms_decrease)
-            self.makkah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
-            self.makkah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+            if self.makkah_contract_id:
+                contract = self.makkah_contract_id
 
-    @api.onchange('main_madinah', 'madinah_arrival_date', 'madinah_departure_date')
+                def get_line(adults):
+                    return contract.line_ids.filtered(
+                        lambda l: l.room_type_id.mini_adults == adults)
+
+                double_line = get_line(2)
+                triple_line = get_line(3)
+                quad_line = get_line(4)
+
+                if double_line:
+                    self.makkah_double_available = double_line.count - double_line.booked_count
+                if triple_line:
+                    self.makkah_triple_available = triple_line.count - triple_line.booked_count
+                if quad_line:
+                    self.makkah_quad_available = quad_line.count - quad_line.booked_count
+            else:
+                available_rooms = self.get_available_rooms(self.main_makkah, self.makkah_arrival_date,
+                                                           self.makkah_departure_date)
+                logger.info(f'onchange_makkah_data available_rooms {available_rooms}')
+                not_assigned_booking = self.env['hotel.booking'].search([
+                    ('state', '!=', 'cancelled'),
+                    ('hotel_id', '=', self.main_makkah.id),
+                    ('new_check_in', '<', self.makkah_departure_date),
+                    ('new_check_out', '>', self.makkah_arrival_date),
+                ])
+                logger.info(f'onchange_makkah_data not_assigned_booking {not_assigned_booking}')
+                not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
+                double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
+                triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
+                quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                available_rooms = self.env['hotel.room'].browse(available_rooms)
+                double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
+                triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
+                quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                self.makkah_double_available = len(double_rooms) - len(double_rooms_decrease)
+                self.makkah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
+                self.makkah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+
+    @api.onchange('main_madinah', 'madinah_arrival_date', 'madinah_departure_date', 'madinah_contract_id')
     def onchange_madinah_data(self):
         logger.info('onchange_madinah_data')
         self.madinah_double_plan_id = False
         self.madinah_triple_plan_id = False
         self.madinah_quad_plan_id = False
         if self.main_madinah and self.madinah_arrival_date and self.madinah_departure_date:
-            available_rooms = self.get_available_rooms(self.main_madinah, self.madinah_arrival_date,
-                                                       self.madinah_departure_date)
-            available_rooms = self.env['hotel.room'].browse(available_rooms)
-            print('available_roomsssss', available_rooms)
-            print('available_roomsssss', len(available_rooms))
-            not_assigned_booking = self.env['hotel.booking'].search([
-                ('state', '!=', 'cancelled'),
-                ('hotel_id', '=', self.main_madinah.id),
-                ('new_check_in', '<', self.madinah_departure_date),
-                ('new_check_out', '>', self.madinah_arrival_date),
-            ])
-            logger.info(f'onchange_madinah_data not_assigned_booking {not_assigned_booking}')
-            not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
-            logger.info(f'onchange_madinah_data not_assigned_folio_room {not_assigned_folio_room}')
-            double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
-            triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
-            quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
-            logger.info(f'onchange_madinah_data double_rooms_decrease {double_rooms_decrease}')
-            logger.info(f'onchange_madinah_data triple_rooms_decrease {triple_rooms_decrease}')
-            logger.info(f'onchange_madinah_data quad_rooms_decrease {quad_rooms_decrease}')
-            double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
-            triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
-            quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
-            self.madinah_double_available = len(double_rooms) - len(double_rooms_decrease)
-            logger.info(f'onchange_madinah_data self.madinah_double_available {self.madinah_double_available}')
-            self.madinah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
-            self.madinah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+            if self.madinah_contract_id:
+                contract = self.madinah_contract_id
+
+                def get_line(adults):
+                    return contract.line_ids.filtered(
+                        lambda l: l.room_type_id.mini_adults == adults)
+
+                double_line = get_line(2)
+                triple_line = get_line(3)
+                quad_line = get_line(4)
+
+                if double_line:
+                    self.madinah_double_available = double_line.count - double_line.booked_count
+                if triple_line:
+                    self.madinah_triple_available = triple_line.count - triple_line.booked_count
+                if quad_line:
+                    self.madinah_quad_available = quad_line.count - quad_line.booked_count
+            else:
+                available_rooms = self.get_available_rooms(self.main_madinah, self.madinah_arrival_date,
+                                                           self.madinah_departure_date)
+                available_rooms = self.env['hotel.room'].browse(available_rooms)
+                print('available_roomsssss', available_rooms)
+                print('available_roomsssss', len(available_rooms))
+                not_assigned_booking = self.env['hotel.booking'].search([
+                    ('state', '!=', 'cancelled'),
+                    ('hotel_id', '=', self.main_madinah.id),
+                    ('new_check_in', '<', self.madinah_departure_date),
+                    ('new_check_out', '>', self.madinah_arrival_date),
+                ])
+                logger.info(f'onchange_madinah_data not_assigned_booking {not_assigned_booking}')
+                not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
+                logger.info(f'onchange_madinah_data not_assigned_folio_room {not_assigned_folio_room}')
+                double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
+                triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
+                quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                logger.info(f'onchange_madinah_data double_rooms_decrease {double_rooms_decrease}')
+                logger.info(f'onchange_madinah_data triple_rooms_decrease {triple_rooms_decrease}')
+                logger.info(f'onchange_madinah_data quad_rooms_decrease {quad_rooms_decrease}')
+                double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
+                triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
+                quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                self.madinah_double_available = len(double_rooms) - len(double_rooms_decrease)
+                logger.info(f'onchange_madinah_data self.madinah_double_available {self.madinah_double_available}')
+                self.madinah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
+                self.madinah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
 
     @api.depends('main_arfa', 'arfa_arrival_date', 'arfa_departure_date')
     def onchange_arfa_data(self):
@@ -746,31 +779,48 @@ class BookingPackage(models.Model):
         self.arfa_male_plan_id = False
         self.arfa_female_plan_id = False
 
-    @api.onchange('main_hotel', 'hotel_arrival_date', 'hotel_departure_date')
+    @api.onchange('main_hotel', 'hotel_arrival_date', 'hotel_departure_date', 'main_hotel_contract_id')
     def onchange_hotel_data(self):
         self.hotel_double_plan_id = False
         self.hotel_triple_plan_id = False
         self.hotel_quad_plan_id = False
         if self.main_hotel and self.hotel_arrival_date and self.hotel_departure_date:
-            available_rooms = self.get_available_rooms(self.main_hotel, self.hotel_arrival_date,
-                                                       self.hotel_departure_date)
-            not_assigned_booking = self.env['hotel.booking'].search([
-                ('state', '!=', 'cancelled'),
-                ('hotel_id', '=', self.main_hotel.id),
-                ('new_check_in', '<', self.hotel_departure_date),
-                ('new_check_out', '>', self.hotel_arrival_date),
-            ])
-            not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
-            double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
-            triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
-            quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
-            available_rooms = self.env['hotel.room'].browse(available_rooms)
-            double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
-            triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
-            quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
-            self.hotel_double_available = len(double_rooms) - len(double_rooms_decrease)
-            self.hotel_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
-            self.hotel_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+            if self.main_hotel_contract_id:
+                contract = self.main_hotel_contract_id
+                def get_line(adults):
+                    return contract.line_ids.filtered(
+                        lambda l: l.room_type_id.mini_adults == adults)
+
+                double_line = get_line(2)
+                triple_line = get_line(3)
+                quad_line = get_line(4)
+
+                if double_line:
+                    self.hotel_double_available = double_line.count - double_line.booked_count
+                if triple_line:
+                    self.hotel_triple_available = triple_line.count - triple_line.booked_count
+                if quad_line:
+                    self.hotel_quad_available = quad_line.count - quad_line.booked_count
+            else:
+                available_rooms = self.get_available_rooms(self.main_hotel, self.hotel_arrival_date,
+                                                           self.hotel_departure_date)
+                not_assigned_booking = self.env['hotel.booking'].search([
+                    ('state', '!=', 'cancelled'),
+                    ('hotel_id', '=', self.main_hotel.id),
+                    ('new_check_in', '<', self.hotel_departure_date),
+                    ('new_check_out', '>', self.hotel_arrival_date),
+                ])
+                not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
+                double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
+                triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
+                quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                available_rooms = self.env['hotel.room'].browse(available_rooms)
+                double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
+                triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
+                quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                self.hotel_double_available = len(double_rooms) - len(double_rooms_decrease)
+                self.hotel_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
+                self.hotel_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
 
     def get_available_rooms(self, hotel_id, check_in_date, check_out_date):
         available_rooms = []

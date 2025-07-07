@@ -41,6 +41,7 @@
                                     <field name="floor_id"/>
                                     <field name="start"/>
                                     <field name="count"/>
+                                    <field name="booked_count"/>
                                     <field name="unit_price"/>
                                     <field name="company_id" invisible="1"/>
                                     <field name="hotel_id" invisible="1"/>
