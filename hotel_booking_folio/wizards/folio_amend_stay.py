@@ -53,7 +53,7 @@ class FolioAmendStay(models.Model):
 
     @api.constrains('new_check_in', 'folio_ids')
     def check_new_check_in_folios(self):
-        if self.new_check_out:
+        if self.new_check_in:
             for folio in self.folio_ids:
                 if folio.check_out:
                     if self.new_check_in > folio.check_out.date():
