@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <!-- Form view -->
+        <record id="view_night_audit_helper_form" model="ir.ui.view">
+            <field name="name">night.audit.helper.form</field>
+            <field name="model">night.audit.helper</field>
+            <field name="arch" type="xml">
+                <form string="Night Audit">
+                    <footer>
+                        <button name="action_open_night_audit"
+                                type="object"
+                                string="Start Night Audit"
+                                class="btn btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Window action -->
+        <record id="action_night_audit_helper" model="ir.actions.act_window">
+            <field name="name">Night Audit</field>
+            <field name="res_model">night.audit.helper</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Menu item -->
+        <menuitem id="menu_night_audit_helper"
+                  name="Night Audit"
+                  parent="hotel_booking.menu_hotels_task_root"
+                  groups="hotel_booking.night_audit_group"
+                  action="action_night_audit_helper"/>
+
+          <record model="ir.ui.menu" id="hotel_booking.menu_night_audit_root">
+            <field name='active'>False</field>
+          </record>
+    </data>
+</odoo>

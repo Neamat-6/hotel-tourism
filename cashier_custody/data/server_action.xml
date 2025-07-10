@@ -9,5 +9,7 @@
             <field name="binding_view_types">list,form</field>
             <field name="code">action = records.action_close_cashier()</field>
         </record>
+
+
     </data>
 </odoo>

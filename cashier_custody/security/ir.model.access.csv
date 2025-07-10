@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_cashier_custody,cashier.custody,model_cashier_custody,,1,1,1,1
+access_night_audit_helper,night.audit.helper,model_night_audit_helper,,1,1,1,1

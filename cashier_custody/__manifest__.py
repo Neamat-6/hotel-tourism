@@ -16,6 +16,7 @@
         'data/server_action.xml',
         'views/account_journal.xml',
         'views/cashier_custody.xml',
-        'reports/cashier_custody.xml'
+        'reports/cashier_custody.xml',
+        'wizards/night_audit_helper.xml',
     ],
 }
