@@ -14,6 +14,13 @@ class NightAudit(models.TransientModel):
             ('booking_id', '!=', False),
         ])
         if payments:
-            raise UserError(f"there are operations need to cashier close {payments.mapped('name')}")
+            payment_info = [
+                f"{payment.name} (User: {payment.user_id.name or 'N/A'})"
+                for payment in payments
+            ]
+            raise UserError(
+                f"There are operations that need cashier close:\n" +
+                "\n".join(payment_info)
+            )
         res = super(NightAudit, self)._onchange_date()
         return res

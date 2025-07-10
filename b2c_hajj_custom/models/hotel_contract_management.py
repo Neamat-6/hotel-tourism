@@ -24,6 +24,7 @@ class HotelContract(models.Model):
     ], default='draft', string="Status")
     date_from = fields.Date("Start Date", required=True)
     date_to = fields.Date("End Date", required=True)
+    generate_room = fields.Boolean("Generate Rooms", default=False)
 
     _sql_constraints = [('check_dates', 'CHECK(date_from < date_to)', 'End Date must be greater than Start Date!')]
 
@@ -47,6 +48,7 @@ class HotelContract(models.Model):
                 'state': clean,
                 'stay_state': vacant,
             })
+        self.generate_room = True
 
     def button_create_purchase_order(self):
         clean = self.env.ref('hotel_booking.hotel_room_status_clean').id

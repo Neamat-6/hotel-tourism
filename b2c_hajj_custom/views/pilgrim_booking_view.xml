@@ -33,7 +33,7 @@
                             <field name="pilgrim_cost" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
-                            <field name="partner_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="partner_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="room_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="pilgrim_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="total_cost"/>
