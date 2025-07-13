@@ -1,10 +1,6 @@
 from odoo import fields, models, api
 
 
-class Partner(models.Model):
-    _inherit = 'res.partner'
-
-    hotel_id = fields.Many2one('hotel.hotel', string="Hotel Category", help="Hotel category associated with this partner.")
 
 class ActualHotel(models.Model):
     _name = 'actual.hotel'

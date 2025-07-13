@@ -133,8 +133,9 @@ class Partner(models.Model):
     arfa_actual_room_number = fields.Char(string="Arfa Actual Room Number")
     minnah_sofa_number = fields.Char(string="Minnah Sofa Number")
     arfa_sofa_number = fields.Char(string="Arfa Sofa Number")
-
     upgraded = fields.Boolean(string="Upgraded")
+    hotel_id = fields.Many2one('hotel.hotel', string="Hotel Category", help="Hotel category associated with this partner.")
+
 
     def generate_new_qr_code(self):
         for partner in self:
