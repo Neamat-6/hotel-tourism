@@ -7,7 +7,7 @@ class FlightSchedule(models.Model):
     _rec_name = 'name'
 
 
-    partner_id = fields.Many2one('res.partner', default=lambda self: self.env.company.partner_id)
+    partner_id = fields.Many2one('res.partner', string="Supplier", required=True, domain=[('is_company', '=', True)])
     flight_date = fields.Date("Flight Date")
     airport = fields.Char("Airport")
     arrival_flight_no = fields.Char("Flight Number")
@@ -23,7 +23,9 @@ class FlightSchedule(models.Model):
     departure_date = fields.Datetime("Departure Date")
     flight_type = fields.Selection([('arrival', 'Arrival'), ('departure', 'Departure')], string='Flight Type')
     arrival_airport_id = fields.Many2one('airport.management', "Arrival Airport")
+    arrival_airport_dep_id = fields.Many2one('airport.management', "Arrival Airport")
     departure_airport_id = fields.Many2one('airport.management', "Departure Airport")
+    departure_airport_arrival_id = fields.Many2one('airport.management', "Departure Airport")
     unit_price = fields.Monetary("Unit Price")
     state = fields.Selection(selection=[('draft', 'Draft'), ('confirm', 'Confirm')], required=False, default='draft')
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)

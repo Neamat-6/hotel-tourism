@@ -11,8 +11,10 @@
                 <field name="departure_flight_no"/>
                 <field name="arrival_date"/>
                 <field name="departure_date"/>
-                <field name="arrival_airport_id"/>
-                <field name="departure_airport_id"/>
+                <field name="departure_airport_arrival_id" string="Departure Airport of arrival Flight"/>
+                <field name="arrival_airport_id" string="arrival Airport of arrival Flight"/>
+                <field name="departure_airport_id" string="Departure Airport of departure flight"/>
+                <field name="arrival_airport_dep_id" string="arrival Airport of departure flight"/>
                 <field name="arrival_hall_no"/>
                 <field name="departure_hall_no"/>
                 <field name="pilgrims_no"/>
@@ -37,7 +39,7 @@
                         <group>
                             <field name="name"/>
                             <field name="contract_type"/>
-                            <field name="partner_id" readonly="1"/>
+                            <field name="partner_id"/>
                             <field name="unit_price" required="1"/>
                             <field name="purchase_id" readonly="1"/>
                         </group>
@@ -51,6 +53,7 @@
                         <group string="Arrival">
                             <field name="arrival_flight_no"/>
                             <field name="arrival_date"/>
+                            <field name="departure_airport_arrival_id"/>
                             <field name="arrival_airport_id"/>
                             <field name="arrival_hall_no"/>
                         </group>
@@ -58,6 +61,7 @@
                             <field name="departure_flight_no"/>
                             <field name="departure_date"/>
                             <field name="departure_airport_id"/>
+                            <field name="arrival_airport_dep_id"/>
                             <field name="departure_hall_no"/>
                         </group>
                     </group>

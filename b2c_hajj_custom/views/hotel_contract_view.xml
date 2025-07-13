@@ -26,8 +26,9 @@
                     </div>
                     <group>
                         <group>
-                            <field name="vendor" attrs="{'readonly': [('state', '=', 'po_created')]}"/>
                             <field name="hotel_id"/>
+                            <field name="vendor" options="{'no_create': True}"
+                                   attrs="{'readonly': [('state', '=', 'po_created')]}"/>
                             <field name="company_id" readonly="1"/>
                             <field name="purchase_order_id" readonly="1"/>
                         </group>

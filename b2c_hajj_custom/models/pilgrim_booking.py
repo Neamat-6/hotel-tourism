@@ -17,12 +17,22 @@ class PilgrimBooking(models.Model):
     partner_id = fields.Many2one('res.partner',required=True)
     package_id = fields.Many2one('booking.package', required=True)
     pilgrim_count = fields.Integer()
-    pilgrim_cost = fields.Float()
+    pilgrim_cost = fields.Float(string="sales Price")
     total_cost = fields.Float(compute='compute_total_cost', store=True)
     room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
     line_ids = fields.One2many('pilgrim.booking.line', 'book_id')
     state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed Waiting Payment'),('confirmed', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
     move_id = fields.Many2one('account.move', copy=False)
+
+    @api.constrains('line_ids', 'pilgrim_count', 'source')
+    def _check_line_count(self):
+        for rec in self:
+            if rec.pilgrim_count:
+                if rec.source == 'company':
+                    if len(rec.line_ids) != rec.pilgrim_count - 1:
+                        raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
+                if len(rec.line_ids) != rec.pilgrim_count:
+                    raise UserError(_("The number of pilgrims must match the number of pilgrims lines."))
 
     @api.onchange('source')
     def _onchange_source(self):
