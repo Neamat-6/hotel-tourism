@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="ir_cron_update_package_closed" model="ir.cron">
+            <field name="name">Update Package Closed</field>
+            <field name="model_id" ref="b2c_hajj_custom.model_booking_package"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_package_closed()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
+
+        </record>
+    </data>
+</odoo>

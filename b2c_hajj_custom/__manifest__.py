@@ -42,6 +42,7 @@
         'wizards/scan_pilgrim_wizard.xml',
         'wizards/pilgrim_transport.xml',
         'views/actual_hotel.xml',
+        'data/cron.xml',
     ],
     'installable': True,
     'application': True,

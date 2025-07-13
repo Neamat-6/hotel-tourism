@@ -15,7 +15,7 @@ class PilgrimBooking(models.Model):
 
     source = fields.Selection([('person','Direct'), ('company','Company')],required=True)
     partner_id = fields.Many2one('res.partner',required=True)
-    package_id = fields.Many2one('booking.package', required=True)
+    package_id = fields.Many2one('booking.package', required=True, domain="[('package_closed', '=', False)]")
     pilgrim_count = fields.Integer()
     pilgrim_cost = fields.Float(string="sales Price")
     total_cost = fields.Float(compute='compute_total_cost', store=True)

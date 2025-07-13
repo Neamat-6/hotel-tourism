@@ -275,11 +275,21 @@ class BookingPackage(models.Model):
         domain=[('location', '=', 'hotel')],
         string="Hotel Activities"
     )
-
+    package_closed = fields.Boolean(string="Package Closed")
 
     _sql_constraints = [
         ('package_code', 'unique (package_code)', 'Package Code must be unique')
     ]
+
+
+    @api.model
+    def _cron_update_package_closed(self):
+        """This method is called daily via a scheduled action"""
+        packages = self.search([])
+        today = fields.Date.today()
+        for record in packages:
+            record.package_closed = bool(record.package_closing_date and record.package_closing_date < today)
+
 
     @api.depends('package_extra_service')
     def compute_extra_service(self):
