@@ -18,12 +18,19 @@
         <field name="model">transportation.contract</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="purchase_order_id" invisible="1"/>
+                    <button string="Create Purchase Order" type="object" name="button_create_purchase_order"
+                        attrs="{'invisible': [('purchase_order_id', '!=', False)]}"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="transportation_company"/>
                             <field name="pilgrims_no"/>
                             <field name="available_no"/>
+                            <field name="company_id"/>
+                            <field name="purchase_order_id"/>
                         </group>
                         <group>
                             <field name="transportation_contract_no"/>

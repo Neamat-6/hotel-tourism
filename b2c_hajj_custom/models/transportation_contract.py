@@ -8,84 +8,47 @@ class TransportationContract(models.Model):
 
     transportation_company = fields.Many2one('res.partner', domain=[('is_transportation_company', '=', True)])
     no_buses = fields.Char('No. of Buses')
-    transportation_contract_no = fields.Char("Transportation Contract No.")
+    transportation_contract_no = fields.Char("Transportation Contract")
     location_lines = fields.One2many('transportation.location.line', 'contract_id')
     pilgrims_no = fields.Integer(string='Pilgrims NO.')
     booked_no = fields.Integer(string='Booked NO.', compute='_compute_booked_no')
     available_no = fields.Integer(string='Available NO.', compute='_compute_available_no')
     cost_price = fields.Float(string='Cost Price')
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=True)
+    purchase_order_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True, copy=False)
 
+    def button_create_purchase_order(self):
+        for rec in self:
+            if not all([rec.transportation_company, rec.transportation_contract_no, rec.pilgrims_no, rec.cost_price]):
+                raise ValidationError('Please fill in all required fields before creating a purchase order.')
+            po_vals = {
+                'partner_id': rec.transportation_company.id,
+                'company_id': rec.company_id.id,
+                'origin': rec.transportation_contract_no,
+                'order_line': [],
+            }
 
-    # def button_create_purchase_order(self):
-    #     clean = self.env.ref('hotel_booking.hotel_room_status_clean').id
-    #     vacant = self.env.ref('hotel_booking.hotel_room_stay_status_vacant').id
-    #
-    #     po_vals = {
-    #         'partner_id': self.vendor.id,
-    #         'company_id': self.company_id.id,
-    #         'origin': self.name,
-    #         'order_line': [],
-    #     }
-    #
-    #     if self.type == 'hotel':
-    #         product = self.env['product.product'].sudo().search([('name', '=', 'Room Type Product')], limit=1)
-    #         if not product:
-    #             product = self.env['product.product'].sudo().create({
-    #                 'name': 'Room Type Product',
-    #                 'type': 'service',
-    #                 'categ_id': self.env.ref('product.product_category_all').id,
-    #                 'list_price': 0.0,
-    #                 'standard_price': 0.0,
-    #             })
-    #         product_id = product.id
-    #
-    #         for line in self.line_ids:
-    #             for i in range(line.count):
-    #                 room_number = line.start + i
-    #                 self.env['hotel.room'].sudo().create({
-    #                     'hotel_id': self.hotel_id.id,
-    #                     'company_id': self.hotel_id.company_id.id,
-    #                     'name': str(room_number),
-    #                     'room_type': line.room_type_id.id,
-    #                     'floor_id': line.floor_id.id,
-    #                     'state': clean,
-    #                     'stay_state': vacant,
-    #                 })
-    #
-    #             po_vals['order_line'].append((0, 0, {
-    #                 'product_id': product_id,
-    #                 'name': f"Room Type: {line.room_type_id.name} (Floor: {line.floor_id.name})",
-    #                 'product_qty': line.count,
-    #                 'price_unit': line.unit_price,
-    #                 'date_planned': fields.Date.today(),
-    #                 'company_id': self.company_id.id,
-    #             }))
-    #
-    #     elif self.type == 'transportation':
-    #         product = self.env['product.product'].sudo().search([('name', '=', 'Transportation Product')], limit=1)
-    #         if not product:
-    #             product = self.env['product.product'].sudo().create({
-    #                 'name': 'Transportation Product',
-    #                 'type': 'service',
-    #                 'categ_id': self.env.ref('product.product_category_all').id,
-    #                 'list_price': 0.0,
-    #                 'standard_price': 0.0,
-    #             })
-    #         product_id = product.id
-    #
-    #         for trans_line in self.transportation_contract_ids:
-    #             po_vals['order_line'].append((0, 0, {
-    #                 'product_id': product_id,
-    #                 'name': f"Transportation: {trans_line.no_buses}",
-    #                 'product_qty': trans_line.no_buses,
-    #                 'price_unit': trans_line.unit_price,
-    #                 'date_planned': fields.Date.today(),
-    #                 'company_id': self.company_id.id,
-    #             }))
-    #
-    #     purchase_order = self.env['purchase.order'].create(po_vals)
-    #     self.purchase_order_id = purchase_order.id
-    #     self.state = 'po_created'
+            product = self.env['product.product'].sudo().search([('name', '=', 'Transportation Product')], limit=1)
+            if not product:
+                product = self.env['product.product'].sudo().create({
+                    'name': 'Transportation Product',
+                    'type': 'service',
+                    'categ_id': self.env.ref('product.product_category_all').id,
+                    'list_price': 0.0,
+                    'standard_price': 0.0,
+                })
+            product_id = product.id
+            po_vals['order_line'].append((0, 0, {
+                'product_id': product_id,
+                'name': f"{rec.transportation_contract_no}",
+                'product_qty': rec.pilgrims_no,
+                'price_unit': rec.cost_price,
+                'date_planned': fields.Date.today(),
+                'company_id': self.company_id.id,
+            }))
+
+            purchase_order = self.env['purchase.order'].create(po_vals)
+            rec.purchase_order_id = purchase_order.id
 
     @api.constrains('pilgrims_no', 'booked_no')
     def _check_booked_no(self):

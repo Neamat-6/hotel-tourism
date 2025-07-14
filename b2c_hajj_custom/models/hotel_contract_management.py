@@ -8,13 +8,13 @@ class HotelContract(models.Model):
     name = fields.Char("Name")
     vendor = fields.Many2one('res.partner', string="Supplier", required=True, domain="[('hotel_id', '=', hotel_id)]")
     hotel_id = fields.Many2one('hotel.hotel', copy=False, required=True, string="Hotel Category",)
-    company_id = fields.Many2one('res.company', default=lambda self: self.env.company, readonly=1)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=1)
     room_type_id = fields.Many2one('room.type', domain="[('company_id', '=', company_id)]")
     floor_id = fields.Many2one('hotel.floor', domain="[('company_id', '=', company_id)]")
     start = fields.Integer(default=101)
     count = fields.Integer(default=1)
     type = fields.Selection([('hotel', 'Hotel'), ('transportation', 'Transportation')],
-                            "Contract Type", copy=False)
+                            "Contract Type", copy=False, default='hotel')
     line_ids = fields.One2many(comodel_name="hotel.contract.management.line", inverse_name="contract_id")
     purchase_order_id = fields.Many2one('purchase.order', string="Purchase Order", readonly=True, copy=False)
     state = fields.Selection([
