@@ -1,0 +1,87 @@
+.o_FormRenderer_chatterContainer {
+  background-color: $odoo_FormRenderer_chatterContainer_bg;
+  max-width: 100%;
+  @extend .border-top;
+
+  .o_Chatter {
+    background-color: transparent;
+    border-color: $border-color;
+
+    .o_ChatterTopbar_actions {
+      @extend .mb-2;
+
+      button.o_ChatterTopbar_button, .btn-link {
+        font-weight: 600;
+        @extend .btn-dim;
+        @extend .btn-outline-primary;
+        @extend .mr-2;
+
+        .fa {
+          @extend .mr-2;
+        }
+      }
+
+      .o_ChatterTopbar_button {
+        margin-bottom: 0;
+      }
+
+      button {
+        @extend .mb-2;
+      }
+    }
+
+
+    .o_ThreadView {
+      background-color: transparent;
+
+      .o_MessageList {
+        background-color: transparent;
+      }
+
+      .o_MessageList_separatorLabel {
+        $bg: mix($o-brand-odoo, $dim-mix, 10%);
+        $border: mix($o-brand-odoo, $dim-mix, 20%);
+        background-color: $bg;
+        border: 1px solid $border;
+        color: color-yiq($bg);
+
+      }
+
+      .o_Message {
+        background-color: $light-50;
+        @extend .border;
+
+      }
+
+
+    }
+
+    .o_Composer {
+      background-color: $light-50;
+      @extend .border;
+
+      .o_Composer_coreMain {
+        .o_Composer_button {
+          $bg: mix($secondary, $dim-mix, 10%);
+          $border: mix($secondary, $dim-mix, 15%);
+          background-color: $bg;
+          border: 1px solid $border;
+          color: color-yiq($bg);
+        }
+      }
+
+    }
+
+    @include media-breakpoint-down(md, $o-extra-grid-breakpoints) {
+      .o_ChatterTopbar_rightSection {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+.o_ChatterTopbar_button:hover, .o_ChatterTopbar_button:focus {
+  background-color: transparent !important;
+}

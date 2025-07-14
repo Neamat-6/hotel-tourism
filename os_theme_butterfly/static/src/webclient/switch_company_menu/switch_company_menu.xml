@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.SwitchCompanyMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//Dropdown" position="replace">
+            <OS_Dropdown class="o_switch_company_menu" position="'bottom-end'"
+                         togglerClass="`o-dropdown--narrow os-quick-nav-icon`"
+                         menuClass="'dropdown-menu-md dropdown-menu-end dropdown-menu-s1'">
+                <t t-set-slot="toggler">
+                    <div class="icon-status icon-status-na">
+                        <em class="icon osi osi-building"/>
+                    </div>
+                </t>
+                <t t-foreach="Object.values(companyService.availableCompanies).sort((c1, c2) => c1.sequence - c2.sequence)" t-as="company">
+                    <t t-call="web.SwitchCompanyItem">
+                        <t t-set="company" t-value="company"/>
+                    </t>
+                </t>
+            </OS_Dropdown>
+        </xpath>
+    </t>
+</templates>

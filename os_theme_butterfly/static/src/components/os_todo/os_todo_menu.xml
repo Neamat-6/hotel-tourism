@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_todo_menu" owl="1">
+         <li>
+            <a t-if="themeService.os_display_todo_list" class="os-quick-nav-icon toggle" data-target="todoPanel" href="#" data-tippy-content="TODO List" data-tippy-placement="bottom">
+                <div class="icon-status icon-status-na ">
+                    <em class="icon osi osi-list-check"/>
+                    <span id="todo_counter"/>
+                </div>
+            </a>
+        </li>
+    </t>
+</templates>

@@ -1,0 +1,95 @@
+
+html {
+  height: 100%;
+
+  .o_web_client {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .o_action_manager {
+      direction: ltr;
+      flex: 1 1 100%;
+      @include media-breakpoint-up(md) {
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .o_action {
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+
+        @include media-breakpoint-up(lg) {
+          overflow: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        .o_control_panel {
+          flex: 0 0 auto;
+        }
+
+        .o_content {
+          flex: 1 1 100%;
+          position: relative;
+          @include media-breakpoint-up(md) {
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+          @include media-breakpoint-down(sm) {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            height: auto;
+            & > div {
+              overflow: auto visible;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .o_web_client {
+      &.modal-open {
+        .o_content {
+          overflow: hidden;
+        }
+      }
+    }
+
+    .o_viewer_content .o_viewer_img_wrapper .o_viewer_zoomer {
+      overflow: scroll;
+    }
+  }
+
+  body.modal-open {
+    position: fixed;
+  }
+
+  .o_loading > span {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: $zindex-modal + 1;
+  }
+}
+
+@media print {
+  html .o_web_client {
+    .o_main_navbar {
+      display: none;
+    }
+
+    .o_content {
+      position: static;
+      overflow: visible;
+      height: auto;
+    }
+  }
+}

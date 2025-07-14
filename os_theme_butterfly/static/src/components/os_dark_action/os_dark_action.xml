@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_dark_action" owl="1">
+        <div>
+            <a class="o-dropdown dropdown o-dropdown--no-caret os-quick-nav-icon"
+               t-att-data-tippy-content="themeUserService.os_theme_mode =='light-mode' ? 'Enable Dark Mode' : 'Enable Light Mode'"
+               data-tippy-placement="bottom"
+               t-on-click.prevent="onClickDarkAction" href="#">
+                <div t-attf-class="icon-status icon-status-na">
+                    <em class="icon osi"
+                        t-att-class="themeUserService.os_theme_mode =='light-mode' ? 'osi-moon' : 'osi-sun'"
+                        t-ref="osMenuDarkIcon"
+                        t-att-data-update="themeUserService.os_theme_mode =='light-mode' ? 'dark-mode' : 'light-mode'"/>
+                </div>
+            </a>
+        </div>
+
+    </t>
+</templates>

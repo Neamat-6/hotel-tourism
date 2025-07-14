@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_recently_viewed_record_public,os.recently.viewed.record,model_os_recently_viewed_record,,1,1,1,1
+access_os_todo_public,os.todo,model_os_todo,,1,1,1,1
+access_os_bookmark_public,os.bookmark,model_os_bookmark,,1,1,1,1
+access_os_favorite_app_public,os.favorite.app,model_os_favorite_app,,1,1,1,1
+access_os_quick_create_public,os.quick.create,model_os_quick_create,,1,1,1,1

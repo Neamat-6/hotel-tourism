@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.SearchControlPanelMobile" owl="1">
+        <div class="o_control_panel os_owl_control_panel_mobile">
+            <t t-if="state.showMobileSearch">
+                <Portal target="'body'">
+                    <div class="o_searchview os_modal_mobile_search">
+                        <div class="os_modal_mobile_search_header">
+                            <button type="button" class="btn-link btn" t-on-click="state.showMobileSearch = false"
+                                    title="BACK">
+                                <t t-call="os_theme_butterfly.search_back_2"/>
+                            </button>
+                            <button type="button" class="btn-link btn" t-on-click="env.searchModel.clearQuery()"
+                                    title="CLEAR SEARCH">
+                                CLEAR
+                            </button>
+                        </div>
+                        <div class="os_mobile_search_wrapper">
+                            <t t-if="display['top-right']">
+                                <t t-slot="control-panel-top-right">
+                                    <SearchBar/>
+                                </t>
+                            </t>
+                            <t t-if="display['bottom-right']">
+                                <t t-slot="control-panel-bottom-right">
+                                    <div class="os_mobile_search_options o_search_options">
+                                        <t t-foreach="searchMenus" t-as="menu" t-key="menu.key">
+                                            <t t-component="menu.Component"/>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block rounded-0"
+                                t-on-click="state.showMobileSearch = false">
+                            RESULT
+                        </button>
+                    </div>
+                </Portal>
+            </t>
+            <t t-else="">
+                <div t-if="display['top']" class="o_cp_top">
+                    <t t-if="display['top-left'] and !state.showSearchBar">
+                        <t t-slot="control-panel-top-left">
+                            <t t-call="os_theme_butterfly.BreadcrumbsMobile"/>
+                        </t>
+                    </t>
+                    <t t-if="display['top-right']">
+                        <button t-if="!state.showSearchBar" type="button"
+                                class="os_trigger_searchview text-body btn btn-link pr-0"
+                                t-on-click="state.showSearchBar = !state.showSearchBar">
+                            <i class="osi osi-search"/>
+                        </button>
+                        <t t-if="state.showSearchBar">
+                            <t t-slot="control-panel-top-right">
+                                <div class="d-inline-flex os_owl_mobile_search_bar w-100">
+                                    <button type="button" class="os_trigger_searchview text-body btn btn-link"
+                                            t-on-click="state.showSearchBar = !state.showSearchBar">
+                                        <i class="osi osi-arrow-left"/>
+                                    </button>
+                                    <SearchBar class="os_searchview_mobile"/>
+                                    <button type="button" class="btn fa fa-filter"
+                                            t-on-click="state.showMobileSearch = !state.showMobileSearch"/>
+                                </div>
+
+                            </t>
+                        </t>
+                    </t>
+                </div>
+                <div t-if="display['bottom']" class="o_cp_bottom">
+                    <div t-if="display['bottom-left']" class="o_cp_bottom_left">
+                        <t t-slot="control-panel-bottom-left"/>
+                    </div>
+                    <div t-if="display['bottom-right']" class="o_cp_bottom_right">
+                        <div class="o_cp_pager"/>
+
+                        <t t-if="env.config.viewSwitcherEntries and env.config.viewSwitcherEntries.length > 1">
+                            <nav class="btn-group o_cp_switch_buttons">
+                                <t t-set="view" t-value="env.config.viewSwitcherEntries.find((v) => v.active)"/>
+                                <Dropdown
+                                        position="'bottom-end'"
+                                        menuClass="'dropdown-menu-right p-2'"
+                                        togglerClass="'os_selected_view_btn text-body btn btn-link btn-sm pr-0'">
+                                    <t t-set-slot="toggler">
+                                        <i class="fa fa-lg o_switch_view"
+                                           t-attf-class="fa o_{{view.type}} {{view.icon}} {{view.active ? 'active' : ''}}"/>
+                                    </t>
+                                    <t t-foreach="env.config.viewSwitcherEntries" t-as="view" t-key="view.type">
+                                        <button class="btn btn-white btn-dim btn-outline-light fa o_switch_view mr-3"
+                                                t-attf-class="o_{{view.type}} {{view.icon}} {{view.active ? 'active' : ''}}"
+                                                t-att-data-tooltip="view.name"
+                                                t-on-click="onViewClicked(view.type)"/>
+                                    </t>
+                                </Dropdown>
+                            </nav>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.BreadcrumbsMobile" owl="1">
+        <ol class="breadcrumb">
+            <t t-set="breadcrumbs" t-value="env.config.breadcrumbs or []"/>
+            <t t-if="breadcrumbs.length">
+                <t t-set="breadcrumb" t-value="breadcrumbs[breadcrumbs.length - 1]"/>
+                <li class="breadcrumb-item o_back_button btn btn-secondary"
+                    t-on-click.prevent="onBreadcrumbClicked(breadcrumb.jsId)"
+                />
+            </t>
+            <li class="breadcrumb-item active">
+                <t t-if="env.config.displayName" t-esc="env.config.displayName"/>
+                <em t-else="" class="text-warning">Unnamed</em>
+            </li>
+        </ol>
+    </t>
+
+    <t t-inherit="web.ControlPanel" t-inherit-mode="extension" owl="1">
+         <xpath expr="//SearchBar" position="attributes">
+             <attribute name="isToggleSearch">true</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_control_panel')]" position="attributes">
+            <attribute name="t-attf-class" add="os_owl_control_panel" separator=" "/>
+            <attribute name="t-if" add="!isMobile" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_cp_top_right')]" position="attributes">
+            <attribute name="class" add="justify-content-end align-items-center" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_cp_top_left')]//t[1]" position="before">
+            <h3 class="os-block-title page-title my-2">
+                <span t-if="env.config.displayName" t-esc="env.config.displayName"/>
+            </h3>
+        </xpath>
+        <xpath expr="//div[hasclass('o_cp_bottom_right')]//div[hasclass('o_search_options')]" position="replace"/>
+        <xpath expr="//div[hasclass('o_cp_top_right')]" position="after">
+            <div class="o_search_options position-static d-flex" role="search">
+                <t t-foreach="searchMenus" t-as="menu" t-key="menu.key">
+                    <t t-component="menu.Component"/>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//*[hasclass('o_cp_switch_buttons')]//button" position="attributes">
+            <attribute name="class" remove="btn-light" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_control_panel')]" position="after">
+            <t t-else="">
+                <t t-call="os_theme_butterfly.SearchControlPanelMobile"/>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

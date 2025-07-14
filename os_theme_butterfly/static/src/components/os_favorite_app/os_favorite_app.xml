@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_favorite_app_menu" owl="1">
+        <OS_Favorite_Apps_Dropdown
+                class="os_favorite_app_menu" position="'bottom-end'"
+                togglerClass="`os-quick-nav-icon`"
+                menuClass="'dropdown-menu-end dropdown-menu-lg dropdown-menu-s1'">
+            <t t-set-slot="toggler">
+                <div class="icon-status icon-status-na" data-tippy-content="Favorite Apps"
+                     data-tippy-placement="bottom">
+                    <em class="icon osi osi-star" t-ref="icon_favorite_app" id="icon_favorite_app"/>
+                </div>
+            </t>
+
+            <t t-set-slot="top_dropdwon">
+                <div class="dropdown-inner d-flex justify-content-between align-items-center p-3 border-bottom">
+                    <h5 class="mb-0" t-if="action=='list_favorite_apps'">Favorite Apps</h5>
+                    <h5 class="mb-0" t-if="action=='edit_mode'">Favorite Apps - Edit</h5>
+                    <h5 class="mb-0" t-if="action=='edit_favorite_app_item'">Favorite Apps - Edit item</h5>
+                    <h5 class="mb-0" t-if="action=='add_favorite_app_item'">Favorite Apps - Add New</h5>
+                    <div>
+                        <a t-if="records.length > 0 and action=='list_favorite_apps'"
+                           class="btn btn-icon edit_mode_btn mr-3" t-on-click="enterEditMode"
+                           title="Enter edit mode">
+                            <t t-call="os_theme_butterfly.icon_enter_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='edit_mode'" class="btn btn-icon" t-on-click="exitEditMode"
+                           title="Exit edit mode">
+                            <t t-call="os_theme_butterfly.icon_exit_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='list_favorite_apps'" class="btn btn-icon" title="Add a favorite app"
+                           t-on-click="onClickAddFavoriteApp">
+                            <t t-call="os_theme_butterfly.icon_add_item">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='add_favorite_app_item' or action=='edit_favorite_app_item'"
+                           class="btn btn-icon" t-on-click="cancelEditItem" title="Cancel">
+                            <t t-call="os_theme_butterfly.cancel_edit_item">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+
+                    </div>
+
+                </div>
+            </t>
+            <div class="favorite_app_wrap d-flex flex-column position-relative"
+                 t-att-class="action=='edit_mode' ? 'edit_mode':'' ">
+                <div t-if="action=='list_favorite_apps' or action=='edit_mode'" class="favorite_app_inner p-2">
+                    <t t-if="records.length > 0">
+                        <t t-foreach="records" t-as="record" t-key="record">
+                            <t t-call="os_theme_butterfly.favorite_app_item">
+                                <t t-set="action_type" t-value="action"/>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+                <div t-if="action=='add_favorite_app_item' or action=='edit_favorite_app_item'">
+                    <div class="p-3">
+                        <div class="col-12 mb-2">
+                            <div id="favorite_app_errors_msg"/>
+                            <div class="form-group">
+                                <label class="form-label" for="application">Application
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="application" t-ref="application_input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="favorite_app_name">Name
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="favorite_app_name"
+                                           t-att-value="favorite_app_item and favorite_app_item.name"
+                                           t-ref="favorite_app_name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="favorite_app_sequence">Sequence</label>
+                                <div class="form-control-wrap">
+                                    <input type="number" class="form-control" id="favorite_app_sequence"
+                                           t-att-value="(favorite_app_item and favorite_app_item.sequence) or 1"
+                                           t-ref="favorite_app_sequence"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4 mb-2 text-right" t-if="action=='edit_favorite_app_item'">
+                            <a href="#" class="btn btn-outline-danger mr-3"
+                               t-on-click="onClickdeleteFavoriteAppItem"
+                               t-att-data-favorite_app-id="favorite_app_item.id">Delete
+                            </a>
+                            <a href="#" class="btn btn-primary" t-on-click="updateFavoriteAppItem"
+                               t-att-data-favorite_app-id="favorite_app_item.id">Update</a>
+                        </div>
+                        <div class="col-12 mt-4 mb-2 text-right" t-if="action=='add_favorite_app_item'">
+                            <a href="#" class="btn btn-primary" t-on-click="addFavoriteAppItem">Add</a>
+                        </div>
+                    </div>
+                </div>
+                <t t-if="records.length == 0 and action=='list_favorite_apps'">
+                    <div class="text-center">
+                        <div class="pt-4 pb-4">
+                            <span class="svg-icon svg-icon-4x">
+                                <t t-call="os_theme_butterfly.no_favorite_apps"/>
+                            </span>
+                        </div>
+                        <div class="pb-5">
+                            <h3 class="fs-16px mb-2">No Favorite Apps!</h3>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+        </OS_Favorite_Apps_Dropdown>
+
+    </t>
+
+    <t t-name="os_theme_butterfly.favorite_app_item_icon" owl="1">
+        <t t-call="os_theme_butterfly.AppsIcon">
+            <t t-set="app" t-value="menu"/>
+            <t t-set="action_type" t-value="action_type"/>
+        </t>
+        <div class="app-title">
+            <span t-esc="record.name"/>
+        </div>
+    </t>
+    <t t-name="os_theme_butterfly.favorite_app_item" owl="1">
+        <div class="col text-center my-2">
+            <t t-set="menu" t-value="getInfoMenuItem(record.menu_id)"/>
+            <a t-if="action=='edit_mode'" href="#"
+               t-att-data-id="record.id"
+               t-att-data-name="record.name"
+               t-att-data-menu_id="record.menu_id"
+               t-att-data-menu_name="record.menu_name"
+               t-att-data-sequence="record.sequence"
+               t-on-click.prevent="onClickFavoriteAppItem"
+               class="d-flex justify-content-center flex-column align-items-center">
+                <t t-call="os_theme_butterfly.favorite_app_item_icon"/>
+            </a>
+            <a t-else="" t-att-href="getMenuItemHref(menu)"
+               class="d-flex justify-content-center flex-column align-items-center">
+                <t t-call="os_theme_butterfly.favorite_app_item_icon"/>
+            </a>
+        </div>
+    </t>
+
+</templates>

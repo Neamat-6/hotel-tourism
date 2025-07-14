@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.others-settings" owl="1">
+        <div class="tab-pane" id="others-settings" data-simplebar="">
+            <div class="os-opt-set">
+                <div class="d-flex justify-content-between">
+                    <div class="os-opt-set-title">Theme Company Logos</div>
+                    <a href="#" class="link text-body">
+                        <em class="icon osi osi-chevron-down"/>
+                    </a>
+                </div>
+                <div class="os-toggle-content mt-3" data-content="company_logos_settings">
+                    <div class="form-group row mt-3 px-1" t-ref="os_theme_logo_white" style="width: 100%;">
+                        <div class="col-6">
+                            <label class="form-label mb-0" for="os_theme_logo_white">Theme Logo white (260x80)</label>
+                        </div>
+                        <div class="col-6">
+                            <div class="position-relative img_div d-inline-flex mb-2">
+                                <img class="img img-thumbnail bg-dark" style="max-height: 80px;"
+                                     t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/os_theme_logo_white" t-ref="os_theme_logo_white-bg-img"/>
+                                <a title="Change Image" aria-label="Change Image"
+                                   class="fa fa-pencil fa-lg btn btn-icon open_input_file" t-on-click="openLogoWhiteFileInput"/>
+                            </div>
+                            <input type="file" class="d-none" name="ufile" t-on-change="LogoWhiteImageUploaded" t-ref="os_theme_logo_white-bg-file-input" accept=".png, .jpg, .jpeg"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3 px-1" t-ref="os_theme_logo_dark" style="width: 100%;">
+                        <div class="col-6">
+                            <label class="form-label mb-0" for="os_theme_logo_dark">Theme Logo Dark (260x80)</label>
+                        </div>
+                        <div class="col-6">
+                            <div class="position-relative img_div d-inline-flex mb-2">
+                                <img class="img img-thumbnail" style="max-height: 80px;"
+                                     t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/os_theme_logo_dark" t-ref="os_theme_logo_dark-bg-img"/>
+                                <a title="Change Image" aria-label="Change Image"
+                                   class="fa fa-pencil fa-lg btn btn-icon open_input_file" t-on-click="openLogoDarkFileInput"/>
+                            </div>
+                            <input type="file" class="d-none" name="ufile" t-on-change="LogoDarkImageUploaded" t-ref="os_theme_logo_dark-bg-file-input" accept=".png, .jpg, .jpeg"/>
+
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3 px-1 d-none" t-ref="os_theme_logo_small" style="width: 100%;">
+                        <div class="col-6">
+                            <label class="form-label mb-0" for="os_theme_logo_small">Theme Logo Small (80x80)</label>
+                        </div>
+                        <div class="col-6">
+                            <div class="position-relative img_div d-inline-flex">
+                                <img class="img img-thumbnail mb-2" style="max-height: 80px;"
+                                     t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/os_theme_logo_small" t-ref="os_theme_logo_small-bg-img"/>
+                                <a title="Change Image" aria-label="Change Image"
+                                   class="fa fa-pencil fa-lg btn btn-icon open_input_file" t-on-click="openLogoSmallFileInput"/>
+                            </div>
+                            <input type="file" class="d-none" name="ufile" t-on-change="LogoSmallImageUploaded" t-ref="os_theme_logo_small-bg-file-input" accept=".png, .jpg, .jpeg"/>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="os-opt-set">
+                <div class="d-flex justify-content-between">
+                    <div class="os-opt-set-title">Window Title &amp; favicon</div>
+                    <a href="#" class="link text-body">
+                        <em class="icon osi osi-chevron-down"/>
+                    </a>
+                </div>
+                <div class="os-toggle-content mt-3" data-content="web_window_title_settings">
+                    <div class="os-opt-list col-2x">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center active" style="width: 100%;" data-key="os_web_window_title">
+                            <div class="col-5">
+                                <label class="form-label mb-0 fs-14px" for="os_web_window_title">Title</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control" t-att-value="themeService.os_web_window_title and themeService.os_web_window_title or ''" id="os_web_window_title"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3 px-1" t-ref="os_theme_favicon_div" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_theme_favicon_div">Favicon</label>
+                            </div>
+                            <div class="col-7">
+                            <div class="position-relative img_div d-inline-flex">
+                                <img class="img img-thumbnail mb-2" style="max-height: 80px;min-height: 50px;"
+                                     t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/favicon" t-ref="os_theme_favicon"/>
+                                <a title="Change Favicon" aria-label="Change Favicon"
+                                   class="fa fa-pencil fa-lg btn btn-icon open_input_file" t-on-click="openFaviconFileInput"/>
+                            </div>
+                                <input type="file" class="d-none" name="ufile" t-on-change="FaviconImageUploaded" t-ref="os_theme_favicon_input" accept=".png, .jpg, .jpeg"/>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="os-opt-set">
+                <div class="d-flex justify-content-between">
+                    <div class="os-opt-set-title">Web Ribbon</div>
+                    <a href="#" class="link text-body">
+                       <em class="icon osi osi-chevron-down"/>
+                    </a>
+                </div>
+                <div class="os-toggle-content mt-3" data-content="web_ribbon_settings">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" t-on-change="toggleShowRibbon" t-att-checked="themeService.os_activate_web_ribbon" id="os_activate_web_ribbon"/>
+                        <label class="custom-control-label form-label mb-0 fs-14px " for="os_activate_web_ribbon">Show Web Ribbon?</label>
+                    </div>
+                    <div class="os-opt-list mt-1" t-ref="ribbon_bloc">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_web_ribbon_text">Ribbon Text</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control" t-att-value="themeService.os_web_ribbon_text and themeService.os_web_ribbon_text or ''" id="os_web_ribbon_text"/>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_web_ribbon_bg">Ribbon Background</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control os_widget_color" t-att-value="themeService.os_web_ribbon_bg and themeService.os_web_ribbon_bg or ''" id="os_web_ribbon_bg"/>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_web_ribbon_bg">Ribbon Color</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control os_widget_color" t-att-value="themeService.os_web_ribbon_fg and themeService.os_web_ribbon_fg or ''" id="os_web_ribbon_fg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="os-opt-set">
+                <div class="d-flex justify-content-between">
+                    <div class="os-opt-set-title">Chart color palette</div>
+                    <a href="#" class="link text-body">
+                       <em class="icon osi osi-chevron-down"/>
+                    </a>
+                </div>
+                <div class="os-toggle-content mt-3" data-content="os_chart_color_palette">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                    <div class="col-5">
+                        <label class="form-label mb-0" for="os_chart_color_palette">Palette</label>
+                    </div>
+                        <div class="col-7">
+                        <div class="form-control-select">
+                            <select class="form-control" id="os_chart_color_palette" t-on-change="onChangeChartPalette">
+                                <option value="default" t-att-selected="themeService.os_chart_color_palette == 'default'">Default</option>
+                                <option value="palette_1" t-att-selected="themeService.os_chart_color_palette == 'palette_1'">Odoo Stars</option>
+                                <option value="palette_2" t-att-selected="themeService.os_chart_color_palette == 'palette_2'">Happy</option>
+                                <option value="palette_3" t-att-selected="themeService.os_chart_color_palette == 'palette_3'">Pastel</option>
+                                <option value="palette_4" t-att-selected="themeService.os_chart_color_palette == 'palette_4'">Spring</option>
+                                <option value="palette_5" t-att-selected="themeService.os_chart_color_palette == 'palette_5'">Winter</option>
+                                <option value="palette_6" t-att-selected="themeService.os_chart_color_palette == 'palette_6'">Neon</option>
+                                <option value="palette_7" t-att-selected="themeService.os_chart_color_palette == 'palette_7'">Retro Metro</option>
+                                <option value="palette_8" t-att-selected="themeService.os_chart_color_palette == 'palette_8'">Apple iMac</option>
+                                <option value="palette_9" t-att-selected="themeService.os_chart_color_palette == 'palette_9'">Dracula</option>
+                                <option value="palette_10" t-att-selected="themeService.os_chart_color_palette == 'palette_10'">Rainbow</option>
+                                <option value="palette_11" t-att-selected="themeService.os_chart_color_palette == 'palette_11'">Cool</option>
+                                <option value="palette_12" t-att-selected="themeService.os_chart_color_palette == 'palette_12'">Red Yellow Blue</option>
+                                <option value="palette_13" t-att-selected="themeService.os_chart_color_palette == 'palette_13'">Spectral</option>
+                                <option value="palette_14" t-att-selected="themeService.os_chart_color_palette == 'palette_14'">Yellow &amp; Green</option>
+                                <option value="palette_15" t-att-selected="themeService.os_chart_color_palette == 'palette_15'">Red &amp; Purple</option>
+                            </select>
+                            </div>
+                            <span class="os-opt-item-bg mt-3"><span t-ref="chart_bg_palette" t-attf-class="chart_bg_{{themeService.os_chart_color_palette or 'none'}}"/></span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="os-opt-set">
+                <div class="d-flex justify-content-between">
+                    <div class="os-opt-set-title">Modal Entrance Animation</div>
+                    <a href="#" class="link text-body">
+                       <em class="icon osi osi-chevron-down"/>
+                    </a>
+                </div>
+                <div class="os-toggle-content mt-3" data-content="os_modal_animated_entrance">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                    <div class="col-5">
+                        <label class="form-label mb-0" for="os_modal_animated_entrance">Animated ?</label>
+                    </div>
+                        <div class="col-7">
+                        <div class="form-control-select">
+                            <select class="form-control" id="os_modal_animated_entrance" t-on-change="onChangeAnimationModalEntrance">
+                                <option value="True" t-att-selected="themeService.os_modal_animated_entrance">Yes</option>
+                                <option value="False" t-att-selected="!themeService.os_modal_animated_entrance">No</option>
+                            </select>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;" t-ref="animations_modal_entrance_div">
+                    <div class="col-5">
+                        <label class="form-label mb-0" for="os_modal_animated_entrance_value">Animation</label>
+                    </div>
+                        <div class="col-7">
+                        <div class="form-control-select">
+                            <select class="form-control" id="os_modal_animated_entrance_value">
+                                <t t-set="selected_animation" t-value="themeService.os_modal_animated_entrance_value"/>
+                                <optgroup label="Attention Seekers">
+                                    <option t-att-selected="selected_animation=='bounce'" value="bounce">bounce</option>
+                                    <option t-att-selected="selected_animation=='flash'" value="flash">flash</option>
+                                    <option t-att-selected="selected_animation=='pulse'" value="pulse">pulse</option>
+                                    <option t-att-selected="selected_animation=='rubberBand'" value="rubberBand">rubberBand</option>
+                                    <option t-att-selected="selected_animation=='shakeX'" value="shakeX">shakeX</option>
+                                    <option t-att-selected="selected_animation=='shakeY'" value="shakeY">shakeY</option>
+                                    <option t-att-selected="selected_animation=='headShake'" value="headShake">headShake</option>
+                                    <option t-att-selected="selected_animation=='swing'" value="swing">swing</option>
+                                    <option t-att-selected="selected_animation=='tada'" value="tada">tada</option>
+                                    <option t-att-selected="selected_animation=='wobble'" value="wobble">wobble</option>
+                                    <option t-att-selected="selected_animation=='jello'" value="jello">jello</option>
+                                    <option t-att-selected="selected_animation=='heartBeat'" value="heartBeat">heartBeat</option>
+                                </optgroup>
+                                <optgroup label="Back entrances">
+                                    <option t-att-selected="selected_animation=='backInDown'" value="backInDown">backInDown</option>
+                                    <option t-att-selected="selected_animation=='backInDown'" value="backInDown">backInDown</option>
+                                    <option t-att-selected="selected_animation=='backInRight'" value="backInRight">backInRight</option>
+                                    <option t-att-selected="selected_animation=='backInUp'" value="backInUp">backInUp</option>
+                                </optgroup>
+                                <optgroup label="Bouncing Entrances">
+                                    <option t-att-selected="selected_animation=='bounceIn'" value="bounceIn">bounceIn</option>
+                                    <option t-att-selected="selected_animation=='bounceInDown'" value="bounceInDown">bounceInDown</option>
+                                    <option t-att-selected="selected_animation=='bounceInLeft'" value="bounceInLeft">bounceInLeft</option>
+                                    <option t-att-selected="selected_animation=='bounceInRight'" value="bounceInRight">bounceInRight</option>
+                                    <option t-att-selected="selected_animation=='bounceInUp'" value="bounceInUp">bounceInUp</option>
+                                </optgroup>
+                                <optgroup label="Fading Entrances">
+                                    <option t-att-selected="selected_animation=='fadeIn'" value="fadeIn">fadeIn</option>
+                                    <option t-att-selected="selected_animation=='fadeInDown'" value="fadeInDown">fadeInDown</option>
+                                    <option t-att-selected="selected_animation=='fadeInDownBig'" value="fadeInDownBig">fadeInDownBig</option>
+                                    <option t-att-selected="selected_animation=='fadeInLeft'" value="fadeInLeft">fadeInLeft</option>
+                                    <option t-att-selected="selected_animation=='fadeInLeftBig'" value="fadeInLeftBig">fadeInLeftBig</option>
+                                    <option t-att-selected="selected_animation=='fadeInRight'" value="fadeInRight">fadeInRight</option>
+                                    <option t-att-selected="selected_animation=='fadeInRightBig'" value="fadeInRightBig">fadeInRightBig</option>
+                                    <option t-att-selected="selected_animation=='fadeInUp'" value="fadeInUp">fadeInUp</option>
+                                    <option t-att-selected="selected_animation=='fadeInUpBig'" value="fadeInUpBig">fadeInUpBig</option>
+                                    <option t-att-selected="selected_animation=='fadeInTopLeft'" value="fadeInTopLeft">fadeInTopLeft</option>
+                                    <option t-att-selected="selected_animation=='fadeInTopRight'" value="fadeInTopRight">fadeInTopRight</option>
+                                    <option t-att-selected="selected_animation=='fadeInBottomLeft'" value="fadeInBottomLeft">fadeInBottomLeft</option>
+                                    <option t-att-selected="selected_animation=='fadeInBottomRight'" value="fadeInBottomRight">fadeInBottomRight</option>
+                                </optgroup>
+                                <optgroup label="Flippers">
+                                    <option t-att-selected="selected_animation=='flip'" value="flip">flip</option>
+                                    <option t-att-selected="selected_animation=='flipInX'" value="flipInX">flipInX</option>
+                                    <option t-att-selected="selected_animation=='flipInY'" value="flipInY">flipInY</option>
+                                </optgroup>
+                                <optgroup label="Lightspeed">
+                                    <option t-att-selected="selected_animation=='lightSpeedInRight'" value="lightSpeedInRight">lightSpeedInRight</option>
+                                    <option t-att-selected="selected_animation=='lightSpeedInLeft'" value="lightSpeedInLeft">lightSpeedInLeft</option>
+                                </optgroup>
+                                <optgroup label="Rotating Entrances">
+                                    <option t-att-selected="selected_animation=='rotateIn'" value="rotateIn">rotateIn</option>
+                                    <option t-att-selected="selected_animation=='rotateInDownLeft'" value="rotateInDownLeft">rotateInDownLeft</option>
+                                    <option t-att-selected="selected_animation=='rotateInDownRight'" value="rotateInDownRight">rotateInDownRight</option>
+                                    <option t-att-selected="selected_animation=='rotateInUpLeft'" value="rotateInUpLeft">rotateInUpLeft</option>
+                                    <option t-att-selected="selected_animation=='rotateInUpRight'" value="rotateInUpRight">rotateInUpRight</option>
+                                </optgroup>
+                                <optgroup label="Sliding Entrances">
+                                <option t-att-selected="selected_animation=='slideInUp'" value="slideInUp">slideInUp</option>
+                                    <option t-att-selected="selected_animation=='slideInDown'" value="slideInDown">slideInDown</option>
+                                    <option t-att-selected="selected_animation=='slideInLeft'" value="slideInLeft">slideInLeft</option>
+                                    <option t-att-selected="selected_animation=='slideInRight'" value="slideInRight">slideInRight</option>
+                              </optgroup>
+                                <optgroup label="Zoom Entrances">
+                                    <option t-att-selected="selected_animation=='zoomIn'" value="zoomIn">zoomIn</option>
+                                    <option t-att-selected="selected_animation=='zoomInDown'" value="zoomInDown">zoomInDown</option>
+                                    <option t-att-selected="selected_animation=='zoomInLeft'" value="zoomInLeft">zoomInLeft</option>
+                                    <option t-att-selected="selected_animation=='zoomInRight'" value="zoomInRight">zoomInRight</option>
+                                    <option t-att-selected="selected_animation=='zoomInUp'" value="zoomInUp">zoomInUp</option>
+                                </optgroup>
+                                <optgroup label="Sliding entrances">
+                                    <option t-att-selected="selected_animation=='slideInDown'" value="slideInDown">slideInDown</option>
+                                    <option t-att-selected="selected_animation=='slideInLeft'" value="slideInLeft">slideInLeft</option>
+                                    <option t-att-selected="selected_animation=='slideInRight'" value="slideInRight">slideInRight</option>
+                                    <option t-att-selected="selected_animation=='slideInUp'" value="slideInUp">slideInUp</option>
+                                </optgroup>
+                                <optgroup label="Specials">
+                                    <option t-att-selected="selected_animation=='jackInTheBox'" value="jackInTheBox">jackInTheBox</option>
+                                    <option t-att-selected="selected_animation=='rollIn'" value="rollIn">rollIn</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </t>
+</templates>

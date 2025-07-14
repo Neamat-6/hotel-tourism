@@ -1,0 +1,254 @@
+
+.ff-poppins {
+  font-family: Poppins, serif !important;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.test {
+  color: $login_background_color;
+}
+
+$dark_color: darken($accent-color, 20%);
+$color: if($login_background_color!=False, $login_background_color, $dark_color);
+.bg-login-bloc {
+
+  background-color: $color;
+  color: color-yiq($color);
+
+  svg {
+    fill: color-yiq($color);
+  }
+
+  path {
+    fill: color-yiq($color) !important;
+    fill-opacity: 0.125 !important;
+  }
+}
+
+%common {
+  .form-control {
+    @extend .form-control-lg;
+  }
+
+  .btn:not(.btn-link) {
+    border-radius: $border-radius-lg !important;
+    @extend .btn-lg;
+
+  }
+
+  .btn-primary {
+    @extend .ff-poppins;
+  }
+
+  .input-group {
+    @extend .input-group-lg;
+  }
+
+  .input-group-append .btn {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  a:not(.btn) {
+    color: $base-color;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  button[value='/web/become'] {
+    margin-top: 0.75rem !important;
+  }
+}
+
+@if $login_style == 'style_1' or $login_style == 'style_2' or $login_style == 'style_3' or $login_style == 'style_6' {
+  .login_page {
+    .card {
+      border-radius: 1rem !important;
+    }
+
+    @extend %common;
+  }
+}
+
+@if $login_style == 'style_1' or $login_style == 'style_6' {
+  .login_page {
+    .card {
+      @extend .mx-auto;
+    }
+  }
+
+}
+
+@if $login_style == 'style_2' {
+  .login_page {
+    .card {
+      @extend .mr-auto;
+    }
+  }
+
+}
+
+@if $login_style == 'style_3' {
+  .login_page {
+    .card {
+      @extend .ml-auto;
+    }
+  }
+
+}
+
+@if $login_style == 'style_4' or $login_style == 'style_5' {
+  .login_page {
+    @extend %common;
+  }
+
+  .content {
+    h1 {
+      font-weight: 700;
+      color: color-yiq($color);
+
+    }
+
+    p {
+      color: color-yiq($color);
+    }
+
+  }
+
+  .login_shape_1 {
+    position: absolute;
+    transform: translate(95%, 90%);
+    width: 70%;
+    height: 70%;
+
+  }
+
+  .login_shape_2 {
+    position: absolute;
+    right: -11%;
+    top: 4%;
+    width: 50%;
+
+  }
+
+  .login_shape_3 {
+    position: absolute;
+    bottom: 0;
+
+  }
+
+  .login_shape_4 {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+
+  }
+}
+
+@if $login_style == 'style_5' {
+  .login_column_1 {
+    z-index: 1000;
+    order: 1;
+  }
+}
+
+@if $login_style == 'style_6' {
+  %common_shapes {
+    opacity: 0.4;
+    z-index: -1;
+  }
+  %common_path {
+    fill: if($login_background_color!=False, color-yiq($login_background_color), $accent-color) !important;
+    fill-opacity: 0.25 !important;
+  }
+
+  body.login_style_6 {
+    background-image: none !important;
+    $dimm-mix: #fff;
+    $background: mix($accent-color, $dimm-mix, 11%);
+    background-color: if($login_background_color!=False, $login_background_color, $background);
+
+    main {
+      position: relative;
+      overflow: hidden;
+    }
+  }
+  .login_shape_1 {
+    position: absolute;
+    transform: translate(50%, 50%);
+    width: 50%;
+    height: 50%;
+    bottom: 0;
+    right: 0;
+    @extend %common_shapes;
+
+    path {
+      @extend %common_path;
+    }
+  }
+
+  .login_shape_2 {
+    position: absolute;
+    right: -11%;
+    top: 4%;
+    width: 20%;
+    @extend %common_shapes;
+
+    path {
+      @extend %common_path;
+    }
+  }
+
+  .login_shape_3 {
+    position: absolute;
+    bottom: 0;
+    @extend %common_shapes;
+
+    path {
+      @extend %common_path;
+    }
+  }
+
+  .login_shape_4 {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    @extend %common_shapes;
+
+    path {
+      @extend %common_path;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    [class^='login_shape'] {
+      display: none !important;
+    }
+  }
+}
+
+.float_img {
+  --float-animation-ease: ease;
+  animation: FloatOne 1s var(--float-animation-ease) infinite alternate;
+  position: absolute;
+  left: -10rem;
+}
+
+@keyframes FloatOne {
+  0% {
+    transform: translateY(0)
+  }
+  100% {
+    transform: translateY(-3%)
+  }
+}

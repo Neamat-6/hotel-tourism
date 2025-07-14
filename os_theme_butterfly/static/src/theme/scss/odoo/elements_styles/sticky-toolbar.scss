@@ -1,0 +1,77 @@
+
+.os-sticky-toolbar {
+  position: fixed;
+  border: 3px solid #fff;
+  top: 50%;
+  background: #fff;
+  z-index: 9999;
+  right: 0;
+  border-radius: 6px;
+  //border-right: 0;
+  box-shadow: -2px 0 24px -2px rgba(43, 55, 72, .15);
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  -moz-transition: padding-top .3s ease-in;
+  -o-transition: padding-top .3s ease-in;
+  -webkit-transition: padding-top .3s ease-in;
+  transition: padding-top .3s ease-in;
+
+  &:hover {
+    padding-top: 1.5rem;
+    cursor: grabbing;
+  }
+
+  li:not(:last-child) {
+    border-bottom: 2px solid #fff;
+  }
+
+  li a {
+    display: flex;
+    height: 36px;
+    width: 36px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: inherit
+  }
+
+
+}
+
+@media (min-width: 576px) {
+  .os-sticky-toolbar {
+    top: $os-sticky-toolbar-position
+  }
+
+  .os-sticky-toolbar li a {
+    font-size: 20px;
+    height: 44px;
+    width: 44px
+  }
+
+}
+
+.os-settings-general {
+  background-color: rgba($os-settings-general, 0.1);
+  color: $os-settings-general;
+}
+
+.os-zoom {
+  background-color: rgba($os-zoom, .1);
+  color: $os-zoom;
+}
+
+.os-settings-user {
+  background-color: rgba($os-settings-user, .1);
+  color: $os-settings-user;
+}
+
+.os-fullscreen {
+  background-color: rgba($os-fullscreen, .1);
+  color: $os-fullscreen;
+}
+.os-todo {
+  background-color: rgba($os-todo, .1);
+  color: $os-todo;
+}

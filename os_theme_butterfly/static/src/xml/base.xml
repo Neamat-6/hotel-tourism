@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-extend="Throbber">
+        <t t-jquery=".oe_blockui_spin" t-operation="replace">
+            <t t-if="widget and widget.os_loader_style!='default'">
+                <div class="oe_blockui_spin" style="height: 50px">
+                    <t t-set="template_id" t-value="'os_theme_butterfly.legacy_loader_'+ widget.os_loader_style"/>
+                    <t t-call="{{ template_id }}"/>
+                </div>
+            </t>
+            <t t-else="">
+               <div class="oe_blockui_spin" style="height: 50px">
+                    <img src="/web/static/img/spin.png" style="animation: fa-spin 1s infinite steps(12);" alt="Loading..."/>
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="os_theme_butterfly.IconButton">
+        <em t-attf-class="d-inline osi osi-#{icon}" t-att-title="label"/>
+        <span t-if="!show_label_mobile" class="d-none d-sm-inline" t-esc="label"/>
+        <span t-if="show_label_mobile" t-esc="label"/>
+    </t>
+
+    <t t-extend="FormView.buttons">
+    	<t t-jquery=".o_form_button_edit" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'pen'"/>
+                <t t-set="label">Edit</t>
+            </t>
+        </t>
+
+        <t t-jquery=".o_form_button_create" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'plus'"/>
+                <t t-set="label">Create</t>
+            </t>
+        </t>
+        <t t-jquery=".o_form_button_save" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'save'"/>
+                <t t-set="label">Save</t>
+            </t>
+        </t>
+
+        <t t-jquery=".o_form_button_cancel" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'cross'"/>
+                <t t-set="label">Discard</t>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_button_add" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'plus'"/>
+                <t t-set="label">Create</t>
+            </t>
+        </t>
+
+        <t t-jquery=".o_list_button_save" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'save'"/>
+                <t t-set="label">Save</t>
+            </t>
+        </t>
+
+
+        <t t-jquery=".o_list_button_discard" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'cross'"/>
+                <t t-set="label">Discard</t>
+            </t>
+        </t>
+
+        <t t-jquery=".o_list_export_xlsx" t-operation="attributes">
+            <attribute name="class" value="btn btn-white btn-dim btn-outline-light fa fa-download o_list_export_xlsx"/>
+        </t>
+    </t>
+
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="button" t-operation="inner">
+            <t t-call="os_theme_butterfly.IconButton">
+                <t t-set="icon" t-value="'plus'"/>
+                <t t-set="show_label_mobile" t-value="'1'"/>
+                <t t-set="label" t-value="create_text || _t('Create')"/>
+            </t>
+        </t>
+    </t>
+
+
+    <!--  FIELDS -->
+    <t t-extend="FieldRadio.button">
+        <t t-jquery=".o_radio_item" t-operation="attributes">
+            <attribute name="class" value="custom-control custom-radio o_radio_item custom-control-sm"/>
+        </t>
+    </t>
+
+    <t t-inherit="web.ViewSwitcherButton" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button" position="attributes">
+            <attribute name="t-attf-class" remove="btn-light" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+     </t>
+
+    <t t-inherit="web.DropdownMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+     </t>
+
+    <t t-inherit="web.Pager" t-inherit-mode="extension" owl="1">
+        <xpath expr="//*[hasclass('btn-group')]//button[1]" position="attributes">
+            <attribute name="class" remove="btn-secondary fa" add="btn-dim btn-outline-secondary osi osi-back-ios" separator=" "/>
+        </xpath>
+        <xpath expr="//*[hasclass('btn-group')]//button[2]" position="attributes">
+            <attribute name="class" remove="btn-secondary fa" add="btn-dim btn-outline-secondary osi osi-forward-ios" separator=" "/>
+        </xpath>
+    </t>
+
+    <t t-extend="BaseSetting.Tabs">
+        <t t-jquery=".icon" t-operation="replace">
+            <div class="icon d-none d-md-block">
+                <t t-if="tab.iconType=='font'">
+                    <i t-att-class="tab.iconUrl"/>
+                </t>
+                <t t-else="">
+                   <img class="icon" t-att-src="tab.iconUrl"/>
+                </t>
+            </div>
+
+        </t>
+    </t>
+
+    <t t-extend="CalendarView.scale_buttons">
+        <t t-jquery=".btn-group" t-operation="replace">
+            <div class="btn-group">
+                <button type="button" t-if="scales.includes('day')" class="o_calendar_button_day btn btn-dim btn-white btn-outline-light">Day</button>
+                <button type="button" t-if="scales.includes('week')" class="o_calendar_button_week btn btn-dim btn-white btn-outline-light">Week</button>
+                <button type="button" t-if="scales.includes('month')" class="o_calendar_button_month btn btn-dim btn-white btn-outline-light">Month</button>
+                <button type="button" t-if="scales.includes('year')" class="o_calendar_button_year btn btn-dim btn-white btn-outline-light">Year</button>
+             </div>
+         </t>
+
+    </t>
+
+    <t t-extend="CalendarView.navigation_buttons">
+        <t t-jquery=".o_calendar_button_today" t-operation="replace"/>
+        <t t-jquery=".o_calendar_button_next" t-operation="replace"/>
+        <t t-jquery=".o_calendar_button_prev" t-operation="replace">
+            <button class="o_calendar_button_prev btn btn-dim btn-white btn-outline-light" aria-label="Previous" title="Previous"><span class="osi osi-back-ios"/></button>
+            <button class="o_calendar_button_next btn btn-dim btn-white btn-outline-light" aria-label="Next" title="Next"><span class="osi osi-forward-ios"/></button>
+            <button class="o_calendar_button_today btn btn-dim btn-white btn-outline-light">Today</button>
+        </t>
+    </t>
+
+    <t t-inherit="web.Dropdown" t-inherit-mode="extension" owl="1">
+         <xpath expr="//div[hasclass('o-dropdown--menu')]" position="attributes">
+            <attribute name="class" add="link-list-opt" separator=" "/>
+         </xpath>
+    </t>
+
+    <t t-extend="PivotView.buttons">
+        <t t-jquery=".o_pivot_flip_button">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".o_pivot_expand_button">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".o_pivot_download">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+    </t>
+
+
+    <t t-inherit="web.PivotView.Buttons" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+    </t>
+    <t t-extend="GraphView.buttons">
+        <t t-jquery=".btn-secondary.fa-bar-chart">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".btn-secondary.fa-area-chart">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".btn-secondary.fa-pie-chart">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".btn-secondary.fa-database">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".btn-secondary.fa-sort-amount-desc">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light')</t>
+        <t t-jquery=".btn-secondary.fa-sort-amount-asc">this.removeClass('btn-secondary').addClass('btn-white btn-dim btn-outline-light ')</t>
+    </t>
+    <t t-inherit="web.GraphView.Buttons" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+        <xpath expr="//button[hasclass('btn-secondary')][1]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-white btn-dim btn-outline-light" separator=" "/>
+        </xpath>
+
+    </t>
+
+    <t t-inherit="web.Breadcrumbs" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ol" position="attributes">
+            <attribute name="t-if" add="env.config.breadcrumbs &gt; 0" separator=" "/>
+        </xpath>
+    </t>
+</templates>

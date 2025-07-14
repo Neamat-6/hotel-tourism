@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="webclient_bootstrap" name="Web Client" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-call-assets='web.assets_common'][@t-js='false']" position="replace"/>
+        <xpath expr="//t[@t-call-assets='web.assets_backend'][@t-js='false']" position="replace">
+            <t t-if="request.env.user.os_theme_mode and request.env.user.os_theme_mode=='dark-mode'">
+                <t t-call-assets="web.dark_mode_assets_common" t-js="false"/>
+                <t t-call-assets="web.dark_mode_assets_backend" t-js="false"/>
+            </t>
+            <t t-else="">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_backend" t-js="false"/>
+            </t>
+
+        </xpath>
+        <xpath expr="//t[@t-set='head']" position="after">
+            <t t-set="head_web_theme">
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+            </t>
+            <t t-set="head" t-value="head_web_theme + (head or '')"/>
+        </xpath>
+        <xpath expr="//t[@t-set='body_classname']" position="after">
+            <t t-set="body_theme_classname" t-value="'os-body'"/>
+            <t t-set="body_classname" t-value="'%s %s' % (body_classname, body_theme_classname)"/>
+            <style t-if="res_company.os_apps_view_background_type=='bg_img' and res_company.os_apps_view_background_image" type="text/css">
+                .os_apps_view {
+                background-image:url('<t t-esc="'/web/image/res.company/'+str(res_company.id)+'/os_apps_view_background_image'"/>');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: 100%;
+                }
+            </style>
+            <style t-if="res_company.os_apps_view_background_type=='bg_color' and res_company.os_apps_view_background_color" type="text/css">
+                .os_apps_view {
+                background-color:<t t-esc="res_company.os_apps_view_background_color"/>!important;
+                }
+            </style>
+            <style t-if="res_company.os_apps_view_background_type in ['bg_color','bg_img'] and res_company.os_apps_view_text_color" type="text/css">
+                .os_apps_view .view-apps-icon-name {
+                color:<t t-esc="res_company.os_apps_view_text_color"/>!important;
+
+                }
+
+                .os_apps_view .btn-icon svg{
+                fill:<t t-esc="res_company.os_apps_view_text_color"/>!important;
+                }
+            </style>
+        </xpath>
+    </template>
+
+</odoo>

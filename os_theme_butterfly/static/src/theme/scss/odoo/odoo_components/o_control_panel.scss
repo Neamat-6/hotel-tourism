@@ -1,0 +1,464 @@
+.o_control_panel {
+  .breadcrumb {
+    align-items: center;
+
+    .badge {
+      padding: 0.3rem !important;
+      align-items: center;
+    }
+  }
+
+  border-bottom: 0;
+  @extend .pt-1;
+  @extend .pt-lg-4;
+  @extend .px-2;
+  @extend .px-lg-4;
+
+  .o_form_buttons_view > button:first-child {
+    float: none;
+  }
+
+  .o_list_selection_box {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    @extend .btn;
+  }
+
+  .o_cp_searchview {
+    .o_searchview {
+      @extend .form-control;
+      min-height: auto;
+      height: -webkit-fit-content;
+      height: -moz-fit-content;
+      height: fit-content;
+      margin: auto;
+    }
+  }
+
+  .o_pager {
+    .btn {
+      border: none;
+      background: transparent;
+    }
+  }
+
+
+  .o_cp_action_menus {
+    @extend .d-flex;
+
+    > .btn-group + .btn-group {
+      margin-left: 0.375rem !important;
+    }
+
+    ul.dropdown-menu {
+      @extend .py-0;
+      @extend .link-list-opt;
+      @extend .link-check;
+    }
+  }
+
+  .o_pager_counter {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-top: 2px;
+
+    .o_pager_value.o_input {
+      height: 30px;
+    }
+  }
+
+  .o_cp_switch_buttons {
+    button {
+      margin: auto 0;
+    }
+
+    .fa {
+      &:before {
+        font-size: 15px;
+      }
+    }
+
+    .os_selected_view_btn {
+      .fa {
+        &:before {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .fa-list-ul {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-list-ul;
+      }
+    }
+
+    .fa-th-large {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-th-large;
+      }
+    }
+
+    .fa-calendar {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-calendar;
+      }
+    }
+
+    .fa-table {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-table;
+
+      }
+    }
+
+    .fa-bar-chart {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-bar-chart;
+
+
+      }
+    }
+
+    .fa-clock-o {
+      font-family: $o_cp_switch_buttons_font-family;
+
+      &:before {
+        content: $fa-clock-o;
+      }
+    }
+  }
+
+
+
+  .o_cp_buttons {
+
+    .btn-group {
+      .btn {
+        margin-right: 0;
+      }
+    }
+
+  }
+
+  .o_cp_top_right {
+    position: relative;
+    @extend .d-flex;
+  }
+
+  .o_cp_bottom_left {
+    gap: 0.5rem;
+
+    .o_cp_action_menus {
+      margin-left: inherit;
+    }
+  }
+
+  &:not(.os_panel_view_calendar) {
+    @include media-breakpoint-up(lg) {
+      .o_cp_top_left,
+      .o_cp_bottom_left {
+        width: 40%;
+      }
+      .o_cp_top_right,
+      .o_cp_bottom_right {
+        width: 60%;
+      }
+
+    }
+  }
+
+
+}
+
+@include media-breakpoint-up(sm) {
+  .o_control_panel {
+    .o_cp_bottom_left {
+      .o_cp_action_menus {
+        display: flex;
+        padding-right: 15px;
+
+        > .btn-group {
+          //margin: auto 0;
+          display: block;
+        }
+
+        .dropdown-toggle {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+
+@include media-breakpoint-down(sm) {
+  .o_control_panel {
+    padding-right: 0;
+    width: 100%;
+
+    .o_cp_searchview {
+      .o_searchview {
+        background: transparent !important;
+        border: none;
+        padding: 0;
+      }
+    }
+
+    .o_list_selection_box {
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+    }
+
+    .o_cp_action_menus {
+      .o_dropdown_title {
+        @include sr-only;
+      }
+
+      button {
+        i {
+          margin: 0 !important;
+        }
+      }
+
+      .o_dropdown_chevron, .o_dropdown_caret {
+        display: none;
+      }
+    }
+
+    .breadcrumb {
+      width: 100%;
+      overflow: hidden;
+
+      > li {
+        margin: 0;
+
+        &:before {
+          display: none;
+        }
+
+        &.o_back_button {
+          padding: 0 !important;
+          background: transparent !important;
+          font-weight: $font-weight-normal;
+          color: $btn-link-color;
+          text-decoration: $link-decoration;
+          border: 0 !important;
+
+          &:hover {
+            color: $btn-link-hover-color;
+            text-decoration: $link-hover-decoration;
+          }
+
+          &:focus {
+            text-decoration: $link-hover-decoration;
+          }
+
+          &, & ~ li {
+            margin: auto 0;
+          }
+
+          &:before {
+            font-family: $os-theme-icon-font;
+            content: $osi-arrow-left;
+            display: inline-block;
+            padding: 0 !important;
+            color: inherit;
+            font-size: 1.2rem;
+            font-weight: bold;
+          }
+
+          &.btn {
+            padding: 0.4rem;
+          }
+
+          > a {
+            display: none;
+          }
+        }
+      }
+    }
+
+
+    .o_cp_searchview {
+      min-height: 35px;
+
+      &.os_searchview_mobile {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+
+        > .o_searchview {
+          height: 100%;
+          display: flex;
+          flex: 1 1 auto;
+          align-items: center;
+          border-bottom: 1px solid $border-color;
+          background: $field-bg !important;
+
+          > .o_searchview_input_container {
+            flex: 1 1 auto;
+          }
+
+          .o_searchview_input {
+            margin-bottom: 1px;
+          }
+
+          > .os_trigger_searchview {
+            margin: 0;
+            padding-left: 0;
+
+            font-size: 1rem;
+
+            &, &:hover {
+              color: $gray-600;
+            }
+          }
+        }
+      }
+    }
+
+    .os_owl_mobile_search_bar {
+      border-bottom: 1px solid $border-color;
+      background: $field-bg !important;
+
+      .o_searchview {
+        border-bottom: 0 !important;
+      }
+    }
+
+    .os_trigger_searchview {
+      i {
+        font-size: 1.2rem;
+      }
+    }
+
+    .o_cp_bottom_left, .o_cp_bottom_right {
+      flex: 1 1 auto;
+    }
+
+    .o_cp_switch_buttons {
+      &.show > .dropdown-menu {
+        display: inline-flex;
+        min-width: 0;
+      }
+    }
+  }
+
+  .o_rtl .o_control_panel .o_back_button:before {
+    transform: rotate(180deg);
+  }
+}
+
+.o_searchview_input_container {
+  margin: -1px;
+}
+
+.o_web_client .o_searchview.os_modal_mobile_search .os_mobile_search_wrapper {
+  .o_searchview_input_container {
+    display: flex;
+    padding: 15px 20px 0 20px;
+    position: relative;
+
+
+    .o_searchview_input {
+      border-bottom: 1px solid $border-color;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .o_searchview_facet {
+      border-radius: 10px;
+      display: inline-flex;
+      order: 1;
+
+
+    }
+
+    .o_searchview_autocomplete {
+      top: 100%;
+
+      > li {
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .os_mobile_search_options {
+    @extend .p-4;
+
+    > .o-dropdown {
+      @extend .mb-3;
+    }
+
+    .dropdown {
+      flex-direction: column;
+      line-height: 2;
+
+      &:not(.show) {
+        box-shadow: 0 0 0 1px $border-color;
+      }
+    }
+
+    .dropdown, .dropdown-toggle {
+      width: 100%;
+    }
+
+    .dropdown-backdrop {
+      z-index: -1;
+    }
+
+    .dropdown-menu {
+      position: relative !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100%;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .o_control_panel {
+    > div.o_cp_bottom {
+      min-height: auto;
+    }
+
+    .breadcrumb > li.active {
+      font-size: 1rem;
+      color: $body-color;
+
+    }
+
+    &.os_sticky_cp {
+      @include o-position-sticky();
+      z-index: 100;
+      background: $odoo-view-background-color;
+      border-bottom: 1px solid $border-color;
+
+      .o_cp_top {
+        display: none;
+      }
+    }
+
+
+  }
+}
+
+.o_cp_bottom_right {
+  .btn {
+    margin: auto 0;
+  }
+}

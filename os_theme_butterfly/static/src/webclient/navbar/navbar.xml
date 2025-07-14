@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="web.NavBar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//header" position="replace">
+            <div class="os-header os-header-fixed"
+                 t-att-class="themeUserService.os_theme_mode=='dark-mode' ? 'is-dark': themeUserService.os_header_style">
+                <div class="o_main_navbar os-header-wrap"
+                     t-att-class="!themeUserService.os_show_sidebar ? 'os-header-wrap-horizontal': ''"
+                     t-on-dropdown-item-selected="onNavBarDropdownItemSelection"
+                     data-command-category="navbar">
+
+                    <t t-if="themeUserService.os_show_sidebar or isMobile">
+                        <div class="os-menu-trigger mr-0 d-xl-none">
+                            <a href="#" class="os-nav-toggle os-quick-nav-icon" t-on-click="showMenu"
+                               data-target="sidebarMenu">
+                                <em class="icon osi osi-menu"/>
+                            </a>
+                        </div>
+                        <ul class="d-inline-flex  align-items-center os-quick-nav">
+                            <OsViewAppsMenu/>
+                        </ul>
+                    </t>
+
+                    <t t-if="!themeUserService.os_show_sidebar and !isMobile">
+                       <!-- <div class="os-header-brand d-none d-lg-block">
+                            <a href="/" class="logo-link">
+                                <img class="logo-light logo-img" t-att-src="companyService.logo_white" alt="logo"/>
+                                <img class="logo-dark logo-img" t-att-src="companyService.logo_dark" alt="logo-dark"/>
+                            </a>
+                        </div>-->
+                        <ul class="d-inline-flex align-items-center os-quick-nav">
+                            <OsViewAppsMenu/>
+                        </ul>
+
+                        <div class="os-header-app-name ml-1" t-ref="menuBrand">
+                            <div class="os-header-app-info">
+                                <span class="lead-text">
+                                    <t t-esc="menuService.getCurrentApp() and menuService.getCurrentApp().name"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="os-header-details px-3">
+                            <t t-if="currentAppSections.length and !env.isSmall" t-call="web.NavBar.SectionsMenu">
+                                <t t-set="sections" t-value="currentAppSections"/>
+                            </t>
+                        </div>
+                    </t>
+
+                    <div class="os-header-tools">
+                        <!-- Systray -->
+                        <div class="o_menu_systray os-quick-nav" role="menu">
+                            <t t-foreach="systrayItems" t-as="item" t-key="item.key">
+                                <NotUpdatable>
+                                    <ErrorHandler onError="error => handleItemError(error, item)">
+                                        <t t-component="item.Component" t-props="item.props"/>
+                                    </ErrorHandler>
+                                </NotUpdatable>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

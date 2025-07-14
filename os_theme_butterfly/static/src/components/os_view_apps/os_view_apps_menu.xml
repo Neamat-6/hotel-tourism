@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_view_apps_menu" owl="1">
+        <li t-ref="osMenuAppsIconLi">
+           <a class="os-quick-nav-icon apps_menu"
+              t-on-click.prevent="onClickToggleView" href="#">
+                <div class="icon-status icon-status-na">
+                    <em class="icon osi osi-grid " t-ref="osMenuAppsIcon"/>
+                </div>
+            </a>
+        </li>
+    </t>
+</templates>

@@ -1,0 +1,20 @@
+.o_calendar_view .o_calendar_widget .fc-timeGridDay-view tbody td, .o_calendar_view .o_calendar_widget .fc-timeGridWeek-view tbody td {
+  border-top-color: $border-color !important;
+}
+
+.o_calendar_view .o_calendar_widget .fc-timeGridDay-view .fc-slats tr:first-child td.fc-widget-content:last-child, .o_calendar_view .o_calendar_widget .fc-timeGridWeek-view .fc-slats tr:first-child td.fc-widget-content:last-child {
+  box-shadow: inset 0 1px 0 $border-color;
+}
+
+.o_content > .o_calendar_container thead {
+  background: darken($odoo-view-background-color, 5%);
+}
+
+.o_calendar_view .o_calendar_widget .fc-timeGridDay-view div.fc-day-grid, .o_calendar_view .o_calendar_widget .fc-timeGridWeek-view div.fc-day-grid {
+  background-color: darken($odoo-view-background-color, 3%) !important;
+
+}
+
+.o_calendar_view .o_calendar_widget .fc-timeGridDay-view .fc-day.fc-widget-content.fc-today:not(.o_calendar_disabled), .o_calendar_view .o_calendar_widget .fc-timeGridWeek-view .fc-day.fc-widget-content.fc-today:not(.o_calendar_disabled) {
+  background: darken($odoo-view-background-color, 3%) !important;;
+}

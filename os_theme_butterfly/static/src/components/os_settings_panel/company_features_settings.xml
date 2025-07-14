@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.features-settings" owl="1">
+        <div class="tab-pane" id="features-settings" data-simplebar="">
+            <div class="os-opt-set">
+                <div class="custom-control custom-switch mb-3 col-12" t-ref="div_same_icons">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.same_icons" id="same_icons"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="same_icons">Use same Apps icons in Sidebar</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12" data-tippy-content="This will disable settings on other user account not admin" data-tippy-placement="left">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_show_user_settings" id="os_show_user_settings"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_show_user_settings">Show user Settings</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_header_tools_bar_fixed" id="os_header_tools_bar_fixed"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_header_tools_bar_fixed">Fixed Header Tools bar</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_dbl_click_edit" id="os_dbl_click_edit"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_dbl_click_edit">DblClick Edit Form View</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_todo_list" id="os_display_todo_list"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_todo_list">TODO List</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_bookmarks" id="os_display_bookmarks"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_bookmarks">Bookmarks</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_favorite_apps" id="os_display_favorite_apps"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_favorite_apps">Favorite Apps</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_show_quick_create" id="os_show_quick_create"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_show_quick_create">Quick Create</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_recently_viewed_records" id="os_display_recently_viewed_records"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_recently_viewed_records">Recently viewed records</label>
+                </div>
+
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_zoom_in_out" id="os_display_zoom_in_out"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_zoom_in_out">Zoom In/Out</label>
+                </div>
+                <div class="custom-control custom-switch mb-3 col-12">
+                    <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_full_screen" id="os_display_full_screen"/>
+                    <label class="custom-control-label os-opt-set-title text-capitalize" for="os_display_full_screen">Full Screen</label>
+                </div>
+
+            </div>
+        </div>
+    </t>
+
+</templates>

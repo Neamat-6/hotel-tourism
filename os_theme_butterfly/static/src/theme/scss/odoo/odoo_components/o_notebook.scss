@@ -1,0 +1,55 @@
+.o_notebook {
+
+  &.os-horizontal-notebook {
+    .wrapper {
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 5px;
+      height: 50px;
+    }
+
+    .notebook-list {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      min-width: 3000px;
+      //margin-left: 12px;
+      margin-top: 0px;
+
+      li {
+        display: table-cell;
+        position: relative;
+        text-align: center;
+        cursor: grab;
+        cursor: -webkit-grab;
+        color: #efefef;
+        vertical-align: middle;
+      }
+    }
+
+    .scroller {
+      text-align: center;
+      cursor: pointer;
+      display: none;
+      padding: 8px 0;
+      white-space: no-wrap;
+      background-color: transparent;
+    }
+
+    .scroller-right {
+      float: right;
+    }
+
+    .scroller-left {
+      float: left;
+    }
+
+    .tab-content {
+      @extend .py-2;
+    }
+
+  }
+
+
+}

@@ -1,0 +1,100 @@
+// View Kanban
+@include media-breakpoint-down(sm) {
+  .o_kanban_view {
+    &.o_kanban_grouped {
+      display: block;
+      position: relative;
+
+      &.o_renderer_with_searchpanel {
+        width: 100%;
+      }
+
+      .o_kanban_mobile_tabs_container {
+        position: sticky;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        top: 0;
+        z-index: 1;
+        background-color: $accent-200;
+        margin-bottom: 1rem;
+
+        .o_kanban_mobile_add_column {
+          height: $o-kanban-mobile-tabs-height;
+          padding: 10px;
+          border-left: $border-color 1px solid;
+          font-size: 1rem;
+        }
+
+        .o_kanban_mobile_tabs {
+          position: relative;
+          display: flex;
+          width: 100%;
+          height: $o-kanban-mobile-tabs-height;
+          overflow-x: auto;
+
+          .o_kanban_mobile_tab {
+            height: $o-kanban-mobile-tabs-height;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: $accent-color;
+
+            &.os_active_kanban {
+              font-weight: bold;
+              border-top: 2px solid $accent-color;
+              background-color: $white;
+              color: $accent-color
+            }
+
+            .o_column_title {
+              white-space: nowrap;
+              text-transform: uppercase;
+            }
+          }
+        }
+      }
+
+      .os_kanban_columns_container {
+        position: relative;
+      }
+
+      &[class] .o_kanban_group:not(.o_column_folded) {
+        @include o-position-absolute($top: $o-kanban-mobile-tabs-height, $left: 0, $bottom: 0);
+        width: 100%;
+        padding: 0;
+        margin-left: 0;
+        border: none;
+
+        &.os_active_kanban {
+          position: inherit;
+          top: 0;
+
+          &.o_kanban_no_records {
+            min-height: $o-kanban-mobile-empty-height;
+          }
+        }
+
+        .o_kanban_header {
+          display: none;
+        }
+
+        .o_kanban_record, .o_kanban_quick_create {
+          border: none;
+          border-bottom: 1px solid $border-color;
+          padding: 10px 16px;
+          margin: 0;
+        }
+      }
+    }
+
+    .o_column_quick_create {
+      .o_quick_create_folded {
+        display: none !important;
+      }
+
+      .o_quick_create_unfolded {
+        width: 100%;
+      }
+    }
+  }
+}

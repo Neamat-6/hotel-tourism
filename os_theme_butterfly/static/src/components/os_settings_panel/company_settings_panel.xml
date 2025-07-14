@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_settings_panel_general" owl="1">
+        <div class="os-settings-panel toggle-slide toggle-slide-right general" data-content="generalSettingPanel"
+             data-toggle-overlay="true" data-toggle-body="true" data-toggle-screen="any">
+            <div class="os-settings-head justify-content-between">
+                <h6 class="mb-0">Admin Theme Settings</h6>
+                <a class="os-settings-close toggle btn btn-icon btn-trigger mr-n2" data-target="generalSettingPanel"
+                   href="#">
+                    <em class="icon osi osi-cross"></em>
+                </a>
+            </div>
+            <div class="os-opt-panel">
+                <ul class="nav navigation px-2 nav-tabs nav-tabs-sm custom_nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#general-settings">General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#display-settings">Styles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#features-settings">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#others-settings">Advanced</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <t t-call="os_theme_butterfly.general-settings"/>
+                    <t t-call="os_theme_butterfly.display-settings"/>
+                    <t t-call="os_theme_butterfly.features-settings"/>
+                    <t t-call="os_theme_butterfly.others-settings"/>
+                </div>
+                <div class="os-opt-reset d-flex justify-content-between">
+                    <a href="#" class="reset-opt-setting text-danger" t-on-click="companyResetThemeSettings"><span>Reset Setting</span></a>
+                    <a href="#" class="btn bg-primary reset-opt-setting" t-on-click="companySaveThemeSettings"><span>Apply Settings</span></a>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

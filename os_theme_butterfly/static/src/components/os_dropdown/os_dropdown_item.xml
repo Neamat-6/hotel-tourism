@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+     <t t-name="os_theme_butterfly.OS_DropdownItem" owl="1">
+        <t
+              t-tag="props.href ? 'a' : 'a'"
+              t-att-href="props.href ? props.href : '#'"
+              class=""
+              t-on-click="onClick"
+              t-att-title="props.title"
+              t-att-data-hotkey="props.hotkey"
+        >
+            <t t-slot="icon"/>
+            <span t-slot="default" />
+        </t>
+  </t>
+
+
+
+</templates>

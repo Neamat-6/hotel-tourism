@@ -1,0 +1,26 @@
+
+.os_search_menus_content {
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .view-apps-image, .view-apps-default {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .view-apps-icon-wrap-parent {
+    filter: none;
+
+    .view-apps-icon-wrap {
+      width: 1.8rem;
+      height: 1.8rem;
+
+      .icon {
+        font-size: 1.125rem;
+      }
+    }
+
+  }
+
+
+}

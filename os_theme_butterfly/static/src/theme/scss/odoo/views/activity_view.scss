@@ -1,0 +1,21 @@
+.o_activity_view {
+  @extend .card-bordered;
+  background: $o-view-background-color;
+  border-radius: $border-radius-xl;
+
+  .o_record_selector {
+    color: $accent-color;
+  }
+
+  table {
+    border-top: transparent;
+    border-left: transparent;
+    border-radius: $border-radius-xl;
+
+    tr th:last-child, tr td:last-child {
+      border-right: transparent;
+
+    }
+  }
+
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_os_theme_butterfly">
+            <field name="name">Theme Butterfly</field>
+        </record>
+        <record id="group_theme_admin" model="res.groups">
+            <field name="name">Admin Theme Settings</field>
+            <field name="category_id" ref="os_theme_butterfly.module_os_theme_butterfly"/>
+        </record>
+    </data>
+</odoo>

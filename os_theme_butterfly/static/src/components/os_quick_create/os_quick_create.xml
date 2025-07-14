@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.Os_quick_create" owl="1">
+        <OsQuickCreate_Dropdown
+                class="Os_quick_create" position="'bottom-start'"
+                togglerClass="`os-quick-nav-icon`"
+                menuClass="'dropdown-menu-s1 dropdown-menu-md'">
+            <t t-set-slot="toggler">
+                <div class="icon-status icon-status-na" data-tippy-content="Quick Create" data-tippy-placement="bottom">
+                    <em class="icon osi osi-plus-c"/>
+                </div>
+            </t>
+
+            <t t-set-slot="top_dropdwon">
+                <div class="dropdown-inner d-flex justify-content-between align-items-center p-3 border-bottom">
+                    <h5 class="mb-0" t-if="action=='list_quick_create'">Quick Create</h5>
+                    <h5 class="mb-0" t-if="action=='edit_mode'">Quick Create - Edit</h5>
+                    <h5 class="mb-0" t-if="action=='edit_quick_create_item'">Quick Create - Edit item</h5>
+                    <h5 class="mb-0" t-if="action=='add_quick_create_item'">Quick Create - Add New</h5>
+                    <div>
+                        <a t-if="records.length > 0 and action=='list_quick_create'" class="btn btn-icon edit_mode_btn mr-3" t-on-click="enterEditMode"
+                           title="Enter edit mode">
+                            <t t-call="os_theme_butterfly.icon_enter_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='edit_mode'" class="btn btn-icon" t-on-click="exitEditMode" title="Exit edit mode">
+                            <t t-call="os_theme_butterfly.icon_exit_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='list_quick_create'" class="btn btn-icon" title="Add a quick create action" t-on-click="onClickAddQuickCreate">
+                            <t t-call="os_theme_butterfly.icon_add_item">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                        <a t-if="action=='add_quick_create_item' or action=='edit_quick_create_item'" class="btn btn-icon" t-on-click="cancelEditItem" title="Cancel">
+                            <t t-call="os_theme_butterfly.cancel_edit_item">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                        </a>
+                    </div>
+
+                </div>
+            </t>
+
+            <div  t-att-class="action=='edit_mode' ? 'edit_mode' : '' ">
+                <t t-if="records.length > 0">
+                    <ul class="link-check my-2" t-if="action=='list_quick_create' or action=='edit_mode'">
+                        <t t-foreach="records" t-as="record" t-key="record_index">
+                            <li class="quick_create_item">
+                                <a t-on-click="onClickQuickCreateItem" href="#"
+                                   t-att-data-id="record.id"
+                                   t-att-data-model-id="record.model.id"
+                                   t-att-data-model-name="record.model.name"
+                                   t-att-data-model-model="record.model.model"
+                                   t-att-data-sequence="record.sequence"
+                                   t-att-data-icon="record.icon"
+                                   t-att-data-name="record.name">
+                                    <em t-if="record.icon" class="icon mr-1" t-att-class="record.icon"/>
+                                    <em t-else="" class="icon mr-1 osi osi-file-docs"/>
+                                    <span t-esc="record.name"/>
+                                    <i class="icon-edit-mode osi osi-pen ml-2"/>
+                                </a>
+                            </li>
+                        </t>
+                    </ul>
+                </t>
+                <div t-if="action=='add_quick_create_item' or action=='edit_quick_create_item'" class="m-2">
+                    <div class="col-12 mb-2">
+                        <div id="quick_create_errors_msg"/>
+                        <div class="form-group">
+                            <label class="form-label" for="model">Model
+                                <sup>*</sup>
+                            </label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="model" t-ref="model_input"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <div class="form-group">
+                            <label class="form-label" for="quick_create_name">Name
+                                <sup>*</sup>
+                            </label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="quick_create_name" t-att-value="quick_create_item and quick_create_item.name" t-ref="quick_create_name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <div class="form-group">
+                            <label class="form-label" for="quick_create_icon">Icon</label>
+                            <sup>*</sup>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="quick_create_icon" t-att-value="(quick_create_item and quick_create_item.icon) or 'las la-cube' " t-ref="quick_create_icon"/>
+                            </div>
+                            <small><a href="https://icons8.com/line-awesome" target="_blank">https://icons8.com/line-awesome</a></small>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <div class="form-group">
+                            <label class="form-label" for="quick_create_sequence">Sequence</label>
+                            <div class="form-control-wrap">
+                                <input type="number" class="form-control" id="quick_create_sequence" t-att-value="(quick_create_item and quick_create_item.sequence) or 1" t-ref="quick_create_sequence"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4 mb-2 text-right" t-if="action=='edit_quick_create_item'">
+                        <a href="#" class="btn btn-outline-danger mr-3"
+                           t-on-click="onClickdeleteQuickCreateItem"
+                           t-att-data-quick_create_item-id="quick_create_item.id">Delete
+                        </a>
+                        <a href="#" class="btn btn-primary" t-on-click="updateQuickCreateItem"
+                           t-att-data-quick_create_item-id="quick_create_item.id">Update
+                        </a>
+                    </div>
+                    <div class="col-12 mt-4 mb-2 text-right" t-if="action=='add_quick_create_item'">
+                        <a href="#" class="btn btn-primary" t-on-click="addQuickCreateItem">Add</a>
+                    </div>
+
+                </div>
+
+                <t t-if="records.length == 0 and action=='list_quick_create'">
+                    <div class="text-center">
+                        <div class="pt-4 pb-4">
+                            <span class="svg-icon svg-icon-4x">
+                                <t t-call="os_theme_butterfly.no_records"/>
+                            </span>
+                        </div>
+                        <div class="pb-5">
+                            <h3 class="fs-16px mb-2">No Quick Actions!</h3>
+                        </div>
+                    </div>
+                </t>
+            </div>
+
+
+        </OsQuickCreate_Dropdown>
+
+    </t>
+
+</templates>

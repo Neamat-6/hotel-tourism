@@ -1,0 +1,239 @@
+.o_form_view {
+
+  @extend .card-bordered;
+  border-radius: $border-radius-xl;
+
+  div[name="options"] *:nth-child(1) .o_field_boolean {
+    margin-left: 0;
+  }
+
+  .o_m2o_avatar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    img {
+      width: 30px !important;
+      height: 30px !important;
+      max-width: initial;
+
+    }
+  }
+
+  .o_list_view {
+    table {
+      thead {
+        th {
+          background-color: $form_list_view_header_bg;
+          color: darken($base-light, 5%)
+        }
+      }
+    }
+  }
+
+  .o_form_sheet_bg, .o_form_statusbar {
+    border-top-left-radius: $border-radius-xl;
+    border-top-right-radius: $border-radius-xl;
+  }
+
+  .o_form_statusbar {
+
+    .alert {
+      margin: 3px 3px 3px 12px !important;
+    }
+
+    background: transparent;
+    $dim-outline-btns: "primary" $primary mix($primary, $dim-mix, 11%) mix($primary, $dim-mix, 40%),
+    "success" $success mix($success, $dim-mix, 11%) mix($success, $dim-mix, 40%),
+    "warning" $warning mix($warning, $dim-mix, 11%) mix($warning, $dim-mix, 40%),
+    "info" $info mix($info, $dim-mix, 11%) mix($info, $dim-mix, 40%),
+    "danger" $danger mix($danger, $dim-mix, 11%) mix($danger, $dim-mix, 40%),
+    "secondary" $secondary mix($secondary, $dim-mix, 11%) mix($secondary, $dim-mix, 35%),
+    "gray" $light-600 mix($light-500, $dim-mix, 11%) mix($light-500, $dim-mix, 35%),
+    "dark" $dark mix($dark, $dim-mix, 11%) mix($dark, $dim-mix, 35%),
+    "light" $secondary-light $lighter $light-300;
+
+    @each $name, $color, $background, $border in $dim-outline-btns {
+      .btn-#{$name} {
+        color: $color;
+        background-color: $background;
+        border-color: $border;
+
+        &:not(:disabled):not(.disabled):hover {
+          color: color-contrast($color);
+          background-color: $color;
+          border-color: $color;
+        }
+      }
+      .btn-white.btn-#{$name}, .btn-trans.btn-#{$name} {
+        &:not(.btn-dim):not(:disabled):not(.disabled):hover {
+          color: $color;
+          background: $background;
+        }
+      }
+    }
+
+  }
+
+  .o_FormRenderer_chatterContainer {
+    border-bottom-left-radius: $border-radius-xl;
+    border-bottom-right-radius: $border-radius-xl;
+  }
+
+  .oe_title {
+
+    > h1 .o_input {
+      height: $input-height-lg !important;
+      padding: $input-padding-y-lg $input-padding-x-lg !important;
+      @include font-size($h2-fs-lg);
+      @include border-radius($input-border-radius-lg);
+    }
+
+    .o_priority {
+      @extend .mb-0;
+
+      > .o_priority_star {
+        font-size: 0.7em;
+      }
+    }
+  }
+
+
+  .oe_avatar {
+    @extend .user-avatar;
+    @extend .xl;
+    font-size: 1rem;
+    background: transparent !important;
+    border-radius: $border-radius !important;
+
+    img {
+      background: $oe_avatar_bg;
+      width: 90px;
+      height: 90px;
+      border-radius: $border-radius !important;
+
+    }
+  }
+
+  .oe_button_box {
+    margin-top: 0;
+    box-shadow: none;
+    @extend .row;
+    @extend .justify-content-end;
+
+    .oe_stat_button {
+      $color: $o-brand-odoo;
+      $bg: mix($o-brand-odoo, $dim-mix, 10%);
+      $border: mix($o-brand-odoo, $dim-mix, 30%);
+
+      color: $color !important;
+      background-color: $bg !important;
+      border-width: 1px !important;
+      border-color: $border !important;
+      border-radius: $border-radius !important;
+      margin-bottom: map-get($spacers, 1)!important;
+      margin-right: map-get($spacers, 1);
+
+      &.o_button_more {
+        span {
+          @extend .pl-2;
+          font-weight: bold;
+        }
+      }
+
+      > .o_button_icon {
+        color: $o-brand-odoo;
+        margin-left: 0 !important;
+      }
+    }
+
+    .o_dropdown_more {
+      border: 1px solid $border-color;
+    }
+  }
+
+  > .oe_button_box {
+    margin-top: 0.5rem !important;
+  }
+
+  .o_form_sheet_bg {
+    background: $o-view-background-color;
+    border-radius: $border-radius-xl;
+
+    > .o_form_sheet {
+      background-color: $o-view-background-color;
+      border: 1px solid transparent;
+      box-shadow: none;
+      border-radius: $border-radius-xl;
+    }
+
+
+  }
+
+  .o_group {
+    &.o_inner_group > tbody > tr > td.o_td_label {
+      border-right: 0;
+    }
+
+    .o_td_label .o_form_label {
+      font-size: 1rem;
+
+    }
+  }
+
+  .o_form_label {
+    b {
+      font-weight: 700 !important;
+    }
+  }
+
+
+  .o_form_uri {
+    color: $body-color;
+    font-weight: 500;
+
+    > span:first-child {
+      color: $body-color;
+    }
+  }
+
+  span.o_field_translate {
+
+    border-radius: 0 $input-border-radius 0 0 !important;
+    font-weight: 600;
+    margin-top: 1px;
+    height: calc(2.625rem) !important;
+    padding: 7px !important;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+}
+
+
+
+.modal-body {
+
+  .o_form_view {
+    border-radius: 0;
+    border: 0;
+    background-color: $o-view-background-color !important;
+
+    .o_form_sheet_bg {
+      background: transparent;
+
+      .o_form_sheet {
+        border-radius: 0;
+        border: 0;
+        background: transparent;
+
+      }
+    }
+  }
+}
+

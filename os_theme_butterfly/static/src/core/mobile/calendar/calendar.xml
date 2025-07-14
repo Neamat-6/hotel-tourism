@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- ============================ Calendar view ======================== -->
+    <!-- Do not call navigation buttons in mobile -->
+    <t t-extend="CalendarView.buttons">
+        <t t-jquery=".o_calendar_navigation_buttons" t-operation="replace">
+            <t t-if="!isMobile">
+                <span class="o_calendar_navigation_buttons">
+                    <t t-call="CalendarView.navigation_buttons"/>
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <!-- Calendar filters in  mobile -->
+    <div t-name="CalendarView.TopPanelCalendarMobile" class="os_top_panel_calendar_panel">
+        <i class="osi fa-fw osi-filter mr-3"/>
+        <div class="os_filter_bloc">
+            <t t-foreach="filters" t-as="filter" t-if="filter.values.length > 0">
+                <span class="os_filter_label" t-esc="filter.label"/>
+                <span t-foreach="filter.values" t-as="values" class="os_filter_value">
+                    <span t-attf-class="#{typeof values.color === 'number' ? _.str.sprintf('os_color_complete_%s', values.color) : 'os_color_complete_1'}">
+                        <i class="fa fa-circle"/>
+                    </span>
+                    <span class="os_filter_value_label" t-esc="values.label"/>
+                </span>
+            </t>
+        </div>
+        <i t-if="sidePanelShown" class="osi osi-minus ml-2"/>
+        <i t-else="" class="osi osi-plus ml-2"/>
+    </div>
+
+    <!-- Calendar no filters content -->
+    <t t-extend="CalendarView">
+        <t t-jquery=".o_calendar_sidebar_container .o_calendar_sidebar" t-operation="append">
+            <div class="os_no_filters position-relative d-none text-center">
+               <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100" x="0" y="0"
+                    viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class="">
+                   <g><g class="fill-primary-color" fill="#396ce8"><path d="M20 4.5v2.26a1.5 1.5 0 0 1-.44 1.06l-.06.06a.288.288 0 0 1-.21.09.5.5 0 0 1-.12-.02 5.491 5.491 0 0 0-5.3 9.561.292.292 0 0 1 .128.24V21l-4-3v-4a1.5 1.5 0 0 0-.44-1.062L4.44 7.82A1.5 1.5 0 0 1 4 6.758V4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5z" opacity=".4" fill="#396ce8"  class="fill-primary-color"></path><path
+                       d="M17 9a4 4 0 1 0 4 4 4 4 0 0 0-4-4zm1.35 4.65a.483.483 0 0 1 0 .7.483.483 0 0 1-.7 0l-.65-.64-.65.64a.483.483 0 0 1-.7 0 .483.483 0 0 1 0-.7l.64-.65-.64-.65a.495.495 0 1 1 .7-.7l.65.64.65-.64a.495.495 0 1 1 .7.7l-.64.65z"
+                       class="fill-primary-color" fill="#396ce8" ></path></g></g></svg>
+                <p class="lead">No filter available</p>
+            </div>
+        </t>
+    </t>
+</templates>

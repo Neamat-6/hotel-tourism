@@ -1,0 +1,116 @@
+$custom-radio-icon_1: $osi-check-thick !default;
+
+@if $radios_style == 'style_1' {
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: transparent;
+    }
+
+    .custom-control-label::after {
+      color: $accent-color;
+    }
+  }
+}
+
+
+@if $radios_style == 'style_2' {
+
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: transparent;
+      border-color: $accent-color;
+      border-width: 3px;
+    }
+
+
+    .custom-control-label {
+      &::before {
+        border-width: 1px;
+      }
+
+      &::after {
+        font-size: 0;
+      }
+    }
+  }
+}
+
+@if $radios_style == 'style_3' {
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: transparent;
+      border-color: $accent-color;
+      border-width: 1px;
+    }
+
+
+    .custom-control-label {
+      &::before {
+        border-width: 1px;
+      }
+
+      &::after {
+        font-size: 1.45em;
+        color: $accent-color;
+
+      }
+    }
+  }
+}
+
+@if $radios_style == 'style_4' {
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: $accent-color;
+    }
+
+    .custom-control-label {
+      &::after {
+        color: transparent;
+      }
+
+      &::before {
+        border-width: 3px;
+      }
+    }
+  }
+}
+
+
+@if $radios_style == 'style_5' {
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: $accent-color;
+    }
+
+    .custom-control-label::after {
+      content: $custom-radio-icon_1;
+
+    }
+  }
+
+}
+
+@if $radios_style == 'style_6' {
+
+  .custom-radio {
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: transparent;
+      border-color: $accent-color;
+      border-width: 1px;
+    }
+
+    .custom-control-label {
+      &::before {
+        border-width: 1px;
+      }
+
+      &::after {
+        content: $custom-radio-icon_1;
+        color: $accent-color;
+      }
+    }
+  }
+
+}
+

@@ -1,0 +1,34 @@
+.o_rtl {
+  .select2-dropdown-open .select2-choice .select2-arrow b {
+    background-position: left -13px top 1px;
+  }
+
+  .select2-container .select2-choice .select2-arrow b {
+    background-position-y: 3px !important;
+    background-position-x: 100% !important;
+  }
+
+  .os-menu-toggle::after {
+    content: $menu-toggle-icon-rtl;
+  }
+
+  .select2-container .select2-choice abbr {
+
+    background-position-x: right;
+    background-position-y: top;
+  }
+
+
+  .osi-back-ios {
+    &:before {
+      content: $osi-forward-ios !important;
+    }
+  }
+
+  .osi-forward-ios {
+    &:before {
+      content: $osi-back-ios !important;
+    }
+  }
+}
+

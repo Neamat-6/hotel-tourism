@@ -1,0 +1,23 @@
+//Nunito
+@font-face {
+    font-family: 'Nunito';
+    src: url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Regular.eot');
+    src: local('Nunito Regular'), local('Nunito-Regular'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Regular.eot#iefix') format('embedded-opentype'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Regular.woff2') format('woff2'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Regular.woff') format('woff'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Nunito';
+    src: url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Bold.eot');
+    src: local('Nunito Bold'), local('Nunito-Bold'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Bold.eot#iefix') format('embedded-opentype'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Bold.woff2') format('woff2'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Bold.woff') format('woff'),
+        url('/os_theme_butterfly/static/src/theme/fonts/nunito/Nunito-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

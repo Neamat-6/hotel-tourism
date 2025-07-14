@@ -1,0 +1,119 @@
+.o_setting_container {
+  border-top: 1px solid $border-color;
+
+  .settings_tab {
+    padding-top: 1.5rem;
+    min-width: 300px;
+    background: $odoo-view-background-color !important;
+    border-right: 1px solid $border-color;
+    border-bottom-left-radius: $border-radius-xl;
+
+    .tab {
+      position: relative;
+      height: auto !important;
+      padding: .75rem 1.25rem;
+      font-weight: 500;
+      color: $base-text !important;;
+      transition: all .4s;
+      line-height: 1.3rem !important;
+      font-size: 14px !important;
+
+      &.selected {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        color: $accent-color !important;
+
+        .icon {
+          color: $accent-color !important;
+
+
+        }
+      }
+
+      &:hover {
+        background-color: transparent !important;
+        color: $accent-color !important;
+
+      }
+
+      &:after {
+        position: absolute;
+        font-size: 1rem;
+        font-family: $os-theme-icon-font;
+        right: 1.25rem;
+        content: $link-list-menu-icon-ltr;
+        color: $base-light;
+        transition: .3s ease;
+      }
+
+      .icon {
+        color: $base-light;
+
+        i {
+          &.las {
+            font-size: 1.5rem;
+          }
+
+          &.osi {
+            font-size: 1.36rem;
+          }
+        }
+
+        &:hover {
+          color: $accent-color !important;
+
+        }
+      }
+    }
+
+
+  }
+
+  @include media-breakpoint-up(sm) {
+    .settings_tab {
+      .tab {
+        padding: 1rem 1.5rem !important;
+
+        .app_name {
+          padding: 0 3rem 0 0 !important;
+        }
+      }
+    }
+  }
+
+  .o_setting_right_pane {
+    border-left: 0 !important;
+
+    .custom-control {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .o_setting_left_pane {
+    .custom-control {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .settings {
+    padding-top: 1.5rem;
+    border-bottom-right-radius: $border-radius-xl;
+
+    > .app_settings_block {
+
+      h2 {
+        background-color: transparent !important;
+        font-size: 1.5rem !important;
+      }
+    }
+
+
+  }
+}
+
+.o_settings_title {
+  .breadcrumb-item.active {
+    @extend .page-title;
+    color: $base-color;
+  }
+}

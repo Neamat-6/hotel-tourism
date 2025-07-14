@@ -1,0 +1,80 @@
+// Responsive fixes
+@media only screen and (max-width: 450px) {
+  .os_li_home_action {
+    display: none;
+  }
+  .os-quick-nav > div {
+    padding: 0 1px;
+  }
+
+}
+
+@include media-breakpoint-down(sm) {
+  .o_searchview_icon {
+    display: none !important;
+  }
+  .os_reload_view {
+    display: none !important;
+  }
+  h1 {
+    font-size: $h1-font-size * 3 / 4;
+  }
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: $os-font-size-base-touch;
+  }
+}
+
+.o_web_client.o_touch_device {
+  .btn:not(.btn-link):not(.oe_stat_button):not(.o_back_button) {
+    &, .btn-sm {
+      font-size: $font-size-base !important;
+      padding: 7px 14px !important;
+    }
+
+    &.fa {
+      font-size: 1.3em;
+      padding: 2px 10px;
+    }
+  }
+
+  .o_cp_action_menus .btn {
+    font-size: $font-size-lg !important;
+
+    > .fa {
+      margin: 0 !important;
+    }
+  }
+}
+
+
+@include media-breakpoint-down(sm) {
+  %responsive_dropdown {
+    border: 0 !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    left: 0 !important;
+    border-top: 2px solid $accent-color !important;
+    max-height: 100vh;
+  }
+  .o_MessagingMenu_dropdownMenu.o-mobile, .o_menu_systray .dropdown-menu {
+    @extend %responsive_dropdown;
+    top: $header-height !important;
+
+  }
+  .os-header-searchbar {
+    @extend %responsive_dropdown;
+  }
+  .Os_quick_create .dropdown-menu, .os_favorite_app_menu .dropdown-menu, .os_bookmark_menu .dropdown-menu, .os_recently_viewed_menu .dropdown-menu, {
+    @extend %responsive_dropdown;
+  }
+
+  .os-settings-panel.todo {
+    width: 100%;
+    max-width: 100%;
+  }
+}

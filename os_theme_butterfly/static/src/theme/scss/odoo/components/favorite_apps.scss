@@ -1,0 +1,46 @@
+.favorite_app_wrap {
+  .favorite_app_inner {
+    display: grid !important;
+    grid-auto-flow: row !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+    .view-apps-icon-wrap, .view-apps-default, .view-apps-image {
+      width: 40px;
+      height: 40px;
+
+      .icon {
+        font-size: 1.8rem;
+      }
+    }
+
+    .app-title {
+      color: $body-color;
+      font-size: 1rem;
+      margin-top: 0.25rem;
+    }
+
+
+  }
+
+  &.edit_mode {
+    .app-item {
+      &:hover {
+        .icon-edit-mode {
+          display: block !important;
+        }
+
+        .icon-read-mode {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+}
+
+.ines{
+  font-family: $base_google_font_family;
+  color: $alt_google_font_family;
+  background: $use_base_google_font;
+  background: $use_alt_google_font;
+}

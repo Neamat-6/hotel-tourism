@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_bookmark_menu" owl="1">
+        <OsBookmarkDropdown
+                class="os_bookmark_menu" position="'bottom-end'"
+                togglerClass="`os-quick-nav-icon`"
+                menuClass="'dropdown-menu-end dropdown-menu-xl dropdown-menu-s1'">
+            <t t-set-slot="toggler">
+                <div t-attf-class="icon-status icon-status-na" data-tippy-content="Bookmarks" data-tippy-placement="bottom" t-on-dblclick="addRemoveBookMark">
+                    <em class="icon osi osi-bookmark" t-ref="icon_bookmark" id="icon_bookmark"/>
+                </div>
+            </t>
+
+            <t t-set-slot="top_dropdwon">
+                <div class="dropdown-inner d-flex justify-content-between align-items-center p-3 border-bottom">
+                    <h5 class="mb-0" t-if="action=='list_bookmarks' and edit_mode==false">Bookmarks</h5>
+                    <h5 class="mb-0" t-if="action=='edit_bookmark_item' or edit_mode==true">Bookmarks - Editing</h5>
+                    <h5 class="mb-0" t-if="action=='add_bookmark_item'">Bookmarks - Add external link</h5>
+                    <t t-if="action=='list_bookmarks'">
+                        <div class="btns bookmark-read-mode">
+                            <a t-if="records.length > 0" class="btn btn-icon edit_mode_btn mr-3" t-on-click="enterEditMode"
+                               title="Enter edit mode">
+                                <t t-call="os_theme_butterfly.icon_enter_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                            </a>
+                            <a class="btn btn-icon add_bookmark_btn" title="Add external bookmark" t-on-click="onClickAddBookmark">
+                                <t t-call="os_theme_butterfly.icon_add_item">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                            </a>
+                        </div>
+                        <div class="btns bookmark-edit-mode">
+                            <a class="btn btn-icon" t-on-click="exitEditMode" title="Exit edit mode">
+                                <t t-call="os_theme_butterfly.icon_exit_edit_mode">
+                                <t t-set="classes" t-value="'fill-primary-color'"/>
+                            </t>
+                            </a>
+                        </div>
+                    </t>
+                    <a t-if="action=='edit_bookmark_item' or action=='add_bookmark_item'" class="btn btn-icon" t-on-click="cancelEditItem" title="Cancel">
+                       <t t-call="os_theme_butterfly.cancel_edit_item">
+                           <t t-set="classes" t-value="'fill-primary-color'"/>
+                       </t>
+                    </a>
+                </div>
+            </t>
+
+            <div class="d-flex flex-column position-relative">
+                <div class="bookmark_inner" t-if="action=='list_bookmarks'">
+                    <t t-if="records.length > 0">
+                        <t t-foreach="records" t-as="record" t-key="record">
+                            <t t-call="os_theme_butterfly.item_bookmark"/>
+                        </t>
+
+                    </t>
+                </div>
+                <div class="" t-if="action=='edit_bookmark_item' or action=='add_bookmark_item'">
+                    <div class="p-3">
+                        <div class="col-12 mb-2">
+                            <div id="bookmark_item_errors_msg"/>
+                            <div class="form-group">
+                                <label class="form-label" for="bookmark_name">Title
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" t-att-value="bookmark_item and bookmark_item.name" id="bookmark_name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="bookmark_description">Description</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" t-att-value="bookmark_item and bookmark_item.description" id="bookmark_description"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="bookmark_icon">Icon
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" t-att-value="(bookmark_item and bookmark_item.icon) or 'las la-star'" id="bookmark_icon"/>
+                                </div>
+                                <small><a href="https://icons8.com/line-awesome" target="_blank">https://icons8.com/line-awesome</a></small>
+                            </div>
+                        </div>
+
+                        <div t-if="action=='add_bookmark_item'" class="col-12 mb-2" t-ref="external_link">
+                            <div class="form-group">
+                                <label class="form-label" for="bookmark_link_external">Link
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" t-att-value="bookmark_item and bookmark_item.link" id="bookmark_link_external"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-2">
+                            <div class="form-group">
+                                <label class="form-label" for="bookmark_sequence">Sequence
+                                    <sup>*</sup>
+                                </label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="bookmark_sequence" t-att-value="(bookmark_item and bookmark_item.sequence) or 1" t-ref="favorite_app_sequence"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-4 mb-2 text-right" t-if="action=='edit_bookmark_item'">
+                            <a href="#" class="btn btn-outline-danger mr-3"
+                               t-on-click="onClickdeleteBookmarkItem"
+                               t-att-data-bookmark-id="bookmark_item.id">Delete
+                            </a>
+                            <a href="#" class="btn btn-primary" t-on-click="updateBookmarkItem" t-att-data-bookmark-id="bookmark_item.id">Update</a>
+                        </div>
+                        <div class="col-12 mt-4 mb-2 text-right" t-if="action=='add_bookmark_item'">
+                            <a href="#" class="btn btn-primary" t-on-click="addBookmarkItem">Add</a>
+                        </div>
+                    </div>
+                </div>
+
+                <t t-if="records.length == 0 and action=='list_bookmarks'">
+                    <div class="text-center">
+                        <div class="pt-4 pb-4">
+                            <span class="svg-icon svg-icon-4x">
+                                <t t-call="os_theme_butterfly.no_bookmark_apps"/>
+                            </span>
+                        </div>
+                        <div class="pb-5">
+                            <h3 class="fs-16px mb-2">No Bookmarks yet!</h3>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </OsBookmarkDropdown>
+    </t>
+
+    <t t-name="os_theme_butterfly.item_bookmark" owl="1">
+        <div class="position-relative  d-flex flex-column align-items-center overflow-hidden p-3 border-right border-bottom">
+            <span t-if="record.type=='external'" class="text-center text-muted" style="position: absolute;right: 5px;bottom: 5px;">
+                <i class="osi osi-link"/>
+            </span>
+            <a class=" no-underline  d-flex flex-column align-items-center justify-content-center w-100 h-100"
+               href="#" t-on-click="onClickBookmarkItem"
+               t-att-data-link="record.link"
+               t-att-data-id="record.id"
+               t-att-data-icon="record.icon"
+               t-att-data-description="record.description"
+               t-att-data-name="record.name"
+               t-att-data-sequence="record.sequence"
+               t-att-data-type="record.type">
+                <div class="icon py-2 bookmark_item_icon">
+                    <i t-att-class="record.icon" class="icon-read-mode fa-2x"/>
+                    <i class="icon-edit-mode osi osi-edit fa-2x"/>
+                </div>
+                <div class="fw-medium text-body fs-14px">
+                    <t t-esc="record.name"/>
+                </div>
+                <div class="text-center text-muted">
+                    <t t-esc="record.description"/>
+                </div>
+            </a>
+        </div>
+    </t>
+
+</templates>

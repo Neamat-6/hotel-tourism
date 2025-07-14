@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_form_inherit" model="ir.ui.view">
+        <field name="name">ir.module.module.form.inherit</field>
+        <field name="model">ir.module.module</field>
+        <field name="inherit_id" ref="base.module_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='installed_version']" position="after">
+                <field name="os_web_icon_font" invisible="0"/>
+                <field name="os_image_icon" invisible="0"/>
+                <field name="os_is_changed" invisible="0"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

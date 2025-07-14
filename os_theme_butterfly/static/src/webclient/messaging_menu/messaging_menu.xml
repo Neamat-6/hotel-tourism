@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.MessagingMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_MessagingMenu')]/a" position="replace">
+            <a class="o_MessagingMenu_toggler dropdown-toggle o-no-caret o-dropdown--narrow os-quick-nav-icon" t-att-class="{ 'o-no-notification': messagingMenu ? !messagingMenu.counter : false }" href="#" title="Conversations" role="button" t-att-aria-expanded="messagingMenu and messagingMenu.isOpen ? 'true' : 'false'" aria-haspopup="true" t-on-click="_onClickToggler">
+                <div class="icon-status icon-status-na">
+                    <em class="icon osi osi-comments"/>
+                    <t t-if="!messagingMenu or !messaging.isInitialized">
+                        <i class="o_MessagingMenu_loading fa fa-circle-o-notch fa-spin"/>
+                    </t>
+                    <t t-elif="messagingMenu.counter > 0">
+                        <span class="o_MessagingMenu_counter badge badge-navbar">
+                            <t t-esc="messagingMenu.counter"/>
+                        </span>
+                    </t>
+                </div>
+            </a>
+        </xpath>
+        <xpath expr="//div[hasclass('o_MessagingMenu_dropdownMenu')]" position="attributes">
+            <attribute name="class" add="dropdown-menu-xl dropdown-menu-s1" separator=" "/>
+        </xpath>
+    </t>
+</templates>

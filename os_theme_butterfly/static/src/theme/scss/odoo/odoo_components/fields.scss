@@ -1,0 +1,183 @@
+.o_field_binary_file {
+  button {
+    margin-left: 0.375rem;
+  }
+}
+
+.o_required_modifier {
+  &.o_input, .o_input {
+    background-color: mix($accent-color, $dim-mix, 11%) !important;
+    border-color: mix($accent-color, $dim-mix, 40%) !important;
+    border-width: $input-border-width !important;
+  }
+}
+
+$arrow_down: url("data:image/svg+xml," +
+  '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="10" '+
+  'x="0" y="0" viewBox="0 0 128 128"><g><path d="M64 88a3.988 3.988 0 0 1-2.828-1.172l-40-40c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0L64 78.344l37.172-37.172c1.563-1.563 4.094-1.563 5.656 0s1.563 4.094 0 5.656l-40 40A3.988 3.988 0 0 1 64 88z" fill="%23#{str-slice(#{$o-main-text-color}, 2)}"></path></g></svg>'
+);
+select {
+
+  cursor: pointer;
+  min-width: 50px;
+  appearance: none;
+  background: transparent $arrow_down no-repeat right center;
+  border-radius: 0;
+  color: $o-main-text-color;
+
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 $o-main-text-color;
+
+    > option {
+      color: $o-main-text-color;
+    }
+  }
+}
+
+.o_field_widget {
+
+
+  .o_input_dropdown {
+    > input {
+      background: transparent $arrow_down no-repeat right center;
+    }
+
+    .o_dropdown_button {
+      &:after {
+        content: none;
+      }
+    }
+
+    .o_datepicker_button {
+      &:after {
+        content: none;
+      }
+
+    }
+  }
+
+  &.o_datepicker {
+    > input {
+      background: transparent $arrow_down no-repeat right center;
+    }
+
+    .o_dropdown_button {
+      &:after {
+        content: none;
+      }
+
+    }
+
+    .o_datepicker_button {
+      &:after {
+        content: none;
+      }
+
+    }
+  }
+
+
+  &.o_field_image {
+    .o_form_image_controls {
+      border-radius: $border-radius-lg;
+
+      .o_select_file_button {
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+
+      }
+
+      .o_clear_file_button {
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin-top: 0.5rem;
+      }
+
+      > button {
+        color: color-yiq($accent-color)
+      }
+    }
+  }
+
+
+  &.o_field_many2manytags {
+    height: auto; // FIXME it makes problem on badge height form : voir contact form
+
+    &.avatar {
+      .badge {
+        padding-left: 0.6rem;
+      }
+    }
+
+    .badge {
+      .o_badge_text {
+        line-height: 1.5;
+      }
+
+      .o_delete {
+        line-height: 2;
+      }
+
+    }
+  }
+
+
+}
+
+select.o_field_widget.o_input {
+  padding: $input-padding-y $input-padding-x;
+}
+
+.o_input:not(.o_field_tags) {
+  @extend .form-control;
+}
+
+.o_input {
+  width: inherit;
+  padding: $input-padding-y $input-padding-x;
+  border: $input-border-width solid $input-border-color;
+  font-family: $input-font-family;
+  @include font-size($input-font-size);
+  font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  //appearance: none; // Fix appearance for date inputs in Safari
+
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  @include border-radius($input-border-radius, 0);
+
+  @include box-shadow($input-box-shadow);
+  @include transition($input-transition);
+
+  .o_input {
+    height: 100%;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.o_field_widget.o_field_monetary.o_input > input, .o_field_widget.o_field_float_percentage.o_input > input {
+  max-width: 100%;
+}
+
+.o_field_widget.o_field_many2one .o_field_many2one_selection {
+  align-items: center;
+}
+
+[type="text"],
+[type="password"],
+[type="number"],
+[type="email"],
+[type="tel"],
+textarea,
+select {
+  width: 100%;
+}

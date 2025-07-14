@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_home_action" owl="1">
+        <div class="os_li_home_action" t-att-class="home_action_id ==false ? 'd-none' : ''">
+            <a class="os-quick-nav-icon"
+               data-tippy-content="Home action" data-tippy-placement="bottom"
+               t-on-click.prevent="onClickHomeAction" href="#">
+                <div class="icon-status icon-status-na">
+                    <em class="icon osi osi-home" t-ref="osMenuAppsIcon"></em>
+                </div>
+            </a>
+        </div>
+    </t>
+</templates>

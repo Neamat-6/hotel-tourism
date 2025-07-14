@@ -1,0 +1,34 @@
+$form-min-width: 835px;
+$chatter-min-width: 550px;
+$chatter-max-width: 600px;
+
+.chatter-position-sided {
+  @include media-breakpoint-up(xl, $o-extra-grid-breakpoints) {
+    .o_form_view:not(.o_form_nosheet) {
+      display: flex;
+      flex-flow: row nowrap;
+      height: 100%;
+
+      .o_form_sheet_bg {
+        min-width: $form-min-width;
+        flex: 1 1 auto;
+        overflow: auto;
+      }
+
+      > .o_FormRenderer_chatterContainer {
+        flex: 1 1 auto;
+        overflow: auto;
+        min-width: $chatter-min-width;
+        max-width: $chatter-max-width;
+        border-left: 2px solid #dbdfea;
+        border-top: 0 !important;
+
+        .o_ChatterTopbar_rightSection {
+          -webkit-box-pack: start;
+          -ms-flex-pack: start;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+}

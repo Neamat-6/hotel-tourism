@@ -1,0 +1,47 @@
+body {
+  min-width: $min-body-width;
+
+  &.nav-shown {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.os {
+  &-body {
+    outline: none;
+  }
+
+  &-app {
+    &-root {
+      outline: none;
+    }
+  }
+
+  &-main {
+    position: relative;
+    overflow-x: hidden; // Added newly
+  }
+
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  &-content {
+
+    flex-grow: 1;
+    margin: 0 !important;
+    padding: $header-height 0 0;
+    transition: padding-top .3s ease-in;
+
+    &.os-header-toolsbar-shown, {
+      padding: calc(#{$header-height} + (#{$header-height} / 2) + 0.5rem) 0 0;
+    }
+
+  }
+}

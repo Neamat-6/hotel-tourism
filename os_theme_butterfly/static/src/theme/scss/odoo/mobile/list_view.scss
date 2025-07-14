@@ -1,0 +1,20 @@
+@include media-breakpoint-down(sm) {
+  .o_view_controller > .o_content > .o_list_view > .table-responsive {
+    overflow: auto;
+
+    .o_list_table tr:focus-within {
+      background-color: inherit;
+    }
+  }
+
+  .o_data_row_selected {
+    user-select: none;
+
+    > td {
+      border-top-color: $accent-color !important;
+      border-bottom: 1px solid $accent-color !important;
+      background-color: rgba($accent-color, .1) !important;
+    }
+  }
+
+}

@@ -1,0 +1,192 @@
+@mixin os-button-size($padding-y, $padding-x, $font-size) {
+  padding: $padding-y $padding-x;
+  @include font-size($font-size);
+}
+
+// ************************ buttons_style ************************ //
+@if $buttons_style == 'ddd' {
+
+  @each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      border-bottom: solid 3px darken($value, 5%);
+
+      &:hover {
+        border-bottom-color: darken($value, 7%);
+      }
+    }
+
+    .btn-#{$color} {
+      border-bottom: solid 3px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        border-bottom-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+  }
+}
+
+@if $buttons_style == 'inset' {
+
+  @each $color, $value in $theme-colors {
+    @if $color != 'light' and $color != 'white' {
+      .btn-#{$color}:not(.fa):not(.os_reload_view):not(.o_arrow_button), .btn-outline-#{$color}:not(.fa):not(.os_reload_view):not(.o_arrow_button) {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          top: 0.14286rem;
+          right: 0.14286rem;
+          bottom: 0.14286rem;
+          left: 0.14286rem;
+          content: "";
+          border: solid 1px lighten($value, 45%);
+          @if $buttons_angles == 'rounded' {
+            border-radius: .25rem;
+
+          }
+          @if $buttons_angles == 'pill' {
+            border-radius: 50px;
+          }
+
+        }
+      }
+
+    }
+
+  }
+
+
+}
+
+@if $buttons_style == 'soft' {
+
+  $dim-outline-btns: "primary" $primary mix($primary, $dim-mix, 11%) mix($primary, $dim-mix, 40%),
+  "success" $success mix($success, $dim-mix, 11%) mix($success, $dim-mix, 40%),
+  "warning" $warning mix($warning, $dim-mix, 11%) mix($warning, $dim-mix, 40%),
+  "info" $info mix($info, $dim-mix, 11%) mix($info, $dim-mix, 40%),
+  "danger" $danger mix($danger, $dim-mix, 11%) mix($danger, $dim-mix, 40%),
+  "secondary" $secondary mix($secondary, $dim-mix, 11%) mix($secondary, $dim-mix, 35%),
+  "gray" $light-600 mix($light-500, $dim-mix, 11%) mix($light-500, $dim-mix, 35%),
+  "dark" $dark mix($dark, $dim-mix, 11%) mix($dark, $dim-mix, 35%),
+  "light" $secondary-light $lighter $light-300;
+
+  @each $name, $color, $background, $border in $dim-outline-btns {
+    .btn-#{$name} {
+      color: $color;
+      background-color: $background;
+      border-color: $border;
+
+      &:not(:disabled):not(.disabled):hover {
+        color: color-contrast($color);
+        background-color: $color;
+        border-color: $color;
+      }
+    }
+    .btn-white.btn-#{$name}, .btn-trans.btn-#{$name} {
+      &:not(.btn-dim):not(:disabled):not(.disabled):hover {
+        color: $color;
+        background: $background;
+      }
+    }
+  }
+
+
+}
+
+// ************************ buttons_angles ************************ //
+
+@if $buttons_angles == 'flat' {
+  .btn:not(.btn-icon):not(.btn-trigger):not(.btn-round):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    border-radius: 0;
+  }
+}
+
+@if $buttons_angles == 'rounded' {
+  .btn:not(.btn-icon):not(.btn-trigger):not(.btn-round):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    border-radius: .25rem;
+  }
+}
+
+@if $buttons_angles == 'pill' {
+  .btn:not(.btn-icon):not(.btn-trigger):not(.btn-round):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    border-radius: 50px;
+  }
+}
+
+// ************************ buttons_size ************************ //
+$border-radius: .25rem !default;
+$border-radius-lg: .3rem !default;
+$border-radius-sm: .2rem !default;
+@if $buttons_size == 'small' {
+  .btn:not(.o_back_button):not(.search-toggle):not(.btn-link):not(.btn-icon):not(.btn-trigger):not(.btn-lg):not(.btn-sm):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    @include os-button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm);
+
+  }
+  .o_cp_action_menus {
+    .btn {
+      @include os-button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm);
+    }
+  }
+}
+
+@if $buttons_size == 'medium' {
+  .btn:not(.o_back_button):not(.search-toggle):not(.btn-link):not(.btn-icon):not(.btn-trigger):not(.btn-lg):not(.btn-sm):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    @include os-button-size($btn-padding-y, $btn-padding-x, $btn-font-size);
+
+    .o_cp_action_menus {
+      .btn {
+        @include os-button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm);
+      }
+    }
+  }
+}
+
+@if $buttons_size == 'large' {
+  .btn:not(.o_back_button):not(.search-toggle):not(.btn-link):not(.btn-icon):not(.btn-trigger):not(.btn-lg):not(.btn-sm):not(.dropdown-toggle):not(.reset-opt-setting):not(.o_arrow_button):not(.o_pager_previous):not(.o_pager_next):not(.oe_stat_button):not(.o_onboarding_step_action):not(.o_switch_view) {
+    @include os-button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg);
+
+    .o_cp_action_menus {
+      .btn {
+        @include os-button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm);
+      }
+    }
+  }
+}
+
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text,
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.input-group > .input-group-append > .btn,
+.input-group > .input-group-append > .input-group-text,
+.input-group > .input-group-prepend:not(:first-child) > .btn,
+.input-group > .input-group-prepend:not(:first-child) > .input-group-text,
+.input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+.input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.btn-group {
+
+  // Reset rounded corners
+  > .btn:not(:last-child):not(.dropdown-toggle),
+  > .btn-group:not(:last-child) > .btn {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  > .btn:nth-child(n + 3),
+  > :not(.btn-check) + .btn,
+  > .btn-group:not(:first-child) > .btn {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}

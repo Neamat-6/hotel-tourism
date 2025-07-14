@@ -1,0 +1,221 @@
+.note-editable {
+  background: $o-view-background-color !important;
+  border-color: $border-color !important;
+}
+
+.o_input, .o_searchview_input, input {
+  background-color: $input-bg;
+  border-color: $border-color;
+  color: $white;
+}
+
+.o_searchview {
+  border-color: $border-color !important;
+}
+
+.modal {
+  .modal-content {
+    background: $dark-body-bg-light;
+
+    input.bg-transparent {
+      background: lighten($odoo-view-background-color, 5%) !important;
+    }
+  }
+
+  .close {
+    text-shadow: 0 1px 0 $shadow-color;
+    color: $white !important;
+
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
+
+p, pre {
+  color: $body-color !important;
+}
+
+
+.fill-primary-light-color {
+  fill: transparent;
+}
+
+.os-settings-panel {
+  background-color: $odoo-view-background-color;
+
+  .os-settings-head {
+    border-bottom-color: $border-color !important;
+    background: linear-gradient(90deg, darken($accent-color, 30%) 0%, darken($accent-color, 20%) 100%) !important;
+
+    &.bg-white {
+      background: darken($odoo-view-background-color, 10%) !important;
+      color: color-yiq(darken($odoo-view-background-color, 10%)) !important;
+    }
+
+  }
+
+  ul.navigation {
+    background-color: $odoo-view-background-color;
+  }
+
+  .os-opt-item-bg, .os-opt-reset {
+    background-color: $odoo-view-background-color;
+  }
+
+  .os-opt-set:not(:last-child) {
+    border-bottom-color: $border-color;
+  }
+}
+
+.zoom-panel {
+  background-color: $light-100 !important;
+  border: $border-width solid $border-color;
+}
+
+.dark-img-opacity {
+  filter: opacity(.8);
+  -webkit-filter: opacity(.8);
+  -moz-filter: opacity(.8)
+}
+
+img {
+  @extend .dark-img-opacity;
+}
+
+.os-sticky-toolbar {
+  background: lighten($odoo-view-background-color, 7%);
+  box-shadow: -2px 0 24px -2px $shadow-color;
+  border-color: darken($shadow-color, 5%);
+
+  li:not(:last-child) {
+    border-bottom-color: darken($shadow-color, 5%);
+  }
+}
+
+.oe_module_icon {
+  filter: opacity(0.5);
+  -webkit-filter: opacity(0.5);
+  -moz-filter: opacity(0.5);
+}
+
+.o_Composer_textInput {
+  background: transparent;
+
+  textarea {
+    background: transparent;
+    color: $white;
+  }
+}
+
+.o_Discuss {
+  .o_Composer_toolButtons {
+    background: transparent;
+    color: $white;
+  }
+
+  .o_Message {
+    background: $lighter;
+  }
+
+  .o_DiscussSidebar_category .o_DiscussSidebarMailbox .o_ThreadIcon {
+    color: $white !important;
+  }
+
+  .o_DiscussSidebarCategory_title:not(:hover) {
+    color: #fafafa;
+  }
+}
+
+.o_switch_company_menu {
+
+  .alert-primary {
+    background: darken($accent-500, 15%) !important;
+    color: color-yiq(darken($accent-500, 15%)) !important;
+  }
+
+  .border-primary {
+
+    .btn-light {
+      background: darken($accent-500, 15%) !important;
+    }
+  }
+
+}
+
+.btn-link.text-warning {
+  color: $warning !important;
+}
+
+.o_FormRenderer_chatterContainer .o_Chatter .o_ThreadView .o_Message {
+  .o_Message_prettyBody {
+    > .o_editable > table {
+      background: transparent !important;
+    }
+
+    table {
+      background: darken($white, 50%) !important;
+      color: darken($white, 80%) !important;
+
+      hr {
+        background-color: darken($white, 60%) !important;
+      }
+
+      a, div {
+        color: $white !important;
+      }
+    }
+  }
+
+}
+
+.o_view_sample_data .o_nocontent_help {
+  border-radius: 20%;
+  $color: rgba($odoo-view-background-color, 0.8);
+  background-color: $color;
+  box-shadow: 0 0 120px 100px $color;
+}
+
+.o_pivot table th, .o_pivot table td {
+  border-color: $border-color;
+}
+
+.o_view_nocontent .o_nocontent_help .o_view_nocontent_empty_folder::before, .o_nocontent_help .o_empty_folder_image::before {
+
+  background: transparent url(/os_theme_butterfly/static/src/img/empty_folder_dark.svg) no-repeat center;
+}
+
+.o_view_nocontent .o_nocontent_help .o_view_nocontent_smiling_face::before {
+
+  background: transparent url(/os_theme_butterfly/static/src/img/smiling_face_dark.svg) no-repeat center;
+}
+
+.bg-white {
+  background: darken($white, 20%) !important;
+}
+
+.o_wvisitor_kanban.o_kanban_ungrouped .o_wvisitor_kanban_card:first-child {
+  border-bottom-color: $border-color !important;
+}
+
+
+.o_preview_iframe {
+  background: $white;
+
+  body {
+    background: $white;
+  }
+}
+
+.o_lunch_content .o_lunch_banner {
+  border-bottom-color: $border-color;
+  background-color: darken($odoo-view-background-color, 5%);
+}
+
+.o_kanban_card_survey_successed {
+  background-image: linear-gradient(rgba($odoo-view-background-color, 0.5), rgba($odoo-view-background-color, 0.9)), url(/os_theme_butterfly/static/src/img/trophy-solid_dark.svg);
+}
+
+.o_kanban_view.o_theme_kanban {
+  background-color: $odoo-view-background-color;
+}

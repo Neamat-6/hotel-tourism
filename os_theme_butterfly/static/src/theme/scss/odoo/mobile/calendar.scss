@@ -1,0 +1,113 @@
+//view calendar
+@include media-breakpoint-down(sm) {
+
+  .o_calendar_widget {
+    border-radius: $border-radius-xl;
+  }
+
+  .o_calendar_container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    .os_top_panel_calendar_panel {
+      padding: 8px 16px;
+      display: -webkit-box !important;
+      display: -webkit-flex !important;
+      display: flex !important;
+      align-items: center !important;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-xl;
+      margin-bottom: 1rem;
+      background: $odoo-view-background-color;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15);
+
+
+      > .os_filter_bloc {
+        display: -webkit-box !important;
+        display: -webkit-flex !important;
+        display: flex !important;
+        margin-right: auto !important;
+        overflow: auto !important;
+
+        > span > span {
+          font-size: x-small;
+
+          &:nth-child(1) {
+            font-size: xx-small;
+          }
+        }
+
+        .os_filter_label {
+          font-weight: 500;
+          text-transform: uppercase !important;
+          white-space: nowrap !important;
+          margin-right: 0.25rem !important;
+        }
+
+        .os_filter_value {
+          display: -webkit-box !important;
+          display: -webkit-flex !important;
+          display: flex !important;
+          align-items: center !important;
+          white-space: nowrap;
+          margin-left: 0.25rem !important;
+          margin-right: 0.5rem !important;
+        }
+
+        .os_filter_value_label {
+          white-space: nowrap;
+          margin-left: 0.25rem !important;
+          font-weight: bold;
+
+        }
+
+      }
+    }
+
+    .o_calendar_sidebar_container {
+      flex-grow: 1;
+
+      > .o_calendar_sidebar {
+        width: auto;
+      }
+    }
+  }
+
+  .o_calendar_view {
+    .fc-view {
+      &.fc-timeGrid-view {
+        .fc-axis {
+          padding-left: 0;
+        }
+
+        .fc-week-number.fc-widget-header {
+          font-weight: normal;
+          white-space: normal;
+        }
+      }
+
+      &:not(.fc-timeGridDay-view) {
+        .fc-day-header, .fc-week-number.fc-widget-header {
+          word-spacing: 250px;
+          text-align: center;
+        }
+      }
+
+      &.fc-dayGridMonth-view {
+        padding-left: 0;
+
+        .fc-week-number:not(.fc-widget-header) {
+          background-color: $gray-400;
+          color: $gray-800;
+        }
+      }
+    }
+
+    .fc-more-popover .fc-close {
+      padding: 5px;
+    }
+  }
+
+}

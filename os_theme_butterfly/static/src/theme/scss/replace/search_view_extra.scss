@@ -1,0 +1,91 @@
+.o_searchview {
+
+  @include media-breakpoint-down(sm) {
+    margin-right: 5px;
+    padding-right: 0;
+  }
+
+  .o_searchview_facet {
+    @include media-breakpoint-down(sm) {
+      flex-flow: row wrap;
+    }
+
+    .o_facet_values {
+      border: 1px solid $accent-color;
+      border-left-width: 0;
+    }
+
+    .o_searchview_facet_label {
+      background-color: $accent-color;
+    }
+
+    .o_searchview_facet_label, .o_facet_remove {
+      font-size: $small-font-size;
+    }
+
+    .o_facet_remove {
+      @include o-hover-text-color($text-muted, $accent-color);
+    }
+  }
+
+  .o_searchview_input {
+    border: none;
+    outline: none;
+  }
+
+  .o_searchview_icon {
+    @include o-position-absolute($top: 4px, $right: 0);
+  }
+
+  .o_searchview_autocomplete li.o_selection_focus {
+    background-color: $table-hover-bg;
+  }
+}
+
+.o_search_options {
+  margin: auto 0;
+}
+
+.os_modal_mobile_search {
+  align-items: normal;
+  background-color: $odoo-view-background-color;
+  border: none;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  overflow: auto;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $zindex-modal;
+
+  .os_modal_mobile_search_header {
+    background-color: $accent-color;
+    display: flex;
+    min-height: $o-navbar-height;
+    justify-content: space-between;
+    width: 100%;
+
+    .btn {
+      color: color-yiq($accent-color);
+      line-height: 2 !important;
+
+      svg {
+        path {
+          fill: color-yiq($accent-color);
+        }
+      }
+    }
+
+  }
+
+  .os_mobile_search_wrapper {
+    flex: auto;
+    height: auto;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+}

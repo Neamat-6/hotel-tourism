@@ -1,0 +1,29 @@
+.o_web_client {
+
+  .o_content {
+    @extend .px-1;
+    @extend .px-lg-4;
+  }
+
+  .o_onboarding_container {
+    @extend .px-1;
+    @extend .px-lg-4;
+  }
+
+
+  .o_action_manager {
+    min-height: calc(100vh - #{$header-height});
+    max-width: 100%;
+
+    .o_action {
+      .o_content {
+        @extend .py-3;
+      }
+    }
+  }
+
+  .o_view_controller {
+    width: 100%;
+  }
+}
+

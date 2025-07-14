@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.Os_web_ribbon" owl="1">
+        <div class="web-ribbon"
+             t-attf-style="background:{{props.service.os_web_ribbon_bg}};color:{{props.service.os_web_ribbon_fg}};">
+            <t t-esc="props.service.os_web_ribbon_text"/>
+        </div>
+    </t>
+
+</templates>

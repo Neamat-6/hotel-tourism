@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_fullscreen_menu" owl="1">
+        <li class="os-fullscreen">
+            <a class="toggle tipinfo" t-on-click="_onFullScreen" href="#"
+               data-tippy-content="FullScreen" data-tippy-placement="left">
+                    <em class="icon osi osi-expand" t-ref="os-icon-fullscreen"></em>
+            </a>
+        </li>
+    </t>
+</templates>

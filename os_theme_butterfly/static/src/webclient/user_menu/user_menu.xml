@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t t-inherit="web.UserMenu" t-inherit-mode="extension" owl="1">
+    <xpath expr="//Dropdown" position="replace">
+         <OS_Dropdown
+                 class="o_user_menu user-dropdown px-0"
+                 menuClass="'dropdown-menu-md dropdown-menu-end dropdown-menu-s1'"
+                 t-on-dropdown-item-selected.stop="onDropdownItemSelected">
+             <t t-set-slot="toggler">
+                 <div class="user-toggle">
+                     <div class="user-avatar sm">
+                         <em class="icon osi osi-user-alt"/>
+                     </div>
+                     <!--                     <div class="user-info d-none d-md-block">-->
+                     <div class="user-info d-none">
+                         <div class="user-status" t-if="user.isAdmin">Administrator</div>
+                         <div class="user-name dropdown-indicator">
+                             <t t-esc="user.name"/>
+                             <t t-if="env.debug" t-esc="' (' + user.db.name + ')'"/>
+                         </div>
+                     </div>
+                 </div>
+             </t>
+
+             <t t-set-slot="top_dropdwon">
+                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                    <div class="user-card">
+                        <div class="user-avatar">
+                            <img t-att-src="source" alt="User"/>
+                        </div>
+                        <div class="user-info o_text_overflow">
+                            <span class="lead-text o_text_overflow">
+                                <t t-esc="user.name"/>
+                                <t t-if="env.debug" t-esc="' (' + user.db.name + ')'"/>
+                            </span>
+                            <span class="sub-text o_text_overflow"><t t-esc="user.email"/></span>
+                        </div>
+                    </div>
+                 </div>
+             </t>
+
+             <t t-set-slot="bottom_dropdwon">
+                 <div class="dropdown-inner">
+                     <ul class="link-list">
+                         <li>
+                             <t t-foreach="getElements()" t-as="element" t-key="element_index">
+                                 <t t-if="element.id=='logout'">
+                                    <OS_UserMenuItem
+                                            t-if="element.type == 'item'"
+                                            payload="{ callback: element.callback, id: element.id }"
+                                            href="element.href"
+                                            t-esc="element.description">
+                                        <t t-set-slot="icon">
+                                            <em class="icon osi osi-signout"/>
+                                        </t>
+                                    </OS_UserMenuItem>
+                                </t>
+                            </t>
+                         </li>
+                     </ul>
+                 </div>
+             </t>
+
+             <div class="dropdown-inner">
+                 <ul class="link-list">
+                     <t t-foreach="getElements()" t-as="element" t-key="element_index">
+                         <li>
+                             <t t-if="!element.hide">
+                                 <t t-if="element.id!=='logout'">
+                                    <OS_UserMenuItem
+                                            t-if="element.type == 'item'"
+                                            payload="{ callback: element.callback, id: element.id }"
+                                            href="element.href"
+                                            t-esc="element.description">
+                                        <t t-set-slot="icon">
+                                            <em t-att-class="{
+                                                'icon osi osi-file-docs': element.id==='documentation',
+                                                'icon osi osi-help-alt': element.id === 'support',
+                                                'icon osi osi-regen': element.id === 'shortcuts',
+                                                'icon osi osi-setting-alt': element.id === 'account',
+                                                'icon osi osi-account-setting-alt': element.id === 'settings',
+                                             }"/>
+                                        </t>
+                                    </OS_UserMenuItem>
+                                 </t>
+                             </t>
+                         </li>
+                    </t>
+                 </ul>
+            </div>
+        </OS_Dropdown>
+    </xpath>
+
+</t>
+
+</templates>

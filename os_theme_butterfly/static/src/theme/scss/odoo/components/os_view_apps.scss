@@ -1,0 +1,212 @@
+.os_apps_view {
+
+  overflow: auto;
+  flex-grow: 1;
+  position: relative;
+
+  &_container {
+    position: relative;
+  }
+
+  .icon-edit-mode {
+    display: none;
+  }
+
+  &.edit_mode {
+
+    .view-apps-icon-wrap:hover {
+      .icon-read-mode {
+        display: none;
+      }
+
+      .icon-edit-mode {
+        display: inline-block;
+        transition: 0.2s all ease 0s;
+      }
+    }
+
+    .view-apps-image {
+      &:hover {
+        cursor: url('/os_theme_butterfly/static/src/img/cursor_edit.png'), auto;
+      }
+
+    }
+
+  }
+}
+
+.view-apps {
+
+  &-icon {
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+      top: 0;
+      height: -webkit-max-content;
+      height: -moz-max-content;
+      height: max-content;
+    }
+
+    &-item {
+      padding: 15px;
+    }
+
+    &-box {
+      position: relative;
+      padding: 0.5rem;
+      text-align: center;
+
+
+      &:hover {
+        .btn-clipboard {
+          opacity: 1;
+        }
+      }
+
+    }
+
+    &-wrap {
+      width: 80px;
+      height: 80px;
+
+      &.shape-square {
+        clip-path: inset(0 0 0 0);
+      }
+
+      &.shape-rounded {
+        clip-path: inset(0% 0% 0% 0% round 10%);
+      }
+
+      &.shape-circle {
+        clip-path: circle(50% at 50% 50%);
+      }
+
+      &.shape-rhombus {
+        @include rounded-hex($n: 4, $main-radius: 10%, $rounding-radius: 20%, $rotated: false, $precision: 10);
+      }
+
+      &.shape-pentagon {
+        @include rounded-hex($n: 5, $main-radius: 10%, $rounding-radius: 20%, $rotated: true, $precision: 10);
+      }
+
+      &.shape-hexagon {
+        @include rounded-hex($n: 6, $main-radius: 10%, $rounding-radius: 20%, $rotated: false, $precision: 10);
+      }
+
+      &.shape-heptagon {
+        @include rounded-hex($n: 7, $main-radius: 10%, $rounding-radius: 20%, $rotated: false, $precision: 10);
+      }
+
+      &.shape-octagon {
+        @include rounded-hex($n: 8, $main-radius: 10%, $rounding-radius: 20%, $rotated: false, $precision: 10);
+
+      }
+
+      &.shape-nonagon {
+        @include rounded-hex($n: 9, $main-radius: 30%, $rounding-radius: 10%, $rotated: true, $precision: 10);
+      }
+
+      &.shape-decagon {
+        @include rounded-hex($n: 10, $main-radius: 30%, $rounding-radius: 10%, $rotated: false, $precision: 10);
+      }
+
+      &.shape-style-unique_color {
+        @if ($shape_style_unique_color!=False) {
+          background: $shape_style_unique_color !important;
+          color: if($shape_style_unique_color_icon!=False, $shape_style_unique_color_icon, color-yiq($shape_style_unique_color)) !important;
+        }
+        @if ($shape_style_unique_color==False) {
+          background: $accent-color !important;
+          color: if($shape_style_unique_color_icon!=False, $shape_style_unique_color_icon, color-yiq($accent-color)) !important;
+
+        }
+
+      }
+
+      &.shape-style-simple {
+        background: $accent-color;
+        color: color-yiq($accent-color);
+      }
+
+      &.shape-style-soft {
+        background: rgba($accent-color, 0.1);
+        color: $accent-color;
+      }
+
+      &.shape-style-gradient {
+        background: linear-gradient(to right, darken($accent-color, 10%), lighten($accent-color, 20%));
+        color: color-yiq($accent-color);
+      }
+
+      &.shape-none {
+        .icon {
+          font-size: 3.125rem;
+        }
+      }
+
+      .icon {
+        font-size: 2.666rem;
+        color: inherit;
+
+      }
+
+      &-parent {
+        .os_apps_view &, {
+          @if ($shape_shadow!=False) {
+            filter: drop-shadow(-1px 6px 3px rgba(50, 50, 0, 0.5));
+          }
+        }
+
+      }
+
+    }
+
+    &-name {
+      color: $base-text;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  &-default {
+    width: 70px;
+    height: 70px;
+
+    .o_app_icon {
+      border-radius: 4%;
+      box-shadow: 0 8px 0 -10px black;
+      transition: all 0.3s ease 0s;
+
+    }
+
+    &:focus,
+    &.o_focused,
+    &:hover {
+      .o_app_icon {
+        box-shadow: 0 8px 15px -10px black;
+        transform: translateY(-1px);
+      }
+    }
+
+  }
+
+  &-image {
+    width: 70px;
+    height: 70px;
+
+    .o_app_icon {
+      transition: all 0.3s ease 0s;
+
+    }
+
+
+  }
+
+}
+
+.icon-edit-apps {
+  top: 1rem;
+  left: 2rem;
+  z-index: 100;
+}
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template">
+    <t t-inherit="web.SearchBar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_cp_searchview')]//div[hasclass('o_searchview')]" position="replace">
+            <t t-if="env.isSmall or props.isToggleSearch==false">
+                <div class="o_searchview pb-1 align-self-center" role="search" aria-autocomplete="list">
+                <i class="o_searchview_icon fa fa-search"
+                    role="img"
+                    aria-label="Search..."
+                    title="Search..."
+                />
+                <div class="o_searchview_input_container">
+                    <t t-call="web.SearchBar.Facets"/>
+                    <t t-call="web.SearchBar.Input"/>
+                    <t t-if="items.length">
+                        <t t-call="web.SearchBar.Items"/>
+                    </t>
+                </div>
+            </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[hasclass('o_cp_searchview')]" position="inside">
+            <t t-if="props.isToggleSearch and props and props.isToggleSearch == true and !env.isSmall">
+                <a t-on-click="openSearch" class="btn btn-link search-toggle toggle-search ml-auto"
+                   data-target="odoo-search" title="Click to open search">
+                    <i class="small mr-1 fa fa-search"/>
+                    <span class="o_dropdown_title font-weight-bold">Search</span>
+                </a>
+                <div class="o_searchview search-wrap" data-search="odoo-search" role="search" aria-autocomplete="list">
+                    <i class="o_searchview_icon fa fa-search"
+                       role="img"
+                       aria-label="Search..."
+                       title="Search..."
+                    />
+                    <div class="o_searchview_input_container">
+                        <t t-call="web.SearchBar.Facets"/>
+                        <t t-call="web.SearchBar.Input"/>
+                        <t t-if="items.length">
+                            <t t-call="web.SearchBar.Items"/>
+                        </t>
+                    </div>
+                </div>
+            </t>
+
+        </xpath>
+
+    </t>
+</templates>

@@ -1,0 +1,85 @@
+.o_form_view {
+  .o_form_sheet_bg {
+    border-color: $border-color;
+  }
+
+  .o_form_statusbar > .o_statusbar_status > .o_arrow_button:last-child {
+    padding-left: 15px;
+    border-left: 1px solid $border-color;
+  }
+}
+
+.o_FormRenderer_chatterContainer {
+  .o_Composer {
+    .o_Composer_coreMain:not(.o-composer-is-compact) {
+      background: darken($odoo-view-background-color, 3%);
+      border-color: darken($border-color, 2%);
+    }
+
+    .o_Composer_coreMain {
+      .o_ComposerTextInput {
+        background: transparent;
+        color: $body-color;
+
+        textarea {
+          background: transparent;
+          color: $body-color;
+        }
+      }
+
+    }
+
+    .o_Composer_buttons {
+      .o_Composer_toolButtons {
+        background: transparent;
+        color: $body-color;
+
+        textarea {
+          background: transparent;
+          color: $body-color;
+        }
+      }
+
+    }
+  }
+}
+
+.o_MessageActionList {
+  background-color: darken($darker, 10%);
+}
+
+.o_MessageActionList_action {
+  background-color: darken($darker, 10%);
+
+  &:hover {
+    background-color: darken($darker, 5%);
+  }
+}
+
+.o_Follower_details:hover {
+  background: transparent;
+  color: inherit;
+}
+
+.o_NotificationGroup, .o_ThreadPreview, .o_NotificationRequest, .o_mail_preview {
+  background-color: $dropdown-bg!important;
+  color: $dropdown-color;
+
+  &:hover {
+    background-color: darken($dropdown-bg, 4%)!important;
+    color: $dropdown-color;
+  }
+}
+
+.o_MessagingMenu_tabButton.o-desktop:not(:hover):not(.o-active), .o_NotificationGroup_core, .o_ThreadPreview_core {
+  color: $body-color;
+}
+
+.o_NotificationGroup_date, .o_ThreadPreview_date {
+  color: darken($body-color, 2%);
+}
+
+.o_mail_systray_item .o_mail_systray_dropdown .o_no_activity {
+  color: #fff;
+  opacity: 0.8;
+}

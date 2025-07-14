@@ -1,0 +1,39 @@
+
+.fill-primary-color {
+  fill: $accent-color !important;
+}
+
+.fill-primary-light-color {
+  fill: lighten($accent-color, 40%);
+}
+
+.fill-primary-dark-color {
+  fill: darken($accent-color, 20%);
+}
+
+.svg-stroke-primary {
+  stroke: $accent-color !important;
+}
+
+.svg-stop-color-primary {
+  stop-color: $accent-color !important;
+}
+
+.inbox-svg-bg-fill-color {
+  fill: $bg-inbox-svg !important;
+}
+
+@for $i from 1 through length($o-colors-complete) {
+  $color: nth($o-colors-complete, $i);
+
+  .os_color_complete_#{$i - 1} {
+    color: $color;
+  }
+}
+
+
+.os_no_filters:before {
+  width: 120px;
+  height: 140px;
+  background: transparent url(/web/static/img/neutral_face.svg) no-repeat center;
+}

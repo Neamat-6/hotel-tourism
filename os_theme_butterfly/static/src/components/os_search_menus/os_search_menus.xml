@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.search_menus_nav" owl="1">
+        <OS_Dropdown
+                class="search-dropdown"
+                togglerClass="`os-quick-nav-icon`"
+                menuClass="'dropdown-menu-fw dropup dropdown-menu-end dropdown-menu-s1 os-header-searchbar'"
+                t-on-dropdown-item-selected.stop="onDropdownItemSelected">
+
+            <t t-set-slot="toggler">
+                <div class="icon-status icon-status-na">
+                    <em class="icon osi osi-search" t-ref="osMenuSearchIcon"/>
+                </div>
+            </t>
+            <div class="dropdown-content">
+                <OsSearchMenus divInputClass="'p-2 border-bottom'" hasIcon="'True'"
+                               ulClass="'link-list-opt border-0 link-check'"/>
+            </div>
+        </OS_Dropdown>
+    </t>
+
+    <t t-name="os_theme_butterfly.search_menus_content" owl="1">
+        <div class="os_search_menus_content">
+            <div t-if="availableApps.length or displayedMenuItems.length" role="listbox" class="os_menuitems">
+                <ul t-att-class="props.ulClass">
+                    <li t-if="availableApps.length"><span class="text-uppercase">Apps</span></li>
+                    <li t-foreach="availableApps" t-as="app" t-key="app">
+                        <a t-att-id="'result_app_' + app_index"
+                           role="option"
+                           t-att-data-menu-xmlid="app.xmlid"
+                           t-att-href="app.href || ('#menu_id='+app.id+'&amp;action_id='+app.actionID)"
+                           t-key="app.id"
+                           t-on-click.prevent="_onItemClick(app)">
+                             <t t-call="os_theme_butterfly.AppsIcon">
+                                <t t-set="wrap_custom_class" t-value="'me-1'"/>
+                            </t>
+                            <span><t t-esc="app.label or app.name"/></span>
+
+                    </a>
+                    </li>
+                    <li t-if="availableApps.length and displayedMenuItems.length" class="divider"/>
+                    <li t-if="displayedMenuItems.length"><span class="text-uppercase">Menuitems</span></li>
+                    <li t-foreach="displayedMenuItems" t-as="menu" t-key="menu">
+                        <a t-att-id="'result_menu_' + menu_index"
+                           role="option"
+                           class="o_menuitem"
+                           t-att-href="menu.href ? menu.href : ('#menu_id='+menu.id+'&amp;action_id='+menu.actionID)"
+                           t-key="menu.id"
+                           t-on-click.prevent="_onItemClick(menu)">
+                            <span class="o_menuitem_parents"><em class="osi osi-dot"/>
+                                <t t-esc="menu.parents"/>
+                                /
+                                <t t-esc="menu.label"/></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <t t-if="state.isSearching and inputRef.el.value!='' and (!displayedApps.length and !displayedMenuItems.length)">
+                <div class="text-center">
+                    <div class="pt-4 pb-4">
+                        <span class="svg-icon svg-icon-4x">
+                            <t t-call="os_theme_butterfly.icon_no_search_2"/>
+                        </span>
+                    </div>
+                    <div class="pb-5">
+                        <h3 class="fs-16px mb-2">No result found</h3>
+                        <div class="text-muted fs-12px">Please try again with a different query</div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.os_search_menus" owl="1">
+        <div class="os_search_menus">
+             <div class="os_menu_search_input" t-att-class="props.divInputClass">
+                 <div class="form-control-wrap">
+                     <div class="form-icon form-icon-left" t-if="props.hasIcon">
+                         <em class="icon osi osi-search"></em>
+                     </div>
+                     <input type="text"
+                            t-ref="input"
+                            t-on-input="_onInputSearch"
+                            class="form-control border-transparent form-focus-none" placeholder="Search menus..."
+                            role="combobox"
+                            t-att-aria-expanded="state.isSearching ? 'true' : 'false'"
+                            aria-autocomplete="list"
+                            aria-haspopup="listbox"/>
+                 </div>
+             </div>
+            <t t-call="os_theme_butterfly.search_menus_content"/>
+        </div>
+
+    </t>
+
+
+ </templates>

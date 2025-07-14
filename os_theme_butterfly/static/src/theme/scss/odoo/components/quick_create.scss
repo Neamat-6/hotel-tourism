@@ -1,0 +1,16 @@
+
+.icon-edit-mode {
+  display: none;
+}
+
+.edit_mode {
+  .quick_create_item:hover {
+    .icon-read-mode {
+      display: none;
+    }
+
+    .icon-edit-mode {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,390 @@
+///////////////////////////////////////////////////
+////////      DARK  VARIABLES        ////////
+///////////////////////////////////////////////////
+//////  CONFIGURATION VARIABLE
+$dark_option: true;
+$dark_theme_option: true;
+$menu_dark_option: $dark_option;
+$menu_dark_theme_option: $dark_theme_option;
+//====== Configure base Colors ============
+$white-alt: #fafafa;
+$black-alt: #121212;
+$white: $white-alt;
+$black: $black-alt;
+
+$dim-mix: #191c24;
+$accent-color: if(lightness($accent-color)< 20, desaturate(mix($accent-color, $white, 20%), 25%), desaturate($accent-color, 25%));
+$accent-100: mix($accent-color, $dim-mix, 11%);
+$accent-200: mix($accent-color, $dim-mix, 20%);
+$accent-300: mix($accent-color, $dim-mix, 30%);
+$accent-400: mix($accent-color, $dim-mix, 40%);
+$accent-500: mix($accent-color, $dim-mix, 60%);
+$accent-light: $accent-300;
+$accent-dark: darken($accent-color, 10%);
+$accent-dim: lighten($accent-color, 5%);
+
+$light-50: #181e22;
+$light-100: #0d141d;
+$light-200: #141C26;
+$light-300: #3f4149;
+$light-400: #5f6167;
+$light-500: #797a80;
+$light-600: #94959a;
+$light-700: #b0b0b4;
+$light-800: #cccccf;
+$light-900: #e9e9eb;
+
+$lighter: $light-200;
+$light: $light-100;
+$common-light: $light-900;
+$dark: $light;
+$darker: #101924;
+
+$light-300: lighten($darker, 10%); // TO fix border in bootstrap
+
+$blue-alt: #375a7f !default; // #007bff !default;
+$indigo-alt: #6610f2 !default;
+$purple-alt: #654ea3 !default; // Panatone CotY 2018  // #6f42c1 !default;
+$pink-alt: #e83e8c !default;
+$red-alt: #e74c3c !default; //**  // #dc3545 !default;
+$orange-alt: #fd7e14 !default;
+$yellow-alt: #f39c12 !default; //**  // #ffc107 !default;
+$green-alt: #00bc8c !default; //**  // #28a745 !default;
+$teal-alt: #45b5aa !default; // Panatone CotY 2010
+$cyan-alt: #17a2b8 !default;
+
+$red: $red-alt;
+$yellow: $yellow-alt;
+$green: $green-alt;
+$cyan: $cyan-alt;
+$blue: $blue-alt;
+$azure: $indigo-alt;
+$indigo: $indigo-alt;
+$purple: $purple-alt;
+$pink: $pink-alt;
+$orange: $orange-alt;
+$teal: $teal-alt;
+
+// Base/Default color @used for text
+$base-100: #ecf2ff;
+$base-200: #dfe9fe;
+$base-300: #b6c6e3;
+$base-400: #8094ae;
+$base-500: #526484;
+$base-600: #2E3F54;
+
+$base-color: $base-100;
+$base-dark: #ecf2ff;
+$base-text: $light-900;
+//$base-light: $light-900;
+$base-light: $base-400;
+$base-dim: mix($base-color, $white, 8%);
+
+$shadow-color: $light-200;
+$shadow-color-light: $light-600;
+$shadow-color-dark: $light-900;
+$shadow-color-accent: $accent-dark;
+
+// Status Color
+$success: $green;
+$warning: $orange;
+$danger: $red;
+$info: $cyan;
+
+// Brand Colors
+$brand-color-bitcoin: desaturate(#f9841e, 20%);
+$brand-color-ethereum: desaturate(#6174b9, 20%);
+$brand-color-facebook: desaturate(#3b5998, 20%);
+$brand-color-google: desaturate(#de5246, 20%);
+
+//$extend-mix: #fff;
+$extend-mix: $dim-mix;
+$extend-colors: (
+        "blue": desaturate($blue, 20%),
+        "azure": desaturate($azure, 20%),
+        "indigo": desaturate($indigo, 20%),
+        "purple": desaturate($purple, 20%),
+        "pink": desaturate($pink, 20%),
+        "orange": desaturate($orange, 20%),
+        "teal": desaturate($teal, 20%),
+        "blue-dim": desaturate(mix($blue, $extend-mix, 13%), 20%),
+        "azure-dim": desaturate(mix($azure, $extend-mix, 13%), 20%),
+        "indigo-dim": desaturate(mix($indigo, $extend-mix, 13%), 20%),
+        "purple-dim": desaturate(mix($purple, $extend-mix, 13%), 20%),
+        "pios-dim": desaturate(mix($pink, $extend-mix, 13%), 20%),
+        "orange-dim": desaturate(mix($orange, $extend-mix, 13%), 20%),
+        "teal-dim": desaturate(mix($teal, $extend-mix, 13%), 20%),
+  // for bootstrap
+        "primary-dim": desaturate(mix($accent-color, $extend-mix, 13%), 20%),
+        "success-dim": desaturate(mix($success, $extend-mix, 13%), 20%),
+        "info-dim": desaturate(mix($info, $extend-mix, 13%), 20%),
+        "warning-dim": desaturate(mix($warning, $extend-mix, 13%), 20%),
+        "danger-dim": desaturate(mix($danger, $extend-mix, 13%), 20%),
+        "secondary-dim": desaturate(#e5ecf5, 20%),
+        "dark-dim": desaturate(#d9e1ef, 20%),
+        "gray-dim": desaturate(#edf2f9, 20%)
+);
+
+/////////    bootstrap Override    //////////
+/////////////////////////////////////////
+
+$theme-component-active-color: $white;
+$theme-component-active-bg: $accent-color;
+$secondary-color: $base-400;
+$body-bg: $lighter;
+$body-color: $base-text;
+$link-color: lighten($accent-color, 20%);
+$link-hover-color: darken($link-color, 20%);
+$border-color: lighten($darker, 10%);
+$popover-bg: $body-bg;
+$popover-border-color: $border-color;
+$box-shadow-sm: 0 .125rem .25rem rgba($shadow-color, .15);
+$box-shadow: 0 3px 12px 1px rgba($shadow-color, .15);
+$box-shadow-lg: 0 1rem 3rem rgba($shadow-color, .25);
+$table-head-bg: darken($lighter, 2%);
+
+/////////    GLOBAL UTILITY    //////////
+/////////////////////////////////////////
+$border-light: $light-300;
+// Only for dark version
+$dark-body-bg: $body-bg;
+$dark-body-bg-light: $light-200;
+$dark-card-bg: $light-100;
+$dark-border-color: $border-color;
+$dark-border-light: $light-800;
+
+$h-color: $base-color;
+$text-off: $base-light;
+$quote-small-color: $base-300;
+$mark-bg: #fcf8e3;
+$hr-color: $light-400;
+$field-bg: $light;
+$field-bg-disable: $lighter;
+$field-color: $light-800;
+$field-border-color: $light-300;
+
+$field-error-color: $danger;
+$field-error-border-color: $danger;
+
+$field-placeholder-color: $light-700;
+$field-plaintext-color: $base-color;
+$btn-box-shadow: inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($darker, .075);
+$btn-active-box-shadow: inset 0 3px 5px rgba($darker, .125);
+$btn-link-disabled-color: $field-bg-disable;
+$input-bg: $field-bg;
+$input-disabled-bg: $field-bg-disable;
+
+$input-color: $field-color;
+$input-border-color: $field-border-color;
+$input-box-shadow: inset 0 1px 1px rgba($darker, .075);
+$field-focus-color: $accent-color;
+$field-focus-box-shadow: $field-focus-shadow rgba($field-focus-color, .1);
+$input-focus-bg: $field-bg;
+$input-focus-border-color: $field-focus-color;
+$input-focus-color: $field-color;
+$input-focus-box-shadow: $field-focus-box-shadow;
+
+$input-error-color: $field-color;
+$input-error-border-color: $field-error-border-color;
+$input-error-focus-box-shadow: $field-focus-shadow rgba($field-error-border-color, .1);
+
+$input-placeholder-color: $field-placeholder-color;
+$input-plaintext-color: $field-plaintext-color;
+
+$card-border-color: rgba($black, .125);
+$card-cap-bg: rgba($black, .07);
+$card-cap-color: null;
+$card-color: null;
+$card-bg: $dark-card-bg;
+$card-bordered-color: $border-color;
+$alert-bg-level: -11;
+$alert-border-level: -8;
+$alert-color-level: 2;
+$breadcrumb-bg: transparent;
+$breadcrumb-divider-color: $light-500;
+$breadcrumb-active-color: $light-400;
+$breadcrumb-not-hover-color: $base-light;
+$dropdown-color: $white;
+$dropdown-bg: lighten($dark-body-bg-light, 2%);
+$dropdown-border-color: $light-300;
+$dropdown-divider-bg: $light-200;
+$dropdown-box-shadow: 0 3px 20px 1px rgba($black, 0.4);
+$dropdown-link-color: $base-color;
+$dropdown-link-hover-color: $accent-color;
+$dropdown-link-hover-bg: $light-100;
+
+$dropdown-link-active-color: $accent-color;
+$dropdown-link-active-bg: $light-300;
+
+$dropdown-link-disabled-color: $light-100;
+$dropdown-header-color: $light-500;
+$pagination-color: $base-text;
+$pagination-bg: $dark-card-bg;
+$pagination-border-width: $border-width;
+$pagination-border-color: $light-200;
+$pagination-hover-color: $link-hover-color;
+$pagination-hover-bg: $light-100;
+$pagination-hover-border-color: $light-200;
+
+$pagination-active-color: $white;
+$pagination-active-bg: $accent-color;
+$pagination-active-border-color: $pagination-active-bg;
+
+$pagination-disabled-color: $light-300;
+$pagination-disabled-bg: $white;
+$pagination-disabled-border-color: $light-200;
+$tooltip-bg: lighten($dark-body-bg-light, 2%);
+$tooltip-arrow-color: $tooltip-bg;
+
+
+// Apps Sidebar
+$sidebar-overlay: rgba($darker, .4); //v120
+$sidebar-bg-color: $lighter;
+$sidebar-border-color: darken($lighter, 10%);
+$sidebar-bg-dark-color: $darker;
+$sidebar-border-dark-color: lighten($sidebar-bg-dark-color, 10%);
+$sidebar-bg-theme-color: darken($accent-color, 5%);
+$sidebar-border-theme-color: lighten($sidebar-bg-theme-color, 10%);
+$sidebar-bg-light-color: $dark-card-bg;
+$sidebar-border-light-color: $light;
+$sidebar-toogle-btn-color: $base-500;
+
+// Content
+$content-sidebar-bg-color: $dark-card-bg;
+$content-sidebar-border-color: $border-light;
+
+// Headers
+$header-bg-color: $lighter;
+$header-bg-dark-color: $darker;
+$header-bg-theme-color: darken($accent-color, 5%);
+$header-border-bottom: $border-light;
+$header-border-dark-bottom: lighten($header-bg-dark-color, 10%);
+$header-border-theme-bottom: lighten($header-bg-theme-color, 10%);
+$header-toogle-btn-color: $base-500;
+$header-toogle-btn-focus-color: $accent-color;
+
+//Footer
+$footer-bg-color: $dark-card-bg;
+$footer-bg-dark-color: darken($accent-dark, 1%);
+$footer-border-bottom: $border-light;
+
+// Aside
+$aside-bg: $dark-card-bg;
+
+// Link color
+$menu-link-color-base: $base-light !default;
+$menu-link-color-sub: $base-light !default;
+$menu-link-color-hover: lighten($accent-color, 5%) !default;
+$menu-border-color: $border-color !default;
+$menu-border-dark-color: rgba($white, .12) !default;
+
+// Menu Icon
+$menu-icon-color-base: $base-light !default;
+$menu-icon-color-hover: $accent-color !default;
+
+//Count
+$menu-link-count-color: $base-light !default;
+
+// Menu Main Style
+$menu-main-link-color-base: $base-text !default;
+$menu-main-link-color-light: $base-light !default;
+$menu-main-link-color-sub: $base-text !default;
+
+// Menu SM Style
+$menu-sm-link-color: $base-text !default;
+
+// Menu Footer Style
+$menu-footer-link-color: $base-light !default;
+$menu-footer-icon-color: $accent-color;
+
+// To override Odoo variables
+$odoo-community-color: #b0a2dc;
+$odoo-enterprise-color: #e7b1d9;
+$odoo-enterprise-primary-color: #02d7e2;
+$odoo-list-footer-bg-color: transparent;
+$odoo-brand-secondary: $light-300;
+$odoo-brand-lightsecondary: $light-600;
+$odoo-main-favorite-color: #f3cc00;
+$odoo-main-code-color: #d2317b;
+$odoo-form-lightsecondary: lighten($darker, 1%);
+$odoo-tooltip-background-color: $tooltip-bg;
+$odoo-tooltip-color: $white;
+$odoo-tooltip-arrow-color: $odoo-brand-secondary;
+$odoo-tooltip-text-color: $white;
+$odoo-tooltip-title-text-color: $white;
+$odoo-tooltip-title-background-color: $odoo-tooltip-background-color;
+$odoo-input-border-required: $accent-color;
+$odoo-dropdown-box-shadow: 0 1rem 1.1rem rgba(#000, .1);
+$odoo-datepicker-week-color: #8f8f8f;
+$odoo-view-background-color: $sidebar-bg-dark-color;
+$odoo_FormRenderer_chatterContainer_bg: $odoo-view-background-color;
+$odoo-webclient-background-color: $light-200;
+$odoo-control-panel-background-color: transparent;
+$odoo_search_panel_border_color: darken($border-color, 5%);
+$odoo_search_panel_bg_color: darken($odoo-view-background-color, 5%);
+$oe_avatar_bg: $light-900;
+$list_view_header_bg: transparent;
+$list_view_header_fg: inherit;
+$o_arrow_button_bg: $odoo-view-background-color;
+$odoo-colors: desaturate(darken(#fff, 30%), 20%),
+desaturate(darken(#f62dae, 15%), 20%),
+desaturate(darken(#ff7f11, 15%), 20%),
+desaturate(darken(#fcef1d, 15%), 20%),
+desaturate(darken(#2491eb, 15%), 20%),
+desaturate(darken(#b7835b, 15%), 20%),
+desaturate(darken(#7e4391, 15%), 20%),
+desaturate(darken(#34b743, 15%), 20%),
+desaturate(darken($indigo, 15%), 20%),
+desaturate(darken(#ff2121, 15%), 20%),
+desaturate(darken(#0cce6b, 15%), 20%),
+desaturate(darken(#5c2ee6, 15%), 20%);
+$odoo-colors-secondary: desaturate(darken(#aa4b6b, 15%), 20%),
+desaturate(darken(#30C381, 15%), 20%),
+desaturate(darken(#97743a, 15%), 20%),
+desaturate(darken(#F7CD1F, 15%), 20%),
+desaturate(darken(#4285F4, 15%), 20%),
+desaturate(darken(#8E24AA, 15%), 20%),
+desaturate(darken(#D6145F, 15%), 20%),
+desaturate(darken(#173e43, 15%), 20%),
+desaturate(darken(#348F50, 15%), 20%),
+desaturate(darken(#AA3A38, 15%), 20%),
+desaturate(darken(#795548, 15%), 20%),
+desaturate(darken(#5e0231, 15%), 20%),
+desaturate(darken(#6be585, 15%), 20%),
+desaturate(darken(#999966, 15%), 20%),
+desaturate(darken(#e9d362, 15%), 20%),
+desaturate(darken(#b56969, 15%), 20%),
+desaturate(darken(#bdc3c7, 15%), 20%),
+desaturate(darken(#649173, 15%), 20%);
+//Onboarding
+
+$odoo-onboarding-blue-bg-1: desaturate(darken(#0008C1, 20%), 40%);
+$odoo-onboarding-blue-bg-2: desaturate(darken(#2D31FA, 20%), 40%);
+$odoo-onboarding-blue-ui-1: desaturate(darken(#E6CBA8, 20%), 40%);
+$odoo-onboarding-blue-ui-2: desaturate(darken(#FDF0E0, 20%), 40%);
+
+$odoo-onboarding-orange-bg-1: desaturate(darken(#fb8b24, 20%), 40%);
+$odoo-onboarding-orange-bg-2: desaturate(darken(#fb5607, 20%), 40%);
+$odoo-onboarding-orange-ui-1: desaturate(darken(#599FF1, 20%), 40%);
+$odoo-onboarding-orange-ui-2: desaturate(darken(#68B3C9, 20%), 40%);
+
+$odoo-onboarding-violet-bg-1: desaturate(darken(#a663cc, 20%), 40%);
+$odoo-onboarding-violet-bg-2: desaturate(darken(#6f2dbd, 20%), 40%);
+$odoo-onboarding-violet-ui-1: desaturate(darken(#F39D9B, 20%), 40%);
+$odoo-onboarding-violet-ui-2: desaturate(darken(#FBEEC8, 20%), 40%);
+
+
+$odoo-list-view-selected-row: darken($odoo-view-background-color, 15%);
+$os-settings-general: darken(#559bfb, 15%);
+$os-zoom: darken(#1ee0ac, 15%);
+$os-settings-user: darken(#ff63a5, 15%);
+$os-fullscreen: darken(#816bff, 15%);
+$os-todo: darken(#b90b6a, 15%);
+$nav-tabs-link-active-bg: $odoo-view-background-color;
+$odoo-searchInput_background: transparent;
+$o_MessageList_bg: lighten($odoo-view-background-color, 2%);
+$bg-inbox-svg: lighten($odoo-view-background-color, 1%);
+$scrollbar_color: $light-700;
+$form_list_view_header_bg: $light-50;
+
+

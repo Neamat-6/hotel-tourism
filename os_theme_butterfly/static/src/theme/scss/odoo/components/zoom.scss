@@ -1,0 +1,15 @@
+
+.zoom-panel {
+  top: calc(#{$header-height} + 4px);
+  right: 0;
+
+  &.content-active {
+    right: 0;
+  }
+}
+
+body.os-header-toolsbar-shown {
+  .zoom-panel {
+    top: calc(#{$header-height} + #{$header-height} / 2 + 10px)
+  }
+}

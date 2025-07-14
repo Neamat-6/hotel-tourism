@@ -1,0 +1,264 @@
+$breadcrumb_content: "/";
+$breadcrumb_font: $base-font-family;
+$breadcrumb_font_size: False;
+$breadcrumb_line_height: False;
+$breadcrumb_padding: 0 8px 0 5px;
+
+$breadcrumb-style_1: $osi-forward-ios;
+$breadcrumb-style_2: $osi-bullet-fill;
+$breadcrumb-style_3: $osi-square-fill;
+$breadcrumb-style_4: $osi-caret-right-fill;
+$breadcrumb-style_5: $osi-chevrons-right;
+$breadcrumb-style_6: $osi-arrow-long-right;
+$breadcrumb-style_7: "|";
+$breadcrumb-style_8: $osi-bullet;
+$breadcrumb-style_9: $osi-minus-sm;
+$breadcrumb-style_10: $osi-forward-arrow;
+$breadcrumb-style_11: $osi-forward-arrow-fill;
+
+@if $breadcrumb_style == 'style_1' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_1;
+}
+
+@if $breadcrumb_style == 'style_2' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_2;
+  $breadcrumb_font_size: inherit;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_3' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_3;
+  $breadcrumb_font_size: inherit;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_4' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_4;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_5' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_5;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_6' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_6;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_7' {
+  $breadcrumb_font: $base-font-family;
+  $breadcrumb_content: $breadcrumb-style_7;
+  $breadcrumb_padding: 0 8px 0 5px;
+}
+
+@if $breadcrumb_style == 'style_8' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_8;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_9' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_9;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_10' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_10;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+@if $breadcrumb_style == 'style_11' {
+  $breadcrumb_font: $os-theme-icon-font;
+  $breadcrumb_content: $breadcrumb-style_11;
+  $breadcrumb_padding: 0 0.5rem 0 0;
+  $breadcrumb_line_height: 1;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: $breadcrumb_content;
+  font-family: $breadcrumb_font;
+  @if $breadcrumb_font_size {
+    font-size: $breadcrumb_font_size;
+  }
+  @if $breadcrumb_line_height {
+    line-height: $breadcrumb_line_height;
+  }
+  padding: $breadcrumb_padding;
+
+}
+
+[data-content='breadcrumb_style_settings'] {
+  //Default
+  .os-opt-item:nth-of-type(1) .os-opt-item-name:before {
+    content: "/";
+  }
+
+  //Style 1
+  .os-opt-item:nth-of-type(2) .os-opt-item-name:before {
+    @extend .osi;
+    content: $breadcrumb-style_1;
+  }
+
+  //Style 2
+  .os-opt-item:nth-of-type(3) .os-opt-item-name:before {
+    @extend .osi;
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_2;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 3
+  .os-opt-item:nth-of-type(4) .os-opt-item-name:before {
+    @extend .osi;
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_3;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 4
+  .os-opt-item:nth-of-type(5) .os-opt-item-name:before {
+    @extend .osi;
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_4;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 5
+  .os-opt-item:nth-of-type(6) .os-opt-item-name:before {
+    @extend .osi;
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_5;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 6
+  .os-opt-item:nth-of-type(7) .os-opt-item-name:before {
+    @extend .osi;
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_6;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 7
+  .os-opt-item:nth-of-type(8) .os-opt-item-name:before {
+    $breadcrumb_font: $base-font-family;
+    $breadcrumb_content: $breadcrumb-style_7;
+    $breadcrumb_font_size: False;
+    $breadcrumb_padding: 0 8px 0 5px;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 8
+  .os-opt-item:nth-of-type(9) .os-opt-item-name:before {
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_8;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+
+  //Style 9
+  .os-opt-item:nth-of-type(10) .os-opt-item-name:before {
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_9;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 10
+  .os-opt-item:nth-of-type(11) .os-opt-item-name:before {
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_10;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+
+  //Style 11
+  .os-opt-item:nth-of-type(12) .os-opt-item-name:before {
+    $breadcrumb_font: $os-theme-icon-font;
+    $breadcrumb_content: $breadcrumb-style_11;
+    $breadcrumb_font_size: 15px;
+    $breadcrumb_padding: 0 0.5rem 0 0;
+    content: $breadcrumb_content;
+    font-family: $breadcrumb_font;
+    @if $breadcrumb_font_size {
+      font-size: $breadcrumb_font_size;
+    }
+    line-height: 1;
+  }
+}

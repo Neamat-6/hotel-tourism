@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.OsHeaderToolsBarMenu" owl="1">
+        <div class="o-dropdown dropdown o-dropdown--no-caret os-quick-nav-icon os_header_toolsbar_menu" t-on-click="toggleHeaderToolsBar">
+            <a class="dropdown-toggle" data-tippy-content="Tools panel" data-tippy-placement="bottom">
+                <div class="icon-status icon-status-na">
+                    <em class="icon osi osi-more-v"/>
+                </div>
+            </a>
+        </div>
+    </t>
+</templates>

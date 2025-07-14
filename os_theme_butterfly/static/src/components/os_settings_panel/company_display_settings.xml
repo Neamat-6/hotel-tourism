@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.display-settings" owl="1">
+        <div class="tab-pane" id="display-settings" data-simplebar="">
+            <t t-call="os_theme_butterfly.display-settings-apps_drawer_style"/>
+            <t t-call="os_theme_butterfly.display-settings-login"/>
+            <t t-call="os_theme_butterfly.display-settings-list_view"/>
+            <t t-call="os_theme_butterfly.display-settings-loader"/>
+            <t t-call="os_theme_butterfly.display-settings-separator"/>
+            <t t-call="os_theme_butterfly.display-settings-breadcrumb"/>
+            <t t-call="os_theme_butterfly.display-settings-fonts"/>
+            <t t-call="os_theme_butterfly.display-settings-tabs"/>
+            <t t-call="os_theme_butterfly.display-settings-buttons"/>
+            <t t-call="os_theme_butterfly.display-settings-radios"/>
+            <t t-call="os_theme_butterfly.display-settings-checkbox"/>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-loader" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Loader Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="loader_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'default' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="default">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name text-capitalize">Odoo</span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_1' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_1">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_1"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_2' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_2">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_2"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_3' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_3">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_3"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_4' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_4">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_4"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_5' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_5">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_5"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_6' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_6">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_6"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_7' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_7">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_7"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_8' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_8">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_8"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_9' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_9">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_9"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_10' ? 'active' : ''"
+                         data-key="os_loader_style" data-update="style_10">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_10"/>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_loader_style == 'style_11' ? 'active' : ''" data-key="style"
+                         data-update="style_11">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">
+                                <t t-call="os_theme_butterfly.loader_style_11"/>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-separator" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Separator Style</div>
+                <a href="#" class="link text-body">
+                    <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="separator_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_separator_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_separator_style">
+                                    <option value="default" t-att-selected="themeService.os_separator_style == 'default'">Default</option>
+                                    <option value="style_1" t-att-selected="themeService.os_separator_style == 'style_1'">Style 1</option>
+                                    <option value="style_2" t-att-selected="themeService.os_separator_style == 'style_2'">Style 2</option>
+                                    <option value="style_3" t-att-selected="themeService.os_separator_style == 'style_3'">Style 3</option>
+                                    <option value="style_4" t-att-selected="themeService.os_separator_style == 'style_4'">Style 4</option>
+                                    <option value="style_5" t-att-selected="themeService.os_separator_style == 'style_5'">Style 5</option>
+                                    <option value="style_6" t-att-selected="themeService.os_separator_style == 'style_6'">Style 6</option>
+                                    <option value="style_7" t-att-selected="themeService.os_separator_style == 'style_7'">Style 7</option>
+                                    <option value="style_8" t-att-selected="themeService.os_separator_style == 'style_8'">Style 8</option>
+                                    <option value="style_9" t-att-selected="themeService.os_separator_style == 'style_9'">Style 9</option>
+                                    <option value="style_10" t-att-selected="themeService.os_separator_style == 'style_10'">Style 10</option>
+                                    <option value="style_11" t-att-selected="themeService.os_separator_style == 'style_11'">Style 11</option>
+                                    <option value="style_12" t-att-selected="themeService.os_separator_style == 'style_12'">Style 12</option>
+                                    <option value="style_13" t-att-selected="themeService.os_separator_style == 'style_13'">Style 13</option>
+                                    <option value="style_14" t-att-selected="themeService.os_separator_style == 'style_14'">Style 14</option>
+                                    <option value="style_15" t-att-selected="themeService.os_separator_style == 'style_15'">Style 15</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_separator_color">Color</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control os_widget_color"
+                                   t-att-value="themeService.os_separator_color and themeService.os_separator_color or ''"
+                                   id="os_separator_color"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-breadcrumb" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Breadcrumb Separator Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="breadcrumb_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'default' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="default">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_1' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_1">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_2' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_2">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_3' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_3">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_4' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_4">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_5' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_5">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_6' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_6">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_7' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_7">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_8' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_8">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_9' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_9">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_10' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_10">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text"
+                         t-att-class="themeService.os_breadcrumb_style == 'style_11' ? 'active' : ''"
+                         data-key="os_breadcrumb_style" data-update="style_11">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name"/>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-login" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Login page Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="login_page_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_login_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_login_style" t-on-change="onChangeLoginStyle">
+                                    <option value="default" t-att-selected="themeService.os_login_style == 'default'">Default</option>
+                                    <option value="style_1" t-att-selected="themeService.os_login_style == 'style_1'">Style 1</option>
+                                    <option value="style_2" t-att-selected="themeService.os_login_style == 'style_2'">Style 2</option>
+                                    <option value="style_3" t-att-selected="themeService.os_login_style == 'style_3'">Style 3</option>
+                                    <option value="style_4" t-att-selected="themeService.os_login_style == 'style_4'">Style 4</option>
+                                    <option value="style_5" t-att-selected="themeService.os_login_style == 'style_5'">Style 5</option>
+                                    <option value="style_6" t-att-selected="themeService.os_login_style == 'style_6'">Style 6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100" t-ref="os_login_title_subtitle">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                             style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_login_title">Title</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control"
+                                       t-att-value="themeService.os_login_title and themeService.os_login_title or '' "
+                                       id="os_login_title"/>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                             style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_login_subtitle">Subtitle</label>
+                            </div>
+                            <div class="col-7">
+                                <textarea class="form-control" id="os_login_subtitle"><t t-esc="themeService.os_login_subtitle and themeService.os_login_subtitle or '' "/></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="w-100" t-ref="os_login_background">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                             style="width: 100%;" t-ref="os_login_background_type">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_login_background_type">Background Type</label>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-control-select">
+                                    <select class="form-control" id="os_login_background_type"
+                                            t-on-change="toggleLoginType">
+                                        <option value="default" t-att-selected="themeService.os_login_background_type == 'default'">Default</option>
+                                        <option value="bg_color" t-att-selected="themeService.os_login_background_type == 'bg_color'">Background Color</option>
+                                        <option value="bg_img" t-att-selected="themeService.os_login_background_type == 'bg_img'">Background Image</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                             style="width: 100%;" t-ref="os_login_background_color">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_login_background_color">Background Color</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control os_widget_color"
+                                       t-att-value="themeService.os_login_background_color and themeService.os_login_background_color or ''"
+                                       id="os_login_background_color"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-3 px-1" style="width: 100%;" t-ref="os_login_background_image">
+                            <div class="col-12">
+                                <div class="position-relative img_div d-inline-flex">
+                                    <img class="img img-thumbnail mb-2" style="max-height: 80px;"
+                                         t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/os_login_background_image"
+                                         t-ref="login-bg-img"/>
+                                    <a title="Change Image" aria-label="Change Image"
+                                       class="fa fa-pencil fa-lg btn btn-icon open_input_file"
+                                       t-on-click="openLoginFileInput"/>
+                                </div>
+                                <input type="file" class="d-none" name="ufile" t-on-change="LoginBgImageUploaded"
+                                       t-ref="login-bg-file-input" accept=".png, .jpg, .jpeg"/>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-fonts" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Fonts</div>
+                <a href="#" class="link text-body">
+                    <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="fonts_settings">
+                <div id="fonts_base_msg_errors"/>
+                <div id="fonts_alt_msg_errors"/>
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_theme_base_font">Base Font</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_theme_base_font" t-on-change="onChangeBaseFont">
+                                    <option value="Roboto" t-att-selected="themeService.os_theme_base_font == 'Roboto'">Default</option>
+                                    <option value="Raleway" t-att-selected="themeService.os_theme_base_font == 'Raleway'">Raleway</option>
+                                    <option value="Poppins" t-att-selected="themeService.os_theme_base_font == 'Poppins'">Poppins</option>
+                                    <option value="Oxygen" t-att-selected="themeService.os_theme_base_font == 'Oxygen'">Oxygen</option>
+                                    <option value="Lato" t-att-selected="themeService.os_theme_base_font == 'Lato'">Lato</option>
+                                    <option value="OpenSans" t-att-selected="themeService.os_theme_base_font == 'OpenSans'">OpenSans</option>
+                                    <option value="custom" t-att-selected="themeService.os_theme_base_font == 'custom'">Custom Font</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                         t-ref="div_base_custom_font" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0"
+                                   for="os_theme_base_custom_google_font">Base Google Font</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control" t-on-change="onChangeCustomBaseFont"
+                                   t-att-value="themeService.os_theme_base_custom_google_font and themeService.os_theme_base_custom_google_font or ''"
+                                   id="os_theme_base_custom_google_font"/>
+                        </div>
+                    </div>
+
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_theme_alt_font">Alternative Font</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_theme_alt_font" t-on-change="onChangeAltFont">
+                                    <option value="Nunito" t-att-selected="themeService.os_theme_alt_font == 'Nunito'">Default</option>
+                                    <option value="Raleway" t-att-selected="themeService.os_theme_alt_font == 'Raleway'">Raleway</option>
+                                    <option value="Poppins" t-att-selected="themeService.os_theme_alt_font == 'Poppins'">Poppins</option>
+                                    <option value="Oxygen" t-att-selected="themeService.os_theme_alt_font == 'Oxygen'">Oxygen</option>
+                                    <option value="Lato" t-att-selected="themeService.os_theme_base_font == 'Lato'">Lato</option>
+                                    <option value="OpenSans" t-att-selected="themeService.os_theme_alt_font == 'OpenSans'">OpenSans</option>
+                                    <option value="custom" t-att-selected="themeService.os_theme_alt_font == 'custom'">Custom Font</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                         t-ref="div_alt_custom_font" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_theme_alt_custom_google_font">Alt Google Font</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control" t-on-change="onChangeCustomaAltFont"
+                                   t-att-value="themeService.os_theme_alt_custom_google_font and themeService.os_theme_alt_custom_google_font or ''"
+                                   id="os_theme_alt_custom_google_font"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-tabs" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Tabs Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="tabs_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_tabs_alignment">Alignment</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_tabs_alignment">
+                                    <option value="horizontal" t-att-selected="themeService.os_tabs_alignment == 'horizontal'">Horizontal</option>
+                                    <option value="vertical" t-att-selected="themeService.os_tabs_alignment == 'vertical'">Vertical</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_tabs_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_tabs_style">
+                                    <option value="default" t-att-selected="themeService.os_tabs_style == 'default'">Default</option>
+                                    <option value="style_1" t-att-selected="themeService.os_tabs_style == 'style_1'">Style 1</option>
+                                    <option value="style_2" t-att-selected="themeService.os_tabs_style == 'style_2'">Style 2</option>
+                                    <option value="style_3" t-att-selected="themeService.os_tabs_style == 'style_3'">Style 3</option>
+                                    <option value="style_4" t-att-selected="themeService.os_tabs_style == 'style_4'">Style 4</option>
+                                    <option value="style_5" t-att-selected="themeService.os_tabs_style == 'style_5'">Style 5</option>
+                                    <option value="style_6" t-att-selected="themeService.os_tabs_style == 'style_6'">Style 6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-buttons" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Buttons Style</div>
+                <a href="#" class="link text-body">
+                    <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="buttons_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_buttons_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_buttons_style">
+                                    <option value="default" t-att-selected="themeService.os_buttons_style == 'default'">Default</option>
+                                    <option value="ddd" t-att-selected="themeService.os_buttons_style == 'ddd'">3D</option>
+                                    <option value="inset" t-att-selected="themeService.os_buttons_style == 'inset'">Inset</option>
+                                    <option value="soft" t-att-selected="themeService.os_buttons_style == 'soft'">Soft</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_buttons_angles">Buttons angles</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_buttons_angles">
+                                    <option value="flat" t-att-selected="themeService.os_buttons_angles == 'flat'">Flat</option>
+                                    <option value="rounded" t-att-selected="themeService.os_buttons_angles == 'rounded'">Rounded</option>
+                                    <option value="pill" t-att-selected="themeService.os_buttons_angles == 'pill'">Pill</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_buttons_size">Buttons size</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_buttons_size">
+                                    <option value="small" t-att-selected="themeService.os_buttons_size == 'small'">Small</option>
+                                    <option value="medium" t-att-selected="themeService.os_buttons_size == 'medium'">Medium</option>
+                                    <option value="large" t-att-selected="themeService.os_buttons_size == 'large'">Large</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-radios" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Radio Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="radios_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_radios_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_radios_style">
+                                    <option value="default" t-att-selected="themeService.os_radios_style == 'default'">Default</option>
+                                    <option value="style_1" t-att-selected="themeService.os_radios_style == 'style_1'">Style 1</option>
+                                    <option value="style_2" t-att-selected="themeService.os_radios_style == 'style_2'">Style 2</option>
+                                    <option value="style_3" t-att-selected="themeService.os_radios_style == 'style_3'">Style 3</option>
+                                    <option value="style_4" t-att-selected="themeService.os_radios_style == 'style_4'">Style 4</option>
+                                    <option value="style_5" t-att-selected="themeService.os_radios_style == 'style_5'">Style 5</option>
+                                    <option value="style_6" t-att-selected="themeService.os_radios_style == 'style_6'">Style 6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-checkbox" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Checkbox Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="checkbox_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_checkbox_style">Style</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_checkbox_style">
+                                    <option value="default" t-att-selected="themeService.os_checkbox_style == 'default'">Default</option>
+                                    <option value="style_1" t-att-selected="themeService.os_checkbox_style == 'style_1'">Style 1</option>
+                                    <option value="style_2" t-att-selected="themeService.os_checkbox_style == 'style_2'">Style 2</option>
+                                    <option value="style_3" t-att-selected="themeService.os_checkbox_style == 'style_3'">Style 3</option>
+                                    <option value="style_4" t-att-selected="themeService.os_checkbox_style == 'style_4'">Style 4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-list_view" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">List view Style</div>
+                <a href="#" class="link text-body">
+                    <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="list_view_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_list_view_style_spaced">Spaced</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_list_view_style_spaced">
+                                    <option value="True" t-att-selected="themeService.os_list_view_style_spaced">Yes</option>
+                                    <option value="False" t-att-selected="!themeService.os_list_view_style_spaced">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_list_view_style_separate">Separate</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_list_view_style_separate">
+                                    <option value="True" t-att-selected="themeService.os_list_view_style_separate">Yes</option>
+                                    <option value="False" t-att-selected="!themeService.os_list_view_style_separate">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_list_view_style_hover">Hover</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_list_view_style_hover">
+                                    <option value="none" t-att-selected="themeService.os_list_view_style_hover=='none'">None</option>
+                                    <option value="normal" t-att-selected="themeService.os_list_view_style_hover=='normal'">Normal</option>
+                                    <option value="shadow" t-att-selected="themeService.os_list_view_style_hover=='shadow'">Shadow</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5" data-tippy-content="Let it empty if you want to use default values" data-tippy-placement="left">
+                            <label class="form-label mb-0" for="os_list_view_header_bg_color">Header Background Color</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control os_widget_color"
+                                   t-att-value="themeService.os_list_view_header_bg_color and themeService.os_list_view_header_bg_color or ''"
+                                   id="os_list_view_header_bg_color"/>
+                        </div>
+                    </div>
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;"
+                         data-tippy-content="Let it empty if you want to use default values" data-tippy-placement="left">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_list_view_header_fg_color">Header Foreground Color</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control os_widget_color"
+                                   t-att-value="themeService.os_list_view_header_fg_color and themeService.os_list_view_header_fg_color or ''"
+                                   id="os_list_view_header_fg_color"/>
+                        </div>
+                    </div>
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_list_view_sticky_header_footer">Sticky Header &amp; Footer</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_list_view_sticky_header_footer">
+                                    <option value="True" t-att-selected="themeService.os_list_view_sticky_header_footer">Yes</option>
+                                    <option value="False" t-att-selected="!themeService.os_list_view_sticky_header_footer">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="os_theme_butterfly.display-settings-apps_drawer_style" owl="1">
+        <div class="os-opt-set py-3">
+            <div class="d-flex justify-content-between">
+                <div class="os-opt-set-title">Apps Drawer Style</div>
+                <a href="#" class="link text-body">
+                   <em class="icon osi osi-chevron-down"/>
+                </a>
+            </div>
+            <div class="os-toggle-content mt-3" data-content="apps_drawer_style_settings">
+                <div class="os-opt-list col-6x">
+                    <div style="width: 100%;" class="os-opt-item row no-gutters only-text text-left align-items-center">
+                        <div class="col-12">
+                            <label class="form-label fs-14px mb-0 text-decoration-underline">Icons Styles</label>
+                        </div>
+                    </div>
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_apps_icon_style">Type</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_apps_icon_style" t-on-change="onChangeIconStyle">
+                                    <option value="default"
+                                            t-att-selected="themeService.os_apps_icon_style == 'default'">Default</option>
+                                    <option value="font"
+                                            t-att-selected="themeService.os_apps_icon_style == 'font'">Font</option>
+                                    <option value="image" t-att-selected="themeService.os_apps_icon_style == 'image'">Image</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-ref="shape_div" class="w-100">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_shape">Shape</label>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-control-select">
+                                    <select class="form-control" id="os_shape" t-on-change="onChangeShape">
+                                        <option value="none"
+                                                t-att-selected="themeService.os_shape == 'none'">None</option>
+                                        <option value="square"
+                                                t-att-selected="themeService.os_shape == 'square'">Square</option>
+                                        <option value="rounded" t-att-selected="themeService.os_shape == 'rounded'">Rounded</option>
+                                        <option value="circle"
+                                                t-att-selected="themeService.os_shape == 'circle'">Circle</option>
+                                        <option value="pentagon" t-att-selected="themeService.os_shape == 'pentagon'">Pentagon</option>
+                                        <option value="hexagon" t-att-selected="themeService.os_shape == 'hexagon'">Hexagon</option>
+                                        <option value="heptagon" t-att-selected="themeService.os_shape == 'heptagon'">Heptagon</option>
+                                        <option value="octagon" t-att-selected="themeService.os_shape == 'octagon'">Octagon</option>
+                                        <option value="nonagon" t-att-selected="themeService.os_shape == 'nonagon'">Nonagon</option>
+                                        <option value="decagon" t-att-selected="themeService.os_shape == 'decagon'">Decagon</option>
+                                        <option value="rhombus" t-att-selected="themeService.os_shape == 'rhombus'">Rhombus</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" data-tippy-content="Let this field empty if you want to use defined shape color" data-tippy-placement="left"
+                             style="width: 100%;" t-ref="shape_none_color_icon">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_shape_none_color_icon">Icons color</label>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control os_widget_color"
+                                       t-att-value="themeService.os_shape_none_color_icon and themeService.os_shape_none_color_icon or ''"
+                                       id="os_shape_none_color_icon"/>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                             style="width: 100%;" t-ref="shape_style_div">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_shape_style">Shape Style</label>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-control-select">
+                                    <select class="form-control" id="os_shape_style" t-on-change="onChangeShapeStyle">
+                                        <option value="simple" t-att-selected="themeService.os_shape_style == 'simple'">Simple</option>
+                                        <option value="soft" t-att-selected="themeService.os_shape_style == 'soft'">Soft</option>
+                                        <option value="gradient" t-att-selected="themeService.os_shape_style == 'gradient'">Gradient</option>
+                                        <option value="unique_color" t-att-selected="themeService.os_shape_style == 'unique_color'">Unique Color</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_shape_shadow">Shape Shadow</label>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-control-select">
+                                    <select class="form-control" id="os_shape_shadow">
+                                        <option value="True" t-att-selected="themeService.os_shape_shadow">Yes</option>
+                                        <option value="False" t-att-selected="!themeService.os_shape_shadow">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="width: 100%;" t-ref="shape_style_unique_color">
+                            <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                                <div class="col-5">
+                                    <label class="form-label mb-0" for="os_shape_style_unique_color">Shape Color</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control os_widget_color"
+                                           t-att-value="themeService.os_shape_style_unique_color and themeService.os_shape_style_unique_color or ''"
+                                           id="os_shape_style_unique_color"/>
+                                </div>
+                            </div>
+                            <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;" data-tippy-content="Let this field empty if you want to use automatic values" data-tippy-placement="left">
+                                <div class="col-5">
+                                    <label class="form-label mb-0" for="os_shape_style_unique_color_icon">Icons Color</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control os_widget_color"
+                                           t-att-value="themeService.os_shape_style_unique_color_icon and themeService.os_shape_style_unique_color_icon or ''"
+                                           id="os_shape_style_unique_color_icon"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div t-ref="config_style_image" class="w-100">
+                        <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                            <div class="col-5">
+                                <label class="form-label mb-0" for="os_apps_icon_style_image_pack">Pack</label>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-control-select">
+                                    <select class="form-control" id="os_apps_icon_style_image_pack">
+                                        <option value="pack01" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack01'">Simple</option>
+                                        <option value="pack02" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack02'">3D</option>
+                                        <option value="pack03" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack03'">Lineal Color</option>
+                                        <option value="pack04" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack04'">Light touch</option>
+                                        <option value="pack05" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack05'">Google style</option>
+                                        <option value="pack06" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack06'">Red</option>
+                                        <option value="pack07" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack07'">Blue</option>
+                                        <option value="pack08" t-att-selected="themeService.os_apps_icon_style_image_pack == 'pack08'">Dark</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%;" class="os-opt-item row no-gutters only-text text-left align-items-center">
+                        <div class="col-12">
+                            <label class="form-label fs-14px mb-0 text-decoration-underline">Background</label>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_apps_view_background_type">Background Type</label>
+                        </div>
+                        <div class="col-7">
+                            <div class="form-control-select">
+                                <select class="form-control" id="os_apps_view_background_type" t-on-change="toggleAppsViewType" t-ref="os_apps_view_background_type">
+                                    <option value="default" t-att-selected="themeService.os_apps_view_background_type == 'default'">Default</option>
+                                    <option value="bg_color" t-att-selected="themeService.os_apps_view_background_type == 'bg_color'">Background Color</option>
+                                    <option value="bg_img" t-att-selected="themeService.os_apps_view_background_type == 'bg_img'">Background Image</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;"
+                         t-ref="os_apps_view_background_color">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_apps_view_background_color">Background Color</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control os_widget_color"
+                                   t-att-value="themeService.os_apps_view_background_color and themeService.os_apps_view_background_color or ''"
+                                   id="os_apps_view_background_color"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3 px-1" t-ref="os_apps_view_background_image" style="width: 100%;">
+                        <div class="col-12">
+                            <div class="position-relative img_div d-inline-flex">
+                                <img class="img img-thumbnail mb-2" style="max-height: 80px;"
+                                     t-attf-src="/web/image/res.company/{{company.currentCompany.id}}/os_apps_view_background_image"
+                                     t-ref="apps_view-bg-img"/>
+                                <a title="Change Image" aria-label="Change Image"
+                                   class="fa fa-pencil fa-lg btn btn-icon open_input_file"
+                                   t-on-click="openAppsViewFileInput"/>
+                            </div>
+                            <input type="file" class="d-none" name="ufile" t-on-change="AppsViewBgImageUploaded"
+                                   t-ref="apps_view-bg-file-input" accept=".png, .jpg, .jpeg"/>
+
+                        </div>
+                    </div>
+
+                    <div class="os-opt-item row no-gutters only-text text-left align-items-center"
+                         t-ref="os_apps_view_text_color" style="width: 100%;">
+                        <div class="col-5">
+                            <label class="form-label mb-0" for="os_apps_view_text_color">Apps Text Color</label>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control os_widget_color"
+                                   t-att-value="themeService.os_apps_view_text_color and themeService.os_apps_view_text_color or ''"
+                                   id="os_apps_view_text_color"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+</templates>

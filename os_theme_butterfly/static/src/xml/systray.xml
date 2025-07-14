@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="mail.systray.ActivityMenu">
+        <t t-jquery=".o_mail_systray_item a" t-operation="attributes">
+            <attribute name="class" value="dropdown-toggle o-no-caret o-dropdown--narrow os-quick-nav-icon"/>
+        </t>
+        <t t-jquery=".o_mail_systray_item a *" t-operation="replace"/>
+        <t t-jquery=".o_mail_systray_item a" t-operation="append">
+            <div class="icon-status icon-status-na">
+                <em class="icon osi osi-bell"/>
+                <span class="o_notification_counter badge badge-navbar"/>
+            </div>
+        </t>
+        <t t-jquery=".o_mail_systray_dropdown">this.addClass('dropdown-menu-s1 dropdown-menu-xl dropdown-menu-end');</t>
+        <t t-jquery=".o_mail_systray_dropdown_items">this.addClass('dropdown-body')</t>
+        <t t-jquery=".o_mail_systray_dropdown_items" t-operation="before">
+            <div class="dropdown-head">
+                <span class="sub-title os-dropdown-title">Notifications</span>
+            </div>
+        </t>
+    </t>
+
+
+    <t t-extend="mail.systray.ActivityMenu.Previews">
+        <t t-jquery="div.o_mail_preview">this.addClass('os-notification-item dropdown-inner')</t>
+        <t t-jquery="div.o_preview_info">this.addClass('os-notification-content')</t>
+        <t t-jquery="div.o_preview_title">this.addClass('os-notification-text')</t>
+        <t t-jquery="div.o_mail_preview_image" t-operation="replace">
+            <div t-if="activity.icon" class="os-notification-icon">
+                <t t-if="activity.type_icon=='font'">
+                    <em t-attf-class="icon icon-circle bg-primary {{activity.icon}}"/>
+                </t>
+                <t t-else="">
+                    <img class="o_mail_preview_image o_mail_preview_app" t-att-src="activity.icon" t-att-alt="activity.name"/>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

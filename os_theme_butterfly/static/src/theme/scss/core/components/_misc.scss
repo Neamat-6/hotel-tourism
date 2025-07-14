@@ -1,0 +1,121 @@
+$change-up-icon: $osi-arrow-long-up !default;
+$change-down-icon: $osi-arrow-long-down !default;
+
+/// Misc
+///////////////////////////
+
+
+// collapse
+.collapse {
+  &-shown {
+    display: inline-block !important;
+
+    .collapsed & {
+      display: none !important;
+    }
+  }
+
+  &-hidden {
+    display: none !important;
+
+    .collapsed & {
+      display: inline-block !important;
+    }
+  }
+}
+
+
+//language-list
+.language {
+  &-list {
+    li:not(:last-child) {
+      .language-item {
+        border-bottom: 1px solid $light-100;
+      }
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: $gray-700;
+    transition: all .4s;
+
+    &:hover {
+      color: $light-600;
+      background: $gray-100;
+    }
+  }
+
+  &-name {
+    font-size: 12px;
+  }
+
+  &-flag {
+    width: 24px;
+    margin-right: 12px;
+  }
+}
+
+
+p > span > .icon.osi {
+  vertical-align: middle;
+}
+
+// DD fix with Button Trigger
+/////////////////////////////////
+.btn-trigger + .dropdown-menu-end, .btn-trigger + .dropdown-menu-start {
+  margin: -.75rem 0 !important;
+}
+
+.btn-trigger + .dropdown-menu-end {
+  margin-right: 16px !important;
+}
+
+.btn-trigger + .dropdown-menu-start {
+  margin-left: 16px;
+}
+
+// DD fix with Button Trigger
+
+@media (max-width: 420px) {
+  .btn-trigger + .dropdown-menu-xl, .btn-trigger + .dropdown-menu-lg, .btn-trigger + .dropdown-menu-md {
+    margin-right: -16px !important;
+    margin-top: 0 !important;
+  }
+}
+
+
+.close {
+  float: right;
+  font-size: $close-font-size;
+  font-weight: $close-font-weight;
+  line-height: 1;
+  color: $close-color;
+  text-shadow: $close-text-shadow;
+  opacity: .5;
+
+  &:hover {
+    color: $close-color;
+    text-decoration: none;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    &:hover-focus {
+      opacity: .75;
+    }
+  }
+}
+
+//alert close
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+// popover
+.popover-header {
+  border-bottom: $popover-border-width solid darken($popover-header-bg, 5%);
+}

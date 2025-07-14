@@ -1,0 +1,225 @@
+@if $list_view_style_spaced == True {
+
+  $padding: 1.25rem .25rem;
+
+  .o_list_view > .table-responsive > .table {
+    > tbody > tr:not(.o_list_table_grouped) > td {
+      padding: $padding !important;
+    }
+
+    &:not(.o_list_table_grouped) {
+      @include media-breakpoint-up(xl) {
+        > tbody > tr:not(.o_list_table_grouped) > td {
+          padding: $padding !important;
+        }
+      }
+    }
+
+  }
+
+}
+
+@if $list_view_style_separate == True {
+
+  .o_list_view {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+
+    > .table-responsive > .o_list_table {
+      margin-top: -8px;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+      background: transparent !important;
+
+      tr {
+        > td {
+          background: if($dark_option==false, $white, $black);
+          border: none;
+          box-shadow: 0 3px 0 0 rgba($base-color, 0.05);
+
+          &:first-child {
+            border-radius: 4px 0 0 4px;
+          }
+
+          &:last-child {
+            border-radius: 0 4px 4px 0;
+          }
+        }
+      }
+
+      thead {
+        th {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+          box-shadow: 0 3px 0 0 rgba($base-color, 0.05);
+
+          &:first-child {
+            border-radius: 4px 0 0 4px;
+          }
+
+          &:last-child {
+            border-radius: 0 4px 4px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@if $list_view_style_hover == "none" {
+  .o_list_view {
+    > .table-responsive > .o_list_table {
+      tbody {
+        > tr {
+          &:hover {
+            color: $secondary-light;
+
+            td {
+              background-color: transparent;
+            }
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+@if $list_view_style_hover == "normal" {
+  .o_list_view {
+    > .table-responsive > .o_list_table {
+      tbody {
+        > tr {
+          &:hover {
+            color: $secondary-light;
+            box-shadow: 0 0 10px -4px rgba($base-color, 0.4);
+
+            td {
+              background: darken($lighter, 1%);
+            }
+
+
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+@if $list_view_style_hover == "shadow" {
+  .o_list_view {
+    > .table-responsive > .o_list_table {
+      tbody {
+        > tr {
+          &:hover {
+            color: $secondary-light;
+            box-shadow: 0 2px 15px -4px rgba($accent-color, .4);
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+@if ($dark_option==false) {
+  @if $list_view_header_bg_color != False {
+    $header_fg_color: if($list_view_header_fg_color!=False, $list_view_header_fg_color, color-yiq($list_view_header_bg_color));
+    .o_list_view {
+      table {
+        thead {
+          background-color: $list_view_header_bg_color !important;
+
+          tr {
+            th {
+              color: $header_fg_color !important;
+            }
+          }
+        }
+
+        .o_optional_columns_dropdown_toggle {
+          color: $header_fg_color !important;
+
+        }
+      }
+
+      .o_list_table {
+
+        thead th:focus-within, tbody.o_keyboard_navigation td:focus-within {
+          background-color: $list_view_header_bg_color !important;
+        }
+      }
+    }
+
+    .o_list_view .o_list_table tr:focus-within, .o_list_view .o_list_table.table-striped tr:focus-within {
+      background-color: $list_view_header_bg_color !important;
+    }
+  }
+}
+
+@if ($dark_option==true) {
+
+  .o_list_view {
+    table {
+      thead {
+        background-color: darken($odoo-view-background-color, 5%) !important;
+
+        tr {
+          th {
+            color: $white !important;
+          }
+        }
+      }
+
+      .o_optional_columns_dropdown_toggle {
+        color: $white !important;
+
+      }
+    }
+
+    .o_list_table {
+
+      thead th:focus-within, tbody.o_keyboard_navigation td:focus-within {
+        background-color: darken($odoo-view-background-color, 5%) !important;
+      }
+    }
+  }
+
+  .o_list_view .o_list_table tr:focus-within, .o_list_view .o_list_table.table-striped tr:focus-within {
+    background-color: darken($odoo-view-background-color, 5%) !important;
+  }
+
+}
+
+.os-fixed-hf-list-view {
+  //FIXME when fixed header, border radius is gone !!!
+  .o_view_controller > .o_content > .o_list_view > .table-responsive {
+    overflow: initial;
+
+    .o_list_table {
+      overflow-x: auto;
+
+      thead {
+        position: sticky !important;
+        top: 0;
+        z-index: 100;
+      }
+    }
+  }
+
+  .o_list_view .o_list_table > tfoot {
+    position: sticky !important;
+    bottom: -7%;
+    z-index: 100;
+    box-shadow: 0 0.125rem 0.25rem rgba($base-color, 0.08) !important;
+  }
+}
+

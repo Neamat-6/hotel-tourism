@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.NavBar.SectionsMenu.Dropdown.MenuSlot" owl="1">
+        <t t-foreach="items" t-as="item" t-key="item.id">
+            <li class="os-menu-item">
+                <t t-if="!item.childrenTree.length">
+                    <a t-att-href="getMenuItemHref(item)" class="os-menu-link" t-on-click.prevent="onSidebarBarItemSelection(item)"
+                       t-att-data-section="getMenuSection(item)"
+                       t-att-data-menu-xmlid="getMenuXmlId(item)"
+                       t-att-class="{'os-menu-toggle': item.childrenTree ? item.childrenTree.length : false}">
+                        <span class="os-menu-text">
+                            <t t-esc="item.name"/>
+                        </span>
+                    </a>
+                </t>
+
+                <t t-if="item.childrenTree.length">
+                    <a t-att-href="getMenuItemHref(item)" class="os-menu-link"
+                       t-att-data-section="getMenuSection(item)"
+                       t-att-data-menu-xmlid="getMenuXmlId(item)"
+                       t-on-click="dropDownMenu"
+                       t-att-class="{'os-menu-toggle': item.childrenTree ? item.childrenTree.length : false}">
+                        <span class="os-menu-text">
+                            <t t-esc="item.name"/>
+                        </span>
+                    </a>
+                    <ul class="os-menu-sub">
+                        <t t-call="os_theme_butterfly.NavBar.SectionsMenu.Dropdown.MenuSlot">
+                            <t t-set="items" t-value="item.childrenTree"/>
+                        </t>
+                    </ul>
+                </t>
+            </li>
+
+
+        </t>
+    </t>
+
+    <t t-name="os_theme_butterfly.NavBar.SectionsMenu" owl="1">
+        <ul class="os-menu-sub">
+            <li class="os-menu-item" t-if="app.hasNoAction=='False'">
+                <a t-att-href="getMenuItemHref(app)"
+                   class="os-menu-link" >
+                    <span class="os-menu-text">
+                        <t t-esc="app.name"/>
+                    </span>
+                </a>
+            </li>
+            <t t-foreach="sections" t-as="section" t-key="section.id">
+                <li class="os-menu-item">
+                    <t t-if="!section.childrenTree.length">
+                        <a t-att-href="getMenuItemHref(section)" class="os-menu-link" t-on-click.prevent="onSidebarBarItemSelection(section)"
+                           t-att-data-section="getMenuSection(section)"
+                           t-att-data-menu-xmlid="getMenuXmlId(section)"
+                           t-att-class="{'os-menu-toggle': section.childrenTree ? section.childrenTree.length : false}">
+                            <span class="os-menu-text" t-att-data-section="section.id">
+                                <t t-esc="section.name"/>
+                            </span>
+                        </a>
+                    </t>
+                    <t t-if="section.childrenTree.length">
+                        <a t-att-href="getMenuItemHref(section)" class="os-menu-link" t-on-click.prevent="dropDownMenu"
+                           t-att-class="{'os-menu-toggle': section.childrenTree ? section.childrenTree.length : false}">
+                            <span class="os-menu-text" t-att-data-section="section.id">
+                                <t t-esc="section.name"/>
+                            </span>
+                        </a>
+                        <ul class="os-menu-sub">
+                            <t t-call="os_theme_butterfly.NavBar.SectionsMenu.Dropdown.MenuSlot">
+                                <t t-set="items" t-value="section.childrenTree"/>
+                                <t t-set="section" t-value="section"/>
+                            </t>
+                        </ul>
+                    </t>
+                </li>
+            </t>
+        </ul>
+    </t>
+
+    <t t-name="os_theme_butterfly.OsSideBar.icon" owl="1">
+        <t t-if="userThemeService.same_icons">
+            <t t-call="os_theme_butterfly.AppsIcon">
+                <t t-set="wrap_custom_class" t-value="'mr-2'"/>
+            </t>
+        </t>
+        <span t-else="" class="os-menu-icon mr-2">
+            <em class="icon" t-att-class="app.webIconFont"/>
+        </span>
+    </t>
+
+    <t t-name="os_theme_butterfly.OsSideBar" owl="1">
+        <div class="os-sidebar os-sidebar-fixed"
+             t-att-class="userThemeService.os_theme_mode=='dark-mode' ? 'is-dark': userThemeService.os_sidebar_style" data-content="sidebarMenu">
+            <div class="os-sidebar-element os-sidebar-head">
+                <div class="os-menu-trigger">
+                    <a href="#" class="os-nav-toggle os-quick-nav-icon d-xl-none" t-ref="hideSidebar" data-target="sidebarMenu" t-on-click="hideMenu">
+                        <em class="icon osi osi-arrow-left"/>
+                    </a>
+                    <a href="#" class="os-nav-compact os-quick-nav-icon p-0 d-none d-xl-inline-flex" data-target="sidebarMenu" t-on-click="toggle_sidebar">
+                        <em class="icon osi osi-menu"/>
+                    </a>
+                </div>
+                <div class="os-sidebar-brand">
+                    <a href="/" class="logo-link os-sidebar-logo">
+                        <img class="logo-light logo-img" t-att-src="companyService.logo_white" alt="logo"/>
+                        <img class="logo-dark logo-img" t-att-src="companyService.logo_dark" alt="logo-dark"/>
+                    </a>
+                </div>
+            </div>
+            <div class="os-sidebar-element os-sidebar-body">
+                <div class="os-sidebar-content">
+                    <div class="os-sidebar-menu" data-simplebar="">
+                        <ul class="os-menu">
+                          <!--  <li class="os-menu-heading" t-if="currentApp">
+                                <h6 class="overline-title text-primary-alt">
+                                    <t t-esc="currentApp.name"/>
+                                </h6>
+                            </li>-->
+                            <t t-foreach="menuService.getApps()" t-as="app" t-key="'app_' + app.id">
+                                <li class="os-menu-item"
+                                    t-att-class="{'has-sub': AppSections(app.id) ? AppSections(app.id).length : false}">
+
+                                    <style t-if="app.webIconStyle">
+                                        <t t-esc="app.webIconStyle"/>
+                                    </style>
+
+                                    <t t-if="!AppSections(app.id).length">
+                                        <a t-att-href="getMenuItemHref(app)"
+                                           t-att-data-section="getMenuSection(app)"
+                                           t-att-data-menu-xmlid="getMenuXmlId(app)"
+                                           class="os-menu-link">
+                                            <t t-call="os_theme_butterfly.OsSideBar.icon"/>
+                                            <span class="sidebar_app_name os-menu-text">
+                                                <t t-esc="app.name"/>
+                                            </span>
+                                        </a>
+                                    </t>
+
+                                    <t t-if="AppSections(app.id).length">
+                                        <a t-att-href="getMenuItemHref(app)"
+                                           class="os-menu-link os-menu-toggle"
+                                           t-on-click.prevent="dropDownMenu">
+                                            <t t-call="os_theme_butterfly.OsSideBar.icon"/>
+                                            <span class="sidebar_app_name os-menu-text">
+                                                <t t-esc="app.name"/>
+                                            </span>
+                                        </a>
+                                        <t t-call="os_theme_butterfly.NavBar.SectionsMenu">
+                                            <t t-set="sections" t-value="AppSections(app.id)"/>
+                                        </t>
+                                    </t>
+                                </li>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

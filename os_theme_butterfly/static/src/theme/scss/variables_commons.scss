@@ -1,0 +1,631 @@
+/////////////////////////////////////////////
+////////       COMMON VARIABLES      ////////
+/////////////////////////////////////////////
+
+$base-font-family: $base_google_font_family;
+$second-font-family: Poppins, sans-serif;
+$alt-font-family: $alt_google_font_family;
+
+$os-sticky-toolbar-position: 45%;
+$os-theme-icon-font: "Osicon";
+$link-active-icon: $osi-check-thick !default;
+$link-list-menu-icon-ltr: $osi-chevron-right !default;
+$link-list-menu-icon-rtl: $osi-chevron-left !default;
+
+
+$spacer: 1rem;
+$border-width: 1px;
+$border-radius: 4px;
+$border-radius-lg: 5px;
+$border-radius-sm: 3px;
+$border-radius-xl: 8px;
+$border-radius-xxl: 12px;
+$rounded: 50%;
+$rounded-pill: 1.5rem;
+
+
+/////////    GLOBAL UTILITY    //////////
+/////////////////////////////////////////
+
+$fx-sz-9: 9px;
+$fx-sz-10: 10px;
+$fx-sz-11: 11px;
+$fx-sz-12: 12px;
+$fx-sz-13: 13px;
+$fx-sz-14: 14px;
+$fx-sz-15: 15px;
+$fx-sz-16: 16px;
+$gutter-width: 28px;
+$stretch-gap-x: (4px + ($gutter-width / 2));
+
+/////////    TYPTOGRAPHY    //////////
+//////////////////////////////////////
+
+
+$base-line-height: 1.5;
+
+$lg-base: $base-line-height;
+$lh-rg: $base-line-height;
+$lh-lg: 1.5;
+$lh-sm: 1.5;
+
+$fw-300: 300;
+$fw-400: 400;
+$fw-500: 500;
+$fw-700: 700;
+
+$fw-base: $fw-400;
+$fw-normal: $fw-400;
+$fw-bold: $fw-700;
+$fw-light: $fw-300;
+$fw-medium: $fw-500;
+
+$fs-base-dsk: 16px;
+$fs-base-tab: 16px;
+$fs-base-mob: 16px;
+
+$fs-base: 1rem; // $fs-base-px is `16px`
+$fs-lg: 1.25rem;
+$fs-sm: .75rem;
+$font-size-base: $fs-base;
+$h1-fs: 2rem;
+$h2-fs: 1.75rem;
+$h3-fs: 1.5rem;
+$h4-fs: 1.25rem;
+$h5-fs: 1.15rem;
+$h6-fs: 1rem;
+// desktop
+$h1-fs-lg: 2.5rem;
+$h2-fs-lg: 2rem;
+$h3-fs-lg: 1.75rem;
+$h4-fs-lg: 1.5rem;
+$h5-fs-lg: 1.25rem;
+$h6-fs-lg: 1.05rem;
+
+$page-title-ff: $alt-font-family;
+$page-title-fs: 1.5rem;
+$page-title-fs-lg: 1.75rem;
+$page-title-fw: $fw-bold;
+
+$h-margin-bottom: ($spacer / 2);
+$h-font-family: $alt-font-family;
+$h-font-weight: $fw-bold;
+$h-line-height: 1.1;
+
+$lead-fs: $fs-base * 1.15;
+$lead-fs-dsk: $fs-base * 1.25;
+$lead-fw: $fw-normal;
+
+$small-fs: 85%;
+
+
+$quote-small-font-size: $small-fs;
+$quote-font-size: $fs-base * 1.25;
+
+$mark-padding: .2em;
+
+$hr-width: 1px;
+$hr-margin: $spacer;
+$para-margin: 1rem;
+
+
+/////////    FORMS GLOBAL    /////////////////
+//////////////////////////////////////////////
+
+$field-padding-y: 0.4375rem;
+//$field-padding-x: 1rem;
+$field-padding-x: 0.5rem;
+$field-font-family: null;
+$field-font-size: $fx-sz-13;
+$field-line-height: 1.25rem;
+$field-font-weight: $fw-base;
+
+$field-focus-width: .2rem;
+$field-focus-shadow: 0 0 0 3px;
+
+$field-padding-y-sm: .25rem;
+$field-padding-x-sm: 1rem;
+$field-font-size-sm: $fx-sz-12;
+$field-line-height-sm: 1.25rem;
+
+$field-padding-y-lg: .6875rem;
+$field-padding-x-lg: 1rem;
+$field-font-size-lg: $fx-sz-15;
+$field-line-height-lg: 1.25rem;
+
+$field-padding-y-xl: 0.625rem;
+$field-padding-x-xl: 1.25rem;
+$field-font-size-xl: $fx-sz-15;
+$field-line-height-xl: 2rem;
+
+$field-border-width: $border-width;
+
+$field-margin-bottom: 16px;
+$field-margin-bottom-lg: 20px;
+$field-margin-bottom-sm: 12px;
+
+$field-border-radius: $border-radius;
+$field-border-radius-sm: $border-radius-sm;
+$field-border-radius-lg: $border-radius-lg;
+$field-border-radius-xl: $border-radius-lg;
+
+/////////    BUTTONS    /////////////////
+/////////////////////////////////////////
+
+$btn-padding-y: $field-padding-y;
+$btn-padding-x: $field-padding-x;
+$btn-font-family: $alt-font-family;
+$btn-font-size: $fs-base;
+$btn-line-height: 1.5;
+$btn-white-space: null; // Set to `nowrap` to prevent text wrapping
+
+$btn-padding-y-sm: $field-padding-y-sm;
+$btn-padding-x-sm: $field-padding-x-sm * 0.75;
+$btn-font-size-sm: $fs-sm;
+$btn-line-height-sm: $field-line-height-sm;
+
+$btn-padding-y-lg: $field-padding-y-lg;
+$btn-padding-x-lg: $field-padding-x-lg * 1.5;
+$btn-font-size-lg: $fs-lg;
+$btn-line-height-lg: $field-line-height-lg;
+
+$btn-padding-y-xl: $field-padding-y-xl;
+$btn-padding-x-xl: 2rem;
+$btn-font-size-xl: $fs-lg * 1.25;
+$btn-line-height-xl: $field-line-height-xl;
+
+$btn-padding-y-xs: .125rem;
+$btn-padding-x-xs: .5rem;
+$btn-font-size-xs: 0.6875rem;
+$btn-line-height-xs: 1rem;
+
+$btn-border-width: $field-border-width;
+
+$btn-font-weight: $fw-bold;
+$btn-focus-width: $field-focus-width;
+$btn-focus-box-shadow: none;
+$btn-disabled-opacity: .5;
+
+
+$btn-block-spacing-y: .5rem;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius: $field-border-radius;
+$btn-border-radius-lg: $field-border-radius-lg;
+$btn-border-radius-sm: $field-border-radius-sm;
+$btn-border-radius-xs: 3px;
+
+$btn-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+
+/////////    FORMS    /////////////////
+///////////////////////////////////////
+
+$input-padding-y: $field-padding-y;
+$input-padding-x: $field-padding-x;
+$input-font-family: $field-font-family;
+$input-font-size: $field-font-size;
+$input-font-weight: $field-font-weight;
+$input-line-height: $field-line-height;
+
+$input-padding-y-sm: $field-padding-y-sm;
+$input-padding-x-sm: $field-padding-x-sm;
+$input-font-size-sm: $field-font-size-sm;
+$input-line-height-sm: $field-line-height-sm;
+
+$input-padding-y-lg: $field-padding-y-lg;
+$input-padding-x-lg: $field-padding-x-lg;
+$input-font-size-lg: $field-font-size-lg;
+$input-line-height-lg: $field-line-height-lg;
+
+$input-padding-y-xl: $field-padding-y-xl;
+$input-padding-x-xl: $field-padding-x-xl;
+$input-font-size-xl: $field-font-size-xl;
+$input-line-height-xl: $field-line-height-xl;
+
+
+$input-border-width: $field-border-width;
+
+$input-border-radius: $field-border-radius;
+$input-border-radius-xl: $field-border-radius-xl;
+$input-border-radius-lg: $field-border-radius-lg;
+$input-border-radius-sm: $field-border-radius-sm;
+$input-focus-width: $field-focus-width;
+
+
+$input-height-border: $input-border-width * 2;
+$input-height-inner: $input-line-height + $input-padding-y * 2;
+$input-height-inner-sm: $input-line-height-sm + $input-padding-y-sm * 2;
+$input-height-inner-lg: $input-line-height-lg + $input-padding-y-lg * 2;
+$input-height-inner-xl: $input-line-height-xl + $input-padding-y-xl * 2;
+$input-height-inner-half: $input-line-height * .5 + $input-padding-y;
+$input-height-inner-quarter: $input-line-height * .25 + ($input-padding-y / 2);
+
+$input-height: calc(#{$input-height-inner} + #{$input-height-border});
+$input-height-sm: calc(#{$input-height-inner-sm} + #{$input-height-border});
+$input-height-lg: calc(#{$input-height-inner-lg} + #{$input-height-border});
+$input-height-xl: calc(#{$input-height-inner-xl} + #{$input-height-border});
+
+$input-transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+
+$textarea-min-height: 122px;
+$textarea-min-height-sm: 92px;
+$textarea-min-height-lg: 208px;
+
+
+/////////    CARDS    ////////////////
+///////////////////////////////////////
+
+$card-spacer-y: .75rem;
+$card-spacer-x: 1.25rem;
+$card-spacer-sm-x: 1.5rem;
+$card-spacer-large: 2.5rem;
+
+$card-border-width: 1px;
+$card-border-radius: $border-radius;
+$card-inner-border-radius: ($card-border-radius - 1);
+
+
+$card-img-overlay-padding: 1.25rem;
+
+$card-group-margin: ($gutter-width / 2);
+$card-deck-margin: $card-group-margin;
+
+$card-columns-count: 3;
+$card-columns-gap: 1.25rem;
+$card-columns-margin: $card-spacer-y;
+
+// IO
+$card-stretch-gap-x: $stretch-gap-x;
+
+
+/////////    ALERTS    ////////////////
+///////////////////////////////////////
+
+$alert-padding-y: 1rem;
+$alert-padding-x: 1.25rem;
+$alert-margin-bottom: 2rem;
+$alert-border-radius: $border-radius;
+$alert-link-font-weight: $fw-bold;
+$alert-border-width: $border-width;
+
+
+// // IO
+$alert-icon-width: 2rem;
+$alert-pro-icon-width: 2.75rem;
+
+
+/////////    BADGES    ////////////////
+///////////////////////////////////////
+
+$badge-font-size: .675rem;
+$badge-line-height: 1.125rem;
+$badge-font-weight: $fw-medium;
+$badge-padding-y: 0;
+$badge-padding-x: .375rem;
+$badge-border-radius: $border-radius-sm;
+
+$badge-transition: $btn-transition;
+$badge-focus-width: $field-focus-width;
+
+$badge-pill-padding-x: .5rem;
+$badge-pill-border-radius: 10rem;
+
+$badge-dot-width: 6px;
+$badge-dot-gap: 6px;
+
+$badge-dot-width-sm: 8px;
+$badge-dot-gap-sm: 8px;
+
+// IO
+
+$badge-font-size-sm: .75rem;
+$badge-padding-y-sm: .3125rem;
+$badge-padding-x-sm: .75rem;
+$badge-pill-padding-x-sm: .875rem;
+
+$badge-font-size-md: .8125rem;
+$badge-padding-y-md: .47rem;
+$badge-padding-x-md: 1rem;
+
+$badge-font-size-lg: .93rem;
+$badge-padding-y-lg: .75rem;
+$badge-padding-x-lg: 1.25rem;
+
+$badge-font-size-xl: 1.125rem;
+$badge-padding-y-xl: .875rem;
+$badge-padding-x-xl: 1.5rem;
+
+
+/////////    BREADCRUMB    ////////////////
+///////////////////////////////////////////
+
+$breadcrumb-font-size: null;
+
+$breadcrumb-padding-y: .25rem;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding: .5rem;
+
+$breadcrumb-margin-bottom: 0;
+
+
+$breadcrumb-divider: quote("/");
+
+$breadcrumb-border-radius: $border-radius;
+
+// IO
+$breadcrumb-font-size: 11px;
+$breadcrumb-font-weight: 500;
+$breadcrumb-font-case: uppercase;
+$breadcrumb-letter-spacing: 0.05rem;
+
+
+/////////    DROPDOWNS    /////////////////
+///////////////////////////////////////////
+
+$dropdown-min-width: 180px;
+$dropdown-padding-y: 0;
+$dropdown-spacer: .125rem;
+$dropdown-font-size: 0.8125rem;
+
+$dropdown-border-radius: $border-radius;
+$dropdown-border-width: $border-width;
+$dropdown-inner-border-radius: calc(#{$dropdown-border-radius} - #{$dropdown-border-width});
+$dropdown-divider-margin-y: 12px;
+
+$dropdown-item-padding-y: .25rem;
+$dropdown-item-padding-x: 1.5rem;
+
+// IO
+$dropdown-width-xl: 400px;
+$dropdown-width-lg: 320px;
+$dropdown-width-md: 280px;
+$dropdown-width-sm: 140px;
+$dropdown-width-xs: 120px;
+$dropdown-width-xxs: 70px;
+
+
+/////////    PAGINATION    ////////////////
+///////////////////////////////////////////
+
+$pagination-padding-y: .5625rem;
+$pagination-padding-x: .625rem;
+$pagination-padding-y-sm: .4375rem;
+$pagination-padding-x-sm: .5rem;
+$pagination-padding-y-lg: .5625rem;
+$pagination-padding-x-lg: .75rem;
+$pagination-padding-y-xl: .875rem;
+$pagination-padding-x-xl: .75rem;
+$pagination-line-height: 1rem;
+$pagination-line-height-sm: .875rem;
+$pagination-line-height-lg: 1.5rem;
+$pagination-line-height-xl: 1.5rem;
+$pagination-focus-box-shadow: none;
+$pagination-focus-outline: 0;
+
+// IO
+$pagination-font-size: .8125rem;
+
+$tooltip-font-size: $fx-sz-13;
+$tooltip-border-radius: $border-radius-sm;
+$tooltip-padding-x: .75rem;
+
+
+/////////    Custom Controls    ///////////////
+///////////////////////////////////////
+$checkbox-radio-switch-size: 1.125rem;
+//$checkbox-radio-switch-size-sm: 1.125rem;
+$checkbox-radio-switch-size-sm: $checkbox-radio-switch-size;
+$checkbox-radio-switch-size-lg: 2rem;
+$checkbox-radio-switch-border: 2px;
+
+$checkbox-radio-switch-text-gap: .75rem;
+$checkbox-radio-switch-text-gap-sm: .5rem;
+$checkbox-radio-switch-text-gap-lg: 1rem;
+
+$checkbox-radio-switch-font-size: $fx-sz-14;
+$checkbox-radio-switch-font-size-sm: $fx-sz-12;
+$checkbox-radio-switch-font-size-lg: $fx-sz-15;
+
+$checkbox-radio-switch-line-height: 1.25rem;
+$checkbox-radio-switch-line-height-sm: 1.125rem;
+$checkbox-radio-switch-line-height-lg: 1.375rem;
+
+$switch-width: $checkbox-radio-switch-size * 2;
+$switch-width-sm: $checkbox-radio-switch-size-sm * 1.75;
+$switch-width-lg: $checkbox-radio-switch-size-lg * 2;
+
+$switch-indicator-border-radius: ($switch-width / 2);
+$switch-indicator-border-radius-sm: ($switch-width-sm / 2);
+$switch-indicator-border-radius-lg: ($switch-width-lg / 2);
+
+$switch-indicator-size: 1rem;
+//$switch-indicator-size-sm: 0.65rem;
+$switch-indicator-size-sm: $switch-indicator-size;
+$switch-indicator-size-lg: 1.25rem;
+
+//calc ver
+$switch-border-calc: $checkbox-radio-switch-border*2;
+$switch-border-calc-1-5x: $checkbox-radio-switch-border*3;
+$switch-border-calc-2x: $checkbox-radio-switch-border*4;
+$switch-border-calc-3x: $checkbox-radio-switch-border*6;
+$switch-indicator-active-clac: $switch-width - $switch-indicator-size;
+$switch-indicator-active-clac-sm: $switch-width-sm - $switch-indicator-size-sm;
+$switch-indicator-active-clac-lg: $switch-width-lg - $switch-indicator-size-lg;
+
+$switch-indicator-active-position: calc(#{$switch-indicator-active-clac} - #{$switch-border-calc-2x});
+$switch-indicator-active-position-sm: calc(#{$switch-indicator-active-clac-sm} - #{$switch-border-calc-2x});
+$switch-indicator-active-position-lg: calc(#{$switch-indicator-active-clac-lg} - #{$switch-border-calc-3x});
+
+$switch-indicator-active-position-right: calc((-#{$switch-indicator-active-clac} + #{$switch-border-calc-2x}));
+$switch-indicator-active-position-right-sm: calc((-#{$switch-indicator-active-clac-sm} + #{$switch-border-calc-2x}));
+$switch-indicator-active-position-right-lg: calc((-#{$switch-indicator-active-clac-lg} + #{$switch-border-calc-3x}));
+
+/////////    Modals    ///////////////
+///////////////////////////////////////
+$modal-fade-transform: translate(0, -30px);
+$modal-fade-transform-revarse: translate(0, -10px);
+$modal-show-transform: none !important;
+$modal-transition: transform .3s ease-out;
+$modal-scale-transform: scale(.95);
+
+$modal-inner-padding: 1.25rem;
+$modal-header-padding-y: 1rem;
+$modal-header-padding-x: $modal-inner-padding;
+
+
+$modal-custom-padding: 1.5rem;
+$modal-custom-padding-sm: 1.25rem;
+$modal-custom-padding-md: 2.25rem;
+$modal-custom-padding-lg: 3.75rem;
+
+$modal-body-custom-padding-x: 1.5rem;
+$modal-body-custom-padding-x-sm: 1.25rem;
+$modal-body-custom-padding-x-md: 2.5rem;
+$modal-body-custom-padding-x-lg: 3.75rem;
+
+$modal-header-custom-padding-xy: 1rem $modal-custom-padding;
+$modal-header-custom-padding-xy-sm: 0.75rem $modal-body-custom-padding-x-sm;
+
+$modal-footer-custom-padding-xy: 1rem $modal-custom-padding;
+$modal-footer-custom-padding-xy-sm: 0.75rem $modal-body-custom-padding-x-sm;
+
+/////////    LAYOUTS    ///////////////
+///////////////////////////////////////
+
+$min-body-width: 320px;
+
+// Logo
+$logo-height: 36px;
+$logo-height-sm: 28px;
+$logo-height-lg: 60px;
+$logo-height-icon: 33px;
+
+// Sidebar
+$sidebar-width-normal: 290px;
+$sidebar-width-compact: 74px;
+$sidebar-gap-x: 24px;
+
+$sidebar-width-fat: 400px;
+$sidebar-width-fat-tablet: 340px;
+$sidebar-gap-x-fat: 32px;
+$sidebar-gap-x-fat-tablet: 16px;
+$sidebar-fat-transition-name: ease;
+$sidebar-fat-transition-duration: 450ms;
+
+// Apps Sidebar
+$sidebar-width-apps: 80px;
+$sidebar-gap-x-apps: 24px;
+$sidebar-apps-transition-name: ease;
+$sidebar-apps-transition-duration: 450ms;
+$sidebar-transition-name: ease;
+$sidebar-transition-duration: 450ms;
+
+
+// Content
+$content-gap-x: 20px - ($gutter-width/2);
+$content-gap-x-sm: 36px - ($gutter-width/2);
+$content-gap-y: 24px;
+$content-sidebar-width: 280px;
+
+// Headers
+$header-main-gap-x: $content-gap-x;
+$header-main-gap-x-sm: $content-gap-x-sm;
+$header-main-gap-y: 14px;
+$header-main-border-width: 1px;
+$header-height: ($header-main-gap-y*2 + $logo-height + $header-main-border-width);
+$header-min-width: $min-body-width;
+$header-tools-height: calc((#{$header-height} / 2) + 0.5rem);
+
+$header-toogle-btn-border: $btn-border-width solid transparent;
+$header-toogle-btn-lh: $btn-line-height-sm;
+
+$header-toogle-btn-icon-width: $btn-line-height-sm + $btn-padding-y-sm*2;
+
+$header-col-width-small: 120px;
+$header-col-width-safe: ($header-col-width-small/2);
+$header-col-width: calc(50% - #{$header-col-width-safe});
+
+//Footer
+$footer-main-gap-x: $content-gap-x;
+$footer-main-gap-x-sm: $content-gap-x-sm;
+$footer-main-gap-y: 20px;
+$footer-main-border-width: 1px;
+$footer-min-width: $min-body-width;
+
+// Aside
+$aside-content-body-height-calc: ($content-gap-y + 8 + $header-height);
+
+
+$menu-icon-width: 36px;
+$menu-icon-width-sm: 32px;
+
+///// Menu config
+// Menu Font
+$menu-link-ff: $alt-font-family !default;
+$menu-link-fs: $base-font-family !default;
+$menu-link-fw: $fw-bold !default;
+$menu-link-lh: 1.25rem !default;
+$menu-link-ls: 0.01em !default;
+$menu-link-case: none !default;
+
+$menu-link-gap-y: .625rem !default;
+$menu-link-gap-x: $sidebar-gap-x !default;
+
+// Menu Sub/Child Font
+$menu-sub-diff: true;
+$menu-sub-link-ff: $base-font-family !default;
+$menu-sub-link-fs: $fx-sz-14 !default;
+$menu-sub-link-fw: $fw-normal !default;
+$menu-sub-link-lh: $menu-link-lh !default;
+$menu-sub-link-ls: normal !default;
+$menu-sub-link-case: none !default;
+
+$menu-sub-link-gap-y: .375rem !default;
+$menu-sub-link-gap-x: $menu-link-gap-x !default;
+
+
+// Menu Icon
+$menu-icon-width-base: $menu-icon-width !default;
+$menu-icon-font-size: 24px;
+$menu-icon-width-small: $menu-icon-width-sm !default;
+$menu-icon-font-size-small: 18px;
+
+// Count
+$menu-link-count-gap: .25rem !default;
+$menu-link-count-fs: .85em !default;
+
+
+$menu-main-link-gap-y: .5rem !default;
+$menu-main-link-gap-x: 1.25rem !default;
+$menu-main-link-gap-x: 1.25rem !default;
+
+$menu-main-top-link-gap-y: 1.5rem !default;
+$menu-main-top-link-gap-x: 1rem !default;
+
+$menu-main-link-fs: $fx-sz-13 !default; // @desktop only
+$menu-main-top-link-fs: $fx-sz-14 !default; // @desktop only
+
+$menu-main-ddm-width: 200px !default;
+
+// Menu SM Style
+$menu-sm-link-gap-y: .25rem !default;
+$menu-sm-icon-width: 1.375rem;
+$menu-sm-link-fs: $fx-sz-12;
+$menu-sm-link-lh: 1.125rem;
+
+
+// Menu Footer Style
+$menu-footer-link-gap-y: .25rem !default;
+$menu-footer-icon-width: 1.375rem;
+$menu-footer-link-fs: $fx-sz-12;
+$menu-footer-link-lh: 1.125rem;
+
+// Icon
+$menu-toggle-icon-ltr: $osi-chevron-right !default;
+$menu-toggle-icon-rtl: $osi-chevron-left !default;
+$menu-main-toggle-icon: $osi-chevron-down !default;
+$menu-main-sub-toggle-icon-ltr: $osi-chevron-right !default;
+$menu-main-sub-toggle-icon-rtl: $osi-chevron-left !default;
+$ibx-aside-width: 260px;

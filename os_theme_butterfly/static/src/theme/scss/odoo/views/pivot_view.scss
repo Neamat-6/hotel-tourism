@@ -1,0 +1,26 @@
+.o_content > .o_pivot {
+  @extend .card-bordered;
+  padding: 0.5rem;
+  background: $o-view-background-color;
+  border-radius: $border-radius-xl;
+
+  table th {
+    background-color: transparent;
+  }
+
+  .o_pivot_header_cell_closed {
+
+    &::before {
+      font-family: $os-theme-icon-font;
+      content: $osi-plus;
+    }
+  }
+
+  .o_pivot_header_cell_opened {
+
+    &::before {
+      font-family: $os-theme-icon-font;
+      content: $osi-minus;
+    }
+  }
+}

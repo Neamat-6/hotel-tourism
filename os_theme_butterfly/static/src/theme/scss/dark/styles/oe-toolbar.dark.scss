@@ -1,0 +1,112 @@
+//Only for dark mode
+$os-we-fg-light: #f9f9f9;
+$os-we-bg-light: $white;
+$os-we-bg-lightest: $white;
+$os-we-bg-darkest: darken($white, 5%);
+$os-we-bg-darker: darken($white, 10%);
+
+
+$os-we-toolbar-bg: lighten($odoo-webclient-background-color, 6%); //#3f4149;
+$os-we-toolbar-bg-active: lighten($odoo-webclient-background-color, 10%);
+$os-we-toolbar-border: lighten($border-color, 10%);
+$os-we-toolbar-color-text: $os-we-bg-light;
+$os-we-toolbar-color-accent: $accent-color;
+$os-we-toolbar-color-clickable: $os-we-bg-lightest;
+$os-we-toolbar-color-clickable-active: $os-we-bg-darkest;
+
+.oe-toolbar.oe-floating {
+
+  background-color: $os-we-toolbar-bg !important;
+  color: $os-we-toolbar-color-text !important;
+  box-shadow: 0 0 4px rgba($odoo-webclient-background-color, .1), 0 4px 18px rgba($odoo-webclient-background-color, .25) !important;
+  border: 1px solid $border-color !important;
+
+  &.toolbar-bottom:before {
+    border-bottom-color: $os-we-toolbar-bg !important;
+  }
+
+  &:not(.toolbar-bottom):before {
+    border-top-color: $os-we-toolbar-bg !important;
+  }
+
+
+  > .btn-group:not(.d-none) ~ .btn-group:not(.d-none), .oe-toolbar-separator {
+    &:before {
+      background: $os-we-toolbar-border !important;
+    }
+  }
+
+  // Main layout of buttons
+  .btn, .dropdown-item {
+    color: $os-we-toolbar-color-clickable !important;
+
+    &:hover:not(.active) {
+      color: $os-we-toolbar-color-clickable-active !important;
+      background-color: transparent;
+    }
+
+    &.active {
+      background: $os-we-toolbar-bg-active !important;
+      box-shadow: inset 0 0 3px lighten($os-we-toolbar-bg-active, 10%) !important;
+    }
+  }
+
+  .btn {
+    &.active {
+      color: $os-we-toolbar-color-accent !important;
+    }
+  }
+
+  .show > .btn {
+    &, &:hover, &:focus {
+      color: $os-we-toolbar-color-clickable-active !important;
+    }
+  }
+
+  .dropdown-menu {
+    border-top: 1px solid $os-we-toolbar-border !important;
+    background-color: $os-we-toolbar-bg!important;
+    box-shadow: 0 18px 18px rgba(#000, .23)!important;
+  }
+
+  .dropdown-item {
+    > * {
+      color: inherit;
+    }
+
+    &.active {
+      &, &:hover, &:focus {
+        color: $os-we-bg-darker !important;
+      }
+    }
+  }
+
+
+  .colorpicker-group {
+
+    .o_we_colorpicker_switch_panel button {
+      &.active {
+        border-bottom: 1px solid $os-we-toolbar-color-accent !important;
+        color: $os-we-toolbar-color-clickable-active !important;
+      }
+
+      &.o_colorpicker_reset {
+        background: $o-brand-primary !important;
+
+        &, &:hover {
+          color: color-yiq($o-brand-primary) !important;
+        }
+
+        &:hover {
+          background: darken($o-brand-primary, 5%) !important;
+        }
+      }
+    }
+  }
+
+  .colorpicker {
+    background: $os-we-toolbar-bg !important;
+    box-shadow: 0 3px 9px $shadow-color !important;
+  }
+
+}

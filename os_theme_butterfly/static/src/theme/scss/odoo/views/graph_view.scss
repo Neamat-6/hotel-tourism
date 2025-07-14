@@ -1,0 +1,6 @@
+.o_content > .o_graph_renderer {
+  @extend .card-bordered;
+  padding: 0.5rem;
+  background: $o-view-background-color;
+  border-radius: $border-radius-xl;
+}

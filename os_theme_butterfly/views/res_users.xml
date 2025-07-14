@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_users_preferences" model="ir.ui.view">
+        <field name="name">res.users.preferences</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='preferences']" position="after">
+                <group name="preference_theme">
+                    <group>
+                        <field name="os_header_style" readonly="0"/>
+                        <field name="os_sidebar_style" readonly="0"/>
+                        <field name="os_theme_mode" readonly="0"/>
+                        <field name="os_chatter_position" readonly="0"/>
+                        <field name="os_dbl_click_edit" readonly="0"/>
+                        <field name="os_display_bookmarks" readonly="0"/>
+                        <field name="os_display_favorite_apps" readonly="0"/>
+                        <field name="os_display_todo_list" readonly="0"/>
+                        <field name="os_display_recently_viewed_records" readonly="0"/>
+                        <field name="os_display_zoom_in_out" readonly="0"/>
+                        <field name="os_display_full_screen" readonly="0"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref='base.view_users_form'/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Recently Viewed Records">
+                    <label for="recently_viewed_record_ids"></label>
+                    <field name="recently_viewed_record_ids" readonly="0">
+                        <tree delete="1">
+                            <field name="name"/>
+                            <field name="res_id"/>
+                            <field name="model"/>
+                            <field name="write_date"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="TODO list">
+                    <label for="todo_ids"></label>
+                    <field name="todo_ids">
+                        <tree delete="1">
+                            <field name="name"/>
+                            <field name="is_done"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Bookmarks">
+                    <label for="bookmark_ids"></label>
+                    <field name="bookmark_ids">
+                        <tree delete="1">
+                            <field name="name"/>
+                            <field name="icon"/>
+                            <field name="type"/>
+                            <field name="link"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Favorite Apps">
+                    <label for="favorite_app_ids"></label>
+                    <field name="favorite_app_ids">
+                        <tree delete="1">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="menu_id"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Quick Create">
+                    <label for="quick_create_ids"></label>
+                    <field name="quick_create_ids">
+                        <tree delete="1">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="model"/>
+                        </tree>
+                    </field>
+                </page>
+
+                <page string="Quick Create 1">
+                    <label for="quick_create_ids"></label>
+                    <field name="quick_create_ids">
+                        <tree delete="1">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="model"/>
+                        </tree>
+                    </field>
+                </page>
+
+                 <page string="Quick Create 2">
+                    <label for="quick_create_ids"></label>
+                    <field name="quick_create_ids">
+                        <tree delete="1">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="model"/>
+                        </tree>
+                    </field>
+                </page>
+
+                 <page string="Quick Create 3">
+                    <label for="quick_create_ids"></label>
+                    <field name="quick_create_ids">
+                        <tree delete="1">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="model"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

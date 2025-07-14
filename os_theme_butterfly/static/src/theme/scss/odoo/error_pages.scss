@@ -1,0 +1,15 @@
+.error-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+
+  .btn-danger-gradien {
+    background-image: linear-gradient(to right, #fd6a60 0%, #fb1e10 51%, #fd6a60 100%);
+    border: none;
+    color: #fff;
+    background-size: auto 200%;
+    transition: all 0.3s ease;
+  }
+}

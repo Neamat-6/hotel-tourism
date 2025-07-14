@@ -1,0 +1,54 @@
+//Trigger
+.nav-item-trigger{
+    display: inline-flex;
+    align-items: center;
+    margin:-1px -.5rem 0 auto;
+}
+
+// Card Nav
+.nav-tabs-card{
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    font-family: $base-font-family;
+}
+@include media-breakpoint-up(sm){
+    .nav-tabs-card{
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+// ICON
+@include media-breakpoint-down(md){
+    .nav-tabs-mb-icon{
+        .nav-item{
+            padding-right: .75rem;
+        }
+        .nav-link{
+            .icon{
+                font-size: 1.25rem;
+                padding: 0 .5rem;
+                + span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+@media (max-width:359px){
+    .nav-tabs-mb-icon{
+        .nav-item{
+            padding-right: .35rem;
+        }
+    }
+}
+
+//Medium
+.is-medium{
+    &.nav-tabs{
+        .nav-link{
+            padding: .75rem 0;
+        }
+    }
+}
+

@@ -1,0 +1,71 @@
+@include media-breakpoint-down(sm) {
+  .o_base_settings {
+    flex-flow: column nowrap;
+
+    > .o_control_panel {
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+    }
+
+    .o_setting_container {
+      flex-flow: column nowrap;
+
+      .settings {
+        .o_field_widget {
+          width: 80% !important;
+        }
+      }
+
+      .settings_tab {
+        flex: 0 0 $o-base-settings-mobile-tabs-height;
+        border-radius: 0 !important;
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        overflow-x: auto;
+        padding: 0;
+        border-bottom: 1px solid $border-color;
+
+
+        .tab {
+          display: block;
+          width: auto;
+          height: $o-base-settings-mobile-tabs-height;
+          padding: $o-base-settings-mobile-tabs-height*0.25 $o-base-settings-mobile-tabs-height*0.4;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: inherit;
+          transition: 0.2s all ease 0s;
+          transform: translate3d(0, 0, 0);
+
+          &:not(:last-child) {
+            border-right: 1px solid $border-color;
+          }
+
+          .app_name {
+            display: block;
+            white-space: nowrap;
+            text-transform: uppercase;
+          }
+
+
+          &:after {
+            content: none;
+          }
+
+          &.current {
+            background: $accent-color !important;
+            color: color-yiq($accent-color) !important;
+            font-weight: bold;
+            box-shadow: none;
+            background: none;
+          }
+        }
+      }
+    }
+
+  }
+}

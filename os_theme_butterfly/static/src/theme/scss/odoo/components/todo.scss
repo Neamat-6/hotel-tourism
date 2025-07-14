@@ -1,0 +1,74 @@
+.tasks-item-toggle {
+  width: 100%;
+  text-align: left;
+  padding: 0.85em 2.25em 0.85em 1em;
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 0;
+  line-height: 1;
+  margin-top: 0.5rem;
+  position: relative;
+
+  &.completed {
+    textarea {
+      text-decoration: line-through;
+    }
+  }
+
+  .tasks-item-drodown {
+    .dropdown-menu {
+      min-width: -webkit-fit-content;
+      min-width: -moz-fit-content;
+      min-width: fit-content;
+      font-size: 1rem;
+    }
+  }
+
+  textarea {
+    //width: 95%;
+    resize: none;
+
+    &:not([disabled]) {
+      text-decoration: none;
+    }
+  }
+
+  .todo_textarea {
+    border: 0;
+    appearance: none;
+    background: transparent;
+  }
+
+  .todo_content[contenteditable="true"] {
+    border: 1px solid $border-color;
+    padding: 0.275rem !important;
+    background: $input-bg;
+    width: 84%;
+  }
+}
+
+.os_js_sequence_handler {
+  cursor: pointer;
+}
+
+.os_sequence_highlight {
+  background-color: $accent-color;
+  height: 1px;
+  z-index: 3;
+
+  &:before, &:after {
+    content: "";
+    @include size(6px);
+    display: block;
+    border-radius: 100%;
+    background-color: inherit;
+    @include o-position-absolute(-2px, -2px);
+  }
+
+  &:after {
+    right: auto;
+    left: -2px;
+  }
+}

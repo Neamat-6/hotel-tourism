@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_switch_language" owl="1">
+       <OS_Dropdown
+               class="o_switch_language_menu"
+               t-att-class="languages.length == 1 ? 'd-none' : ''"
+               position="'bottom-end'"
+               togglerClass="`os-quick-nav-icon`"
+               menuClass="'dropdown-menu-end dropdown-menu-s1'">
+           <t t-set-slot="toggler">
+               <div class="icon-status icon-status-na">
+                   <em class="icon osi osi-globe"/>
+               </div>
+           </t>
+
+           <t t-if="languages &amp;&amp; current_language">
+               <ul class="language-list">
+                   <li t-foreach="languages" t-as="language" t-key="language">
+                       <t t-if="language[3]">
+                           <t t-set="lang_code" t-value="language[3].toLowerCase()"/>
+                       </t>
+                       <t t-else="">
+                           <t t-set="lang_code" t-value="language[0].split('_')[1].toLowerCase()"/>
+                       </t>
+                       <a role="menuitem" href="#" data-menu="language" t-att-data-language-code="language[0]"
+                          t-on-click="toggleLanguageClick"
+                          class="dropdown-item language-item" t-att-class="language[0] == current_language ? 'active' : ''">
+                           <span t-attf-class="fi fi-{{lang_code}} fa-lg mr-2"/>
+                           <span class="language-name"><t t-esc="language[1]"/></span>
+                       </a>
+                   </li>
+               </ul>
+
+           </t>
+       </OS_Dropdown>
+    </t>
+</templates>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.general-settings" owl="1">
+        <div class="tab-pane active" id="general-settings" data-simplebar="">
+            <div class="os-opt-set os-opt-set-skin">
+                <div class="os-opt-set-title">Color Skin</div>
+                <div class="os-opt-list mt-1">
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[0] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[0]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-1"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 1</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[1] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[1]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-2"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 2</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[2] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[2]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-3"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 3</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[3] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[3]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-4"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 4</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[4] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[4]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-5"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 5</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_color_primary == themeService.default_skins[5] ? 'active' : ''" data-key="skin" t-att-data-update="themeService.default_skins[5]">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-6"/>
+                        </span>
+                        <span class="os-opt-item-name">Color 6</span>
+                    </div>
+
+                    <div class="os-opt-item" t-ref="opt_custom_color" t-att-class="themeService.os_theme_color_primary == themeService.os_theme_custom_color ? 'active' : ''" data-key="skin" data-custom="true" t-att-data-update="themeService.os_theme_custom_color or ''">
+                        <span class="os-opt-item-bg">
+                            <span class="skin-color-custom"/>
+                        </span>
+                        <span class="os-opt-item-name">Custom</span>
+                    </div>
+                    <div class="os-opt-item-custom" t-ref="div_custom" t-att-style="themeService.os_theme_color_primary != themeService.os_theme_custom_color ? 'display:none;' : ''">
+                        <input type="text" t-ref="input_primary_color" data-action="updateColor" class="form-control os_widget_color" t-att-value="themeService.os_theme_custom_color" placeholder="#875A7B"/>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="os-opt-set">
+                <div class="os-opt-set-title">Default Navigation style</div>
+                <div class="os-opt-list col-2x mt-1">
+                    <div class="os-opt-item only-text" t-att-class="themeService.os_show_sidebar ? 'active' : ''" data-key="navigation_style" data-update="vertical">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">Vertical</span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text" t-att-class="!themeService.os_show_sidebar ? 'active' : ''" data-key="navigation_style" data-update="horizontal">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">Horizontal </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="os-opt-set os-opt-set-header">
+                <div class="os-opt-set-title">Default Header Style</div>
+                <div class="os-opt-list col-4x mt-1">
+                    <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-light' ? 'active' : ''" data-key="header" data-update="is-light">
+                        <span class="os-opt-item-bg is-light">
+                            <span class="bg-lighter"/>
+                        </span>
+                        <span class="os-opt-item-name">White</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-gray-light' ? 'active' : ''" data-key="header" data-update="is-gray-light">
+                        <span class="os-opt-item-bg is-light">
+                            <span class="bg-light"/>
+                        </span>
+                        <span class="os-opt-item-name">Light</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-dark' ? 'active' : ''" data-key="header" data-update="is-dark">
+                        <span class="os-opt-item-bg">
+                            <span class="bg-dark"/>
+                        </span>
+                        <span class="os-opt-item-name">Dark</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-theme' ? 'active' : ''" data-key="header" data-update="is-theme">
+                        <span class="os-opt-item-bg">
+                            <span class="bg-theme"/>
+                        </span>
+                        <span class="os-opt-item-name">Theme</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="os-opt-set os-opt-set-aside"  t-ref="sidebar_style" style="display:none;">
+                <div class="os-opt-set-title">Default Sidebar Style</div>
+                <div class="os-opt-list col-4x mt-1">
+                    <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-light' ? 'active' : ''" data-key="aside" data-update="is-light">
+                        <span class="os-opt-item-bg is-light">
+                            <span class="bg-lighter"/>
+                        </span>
+                        <span class="os-opt-item-name">White</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-gray-light' ? 'active' : ''" data-key="aside" data-update="is-gray-light">
+                        <span class="os-opt-item-bg is-light">
+                            <span class="bg-light"/>
+                        </span>
+                        <span class="os-opt-item-name">Light</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-dark' ? 'active' : ''" data-key="aside" data-update="is-dark">
+                        <span class="os-opt-item-bg">
+                            <span class="bg-dark"/>
+                        </span>
+                        <span class="os-opt-item-name">Dark</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-theme' ? 'active' : ''" data-key="aside" data-update="is-theme">
+                        <span class="os-opt-item-bg">
+                            <span class="bg-theme"/>
+                        </span>
+                        <span class="os-opt-item-name">Theme</span>
+                    </div>
+                </div>
+            </div>
+            <div class="os-opt-set">
+                <div class="os-opt-set-title">Default Chatter position</div>
+                <div class="os-opt-list col-2x mt-1">
+                    <div class="os-opt-item only-text" t-att-class="themeService.os_chatter_position == 'normal' ? 'active' : ''" data-key="os_chatter_position" data-update="normal">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">Normal</span>
+                        </span>
+                    </div>
+                    <div class="os-opt-item only-text" data-tippy-content="Chatter will be sided when screen is 1200px or larger" data-tippy-placement="top" t-att-class="themeService.os_chatter_position == 'sided' ? 'active' : ''" data-key="os_chatter_position" data-update="sided">
+                        <span class="os-opt-item-bg">
+                            <span class="os-opt-item-name">Sided</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="os-opt-set">
+                <div class="os-opt-set-title">Default Theme Mode</div>
+                <div class="os-opt-list col-2x mt-1">
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_mode =='light-mode' ? 'active' : ''" data-key="mode" data-update="light-mode">
+                        <span class="os-opt-item-bg is-light">
+                            <span class="theme-light"/>
+                        </span>
+                        <span class="os-opt-item-name">Light Skin</span>
+                    </div>
+                    <div class="os-opt-item" t-att-class="themeService.os_theme_mode =='dark-mode' ? 'active' : ''" data-key="mode" data-update="dark-mode">
+                        <span class="os-opt-item-bg">
+                            <span class="theme-dark"/>
+                        </span>
+                        <span class="os-opt-item-name">Dark Skin</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </t>
+</templates>

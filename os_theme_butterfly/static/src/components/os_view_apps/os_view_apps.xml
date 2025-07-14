@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.AppsIcon" owl="1">
+        <t t-if="companyThemeService.os_apps_icon_style =='default'">
+            <div class="app-item view-apps-default d-flex justify-content-center align-items-center"
+                 t-att-data-tippy-content="action_type and action_type =='edit_mode'? 'Edit Item': None" data-tippy-placement="top"
+                 t-att-class="wrap_custom_class">
+                <img t-if="app.webIconData" class="o_app_icon" t-attf-src="{{app.webIconData}}"/>
+            </div>
+        </t>
+        <t t-if="companyThemeService.os_apps_icon_style =='font'">
+            <div class="view-apps-icon-wrap-parent">
+                <div class="app-item view-apps-icon-wrap d-flex justify-content-center"
+                     t-att-data-tippy-content="action_type and action_type =='edit_mode'? 'Edit Item': None" data-tippy-placement="top"
+                     t-attf-class="{{(companyThemeService.os_shape!='none') ? 'align-items-center' : 'align-items-end'}} app-icon-{{app.id}} shape-{{companyThemeService.os_shape}} shape-style-{{(companyThemeService.os_shape!='none') ? companyThemeService.os_shape_style : 'none'}}"
+                     t-att-class="wrap_custom_class">
+                    <em class="icon icon-read-mode" t-att-class="app.webIconFont"/>
+                    <em class="icon osi osi-edit icon-edit-mode"/>
+                    <style t-if="app.webIconStyle">
+                        <t t-esc="app.webIconStyle"/>
+                    </style>
+                </div>
+            </div>
+        </t>
+        <t t-if="companyThemeService.os_apps_icon_style =='image'">
+            <div class="app-item view-apps-image d-flex justify-content-center align-items-center"
+                 t-att-data-tippy-content="action_type and action_type =='edit_mode'? 'Edit Item': None" data-tippy-placement="top" t-att-class="wrap_custom_class">
+                <img t-if="app.webImageIcon" class="o_app_icon_img" t-attf-src="{{app.webImageIcon}}"/>
+            </div>
+
+        </t>
+    </t>
+    <t t-name="os_theme_butterfly.OsViewApps" owl="1">
+        <div class="o_content os_apps_view h-100 mx-0 container-fluid d-flex align-items-center justify-content-center">
+            <div t-if="userService.isAdmin and companyThemeService.os_apps_icon_style !='default'" class="position-absolute d-none d-lg-block icon-edit-apps">
+                <a t-if="!edit_mode" t-on-click="enterEditMode" title="Activate App Drawer Edit Mode" class="btn btn-icon">
+                    <t t-call="os_theme_butterfly.icon_enter_edit_mode"/>
+                </a>
+
+                <a t-if="edit_mode" class="btn btn-icon" t-on-click="exitEditMode" title="Deactivate App Drawer Edit Mode">
+                    <t t-call="os_theme_butterfly.icon_exit_edit_mode"/>
+                </a>
+            </div>
+
+            <div class="os_apps_view_container row h-100 w-100 align-items-center">
+                <div class="view-apps-icon-list mx-auto col-lg-11" t-if="displayedApps.length" role="listbox">
+                    <div class="view-apps-icon-item d-flex justify-content-center align-items-center col-6 col-sm-4 col-lg-2"
+                         t-foreach="displayedApps" t-as="app" t-key="app">
+
+                        <a t-att-id="'result_app_' + app_index" class="w-100 w-100 d-flex flex-column justify-content-center align-items-center"
+                           role="option"
+                           t-att-data-menu-xmlid="app.xmlid"
+                           t-att-href="app.href || ('#menu_id='+app.id+'&amp;action_id='+app.actionID)"
+                           t-key="app.id"
+                           t-on-click.prevent="_onAppClick(app)">
+                            <div class="view-apps-icon-box d-flex flex-column align-items-center">
+                                <t t-call="os_theme_butterfly.AppsIcon"/>
+                                <span class="view-apps-icon-name mt-1">
+                                    <t t-esc="app.label or app.name"/>
+                                </span>
+                            </div>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="os_theme_butterfly.OsViewApp.Settings">
+        <div>
+            <form id="apps_icon_settings_form" t-if="widget.apps_icon_style == 'font'">
+                <div class="form-group row">
+                    <label for="os_web_icon_font" class="col-sm-3 col-form-label">Icon</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               t-att-value="widget.app.webIconFont"
+                               class="form-control"
+                               name="os_web_icon_font"
+                               id="os_web_icon_font"
+                               required="required"
+                               placeholder="fa fa-star"/>
+                        <small><a class="text-muted" href="https://icons8.com/line-awesome" target="_blank">https://icons8.com/line-awesome</a></small>
+                    </div>
+                </div>
+                <div class="form-group row" t-if="widget.os_shape_style != 'theme'">
+                    <label for="os_shape_color" class="col-sm-3 col-form-label">Shape Color</label>
+                    <div class="col-sm-9">
+                        <input type="color"
+                               class="form-control"
+                               t-att-value="widget.app.webShapeColor"
+                               name="os_shape_color"
+                               id="os_shape_color"
+                               required="required"
+                               placeholder="#dd1c1a"/>
+                    </div>
+                </div>
+                <div class="form-group row" t-if="widget.os_shape_style != 'theme'">
+                    <label for="os_web_icon_color" class="col-sm-3 col-form-label">Icon Color</label>
+                    <div class="col-sm-9">
+                        <input type="text"
+                               class="form-control"
+                               name="os_web_icon_color"
+                               id="os_web_icon_color"
+                               t-att-value="widget.app.webIconColor"
+                               placeholder="#dd1c1a"/>
+                        <small class="text-muted"><i class="fa fa-info-circle"/>
+                            Let it empty to use automatic values</small>
+                    </div>
+                </div>
+                <div class="d-none">
+                    <input type="radio" name="os_is_changed" id="os_is_changed" t-att-checked="widget.app.webIconChanged ? 'checked':None"/>
+                </div>
+            </form>
+
+            <form id="apps_icon_settings_form" t-if="widget.apps_icon_style == 'image'">
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Current Image</label>
+                    <div class="col-sm-9">
+                        <img class="img img-thumbnail mb-2" style="max-height: 80px;"
+                             t-attf-src="{{widget.app.webImageIcon}}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label col-sm-3 col-form-label " for="os_image_icon">Select Image</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="ufile" class="form-control" accept=".png, .jpg, .jpeg" required="required" id="os_image_icon"/>
+                        <div class="invalid-feedback">Please select an image first !</div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </t>
+</templates>

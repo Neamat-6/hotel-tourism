@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_scroll_to_top" owl="1">
+        <div id="scrollToTop" t-on-click="onClick">
+            <t t-call="os_theme_butterfly.icon_scroll_top"/>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,82 @@
+.o_searchview {
+
+  .o_searchview_facet {
+    border-color: $input-border-color !important;
+    background: $input-bg !important;
+
+
+    .o_facet_remove {
+      color: $light-500 !important;
+
+      &:hover {
+        color: $light-600 !important;
+      }
+    }
+  }
+
+
+  .o_searchview_icon {
+    @extend .form-icon;
+    @extend .form-icon-right;
+    z-index: 9999;
+    @extend .osi;
+    font-size: $fx-sz-16;
+    color: $base-light;
+
+
+    &::before {
+      content: $osi-search !important;
+    }
+
+
+  }
+
+
+}
+
+%hhh {
+  $color: $secondary-light;
+  $background: transparent;
+  $border: transparent;
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+
+  &:not(:disabled):not(.disabled):hover {
+    color: darken($color, 10%);
+    background-color: $background;
+    border-color: $border;
+  }
+
+
+}
+
+.o_search_options {
+  .btn-light {
+    @extend %hhh;
+  }
+}
+
+.toggle-search {
+  @extend %hhh;
+}
+
+.o_no_notification {
+  .icon-status::after {
+    content: none !important;
+  }
+}
+
+.o_MessagingMenu.show {
+  background-color: transparent;
+}
+
+.o_menu_systray {
+  .os-quick-nav-icon {
+    &::before {
+      content: none !important;
+    }
+  }
+}

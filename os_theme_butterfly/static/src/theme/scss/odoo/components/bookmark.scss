@@ -1,0 +1,30 @@
+.bookmark_inner {
+  display: grid !important;
+  grid-auto-flow: row !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+}
+
+.icon-edit-mode, .bookmark-edit-mode {
+  display: none;
+}
+
+.edit_mode {
+  .bookmark_item_icon:hover {
+    .icon-read-mode {
+      display: none;
+    }
+
+    .icon-edit-mode {
+      display: inline-block;
+    }
+  }
+
+  .bookmark-read-mode {
+    display: none;
+  }
+
+  .bookmark-edit-mode {
+    display: inline-block;
+  }
+}

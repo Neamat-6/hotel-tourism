@@ -1,0 +1,200 @@
+///
+/// This file regroups the variables that style odoo components.
+/// They are available in every asset bundle.
+///
+
+// Added by theme
+
+$font-family-base: $base-font-family;
+//$disabled-color: #fefefe;
+
+//Odoo Content will be changed with our variables
+
+// Font sizes
+$o-root-font-size: 15px;
+$o-font-size-base: 13rem * (1px / $o-root-font-size) !default;
+$o-line-height-base: 1.5 !default; // This is BS default
+
+// Colors
+$o-community-color: $odoo-community-color;
+$o-enterprise-color: $odoo-enterprise-color;
+$o-enterprise-primary-color: $odoo-enterprise-primary-color;
+
+$o-brand-odoo: $accent-color;
+$o-brand-primary: $accent-color;
+
+$o-brand-secondary: $odoo-brand-secondary;
+$o-brand-lightsecondary: $odoo-brand-secondary;
+
+// This is BS default
+$o-gray-100: $light-100;
+$o-gray-200: $light-200;
+$o-gray-300: $light-300;
+$o-gray-400: $light-400;
+$o-gray-500: $light-500;
+$o-gray-600: $light-600;
+$o-gray-700: $light-700;
+$o-gray-800: $light-800;
+$o-gray-900: $light-900;
+
+$o-success: $success;
+$o-info: $info;
+$o-warning: $warning;
+$o-danger: $danger;
+
+// Fine-tune contextual text colors.
+
+$o-theme-text-colors: (
+        "success": $o-success,
+        "info": $o-info,
+        "warning": $o-warning,
+        "danger":$o-danger,
+);
+
+$o-main-text-color: $base-color;
+$o-main-color-muted: rgba($o-main-text-color, .76) !default;
+$o-main-headings-color: $o-gray-900 !default;
+$o-main-link-color: $link-color;
+$o-main-favorite-color: $odoo-main-favorite-color;
+$o-main-code-color: $odoo-main-code-color;
+
+$o-view-background-color: $odoo-view-background-color;
+$o-shadow-color: $shadow-color;
+
+$o-form-lightsecondary: $odoo-form-lightsecondary;
+
+$o-list-footer-bg-color: $odoo-list-footer-bg-color;
+
+$o-list-footer-font-weight: bold !default;
+
+$o-tooltip-background-color: $odoo-tooltip-background-color;
+$o-tooltip-color: $odoo-tooltip-color;
+$o-tooltip-arrow-color: $odoo-tooltip-arrow-color;
+$o-tooltip-text-color: $odoo-tooltip-text-color;
+$o-tooltip-title-text-color: $odoo-tooltip-title-text-color;
+$o-tooltip-title-background-color: $odoo-tooltip-title-background-color;
+
+// Forms
+
+// o-inputs
+$o-input-padding-y: 2px !default;
+$o-input-padding-x: 4px !default;
+
+$o-input-border-required: $odoo-input-border-required;
+
+// Bootstrap clone, we just change the icon color
+$o-custom-checkbox-indicator-icon-checked-disabled: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$o-main-color-muted}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>") !default;
+
+// Layout
+//
+// Extension of BS4. This is not redefining the BS4 variable directly as we only
+// need the extra ones for media queries (not creating new breakpoint classes).
+// Note: default BS4 values are hardcoded here while it should be possible to
+// merge with the default BS variable (but we would have to take care of
+// ordering & cie).
+$o-extra-grid-breakpoints: (
+        xs: 0,
+        vsm: 475px,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1534px,
+) !default;
+$o-form-group-cols: 12 !default;
+$o-form-spacing-unit: 5px !default;
+$o-horizontal-padding: 16px !default;
+$o-innergroup-rpadding: 45px !default;
+$o-dropdown-hpadding: 20px !default;
+$o-dropdown-vpadding: 3px !default;
+$o-dropdown-box-shadow: $odoo-dropdown-box-shadow;
+
+$o-sheet-vpadding: 24px !default;
+
+$o-statbutton-height: 44px !default;
+$o-statbutton-vpadding: 0px !default;
+$o-statbutton-spacing: 6px !default;
+
+$o-modal-lg: 980px !default;
+$o-modal-md: 650px !default;
+
+// Needed for having no spacing between sheet and mail body in mass_mailing:
+// Different required cancel paddings between web and web_enterprise
+$o-sheet-cancel-tpadding: 0px !default;
+
+$o-avatar-size: 100px !default;
+
+$o-statusbar-height: 33px !default;
+
+$o-label-font-size-factor: 0.8 !default;
+$o-navbar-height: 46px !default;
+
+$o-nb-calendar-colors: 24 !default;
+
+$o-base-settings-mobile-tabs-height: 40px !default;
+$o-base-settings-mobile-tabs-overflow-gap: 3% !default;
+
+$o-cp-breadcrumb-height: 30px !default;
+
+$o-datepicker-week-color: $odoo-datepicker-week-color;
+
+$o-card-body-bg-opacity: 0.9 !default;
+
+// Kanban
+
+$o-kanban-default-record-width: 300px !default;
+$o-kanban-small-record-width: 240px !default;
+
+$o-kanban-header-title-height: 50px !default;
+
+$o-kanban-image-width: 64px !default;
+$o-kanban-image-fill-width: 95px !default;
+$o-kanban-inside-vgutter: 8px !default;
+$o-kanban-inside-hgutter: 8px !default;
+$o-kanban-color-border-width: 2px !default;
+$o-kanban-inner-hmargin: 5px !default;
+$o-kanban-progressbar-height: 20px !default;
+
+$o-kanban-mobile-tabs-height: 40px !default;
+$o-kanban-mobile-empty-height: $o-kanban-image-width !default;
+// ------- Kanban dashboard variables -------
+
+// Used to manage spacing in complex dropdown menu
+$o-kanban-dashboard-dropdown-complex-gap: 5px !default;
+
+// Form view
+
+$o-form-view-sheet-max-width: 1140px !default;
+
+$os-font-size-base-touch: 15px;
+$os-touch-btn-padding: 7px 14px;
+$os-form-sheet-min-width: 990px;
+$os-list-view-padding: 0.5rem 0.25rem;
+$o_cp_switch_buttons_font-family: $os-theme-icon-font;
+$fa-list-ul: $osi-list-thumb-fill;
+$fa-th-large: $osi-tile-thumb-fill;
+$fa-calendar: $osi-calender-date-fill;
+$fa-table: $osi-table-view-fill;
+$fa-bar-chart: $osi-bar-chart-fill;
+$fa-clock-o: $osi-clock-fill;
+
+$chart-palette-colors: (
+        "default": (#1f77b4, #ff7f0e, #aec7e8, #ffbb78, #2ca02c, #98df8a, #d62728, #ff9896, #9467bd, #c5b0d5, #8c564b, #c49c94, #e377c2, #f7b6d2, #7f7f7f, #c7c7c7, #bcbd22, #dbdb8d, #17becf, #9edae5),
+        "palette_1": (#7cb5ec, #434348, #90ed7d, #f7a35c, #8085e9, #f15c80, #e4d354, #2b908f, #f45b5b, #91e8e1, #2f7ed8, #0d233a, #8bbc21, #910000, #1aadce, #492970, #f28f43, #77a1e5, #c42525, #a6c96a),
+        "palette_2": (#98EECC, #B799FF, #F6BA6F, #EA8FEA, #386cb0, #FF55BB, #DC8449, #5BC0F8, #CDE990, #FFF6BD, #A555EC, #e7298a, #66a61e, #e6ab02, #a6761d, #006837, #B01E68, #8bd3c7, #eeb8b0, #c7c8ca),
+        "palette_3": (#fbb4ae, #b3cde3, #ccebc5, #decbe4, #fed9a6, #ffffcc, #e5d8bd, #fddaec, #f2f2f2, #b3e2cd, #fdcdac, #cbd5e8, #f4cae4, #e6f5c9, #fff2ae, #f1e2cc, #cccccc, #66c2a5, #fc8d62, #8da0cb),
+        "palette_4": (#FF0075, #77D970, #4421af, #1a53ff, #0d88e6, #00b7c7, #C32BAD, #28FFBF, #ebdc78, #fd7f6f, #7eb0d5, #b2e061, #bd7ebe, #ffb55a, #ffee65, #beb9db, #fdcce5, #8bd3c7, #eeb8b0, #c7c8ca),
+        "palette_5": (#4E79A7, #A0CBE8, #F28E2B, #FFBE7D, #59A14F, #8CD17D, #B6992D, #F1CE63, #499894, #86BCB6, #E15759, #FF9D9A, #79706E, #BAB0AC, #D37295, #FABFD2, #B07AA1, #D4A6C8, #9D7660, #D7B5A6),
+        "palette_6": (#7149C6, #FC2947, #2CD3E1, #B3FFAE, #FF55BB, #F5EA5A, #332FD0, #d5bb21, #30AADD, #FEB139, #f06719, #14C38E, #F806CC, #fc719e, #E3FCBF, #C70A80, #a26dc2, #E15FED, #FBFF00, #28FFBF),
+        "palette_7": (#ea5545, #f46a9b, #dc0ab4, #ef9b20, #9b19f5, #edbf33, #00bbb4, #50e991, #ede15b, #e60049, #e6d800, #bdcf32, #87bc45, #27aeef, #ffa300, #b3d4ff, #00bfa0, #b33dc6, #fd7f6f, #abadda),
+        "palette_8": (#25476d, #10505b, #b72c31, #c7c8ca, #d48207, #e36942, #353a71, #a8bed2, #a4beb2, #eeb8b0, #c7c8ca, #eaca96, #e9aa95, #abacca, #ffa300, #b3d4ff, #00bfa0, #b33dc6, #fd7f6f, #abadda),
+        "palette_9": (#282a36, #5C5470, #476D7C, #6272a4, #1D267D, #116D6E, #C74B50, #F73D93, #7A0BC0, #950101, #700B97, #5C3D2E, #6E85B2, #492970, #616F39, #C060A1, #0D7377, #B5076B, #9D7660, #FFC045),
+        "palette_10": (#6E40AA, #6054C8, #4C6EDB, #368CE1, #23ABD8, #1AC7C2, #1DDFA3, #30EF82, #52F667, #7FF658, #AFF05B, #C6D63C, #E2B72F, #FB9633, #FF7847, #FF5E63, #FE4B83, #E4419D, #BF3CAF, #963DB3),
+        "palette_11": (#25E892, #1FE29D, #1CDCA8, #1AD4B2, #19CDBC, #1AC4C5, #1DBBCD, #20B2D4, #25A8DA, #2B9EDE, #3194E0, #388AE1, #3F80E1, #4676DF, #4D6DDB, #5464D6, #5B5CCF, #6154C7, #664DBE, #6A46B4),
+        "palette_12": (#C5E5EF, #D5EDEF, #E2F3E8, #EEF8DB, #F6F9CB, #FBF6BA, #FEF0AA, #FEE59B, #FED98B, #FDCA7C, #FDB96E, #FBA761, #F99456, #F57F4B, #F06B42, #E85639, #DE4331, #D3312B, #C52028, #B51026),
+        "palette_13":(#F0704A, #F5814E, #F99456, #FBA65F, #FDB76A, #FDC676, #FED483, #FEE191, #FEEB9F, #FDF3AA, #FBF8B0, #F6FAAE, #EEF8A8, #E4F4A2, #D7EF9F, #C8E99F, #B6E2A1, #A3DAA3, #8FD2A4, #7CC8A6),
+        "palette_14": (#EFF9B6, #E7F6AE, #DEF2A8, #D3EDA1, #C7E89B, #BAE294, #ACDC8E, #9DD688, #8DCF81, #7DC87A, #6DC073, #5DB86B, #4EAF63, #41A65B, #369B53, #2C904C, #228645, #187C40, #0F733C, #086A38),
+        "palette_15": (#5D006F, #6F0174, #830178, #96027B, #A90880, #BC1386, #CD248E, #DC3796, #E74B9B, #F05FA0, #F673A6, #F887AC, #FA9AB3, #FBABB8, #FBBABE, #FCC6C5, #FCD2CE, #FCD2CE, #FEE5E2, #FEEEEB)
+);
+
+$border-radius-avatar:50%;

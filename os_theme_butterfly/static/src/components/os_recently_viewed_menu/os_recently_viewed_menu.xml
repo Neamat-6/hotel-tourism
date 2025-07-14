@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_recently_viewed_menu" owl="1">
+        <OS_Dropdown
+                class="os_recently_viewed_menu" position="'bottom-end'"
+                togglerClass="`os-quick-nav-icon`"
+                beforeOpen="getElements"
+                menuClass="'dropdown-menu-end dropdown-menu-s1'">
+            <t t-set-slot="toggler">
+                <div class="icon-status icon-status-na"
+                     data-tippy-content="Recently viewed records" data-tippy-placement="bottom">
+                    <em class="icon osi osi-eye"/>
+                </div>
+
+            </t>
+            <t t-if="records.length > 0">
+                <ul class="recently-viewed-list">
+                    <li t-foreach="records" t-as="record" t-key="record">
+                        <a role="menuitem" href="#"
+                           t-att-data-res_model="record.model"
+                           t-att-data-res_id="record.res_id"
+                           t-att-data-name="record.name"
+                           t-on-click="_onClickRecord"
+                           class="dropdown-item language-item">
+                            <span class="language-name">
+                                <t t-esc="record.name"/>
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+            </t>
+            <t t-else="">
+                <div class="text-center">
+                    <div class="pt-4 pb-4">
+                        <span class="svg-icon svg-icon-4x">
+                            <t t-call="os_theme_butterfly.no_os_recently_viewed"/>
+                        </span>
+                    </div>
+                    <div class="pb-5">
+                        <h3 class="fs-16px mb-2">No Recently views</h3>
+                    </div>
+                </div>
+            </t>
+
+        </OS_Dropdown>
+    </t>
+</templates>

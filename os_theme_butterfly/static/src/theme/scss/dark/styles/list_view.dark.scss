@@ -1,0 +1,32 @@
+
+.o_list_view .o_list_table thead > tr > th:not(.o_list_record_selector) {
+  border-color: $border-color;
+}
+
+.o_list_view .o_list_table .o_data_row.o_selected_row > .o_data_cell:not(.o_readonly_modifier):not(.o_invisible_modifier):not(.o_handle_cell) {
+  background-color: transparent;
+}
+
+
+$color-section: lighten($odoo-view-background-color, 5%);
+$border-color-section: darken($color-section, 2%);
+table.o_section_and_note_list_view tr.o_data_row.o_is_line_section,
+div.oe_kanban_card.o_is_line_section {
+  background-color: $color-section;
+}
+
+table.o_section_and_note_list_view tr.o_data_row.o_is_line_section {
+  border-top: 1px solid $border-color-section;
+  border-bottom: 1px solid $border-color-section;
+}
+
+table.o_section_list_view tr.o_data_row.o_is_line_section {
+  background-color: $color-section;
+  border-top: 1px solid $border-color-section;
+  border-bottom: 1px solid $border-color-section;
+}
+
+.o_list_view tbody > tr.o_group_header {
+  background-image: linear-gradient(to bottom, lighten($odoo-view-background-color, 5%), darken($odoo-view-background-color, 5%)) !important;
+  color: color-yiq(darken($odoo-view-background-color, 5%)) !important;
+}

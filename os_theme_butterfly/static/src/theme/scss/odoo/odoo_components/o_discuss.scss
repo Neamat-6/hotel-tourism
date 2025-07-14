@@ -1,0 +1,461 @@
+
+.o_Discuss {
+  background: $o-view-background-color !important;
+  margin-top: -1px;
+  @extend .mb-n4;
+  border: 0;
+  border-top: 1px solid $border-color !important;
+  border-bottom: 1px solid $border-color !important;
+  height: calc(100vh - #{$header-height});
+
+
+  .os_Discuss_Sidebar_shown {
+    .os-ibx-aside {
+
+    }
+
+  }
+
+  .o_MessageList:not(.o-empty) {
+    padding: 0;
+  }
+
+  .o_MessageList_separator {
+    @extend .border-bottom;
+    @extend .pb-4;
+
+    .o_MessageList_separatorLine {
+      border-color: lighten($border-color, 3%);
+    }
+  }
+
+  .o_DiscussSidebar {
+    height: 100vh;
+    margin-top: -1px;
+  }
+
+  .o_Discuss_content {
+    flex-flow: initial !important;
+  }
+
+  .o_ThreadViewTopbar_button {
+
+    @extend .btn;
+    @extend .btn-icon;
+    @extend .btn-trigger;
+    @extend .px-0;
+    @extend .ml-2;
+
+    i {
+      @extend .osi;
+      @extend .icon;
+      color: $accent-color !important;
+
+      &.fa-phone {
+        &::before {
+          content: $osi-call-fill !important;
+        }
+      }
+
+      &.fa-video-camera {
+        &::before {
+          content: $osi-video-fill !important;
+        }
+      }
+
+      &.fa-user-plus {
+        &::before {
+          content: $osi-user-add-fill !important;
+        }
+      }
+
+      &.fa-users {
+        &::before {
+          content: $osi-users-fill !important;
+        }
+      }
+
+    }
+
+  }
+
+
+  .o_DiscussSidebar_category {
+
+    .o_DiscussSidebarMailbox {
+      padding: .5rem .75rem !important;
+
+      &.o-active, &:hover {
+        background-color: transparent !important;
+
+        .o_DiscussSidebarMailbox_item:not(.o_DiscussSidebarMailbox_counter) {
+          color: $accent-color !important;
+        }
+
+      }
+
+      .o_ThreadIcon {
+
+        .fa {
+          @extend .osi;
+        }
+
+        font-size: 1.25rem !important;
+        line-height: 1.5rem !important;
+        width: 2rem !important;
+        color: $base-light !important;
+
+        .o_ThreadIcon_mailboxInbox {
+          &::before {
+            content: $osi-inbox;
+          }
+        }
+
+        .o_ThreadIcon_mailboxStarred {
+          &::before {
+            content: $osi-star-fill;
+          }
+        }
+
+        .o_ThreadIcon_mailboxHistory {
+          &::before {
+            content: $osi-histroy;
+          }
+        }
+      }
+
+      .o_DiscussSidebarMailbox_name {
+        font-size: 1rem;
+        color: $base-text;
+        font-weight: $fw-medium;
+        line-height: 1.5rem;
+      }
+    }
+
+    .o_DiscussSidebarCategory_headerItem:last-child {
+      margin-right: 0;
+    }
+
+    .o_DiscussSidebarCategoryItem {
+
+      &:hover {
+        background-color: transparent !important;
+        color: $accent-color !important;
+      }
+
+      &.o-active {
+        background-color: transparent !important;
+
+        .o_DiscussSidebarCategoryItem_name {
+          color: $accent-color !important;
+        }
+      }
+
+      .o_DiscussSidebarCategoryItem_name {
+        font-size: 1rem;
+        color: $base-text;
+        font-weight: $fw-medium;
+        line-height: 1.5rem;
+      }
+
+
+    }
+
+    .o_DiscussSidebarCategory_titleText {
+      font-size: 1rem;
+      text-transform: capitalize;
+      font-weight: bolder;
+    }
+
+    .o_DiscussSidebarCategory_command {
+      @extend .osi;
+      color: $base-light;
+      font-size: 1rem;
+
+      &.o_DiscussSidebarCategory_commandAdd {
+        &::before {
+          content: $osi-plus-c !important;
+
+        }
+      }
+
+      &.o_DiscussSidebarCategory_commandView {
+        &::before {
+          content: $osi-setting-fill !important;
+
+        }
+      }
+
+      .o_DiscussSidebarCategoryItem_command {
+        color: $base-light;
+
+      }
+
+    }
+
+
+  }
+
+  .o_DiscussSidebarCategoryItem_threadIcon {
+    height: 12px;
+    width: 12px;
+  }
+
+
+  .o_DiscussSidebarCategoryItem_counter {
+    @extend .bg-primary;
+  }
+
+  .o_DiscussSidebarCategoryItem_item:last-child {
+    margin-right: 8px;
+  }
+
+
+  .o_MessageList {
+    background-color: $o_MessageList_bg;
+    padding: 1.25rem 1.75rem;
+
+    .o_Message {
+      margin: 0 !important;
+      transition: background-color .5s ease-out;
+      @extend .p-2;
+      @extend .border-bottom;
+
+    }
+
+    .o_Message_headerDate {
+      margin-inline-end: 0;
+    }
+
+    .o_Message_authorName {
+      font-weight: 400;
+      font-size: 0.8rem;
+    }
+
+    .o_MessageList_separatorLabel {
+
+      background-color: transparent !important;
+      position: relative;
+      display: inline-block;
+      padding: 0 .75rem;
+      color: #8094ae;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+  }
+
+  .o_Composer {
+    background: $o-view-background-color !important;
+    @extend .border-top;
+
+    .o_Composer_toolButton {
+      background: transparent !important;
+      border: 0 !important;
+      padding: 0.1rem;
+      line-height: 1;
+      @extend .btn-icon;
+      @extend .text-primary;
+      @extend .p-1;
+
+      &.fa {
+        font-size: 1.333rem !important;
+      }
+
+      i {
+        @extend .osi;
+        font-size: 1.5rem;
+
+        &.fa-smile-o {
+          &::before {
+            content: $osi-happyf-fill !important;
+          }
+        }
+      }
+
+
+    }
+  }
+
+  .chat-to-reply {
+    border-left: 2px solid;
+    border-color: #0971fe;
+    padding: 0.25rem;
+    max-height: 82px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 0.25rem;
+    color: $base-text !important;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+  }
+
+  .o_MessageInReplyToView {
+    padding-left: 0;
+    padding-top: 0 !important;
+    max-height: 60px;
+    overflow: hidden;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+    &::before {
+      content: none !important;
+    }
+
+  }
+
+  .o_Message_actionListContainer {
+    position: absolute !important;
+    display: inline-flex !important;
+    top: -30px !important;
+  }
+
+  .chat.is-you {
+    .chat-to-reply {
+      border-color: $accent-color;
+      background-color: #dfdfdf;
+      color: $base-text !important;
+    }
+
+    .o_MessageInReplyToView_author {
+      color: $base-text !important;
+
+    }
+
+    .o_MessageInReplyToView_body {
+      color: $base-text !important;
+    }
+
+    .o_Message_actionListContainer {
+      left: 0 !important;
+      display: inline-flex !important;
+    }
+
+  }
+
+  .chat.is-me {
+    .chat-msg {
+      background-color: #dfdfdf;
+      color: $base-text !important;
+
+    }
+  }
+
+  .o_Message_actionListContainer {
+    .o_MessageActionList_action {
+      border-radius: 25px !important;
+    }
+
+    .o_MessageActionList {
+      border-radius: 25px !important;
+      border: 1px solid $border-color !important;
+    }
+  }
+
+  .o_DiscussSidebarMailbox_counter {
+    background-color: $teal !important;
+    border-color: $teal !important;
+    color: color-yiq($teal) !important;
+
+    &:hover {
+      background-color: darken($teal, 10%);
+      color: color-yiq($teal) !important;
+
+    }
+  }
+
+  .o_MessageList_empty {
+    img {
+      opacity: .8;
+    }
+
+    color: inherit;
+  }
+
+
+  .o_Discuss_mobileMailboxSelection {
+    button {
+      border-radius: 0 !important;
+    }
+  }
+
+  .o_Discuss_mobileNewChatButton, .o_Discuss_mobileNewChannelButton {
+    @extend .my-2;
+    @extend .btn-primary;
+
+  }
+
+  @include media-breakpoint-down(sm) {
+
+    .o_DiscussMobileMailboxSelection_button {
+      border-right: 1px solid darken($accent-color, 10%);
+    }
+
+    .o_Composer_buttonSend {
+      border-radius: 0 !important;
+    }
+
+    span.o_ThreadPreview_coreItem.o_ThreadPreview_inlineText {
+      white-space: normal !important;
+    }
+
+    .o_ThreadPreview {
+      &.o-muted {
+        background-color: transparent !important;
+      }
+
+      &:first-child {
+        border-top: 1px solid $border-color;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $border-color;
+      }
+    }
+  }
+}
+
+.o_DiscussSidebar_separator {
+  border: 0
+}
+
+.o_MobileMessagingNavbar {
+  background-color: $odoo-view-background-color;
+  box-shadow: none !important;
+  border-top: 1px solid $border-color;
+}
+
+.o_MobileMessagingNavbar_tab {
+  box-shadow: none !important;
+  border-right: 1px solid $border-color;
+  cursor: pointer;
+}
+
+.o_ThreadView {
+  background-color: white;
+}
+
+.o_Composer_actionButton.o-last.o-has-current-partner-avatar.o-composer-is-compact {
+  border-radius: 0 $o-mail-rounded-rectangle-border-radius-lg $o-mail-rounded-rectangle-border-radius-lg 0 !important;
+}
+
+.o_Composer_buttonSend {
+  border-radius: 0 !important;
+}
+
+.o_ChatWindowManager {
+  z-index: 1020;
+}
+
+.o_MessageInReplyToView {
+
+  &::before {
+    content: none !important;
+  }
+
+}

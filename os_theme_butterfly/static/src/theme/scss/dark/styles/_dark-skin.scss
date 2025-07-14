@@ -1,0 +1,307 @@
+// DARK STYLE 
+
+.dark-mode {
+  .logo {
+    &-dark {
+      opacity: 0;
+    }
+
+    &-light {
+      opacity: 1;
+    }
+  }
+
+  $bg-mix: $dark-card-bg;
+  $bg-colors: "dark" $light-100,
+  "blue-dim" mix($blue, $bg-mix, 15%),
+  "azure-dim" mix($azure, $bg-mix, 15%),
+  "indigo-dim" mix($indigo, $bg-mix, 15%),
+  "purple-dim" mix($purple, $bg-mix, 15%),
+  "pios-dim" mix($pink, $bg-mix, 15%),
+  "orange-dim" mix($orange, $bg-mix, 15%),
+  "teal-dim" mix($teal, $bg-mix, 15%),
+    // for bootstrap
+  "primary-dim" mix($accent-color, $bg-mix, 15%),
+  "success-dim" mix($success, $bg-mix, 15%),
+  "info-dim" mix($info, $bg-mix, 15%),
+  "warning-dim" mix($warning, $bg-mix, 15%),
+  "danger-dim" mix($danger, $bg-mix, 15%),
+  "secondary-dim" mix($secondary, $bg-mix, 20%),
+  "dark-dim" mix($dark, $bg-mix, 15%),
+  "gray-dim" mix($gray-500, $bg-mix, 15%),
+  "btc-dim" mix($brand-color-bitcoin, $bg-mix, 15%),
+  "eth-dim" mix($brand-color-ethereum, $bg-mix, 15%);
+
+  @each $name, $background in $bg-colors {
+    .bg-#{$name} {
+      background-color: $background !important;
+    }
+  }
+
+  $alert-mix: lighten($dim-mix, 20%);
+  $alerts-dark: "primary" darken($primary, 20%) lighten(mix($primary, $alert-mix, 15%), 20%),
+  "secondary" lighten($secondary, 35%) lighten(mix($secondary, $alert-mix, 20%), 10%),
+  "success" $success mix($success, $alert-mix, 15%),
+  "warning" $warning mix($warning, $alert-mix, 15%),
+  "info" $info mix($info, $alert-mix, 15%),
+  "danger" $danger mix($danger, $alert-mix, 15%),
+  "gray" $gray-700 mix($gray-700, $alert-mix, 15%),
+  "dark" $dark lighten(mix($dark, $alert-mix, 15%), 10%),
+  "light" $light-100 lighten(mix($light-500, $alert-mix, 15%), 10%);
+
+  @each $name, $color, $background in $alerts-dark {
+    .alert-#{$name} {
+      color: $color;
+      background-color: $background;
+      border-color: darken($background, 5%);
+
+      hr {
+        border-top-color: $background;
+      }
+
+      .alert-link {
+        color: darken($color, 10%);
+      }
+    }
+    .alert-fill.alert-#{$name} {
+      color: color-contrast($color);
+      background: $color;
+
+      .alert-link {
+        color: color-contrast($color);
+      }
+    }
+    .alert-pro.alert-#{$name} {
+      border-color: $color;
+    }
+  }
+
+  $dim-mix: $dark-card-bg;
+  $dim-badge: map-merge(
+                  $theme-colors,
+                  (
+                          "secondary": lighten($secondary, 35%),
+                          "dark": $light,
+                          "light": $light-400,
+                          "lighter": $light-500
+                  )
+  );
+
+  @each $name, $color in $dim-badge {
+    .badge-dim.bg-#{$name} {
+      color: $color;
+      background-color: mix($color, $dim-mix, 15%) !important;
+      border-color: mix($color, $dim-mix, 15%);
+    }
+    .badge-dim.bg-outline-#{$name} {
+      color: $color;
+      background-color: mix($color, $dim-mix, 15%);
+      border-color: mix($color, $dim-mix, 40%);
+    }
+  }
+
+  .bg-outline-secondary, .badge-dot.bg-dark, .badge-dot.bg-secondary {
+    color: $light-400;
+  }
+
+  .bg-outline-dark {
+    color: $light;
+    border-color: $light;
+  }
+
+  .bg-outline-light {
+    color: $light-400;
+    border-color: $light-700;
+  }
+
+  .badge-dot.bg-dark, .badge-dot.bg-light {
+    background-color: transparent !important;
+  }
+
+  .badge-dot.bg-light {
+    color: $light-500;
+  }
+
+  .bg-light, .code-block .btn {
+      color: $light !important;
+    background: $light-700 !important;
+    border-color: $light-700 !important;
+  }
+
+  .bg-dark {
+    color: $dark;
+    background: $light-200;
+    border-color: $light-200;
+  }
+
+
+  .accordion-item {
+    background: $dark-card-bg !important;
+  }
+
+  .form-file-label {
+    background: $dark-body-bg !important;
+    color: $base-400;
+  }
+
+  .icon-overlap li {
+    border-color: $dark-card-bg;
+  }
+
+  .os-menu-badge {
+    color: $light-300;
+    background: lighten($dark-card-bg, 12%);
+  }
+
+  .is-dark .os-menu-badge {
+    color: $accent-200;
+  }
+
+  .is-dark .os-menu-badge {
+    color: $accent-400;
+  }
+
+
+  .dropdown-menu {
+
+    &-s1 {
+      border-top-color: $accent-color !important;
+    }
+
+    .dropdown-item {
+      color: $dropdown-color;
+    }
+  }
+
+  .link-list-plain a, .link-list-opt a, .link-check li a {
+    color: $base-300;
+
+    &:hover {
+      background: lighten($dark-card-bg, 12%);
+    }
+  }
+
+
+  .border-transparent {
+    border-color: transparent !important;
+  }
+
+  .os-notification-text span, .is-unread .chat-context .text {
+    color: $base-200;
+  }
+
+
+  .link-list-menu a, .list-plain a {
+    color: $base-400;
+
+    &:hover, &.active {
+      color: $accent-color;
+    }
+  }
+
+  $colors: (
+          "primary-dim" mix($accent-color, $bg-mix, 15%),
+          "success-dim" mix($success, $bg-mix, 15%),
+          "info-dim" mix($info, $bg-mix, 15%),
+          "warning-dim" mix($warning, $bg-mix, 15%),
+          "danger-dim" mix($danger, $bg-mix, 15%),
+          "secondary-dim" mix($secondary, $bg-mix, 20%),
+          "dark-dim" mix($dark, $bg-mix, 15%),
+          "blue-dim" mix($blue, $bg-mix, 15%),
+          "azure-dim" mix($azure, $bg-mix, 15%),
+          "indigo-dim" mix($indigo, $bg-mix, 25%),
+          "purple-dim" mix($purple, $bg-mix, 15%),
+          "pios-dim" mix($pink, $bg-mix, 15%),
+          "orange-dim" mix($orange, $bg-mix, 15%),
+          "teal-dim" mix($teal, $bg-mix, 15%)
+  );
+
+
+  .card.bg-light .card-header, .card.bg-lighter .card-header {
+    background: rgba($black, .2);
+  }
+
+  .os-tb-list.is-separate .os-tb-item > .os-tb-col {
+    border-top-color: $dark-border-color;
+    border-bottom-color: $dark-border-color;
+
+    &:first-child {
+      border-left-color: $dark-border-color;
+    }
+
+    &:last-child {
+      border-right-color: $dark-border-color;
+    }
+  }
+
+  .modal-footer.bg-light {
+    background-color: darken($dark-card-bg, 2%) !important;
+  }
+
+  .os-sidebar-overlay {
+    background: rgba($black, .6);
+  }
+
+  .modal-backdrop {
+    opacity: .9;
+    background: rgba($black, .9);
+  }
+
+
+  .os-tb-list.is-separate .os-tb-item > .os-tb-col,
+  .os-tb-list.is-separate .os-tb-item:hover .os-tb-action-hidden {
+    background-color: $dark-card-bg;
+  }
+
+  .os-tb-list .tb-product .title {
+    color: $white;
+  }
+
+
+  // common
+  .input-group-addon {
+    background-color: lighten($dark-card-bg, 4%);
+    border-color: lighten($dark-card-bg, 20%);
+  }
+
+  .border-light {
+    border-color: $dark-border-color !important;
+  }
+
+  div.dt-button-info {
+    background-color: $dark-card-bg;
+  }
+
+  div.dt-button-info h2 {
+    background-color: darken($dark-card-bg, 3%);
+  }
+
+  div.dt-button-info h2 {
+    border-color: $dark-border-color;
+  }
+
+
+  //   autocomplete indicator
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: $white;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}
+
+@media (max-width: 576px) {
+  .dark-mode {
+    .os-block-tools-toggle {
+      .toggle-expand-content {
+        background-color: lighten($dark-card-bg, 7%);
+      }
+    }
+  }
+}

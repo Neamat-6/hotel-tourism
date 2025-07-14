@@ -1,0 +1,61 @@
+.o_activity_view {
+
+  > table {
+    background-color: $odoo-view-background-color;
+  }
+
+  .o_activity_summary_cell {
+    background-color: $odoo-view-background-color;
+
+    &.planned {
+      background-color: desaturate(theme-color('success'), 40%);
+    }
+
+    &.overdue {
+      background-color: desaturate(theme-color('danger'), 40%);
+    }
+
+    &.today {
+      background-color: desaturate(theme-color('warning'), 40%);
+    }
+
+
+    .dropdown-toggle {
+      .o_closest_deadline {
+        color: #111;
+      }
+    }
+
+    &.o_activity_empty_cell {
+
+
+      &:hover {
+        background-color: lighten($odoo-view-background-color, 5%);
+
+        > i {
+          color: color-yiq(lighten($odoo-view-background-color, 5%));
+        }
+      }
+    }
+
+
+  }
+
+
+  .o_activity_filter_planned {
+    background-color: mix(theme-color('success'), $o-webclient-background-color, 5%);
+  }
+
+  .o_activity_filter_today {
+    background-color: mix(theme-color('warning'), $o-webclient-background-color, 5%);
+  }
+
+  .o_activity_filter_overdue {
+    background-color: mix(theme-color('danger'), $o-webclient-background-color, 5%);
+  }
+
+  .o_record_selector {
+    color: $accent-color;
+  }
+
+}

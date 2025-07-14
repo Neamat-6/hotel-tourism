@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="os_theme_butterfly.OS_Dropdown" owl="1">
+    <div
+            class="o-dropdown dropdown"
+            t-att-class="{ show: state.open, 'o-dropdown--no-caret': !hasParentDropdown }"
+            t-attf-class="{{ directionCaretClass || '' }}"
+            t-on-dropdown-item-selected="onItemSelected"
+    >
+      <a
+              t-if="props.toggler !== 'parent'"
+              class="dropdown-toggle"
+              t-attf-class="{{props.togglerClass || ''}} {{hasParentDropdown ? 'dropdown-item' : ''}}"
+              t-on-click="onTogglerClick"
+              t-on-mouseenter="onTogglerMouseEnter"
+              t-att-title="props.title"
+              t-att-data-hotkey="props.hotkey"
+              t-ref="togglerRef"
+      >
+        <t t-slot="toggler"/>
+      </a>
+        <div t-if="state.open" class="o-dropdown--menu dropdown-menu d-block" t-att-class="props.menuClass" t-ref="menuRef">
+            <t t-slot="top_dropdwon"/>
+            <t t-slot="default"/>
+            <t t-slot="bottom_dropdwon"/>
+
+      </div>
+    </div>
+  </t>
+
+
+
+</templates>

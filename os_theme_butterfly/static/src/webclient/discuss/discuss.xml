@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="mail.Discuss" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_Discuss')]" position="attributes">
+            <attribute name="class" add="os-ibx os-ibx-aside-shown" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_Discuss_content')]" position="attributes">
+            <attribute name="class" add="os-ibx-body" separator=" "/>
+        </xpath>
+
+    </t>
+
+    <t t-inherit="mail.DiscussSidebar" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'justify-content-center')]" position="attributes">
+            <attribute name="class" remove="d-flex justify-content-center" add="os-ibx-head" separator=" "/>
+        </xpath>
+        <xpath expr="//button[contains(@class, 'o_DiscussSidebar_startAMeetingButton')]" position="replace">
+            <button class="o_DiscussSidebar_startAMeetingButton link link-text" title="Start a meeting" t-on-click="discuss.onClickStartAMeetingButton" t-ref="startAMeetingButton">
+                <em class="icon-circle icon osi osi-plus mr-2"/>
+                Start a meeting
+            </button>
+        </xpath>
+
+        <xpath expr="//div[contains(@class, 'o_DiscussSidebar')]" position="attributes">
+            <attribute name="class" add="os-ibx-aside pt-0" separator=" "/>
+            <attribute name="data-content" add="inbox-aside" separator=" "/>
+        </xpath>
+    </t>
+
+    <t t-inherit="mail.ThreadViewTopbar" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'o_ThreadViewTopbar')]" position="attributes">
+            <attribute name="class" add="os-ibx-head " separator=" "/>
+        </xpath>
+        <xpath expr="//div[contains(@class, 'o_ThreadViewTopbar_actions')]" position="inside">
+           <a href="#" class="btn btn-icon ms-3 d-none d-md-block" t-on-click="onClickToggleSidebar" data-target="inbox-aside"><i class="icon osi osi-menu-alt-r"/></a>
+        </xpath>
+        <xpath expr="//div[contains(@class, 'o_ThreadViewTopbar_actions')]" position="attributes">
+            <attribute name="class" add="os-ibx-head-tools" separator=" "/>
+        </xpath>
+    </t>
+
+    <t t-inherit="mail.DiscussSidebarCategory" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'o_DiscussSidebarCategory_content')]" position="attributes">
+            <attribute name="class" add="os-ibx-label" separator=" "/>
+        </xpath>
+        <xpath expr="//div[contains(@class, 'o_DiscussSidebarCategory_header')]" position="attributes">
+            <attribute name="class" add="os-ibx-nav-head" separator=" "/>
+        </xpath>
+    </t>
+
+    <t t-inherit="mail.MessageList" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='threadView.thread === messaging.inbox']//div" position="before">
+            <t t-call="os_theme_butterfly.empty_inbox"/>
+        </xpath>
+    </t>
+
+    <t t-inherit="mail.DiscussMobileMailboxSelection" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('o_DiscussMobileMailboxSelection_button')]" position="attributes">
+            <attribute name="class" remove="btn-secondary" add="btn-primary" separator=" "/>
+        </xpath>
+    </t>
+
+</templates>

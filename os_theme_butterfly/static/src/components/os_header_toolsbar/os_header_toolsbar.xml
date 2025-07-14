@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.OsHeaderToolsBar" owl="1">
+        <div class="os-header-toolsbar border-bottom"
+             t-att-class="(themeUserService.os_theme_mode=='dark-mode' ? 'is-dark': themeUserService.os_header_style) + ' ' + (themeUserService.os_header_tools_bar_fixed ? 'is-fixed': '') ">
+            <div class="os-header-toolsbar-wrapper">
+                <ul class="os-header-toolsbar-left h-100 os-quick-nav">
+                    <t t-call="os_theme_butterfly.search_menus_nav"/>
+                    <OsQuickCreate t-if="themeUserService.os_show_quick_create"/>
+                </ul>
+                <ul class="os-header-toolsbar-right h-100 os-quick-nav justify-content-end ">
+                    <Os_todo_menu/>
+                    <OsFavoriteAppMenu t-if="themeUserService.os_display_favorite_apps"/>
+                    <OsBookmarkMenu t-if="themeUserService.os_display_bookmarks"/>
+                    <OsRecentlyViewedMenu t-if="themeUserService.os_display_recently_viewed_records"/>
+                </ul>
+            </div>
+        </div>
+    </t>
+</templates>

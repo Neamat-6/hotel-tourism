@@ -1,0 +1,10 @@
+@if $use_base_google_font == True {
+
+  @import url('https://fonts.googleapis.com/css?family=#{unquote($base_google_font_family)}:300,400,600,700');
+}
+
+@if $use_alt_google_font == True {
+
+  @import url("https://fonts.googleapis.com/css?family=#{unquote($alt_google_font_family)}:300,400,600,700");
+
+}

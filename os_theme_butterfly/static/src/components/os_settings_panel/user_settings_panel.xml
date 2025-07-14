@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="os_theme_butterfly.os_settings_panel_user" owl="1">
+        <div class="os-settings-panel toggle-slide toggle-slide-right" data-content="userSettingPanel" data-toggle-overlay="true" data-toggle-body="true" data-toggle-screen="any">
+            <div class="os-settings-head justify-content-between">
+                <h6 class="mb-0">User Theme Settings</h6>
+                <a class="os-settings-close toggle btn btn-icon btn-trigger mr-n2" data-target="userSettingPanel" href="#">
+                    <em class="icon osi osi-cross"/>
+                </a>
+            </div>
+            <div class="os-opt-panel" data-simplebar="">
+                <ul class="nav navigation px-2 nav-tabs nav-tabs-sm custom_nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#user-genral-settings">General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#user-features-settings">Features</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="user-genral-settings" data-simplebar="">
+                        <div class="os-opt-set">
+                            <div class="os-opt-set-title">Home action</div>
+                            <div class="os-opt-list col-2x mt-1">
+                                <div class="os-opt-item row no-gutters only-text text-left align-items-center" style="width: 100%;" t-ref="os_home_action">
+                                    <div class="col-5">
+                                        <label class="form-label mb-0" for="os_home_action">Action</label>
+                                    </div>
+                                    <div class="col-7">
+                                        <input type="text" class="form-control" t-ref="home_action_input" id="home_action_input"
+                                               t-att-value="themeService.os_home_action_name and themeService.os_home_action_name or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-set">
+                            <div class="os-opt-set-title">Navigation style</div>
+                            <div class="os-opt-list col-2x mt-1">
+                                <div class="os-opt-item only-text" t-att-class="themeService.os_show_sidebar ? 'active' : ''" data-key="navigation_style" data-update="vertical">
+                                    <span class="os-opt-item-bg">
+                                        <span class="os-opt-item-name">Vertical</span>
+                                    </span>
+                                </div>
+                                <div class="os-opt-item only-text" t-att-class="!themeService.os_show_sidebar ? 'active' : ''" data-key="navigation_style" data-update="horizontal">
+                                    <span class="os-opt-item-bg">
+                                        <span class="os-opt-item-name">Horizontal </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-set os-opt-set-header">
+                            <div class="os-opt-set-title">Header Style</div>
+                            <div class="os-opt-list col-4x mt-1">
+                                <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-light' ? 'active' : ''" data-key="header" data-update="is-light">
+                                    <span class="os-opt-item-bg is-light">
+                                        <span class="bg-lighter"/>
+                                    </span>
+                                    <span class="os-opt-item-name">White</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-gray-light' ? 'active' : ''" data-key="header" data-update="is-gray-light">
+                                    <span class="os-opt-item-bg is-light">
+                                        <span class="bg-light"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Light</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-dark' ? 'active' : ''" data-key="header" data-update="is-dark">
+                                    <span class="os-opt-item-bg">
+                                        <span class="bg-dark"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Dark</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_header_style =='is-theme' ? 'active' : ''" data-key="header" data-update="is-theme">
+                                    <span class="os-opt-item-bg">
+                                        <span class="bg-theme"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Theme</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-set os-opt-set-aside" t-ref="sidebar_style" style="display:none;">
+                            <div class="os-opt-set-title">Sidebar Style</div>
+                            <div class="os-opt-list col-4x mt-1">
+                                <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-light' ? 'active' : ''" data-key="aside" data-update="is-light">
+                                    <span class="os-opt-item-bg is-light">
+                                        <span class="bg-lighter"/>
+                                    </span>
+                                    <span class="os-opt-item-name">White</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-gray-light' ? 'active' : ''" data-key="aside" data-update="is-gray-light">
+                                    <span class="os-opt-item-bg is-light">
+                                        <span class="bg-light"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Light</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-dark' ? 'active' : ''" data-key="aside" data-update="is-dark">
+                                    <span class="os-opt-item-bg">
+                                        <span class="bg-dark"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Dark</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_sidebar_style =='is-theme' ? 'active' : ''" data-key="aside" data-update="is-theme">
+                                    <span class="os-opt-item-bg">
+                                        <span class="bg-theme"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Theme</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-set">
+                            <div class="os-opt-set-title">Chatter position</div>
+                            <div class="os-opt-list col-2x mt-1">
+                                <div class="os-opt-item only-text" t-att-class="themeService.os_chatter_position == 'normal' ? 'active' : ''" data-key="os_chatter_position" data-update="normal">
+                                    <span class="os-opt-item-bg">
+                                        <span class="os-opt-item-name">Normal</span>
+                                    </span>
+                                </div>
+                                <div class="os-opt-item only-text" data-tippy-content="Chatter will be sided when screen is 1200px or larger" data-tippy-placement="top" t-att-class="themeService.os_chatter_position == 'sided' ? 'active' : ''" data-key="os_chatter_position" data-update="sided">
+                                    <span class="os-opt-item-bg">
+                                        <span class="os-opt-item-name">Sided</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="os-opt-set d-none">
+                            <div class="os-opt-set-title">Theme Mode</div>
+                            <div class="os-opt-list col-2x mt-1">
+                                <div class="os-opt-item" t-att-class="themeService.os_theme_mode =='light-mode' ? 'active' : ''" data-key="mode" data-update="light-mode">
+                                    <span class="os-opt-item-bg is-light">
+                                        <span class="theme-light"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Light Skin</span>
+                                </div>
+                                <div class="os-opt-item" t-att-class="themeService.os_theme_mode =='dark-mode' ? 'active' : ''" data-key="mode" data-update="dark-mode">
+                                    <span class="os-opt-item-bg">
+                                        <span class="theme-dark"/>
+                                    </span>
+                                    <span class="os-opt-item-name">Dark Skin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="user-features-settings" data-simplebar="">
+                        <div class="os-opt-set">
+                            <div class="custom-control custom-switch mb-3 col-12" t-ref="div_same_icons">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.same_icons" id="user_same_icons"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_same_icons">Use same Apps icons in Sidebar</label>
+                            </div>
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_header_tools_bar_fixed" id="user_header_tools_bar_fixed"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_header_tools_bar_fixed">Fixed Header Tools bar</label>
+                            </div>
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_dbl_click_edit" id="user_dbl_click_edit"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_dbl_click_edit">DblClick Edit Form View</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_todo_list" id="user_display_todo_list"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_todo_list">TODO List</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_bookmarks" id="user_display_bookmarks"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_bookmarks">Bookmarks</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_favorite_apps" id="user_display_favorite_apps"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_favorite_apps">Favorite Apps</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_show_quick_create" id="user_show_quick_create"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_show_quick_create">Quick Create</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_recently_viewed_records" id="user_display_recently_viewed_records"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_recently_viewed_records">Recently viewed records</label>
+                            </div>
+
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_zoom_in_out" id="user_display_zoom_in_out"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_zoom_in_out">Zoom In/Out</label>
+                            </div>
+                            <div class="custom-control custom-switch mb-3 col-12">
+                                <input type="checkbox" class="custom-control-input" t-att-checked="themeService.os_display_full_screen" id="user_display_full_screen"/>
+                                <label class="custom-control-label os-opt-set-title text-capitalize" for="user_display_full_screen">Full Screen</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="os-opt-reset d-flex justify-content-between">
+                    <a href="#" class="reset-opt-setting text-danger" t-on-click="userResetThemeSettings">
+                        <span>Reset Setting</span>
+                    </a>
+                    <a href="#" class="btn bg-primary reset-opt-setting" t-on-click="userSaveThemeSettings">
+                        <span>Apply Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

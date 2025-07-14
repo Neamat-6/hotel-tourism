@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!--================== FieldStatus ==========================  -->
+    <t t-name="os_theme_butterfly.FieldStatusMobile">
+        <button type="button" class="btn btn-primary dropdown-toggle mr-1" data-toggle="dropdown">
+            <t t-if="status" t-esc="status.display_name"/>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end p-1" role="menu">
+            <t t-foreach="selection" t-as="i">
+                <t t-call="FieldStatus.content.button">
+                    <t t-set="is_dropdown" t-value="true"/>
+                </t>
+            </t>
+        </div>
+    </t>
+</templates>

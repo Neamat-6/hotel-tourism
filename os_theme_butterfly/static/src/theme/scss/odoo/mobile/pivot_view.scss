@@ -1,0 +1,53 @@
+//Pivot view
+@include media-breakpoint-down(sm) {
+  .o_legacy_pivot {
+    height: 100%;
+
+    .o_pivot_field_menu {
+      left: 0 !important;
+
+      .dropdown-item {
+        padding-top: 15px;
+        padding-bottom: 15px;
+
+        &.o_pivot_field_selection::after {
+          top: 21px;
+        }
+      }
+
+      &.show > .o_inline_dropdown > .dropdown-menu {
+        top: initial !important;
+        left: 5% !important;
+        width: 95%;
+      }
+    }
+
+    .o_pivot_field_selection::after {
+      @include o-caret-down;
+    }
+  }
+  .o_pivot {
+    height: 100%;
+
+    .dropdown.show {
+      > .dropdown-toggle::after {
+        @include o-caret-down;
+      }
+    }
+
+    th > .o_group_by_menu > .dropdown-menu {
+      .dropdown-item {
+        .dropdown-toggle::after {
+          top: 12px;
+        }
+
+        .dropdown-menu {
+          top: initial !important;
+          left: 5% !important;
+          width: 95%;
+        }
+      }
+    }
+  }
+
+}
