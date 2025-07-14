@@ -28,6 +28,7 @@
                         <group>
                             <field name="transportation_contract_no"/>
                             <field name="booked_no"/>
+                            <field name="cost_price"/>
                         </group>
                     </group>
                     <group string="Locations">
@@ -44,12 +45,12 @@
     </record>
 
     <record id="transportation_contract_action_view" model="ir.actions.act_window">
-        <field name="name">Bus Contract</field>
+        <field name="name">Transportation Contract</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">transportation.contract</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="transportation_contract" name="Bus Contract" parent="booking_config_menuitem"
+    <menuitem id="transportation_contract" name="Transportation Contract" parent="booking_config_menuitem"
               action="transportation_contract_action_view" sequence="6"/>
 </odoo>

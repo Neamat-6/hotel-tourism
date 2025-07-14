@@ -35,8 +35,8 @@
                         <group>
                             <field name="date_from"/>
                             <field name="date_to"/>
-                            <field name="start"/>
-                            <field name="count"/>
+<!--                            <field name="start"/>-->
+<!--                            <field name="count"/>-->
                         </group>
                     </group>
                     <notebook>
@@ -77,7 +77,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="hotel_contract_menu" name="Hotel Contract" parent="b2c_hajj_custom.b2c_main_menu"
+    <menuitem id="hotel_contract_menu" name="Hotel Contract" parent="booking_config_menuitem"
               action="hotel_contract_action_view"
               sequence="20"/>
 </odoo>
