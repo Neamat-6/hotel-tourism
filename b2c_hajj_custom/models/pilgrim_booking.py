@@ -29,10 +29,10 @@ class PilgrimBooking(models.Model):
         for rec in self:
             if rec.pilgrim_count:
                 if rec.source == 'company':
-                    if len(rec.line_ids) != rec.pilgrim_count - 1:
-                        raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
-                if len(rec.line_ids) != rec.pilgrim_count:
-                    raise UserError(_("The number of pilgrims must match the number of pilgrims lines."))
+                    if len(rec.line_ids) != rec.pilgrim_count:
+                        raise UserError(_("The number of pilgrims must match the number of pilgrims lines"))
+                if len(rec.line_ids) != rec.pilgrim_count - 1:
+                    raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
 
     @api.onchange('source')
     def _onchange_source(self):
