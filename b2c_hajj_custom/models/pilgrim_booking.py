@@ -2,6 +2,21 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
 
+class ExtraBooking(models.Model):
+    _name = 'extra.booking'
+    _description= 'Extras'
+
+    name = fields.Char(required=True)
+
+class ExtraBookingLine(models.Model):
+    _name = 'extra.booking.line'
+
+    book_id = fields.Many2one('pilgrim.booking', ondelete='cascade')
+    extra_id = fields.Many2one('extra.booking')
+    quantity = fields.Integer()
+    price_unit = fields.Float()
+
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
@@ -23,6 +38,7 @@ class PilgrimBooking(models.Model):
     line_ids = fields.One2many('pilgrim.booking.line', 'book_id')
     state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed Waiting Payment'),('confirmed', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
     move_id = fields.Many2one('account.move', copy=False)
+    extra_lines = fields.One2many('extra.booking.line', 'book_id')
 
     @api.constrains('line_ids', 'pilgrim_count', 'source')
     def _check_line_count(self):
@@ -31,8 +47,9 @@ class PilgrimBooking(models.Model):
                 if rec.source == 'company':
                     if len(rec.line_ids) != rec.pilgrim_count:
                         raise UserError(_("The number of pilgrims must match the number of pilgrims lines"))
-                if len(rec.line_ids) != rec.pilgrim_count - 1:
-                    raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
+                elif rec.source == 'person':
+                    if len(rec.line_ids) != rec.pilgrim_count - 1:
+                        raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
 
     @api.onchange('source')
     def _onchange_source(self):
@@ -49,10 +66,14 @@ class PilgrimBooking(models.Model):
             }
         }
 
-    @api.depends('pilgrim_count', 'pilgrim_cost')
+    @api.depends('pilgrim_count', 'pilgrim_cost', 'extra_lines.quantity', 'extra_lines.price_unit')
     def compute_total_cost(self):
         for rec in self:
-            rec.total_cost = rec.pilgrim_count * rec.pilgrim_cost
+            total_cost = 0.0
+            for line in rec.extra_lines:
+                total_cost += line.quantity * line.price_unit
+            total_cost += rec.pilgrim_count * rec.pilgrim_cost
+            rec.total_cost = total_cost
 
 
     def create_invoice(self):
@@ -66,11 +87,12 @@ class PilgrimBooking(models.Model):
                 # 'tax_ids': line.tax_id,
                 # 'account_id': hotel_hotel_obj.account_journal_id.default_account_id.id
             })]
-
-        # for rec in self.line_ids:
-        #     if rec.check_dir:
-        #         journal_id = self.env['hotel.hotel'].sudo().search([('partner_id', '=', rec.vendor_id.id)],
-        #                                                            limit=1).account_journal_id.id
+        for line in self.extra_lines:
+            invoice_line_vals.append((0, 0, {
+                'name': line.extra_id.name,
+                'quantity': line.quantity,
+                'price_unit': line.price_unit,
+            }))
         move_vals = {
             'move_type': 'out_invoice',
             'partner_id': self.partner_id.id,

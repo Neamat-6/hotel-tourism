@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="crm_booking_view" model="ir.ui.view">
+            <field name="name">crm_booking_view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                    <button string="Package Booking" name="action_pilgrim_booking_new" type="object" class="oe_highlight" data-hotkey="q"
+                        title="Create Package Booking"/>
+                    <button string="Tourism Booking" name="action_tourism_booking_new" type="object" class="oe_highlight" data-hotkey="q"
+                        title="Create Tourism Booking"/>
+                </xpath>
+                <button name="action_schedule_meeting" position="after">
+                    <button class="oe_stat_button" type="object"
+                        name="action_view_package_bookings" icon="fa-pencil-square-o">
+                        <field name="package_booking_count" widget="statinfo" string="Package Booking"/>
+                    </button>
+                    <button class="oe_stat_button" type="object"
+                        name="action_view_tourism_hotel_bookings" icon="fa-pencil-square-o">
+                        <field name="tourism_hotel_booking_count" widget="statinfo" string="Tourism Booking"/>
+                    </button>
+
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

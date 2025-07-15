@@ -50,6 +50,15 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Extra">
+                            <field name="extra_lines" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="extra_id" required="True"/>
+                                    <field name="quantity" required="True"/>
+                                    <field name="price_unit" required="True"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
@@ -80,5 +89,28 @@
 
     <menuitem id="pilgrim_booking_menu" name="Pilgrim Booking" parent="b2c_hajj_custom.b2c_main_menu"
               action="action_pilgrim_booking_view" sequence="10"/>
+
+
+
+    <record id="view_extra_booking_tree" model="ir.ui.view">
+        <field name="name">extra.booking.tree</field>
+        <field name="model">extra.booking</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_extra_booking_view" model="ir.actions.act_window">
+        <field name="name">Extras</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">extra.booking</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="extra_booking_menu" name="Extras" parent="b2c_hajj_custom.b2c_main_menu"
+              action="action_extra_booking_view" sequence="20"/>
 
 </odoo>

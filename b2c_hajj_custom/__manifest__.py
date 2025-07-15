@@ -43,6 +43,7 @@
         'wizards/pilgrim_transport.xml',
         'views/actual_hotel.xml',
         'data/cron.xml',
+        'report/pilgrim_booking_report.xml',
     ],
     'installable': True,
     'application': True,

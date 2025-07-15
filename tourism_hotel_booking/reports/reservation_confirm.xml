@@ -80,15 +80,15 @@
                                 <li><span t-field="doc.hotel_id.state_id"/></li>
                                 <li><span t-field="doc.hotel_id.address"/></li>
                                 <li>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '1' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '2' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '3' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '4' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '5' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate >= '6' else 'fa fa-star'"></span>
-                                    <span t-att-class="'fa fa-star checked' if doc.hotel_id.hotel_rate == '7' else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 1 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 2 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 3 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 4 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 5 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 6 else 'fa fa-star'"></span>
+                                    <span t-att-class="'fa fa-star checked' if int(doc.hotel_id.hotel_rate or 0) >= 7 else 'fa fa-star'"></span>
                                     <span t-esc="doc.hotel_id.hotel_rate"/>
-                                    <t t-if="doc.hotel_id.hotel_rate == '1'">Star</t>
+                                    <t t-if="doc.hotel_id.hotel_rate == 1">Star</t>
                                     <t t-else="">
                                         Stars
                                     </t>
