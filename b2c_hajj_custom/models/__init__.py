@@ -19,3 +19,4 @@ from . import transportation_locations
 from . import transportation_contract
 from . import activity
 from . import actual_hotel
+from . import visa_contract

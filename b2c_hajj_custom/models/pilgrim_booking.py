@@ -1,5 +1,9 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
+from odoo.http import request
+import requests
+import json
+import base64
 
 
 class ExtraBooking(models.Model):
@@ -39,6 +43,7 @@ class PilgrimBooking(models.Model):
     state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed Waiting Payment'),('confirmed', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
     move_id = fields.Many2one('account.move', copy=False)
     extra_lines = fields.One2many('extra.booking.line', 'book_id')
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id, string='Company')
 
     @api.constrains('line_ids', 'pilgrim_count', 'source')
     def _check_line_count(self):
@@ -100,7 +105,8 @@ class PilgrimBooking(models.Model):
             # 'journal_id': journal_id,
             'invoice_user_id': self._uid,
             'invoice_date': fields.Date.today(),
-            'invoice_line_ids': invoice_line_vals
+            'invoice_line_ids': invoice_line_vals,
+            'company_id': self.company_id.id,
         }
         move = self.env['account.move'].with_context({'line_ids': False}).create(move_vals)
         move.action_post()
@@ -216,6 +222,100 @@ class PilgrimBooking(models.Model):
             return {
                 'type': 'ir.actions.act_window_close',
             }
+
+
+    def generate_report(self):
+        report_sudo = request.env.ref('b2c_hajj_custom.action_pilgrim_booking_report').sudo()
+        method_name = '_render_qweb_pdf'
+        report = getattr(report_sudo, method_name)(
+            [self.id], data={'report_type': 'pdf'})[0]
+        encoded = base64.b64encode(report)
+        encoded = encoded.decode("utf-8")
+        base64_file = 'data:application/pdf;base64,{}'.format(encoded)
+        return (base64_file)
+
+    def send_by_whatsapp_direct_to_booking(self):
+        if self:
+            base64_file = self.generate_report()
+            domain = [('default_send', '=', 'True')]
+            find_default = self.env['sh.configuration.manager'].search(
+                domain, limit=1)
+            domain = [('id', '=', self.partner_id.id)]
+            user = self.env['res.partner'].search(domain, limit=1)
+            headers = {
+                "Content-Type": "application/json"
+            }
+            if find_default:
+                if user.mobile:
+                    for rec in self:
+                        if rec.company_id.display_in_message:
+                            message = "Dear " + str(rec.partner_id.name)
+                            if find_default.config_type == 'chat_api':
+                                url = "https://api.chat-api.com/%s/sendMessage?token=%s" % (
+                                    find_default.instance_id, find_default.token)
+                                payload = {
+                                    "body": message,
+                                    "phone": user.mobile,
+                                }
+                                send_message = requests.get(url=url, headers=headers, data=json.dumps(
+                                    payload, indent=4, sort_keys=True, default=str))
+                                send_message_json = send_message.json()
+                                if 'sent' in send_message_json.keys():
+                                    if send_message_json['sent'] == 'False':
+                                        e = send_message_json['message']
+                                        raise UserError(_(e))
+                            elif find_default.config_type == 'api_chat':
+                                url = "https://api.apichat.io/v1/sendText"
+                                headers['client-id'] = find_default.instance_id
+                                headers['token'] = find_default.token
+                                payload = {
+                                    "text": message,
+                                    "number": user.mobile,
+                                }
+                                send_message = requests.post(
+                                    url=url, headers=headers, data=json.dumps(payload))
+                                if send_message.status_code == 200:
+                                    send_message_json = send_message.json()
+                                    if 'message' in send_message_json.keys():
+                                        e = send_message_json['message']
+                                        raise UserError(_(e))
+                            self.env['mail.message'].create({
+                                'partner_ids': [(6, 0, rec.partner_id.ids)],
+                                'model': 'pilgrim.booking',
+                                'res_id': rec.id,
+                                'author_id': self.env.user.partner_id.id,
+                                'body': message or False,
+                                'message_type': 'comment',
+                            })
+                    if find_default.config_type == 'chat_api':
+                        url = "https://api.chat-api.com/%s/sendFile?token=%s" % (
+                            find_default.instance_id, find_default.token)
+                        if self.state == 'draft' or self.state == 'sent':
+                            filename = "Pilgrim Booking - %s.pdf" % (
+                                self.partner_id.name)
+                        else:
+                            filename = "Pilgrim Booking - %s.pdf" % (self.partner_id.name)
+                        payload = {
+                            "body": '%s' % base64_file,
+                            "phone": user.mobile,
+                            "filename": filename,
+                        }
+                        requests.get(url=url, headers=headers, data=json.dumps(
+                            payload, indent=4, sort_keys=True, default=str))
+                    elif find_default.config_type == 'api_chat':
+                        url = "https://api.apichat.io/v1/sendFile"
+                        payload = {
+                            "number": user.mobile,
+                            "url": '%s' % base64_file,
+                        }
+                        sendfile = requests.post(
+                            url=url, headers=headers, data=json.dumps(payload))
+                        if sendfile.status_code != 200:
+                            raise UserError(_(sendfile.text))
+                else:
+                    raise UserError(_("Partner Mobile Number Not Exist"))
+            else:
+                raise UserError(_("No Default Configuration is selected"))
 
 
 

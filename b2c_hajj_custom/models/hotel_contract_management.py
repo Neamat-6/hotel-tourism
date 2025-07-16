@@ -24,9 +24,18 @@ class HotelContract(models.Model):
     ], default='draft', string="Status")
     date_from = fields.Date("Start Date", required=True)
     date_to = fields.Date("End Date", required=True)
+    is_expired = fields.Boolean("Is Expired", default=False)
     generate_room = fields.Boolean("Generate Rooms", default=False)
 
     _sql_constraints = [('check_dates', 'CHECK(date_from < date_to)', 'End Date must be greater than Start Date!')]
+
+    @api.model
+    def _cron_update_contract_expiry(self):
+        """This method is called daily via a scheduled action"""
+        contracts = self.search([])
+        today = fields.Date.today()
+        for record in contracts:
+            record.is_expired = bool(record.date_to and record.date_to < today)
 
     def action_confirm(self):
         self.state = 'confirm'

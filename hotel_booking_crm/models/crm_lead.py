@@ -51,6 +51,23 @@ class CrmLead(models.Model):
         return action
 
     def action_pilgrim_booking_new(self):
+        if not self.partner_id:
+            action = self.env["ir.actions.actions"]._for_xml_id("hotel_booking_crm.crm_booking_partner_action")
+            action['context'] = {'default_booking_type': 'package'}
+            return action
+        else:
+            return self.action_pilgrim_booking()
+
+    def action_tourism_booking_new(self):
+        if not self.partner_id:
+            action = self.env["ir.actions.actions"]._for_xml_id("hotel_booking_crm.crm_booking_partner_action")
+            action['context'] = {'default_booking_type': 'tourism'}
+            return action
+        else:
+            return self.action_tourism_booking()
+
+
+    def action_pilgrim_booking(self):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Pilgrim Booking',
@@ -65,7 +82,7 @@ class CrmLead(models.Model):
         }
 
 
-    def action_tourism_booking_new(self):
+    def action_tourism_booking(self):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Tourism Booking',

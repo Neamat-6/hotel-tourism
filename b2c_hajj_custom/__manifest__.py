@@ -44,6 +44,7 @@
         'views/actual_hotel.xml',
         'data/cron.xml',
         'report/pilgrim_booking_report.xml',
+        'views/visa_contract.xml',
     ],
     'installable': True,
     'application': True,

@@ -35,6 +35,7 @@
                         <group>
                             <field name="date_from"/>
                             <field name="date_to"/>
+                            <field name="is_expired" invisible="1"/>
 <!--                            <field name="start"/>-->
 <!--                            <field name="count"/>-->
                         </group>

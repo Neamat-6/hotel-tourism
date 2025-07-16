@@ -21,10 +21,11 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'views/crm_lead_view.xml',
+        'wizards/crm_to_booking_view.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

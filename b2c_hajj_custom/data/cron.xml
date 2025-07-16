@@ -12,5 +12,54 @@
             <field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 21:00:00')" />
 
         </record>
+
+
+        <record id="ir_cron_update_flight_contract_expiry" model="ir.cron">
+            <field name="name">Update flight contract expiry</field>
+            <field name="model_id" ref="b2c_hajj_custom.model_flight_schedule"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_contract_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 21:00:00')" />
+        </record>
+
+        <record id="ir_cron_update_transport_contract_expiry" model="ir.cron">
+            <field name="name">Update Transport contract expiry</field>
+            <field name="model_id" ref="b2c_hajj_custom.model_transportation_contract"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_contract_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 21:00:00')" />
+        </record>
+
+        <record id="ir_cron_update_hotel_contract_expiry" model="ir.cron">
+            <field name="name">Update hotel contract expiry</field>
+            <field name="model_id" ref="b2c_hajj_custom.model_hotel_contract_management"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_contract_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 21:00:00')" />
+        </record>
+
+        <record id="ir_cron_update_visa_contract_expiry" model="ir.cron">
+            <field name="name">Update visa contract expiry</field>
+            <field name="model_id" ref="b2c_hajj_custom.model_visa_contract"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_contract_expiry()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="nextcall" eval="(DateTime.now()).strftime('%Y-%m-%d 21:00:00')" />
+        </record>
     </data>
 </odoo>

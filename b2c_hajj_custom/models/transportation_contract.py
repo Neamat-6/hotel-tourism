@@ -16,6 +16,17 @@ class TransportationContract(models.Model):
     cost_price = fields.Float(string='Cost Price')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=True)
     purchase_order_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True, copy=False)
+    expiry_date = fields.Date("Expiry Date")
+    is_expired = fields.Boolean("Is Expired", default=False)
+
+    @api.model
+    def _cron_update_contract_expiry(self):
+        """This method is called daily via a scheduled action"""
+        contracts = self.search([])
+        today = fields.Date.today()
+        for record in contracts:
+            record.is_expired = bool(record.expiry_date and record.expiry_date < today)
+
 
     def button_create_purchase_order(self):
         for rec in self:

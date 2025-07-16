@@ -192,6 +192,10 @@
                             <field name="flight_departure_date"/>
                             <field name="dep_airport_id"/>
                         </group>
+                        <separator name="dummy2"/>
+                        <group string="Visa Contract">
+                            <field name="visa_contract_id" options="{'no_create': True}"/>
+                        </group>
                     </group>
                 </page>
                 <page string="Transportation" attrs="{'invisible': [('package_id', '=', False)]}">

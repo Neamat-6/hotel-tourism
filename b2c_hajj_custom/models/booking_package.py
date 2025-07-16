@@ -31,7 +31,7 @@ class BookingPackage(models.Model):
     #  makkah
     main_makkah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'makkah')]", string='Makkah Hotel', tracking=True)
     actual_main_makkah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_makkah)]", string='Actual Makkah Hotel')
-    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah)]")
+    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False)]")
     makkah_date_from = fields.Date("Contract Start Date", related='makkah_contract_id.date_from', store=True)
     makkah_date_to = fields.Date("Contract End Date", related='makkah_contract_id.date_to', store=True)
     main_makkah_company_id = fields.Many2one('res.company', related='main_makkah.company_id', store=True)
@@ -89,7 +89,7 @@ class BookingPackage(models.Model):
     # madinah
     main_madinah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'madinah')]", string='Madinah Hotel', tracking=True)
     actual_main_madinah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_madinah)]", string='Actual Madinah Hotel')
-    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah)]")
+    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False)]")
     madinah_date_from = fields.Date("Contract Start Date", related='madinah_contract_id.date_from', store=True)
     madinah_date_to = fields.Date("Contract End Date", related='madinah_contract_id.date_to', store=True)
     main_madinah_company_id = fields.Many2one('res.company', related='main_madinah.company_id', store=True)
@@ -186,7 +186,7 @@ class BookingPackage(models.Model):
     # main shift
     main_hotel = fields.Many2one('hotel.hotel', "Main Shift", domain="[('type', 'in', ['hotel','makkah'])]", tracking=True)
     actual_main_hotel = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_hotel)]", string='Actual Main Shift')
-    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel)]")
+    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel),('is_expired', '=', False)]")
     main_hotel_date_from = fields.Date("Contract Start Date", related='main_hotel_contract_id.date_from', store=True)
     main_hotel_date_to = fields.Date("Contract End Date", related='main_hotel_contract_id.date_to', store=True)
     main_hotel_company_id = fields.Many2one('res.company', related='main_hotel.company_id')
@@ -234,7 +234,7 @@ class BookingPackage(models.Model):
     hotel_quad_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_quad_male_available_beds = fields.Integer(compute='compute_hotel_quad_male_available_beds', tracking=True, store=True)
     hotel_quad_female_available_beds = fields.Integer(compute='compute_hotel_quad_female_available_beds', tracking=True, store=True)
-    transportation_contract_ids = fields.Many2many('transportation.contract',  string="Transportation Contracts")
+    transportation_contract_ids = fields.Many2many('transportation.contract',  string="Transportation Contracts", domain="[('is_expired', '=', False)]")
     package_closing_date = fields.Date(string='Package Closing Date', required=True)
     allow_booking = fields.Boolean(
         string="Allow Booking",
@@ -276,6 +276,10 @@ class BookingPackage(models.Model):
         string="Hotel Activities"
     )
     package_closed = fields.Boolean(string="Package Closed")
+    is_hajj = fields.Boolean(string="Is Hajj Package")
+    visa_contract_lines = fields.One2many('visa.contract.line', 'package_id')
+    visa_sale_price = fields.Float(string="Visa Sale Price", compute='compute_visa_price', store=True)
+    visa_purchase_price = fields.Float(string="Visa Purchase Price", compute='compute_visa_price', store=True)
 
     _sql_constraints = [
         ('package_code', 'unique (package_code)', 'Package Code must be unique')
@@ -330,6 +334,17 @@ class BookingPackage(models.Model):
                 flight_purchase_price += line.purchase_price
             record.flight_sale_price = (flight_sale_price/len(record.flight_contract_lines)) if record.flight_contract_lines else 0
             record.flight_purchase_price = (flight_purchase_price/len(record.flight_contract_lines)) if record.flight_contract_lines else 0
+
+    @api.depends('visa_contract_lines', 'visa_contract_lines.sale_price', 'visa_contract_lines.purchase_price')
+    def compute_visa_price(self):
+        for record in self:
+            visa_sale_price = 0
+            visa_purchase_price = 0
+            for line in record.visa_contract_lines:
+                visa_sale_price += line.sale_price
+                visa_purchase_price += line.purchase_price
+            record.visa_sale_price = (visa_sale_price/len(record.visa_contract_lines)) if record.visa_contract_lines else 0
+            record.visa_purchase_price = (visa_purchase_price/len(record.visa_contract_lines)) if record.visa_contract_lines else 0
 
     @api.depends('partner_ids.package_id', 'partner_ids.makkah_room_type', 'partner_ids.madinah_room_type', 'partner_ids.hotel_room_type', 'partner_ids.gender')
     def compute_booked_beds(self):

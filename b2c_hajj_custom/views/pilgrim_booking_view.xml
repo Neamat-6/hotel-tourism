@@ -8,6 +8,7 @@
                 <header>
                     <button name="create_booking" string="Create Booking" type="object" class="oe_highlight"
                             states="draft"/>
+                    <button name="send_by_whatsapp_direct_to_booking" type="object" class="oe_highlight" string="Send By Whatsapp Direct"/>
                     <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"
                             states="hotel_confirm"/>
                     <button name="action_reset_to_draft" type="object" string="Reset to Draft" states="hotel_confirm"
@@ -110,7 +111,7 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem id="extra_booking_menu" name="Extras" parent="b2c_hajj_custom.b2c_main_menu"
+    <menuitem id="extra_booking_menu" name="Extras" parent="booking_config_menuitem"
               action="action_extra_booking_view" sequence="20"/>
 
 </odoo>
