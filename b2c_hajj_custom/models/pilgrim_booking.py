@@ -6,6 +6,7 @@ import json
 import base64
 
 
+
 class ExtraBooking(models.Model):
     _name = 'extra.booking'
     _description= 'Extras'
