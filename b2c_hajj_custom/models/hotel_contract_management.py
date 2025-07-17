@@ -17,6 +17,16 @@ class HotelContract(models.Model):
                             "Contract Type", copy=False, default='hotel')
     line_ids = fields.One2many(comodel_name="hotel.contract.management.line", inverse_name="contract_id")
     purchase_order_id = fields.Many2one('purchase.order', string="Purchase Order", readonly=True, copy=False)
+    purchase_currency_id = fields.Many2one(
+        'res.currency',
+        related='purchase_order_id.currency_id',
+        string='Purchase Currency',
+        store=True,
+        readonly=True
+    )
+    purchase_price = fields.Monetary(string="Purchase Price",
+                                     related='purchase_order_id.amount_total',
+                                     currency_field='purchase_currency_id')
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirm', 'Confirmed'),
@@ -46,23 +56,21 @@ class HotelContract(models.Model):
     def button_generate_rooms(self):
         clean = self.env.ref('hotel_booking.hotel_room_status_clean').id
         vacant = self.env.ref('hotel_booking.hotel_room_stay_status_vacant').id
-        for i in range(self.count):
-            room_number = self.start + i
-            self.env['hotel.room'].create({
-                'hotel_id': self.hotel_id.id,
-                'company_id': self.company_id.id,
-                'name': str(room_number),
-                'room_type': self.room_type_id.id,
-                'floor_id': self.floor_id.id,
-                'state': clean,
-                'stay_state': vacant,
-            })
+        for line in self.line_ids:
+            for i in range(line.count):
+                room_number = line.start + i
+                self.env['hotel.room'].sudo().create({
+                    'hotel_id': self.hotel_id.id,
+                    'company_id': self.hotel_id.company_id.id,
+                    'name': str(room_number),
+                    'room_type': line.room_type_id.id,
+                    'floor_id': line.floor_id.id,
+                    'state': clean,
+                    'stay_state': vacant,
+                })
         self.generate_room = True
 
     def button_create_purchase_order(self):
-        clean = self.env.ref('hotel_booking.hotel_room_status_clean').id
-        vacant = self.env.ref('hotel_booking.hotel_room_stay_status_vacant').id
-
         po_vals = {
             'partner_id': self.vendor.id,
             'company_id': self.company_id.id,
@@ -83,18 +91,6 @@ class HotelContract(models.Model):
             product_id = product.id
 
             for line in self.line_ids:
-                for i in range(line.count):
-                    room_number = line.start + i
-                    self.env['hotel.room'].sudo().create({
-                        'hotel_id': self.hotel_id.id,
-                        'company_id': self.hotel_id.company_id.id,
-                        'name': str(room_number),
-                        'room_type': line.room_type_id.id,
-                        'floor_id': line.floor_id.id,
-                        'state': clean,
-                        'stay_state': vacant,
-                    })
-
                 po_vals['order_line'].append((0, 0, {
                     'product_id': product_id,
                     'name': f"Room Type: {line.room_type_id.name} (Floor: {line.floor_id.name})",

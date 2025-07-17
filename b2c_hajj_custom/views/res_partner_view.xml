@@ -112,7 +112,7 @@
                     <field name="main_member_id" options="{'no_create': True}"
                            attrs="{'invisible': [('pilgrim_type', '!=', 'member')]}"
                            domain="[('package_id', '=', package_id), ('pilgrim_type', '=', 'main'), ('id', '!=', id), ('makkah_room_type', '=', makkah_room_type)]"/>
-                    <field name="gender" required="1"/>
+                    <field name="gender" attrs="{'required': [('is_company', '=', False)]}"/>
                     <field name="is_guide"/>
                     <field name="room_ref"/>
                     <field name="package_id"/>

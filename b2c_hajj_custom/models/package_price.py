@@ -1,5 +1,22 @@
 from odoo import fields, models, api
 
+class PackageSalePrice(models.Model):
+    _name = 'package.sale.price'
+    _description = 'Package sale price'
+
+    room_type = fields.Selection([('2', 'Double'),('3', 'Triple'),('4', 'Quad')], string='Room Type', required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.user.company_id.currency_id.id)
+    price = fields.Monetary(string='Price', required=True, currency_field='currency_id')
+    package_id = fields.Many2one('booking.package', string='Package ID', required=True, ondelete='cascade')
+
+    _sql_constraints = [('room_type_sale_uniq', 'UNIQUE(room_type, package_id)', 'Room Type must be unique per Package!')]
+
+    @api.onchange('price_type')
+    def _onchange_price_type(self):
+        for record in self:
+            if record.price_type != 'sale':
+                record.price_type = 'sale'
+
 
 class PackagePrice(models.Model):
     _name = 'package.price'

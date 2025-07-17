@@ -79,3 +79,6 @@ class TransportationContract(models.Model):
         for record in self:
             trans_contract_pilgrim = self.env['res.partner'].search([('transportation_contract_ids', 'in', record.id)])
             record.booked_no = len(trans_contract_pilgrim)
+
+
+

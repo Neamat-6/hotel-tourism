@@ -14,6 +14,7 @@ class BookingPackage(models.Model):
 
     name = fields.Char('#', default='New', copy=False, required=True, readonly=True)
     partner_id = fields.Many2one('res.partner', 'Booking Customer', required=True)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id)
     package_code = fields.Char("Code", required=True)
     guide_ids = fields.Many2many('res.partner', string='Guide', domain=[('is_guide', '=', True)],
                                  context={'default_is_guide': True}, tracking=True)
@@ -25,13 +26,15 @@ class BookingPackage(models.Model):
         ('draft', 'Draft'), ('confirmed', 'Confirmed'),
     ], default='draft', tracking=True)
     flight_contract_lines = fields.One2many('flight.schedule.line', 'package_id')
-    flight_sale_price = fields.Float(string="Flight Sale Price", compute='compute_flight_price', store=True)
+    # flight_sale_price = fields.Float(string="Flight Sale Price", compute='compute_flight_price', store=True)
     flight_purchase_price = fields.Float(string="Flight Purchase Price", compute='compute_flight_price', store=True)
 
     #  makkah
     main_makkah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'makkah')]", string='Makkah Hotel', tracking=True)
     actual_main_makkah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_makkah)]", string='Actual Makkah Hotel')
     makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False)]")
+    makkah_purchase_currency = fields.Many2one('res.currency', related='makkah_contract_id.purchase_currency_id', store=True)
+    makkah_purchase_price = fields.Monetary(string="Makkah Purchase Price",related='makkah_contract_id.purchase_price', store=True, currency_field='makkah_purchase_currency')
     makkah_date_from = fields.Date("Contract Start Date", related='makkah_contract_id.date_from', store=True)
     makkah_date_to = fields.Date("Contract End Date", related='makkah_contract_id.date_to', store=True)
     main_makkah_company_id = fields.Many2one('res.company', related='main_makkah.company_id', store=True)
@@ -68,7 +71,6 @@ class BookingPackage(models.Model):
     makka_triple_female_beds = fields.Integer("Booking Female Beds")
     makkah_triple_male_total_beds = fields.Integer(compute='compute_makkah_triple_male_total_beds', store=True, tracking=True)
     makkah_triple_female_total_beds = fields.Integer(compute='compute_makkah_triple_female_total_beds', store=True, tracking=True)
-
     makkah_triple_male_booked_beds = fields.Integer(tracking=True, string="Male Booked Beds", compute='compute_booked_beds', store=True)
     makkah_triple_female_booked_beds = fields.Integer(tracking=True, string="Female Booked Beds", compute='compute_booked_beds', store=True)
     makkah_triple_male_available_beds = fields.Integer(compute='compute_makkah_triple_male_available_beds', tracking=True, store=True)
@@ -90,6 +92,8 @@ class BookingPackage(models.Model):
     main_madinah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'madinah')]", string='Madinah Hotel', tracking=True)
     actual_main_madinah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_madinah)]", string='Actual Madinah Hotel')
     madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False)]")
+    madinah_purchase_currency = fields.Many2one('res.currency', related='madinah_contract_id.purchase_currency_id', store=True)
+    madinah_purchase_price = fields.Monetary(string="Madinah Purchase Price",related='madinah_contract_id.purchase_price', store=True, currency_field='madinah_purchase_currency')
     madinah_date_from = fields.Date("Contract Start Date", related='madinah_contract_id.date_from', store=True)
     madinah_date_to = fields.Date("Contract End Date", related='madinah_contract_id.date_to', store=True)
     main_madinah_company_id = fields.Many2one('res.company', related='main_madinah.company_id', store=True)
@@ -235,18 +239,21 @@ class BookingPackage(models.Model):
     hotel_quad_male_available_beds = fields.Integer(compute='compute_hotel_quad_male_available_beds', tracking=True, store=True)
     hotel_quad_female_available_beds = fields.Integer(compute='compute_hotel_quad_female_available_beds', tracking=True, store=True)
     transportation_contract_ids = fields.Many2many('transportation.contract',  string="Transportation Contracts", domain="[('is_expired', '=', False)]")
+    transport_purchase_price = fields.Float(compute='compute_transport_purchase_price', store=True)
+
     package_closing_date = fields.Date(string='Package Closing Date', required=True)
     allow_booking = fields.Boolean(
         string="Allow Booking",
         compute='_compute_allow_booking',
         store=True
     )
-    sale_price_ids = fields.One2many('package.price', 'package_id', string="Sale Prices",
-                                     domain=[('price_type', '=', 'sale')])
-    purchase_price_ids = fields.One2many('package.price', 'package_id', string="Purchase Prices",
-                                     domain=[('price_type', '=', 'purchase')])
+    # sale_price_ids = fields.One2many('package.price', 'package_id', string="Sale Prices",
+    #                                  domain=[('price_type', '=', 'sale')])
+    # purchase_price_ids = fields.One2many('package.price', 'package_id', string="Purchase Prices",
+    #                                  domain=[('price_type', '=', 'purchase')])
+    package_sale_price_ids = fields.One2many('package.sale.price', 'package_id', string="Sale Prices",)
     package_sale_price = fields.Float(string="Package Sale Price", compute='compute_package_sale_price')
-    package_purchase_price = fields.Float(string="Package Purchase Price", compute='compute_package_purchase_price')
+    package_purchase_price = fields.Float(string="Package Purchase Price", compute='compute_package_purchase_price', store=True)
     package_extra_service = fields.One2many('extra.service.line', 'package_id', string="Extra Service")
     extra_service_sale = fields.Float(string="Extra Service Sale", compute='compute_extra_service', store=True)
     extra_service_purchase = fields.Float(string="Extra Service Purchase", compute='compute_extra_service', store=True)
@@ -278,7 +285,6 @@ class BookingPackage(models.Model):
     package_closed = fields.Boolean(string="Package Closed")
     is_hajj = fields.Boolean(string="Is Hajj Package")
     visa_contract_lines = fields.One2many('visa.contract.line', 'package_id')
-    visa_sale_price = fields.Float(string="Visa Sale Price", compute='compute_visa_price', store=True)
     visa_purchase_price = fields.Float(string="Visa Purchase Price", compute='compute_visa_price', store=True)
 
     _sql_constraints = [
@@ -306,45 +312,54 @@ class BookingPackage(models.Model):
             rec.extra_service_sale = extra_service_sale
             rec.extra_service_purchase = extra_service_purchase
 
-    @api.depends('sale_price_ids')
-    def compute_package_sale_price(self):
-        for record in self:
-            package_sale_price = 0
-            for line in record.sale_price_ids:
-                package_sale_price += line.total_price_per_group
-            record.package_sale_price = package_sale_price
+    @api.depends('transportation_contract_ids','transportation_contract_ids.purchase_order_id')
+    def compute_transport_purchase_price(self):
+        for rec in self:
+            rec.transport_purchase_price = sum(rec.transportation_contract_ids.mapped('purchase_order_id.amount_total'))
 
-    @api.depends('purchase_price_ids')
+    # @api.depends('sale_price_ids')
+    # def compute_package_sale_price(self):
+    #     for record in self:
+    #         package_sale_price = 0
+    #         for line in record.sale_price_ids:
+    #             package_sale_price += line.total_price_per_group
+    #         record.package_sale_price = package_sale_price
+
+    # @api.depends('purchase_price_ids')
+    # def compute_package_purchase_price(self):
+    #     for record in self:
+    #         package_purchase_price = 0
+    #         for line in record.purchase_price_ids:
+    #             package_purchase_price += line.total_price_per_group
+    #         record.package_purchase_price = package_purchase_price
+
+    @api.depends('flight_purchase_price', 'makkah_purchase_price', 'madinah_purchase_price','visa_purchase_price', 'transport_purchase_price')
     def compute_package_purchase_price(self):
         for record in self:
-            package_purchase_price = 0
-            for line in record.purchase_price_ids:
-                package_purchase_price += line.total_price_per_group
-            record.package_purchase_price = package_purchase_price
+            record.package_purchase_price = (
+                record.flight_purchase_price +
+                record.makkah_purchase_price +
+                record.madinah_purchase_price +
+                record.visa_purchase_price +
+                record.transport_purchase_price
+            )
 
 
-
-    @api.depends('flight_contract_lines', 'flight_contract_lines.sale_price', 'flight_contract_lines.purchase_price')
+    @api.depends('flight_contract_lines', 'flight_contract_lines.purchase_price')
     def compute_flight_price(self):
         for record in self:
-            flight_sale_price = 0
             flight_purchase_price = 0
             for line in record.flight_contract_lines:
-                flight_sale_price += line.sale_price
                 flight_purchase_price += line.purchase_price
-            record.flight_sale_price = (flight_sale_price/len(record.flight_contract_lines)) if record.flight_contract_lines else 0
-            record.flight_purchase_price = (flight_purchase_price/len(record.flight_contract_lines)) if record.flight_contract_lines else 0
+            record.flight_purchase_price = flight_purchase_price
 
-    @api.depends('visa_contract_lines', 'visa_contract_lines.sale_price', 'visa_contract_lines.purchase_price')
+    @api.depends('visa_contract_lines', 'visa_contract_lines.purchase_price')
     def compute_visa_price(self):
         for record in self:
-            visa_sale_price = 0
             visa_purchase_price = 0
             for line in record.visa_contract_lines:
-                visa_sale_price += line.sale_price
                 visa_purchase_price += line.purchase_price
-            record.visa_sale_price = (visa_sale_price/len(record.visa_contract_lines)) if record.visa_contract_lines else 0
-            record.visa_purchase_price = (visa_purchase_price/len(record.visa_contract_lines)) if record.visa_contract_lines else 0
+            record.visa_purchase_price = visa_purchase_price
 
     @api.depends('partner_ids.package_id', 'partner_ids.makkah_room_type', 'partner_ids.madinah_room_type', 'partner_ids.hotel_room_type', 'partner_ids.gender')
     def compute_booked_beds(self):
@@ -557,18 +572,20 @@ class BookingPackage(models.Model):
                     'arfa_arrival_date', 'minnah_arrival_date', 'hotel_arrival_date')
     def _check_booking_date(self):
         for record in self:
-            earliest_date = min(filter(None, [
+            arrival_dates = list(filter(None, [
                 record.makkah_arrival_date,
                 record.madinah_arrival_date,
                 record.arfa_arrival_date,
                 record.minnah_arrival_date,
                 record.hotel_arrival_date
             ]))
-            if record.package_closing_date < earliest_date:
-                raise exceptions.ValidationError(
-                    "The Package Closing Date cannot be earlier than the earliest arrival date")
-            else:
-                self._compute_allow_booking()
+            if arrival_dates:
+                earliest_date = min(arrival_dates)
+                if record.package_closing_date < earliest_date:
+                    raise exceptions.ValidationError(
+                        "The Package Closing Date cannot be earlier than the earliest arrival date")
+            # If no arrival dates, skip validation
+            self._compute_allow_booking()
 
     @api.onchange('package_closing_date')
     def _compute_allow_booking(self):
@@ -583,6 +600,10 @@ class BookingPackage(models.Model):
         vals['name'] = self.env['ir.sequence'].next_by_code('booking.package') or '/'
         record = super().create(vals)
         record._generate_activity_lines()
+        analytic_account = self.env['account.analytic.account'].sudo().create({
+            'name': record.package_code,
+            'company_id': record.company_id.id,
+        })
         return record
 
     def _generate_activity_lines(self):

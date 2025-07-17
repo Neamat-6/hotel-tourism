@@ -76,6 +76,7 @@ class CrmLead(models.Model):
             'target': 'new',
             'context': {
                 'default_crm_lead_id': self.id,
+                'default_source': 'person',
                 'default_partner_id': self.partner_id.id,
                 'default_company_id': self.company_id.id or self.env.company.id,
             }
@@ -93,5 +94,6 @@ class CrmLead(models.Model):
                 'default_crm_lead_id': self.id,
                 'default_partner_id': self.partner_id.id,
                 'default_company_id': self.company_id.id or self.env.company.id,
+
             }
         }

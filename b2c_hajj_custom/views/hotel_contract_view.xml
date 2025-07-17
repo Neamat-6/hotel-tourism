@@ -7,13 +7,13 @@
         <field name="arch" type="xml">
             <form string="Contract Management">
                 <header>
-<!--                    <field name="generate_room" invisible="1"/>-->
+                    <field name="generate_room" invisible="1"/>
                     <button string="Confirm" type="object" name="action_confirm"
                             attrs="{'invisible': [('state', 'in', ['confirm', 'po_created'])]}"/>
                     <button string="Create Purchase Order" type="object" name="button_create_purchase_order"
                             attrs="{'invisible': [('state', 'in', ['draft', 'po_created'])]}"/>
-<!--                    <button string="Generate Rooms" type="object" name="button_generate_rooms"-->
-<!--                            attrs="{'invisible': ['|',('state', '!=', 'po_created'),('generate_room', '=', True)]}"/>-->
+                    <button string="Generate Rooms" type="object" name="button_generate_rooms"
+                            attrs="{'invisible': ['|',('state', '!=', 'po_created'),('generate_room', '=', True)]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,po_created"/>
                 </header>
                 <sheet>

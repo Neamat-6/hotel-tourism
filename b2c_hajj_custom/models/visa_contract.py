@@ -91,7 +91,16 @@ class VisaContractLine(models.Model):
     available_no = fields.Integer(string="Available No.", related='visa_contract_id.available_no')
     booked_no = fields.Integer(string="Booked No.", related='visa_contract_id.booked_no')
     sale_price = fields.Float(string="Sale Price")
-    purchase_price = fields.Float(string="Purchase Price")
+    purchase_currency_id = fields.Many2one(
+        'res.currency',
+        related='visa_contract_id.purchase_id.currency_id',
+        string='Purchase Currency',
+        store=True,
+        readonly=True
+    )
+    purchase_price = fields.Monetary(string="Purchase Price",
+                                     related='visa_contract_id.purchase_id.amount_total',
+                                     currency_field='purchase_currency_id')
     package_id = fields.Many2one('booking.package', string="Package", ondelete='cascade')
 
     _sql_constraints = [('package_visa_contract_uniq', 'unique(visa_contract_id, package_id)', 'Visa Contract must be unique per Package!')]

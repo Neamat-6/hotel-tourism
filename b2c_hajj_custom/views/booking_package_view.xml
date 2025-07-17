@@ -53,12 +53,10 @@
                                         <field name="flight_contract_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                                         <field name="booked_no" force_save="1"/>
                                         <field name="available_no" force_save="1"/>
-                                        <field name="sale_price"/>
                                         <field name="purchase_price"/>
                                     </tree>
                                 </field>
                                 <group>
-                                    <field name="flight_sale_price"/>
                                     <field name="flight_purchase_price"/>
                                 </group>
                             </group>
@@ -70,12 +68,10 @@
                                         <field name="visa_contract_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                                         <field name="booked_no" force_save="1"/>
                                         <field name="available_no" force_save="1"/>
-                                        <field name="sale_price"/>
                                         <field name="purchase_price"/>
                                     </tree>
                                 </field>
                                 <group>
-                                    <field name="visa_sale_price"/>
                                     <field name="visa_purchase_price"/>
                                 </group>
                             </group>
@@ -431,64 +427,46 @@
                         </page>
                         <page name="transportation" string="Transportation Contract">
                             <group>
-                                <group>
-                                    <field name="transportation_contract_ids" widget="many2many_tags"
-                                           options="{'no_create': True}"/>
-                                </group>
+                                <field name="transportation_contract_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="transport_purchase_price"/>
                             </group>
                         </page>
                         <page name="extra" string="Extra">
                             <field name="package_extra_service">
                                 <tree editable="bottom">
                                     <field name="name"/>
-                                    <field name="sale_price"/>
+<!--                                    <field name="sale_price"/>-->
                                     <field name="cost_price"/>
                                 </tree>
                             </field>
                             <group>
-                                <field name="extra_service_sale"/>
+<!--                                <field name="extra_service_sale"/>-->
                                 <field name="extra_service_purchase"/>
                             </group>
                         </page>
                         <page name="sale_price" string="Sale Prices">
-                            <field name="sale_price_ids" context="{'default_price_type': 'sale'}">
+                            <field name="package_sale_price_ids" nolabel="1">
                                 <tree editable="bottom">
-                                    <field name="price_type" invisible="1"/>
                                     <field name="room_type"/>
-                                    <field name="makkah_price"/>
-                                    <field name="madinah_price"/>
-                                    <field name="main_hotel_price"/>
-                                    <field name="arf_price"/>
-                                    <field name="minnah_price"/>
-                                    <field name="flight_price"/>
-                                    <field name="extra_price"/>
-                                    <field name="pilgrim_count_sale"/>
-                                    <field name="total_price_per_pilgrim"/>
-                                    <field name="total_price_per_group"/>
+                                    <field name="price"/>
                                 </tree>
                             </field>
-
-                            <group>
-                                <field name="package_sale_price" force_save="True"/>
-                            </group>
                         </page>
                         <page name="purchase_price" string="Purchase Prices">
-                            <field name="purchase_price_ids" context="{'default_price_type': 'purchase'}">
-                               <tree editable="bottom">
-                                   <field name="price_type" invisible="1"/>
-                                    <field name="room_type"/>
-                                    <field name="makkah_price"/>
-                                    <field name="madinah_price"/>
-                                    <field name="main_hotel_price"/>
-                                    <field name="arf_price"/>
-                                    <field name="minnah_price"/>
-                                    <field name="flight_price"/>
-                                    <field name="extra_price"/>
-                                    <field name="pilgrim_count_purchase"/>
-                                    <field name="total_price_per_pilgrim"/>
-                                    <field name="total_price_per_group"/>
-                               </tree>
-                            </field>
+                            <group>
+                                <group>
+                                    <field name="flight_purchase_price" force_save="True"/>
+                                    <field name="makkah_purchase_price" force_save="True"/>
+                                    <field name="extra_service_purchase" force_save="True"/>
+                                </group>
+                                <group>
+                                    <field name="visa_purchase_price" force_save="True"/>
+                                    <field name="madinah_purchase_price" force_save="True"/>
+                                    <field name="transport_purchase_price" force_save="True"/>
+                                </group>
+                            </group>
                             <group>
                                 <field name="package_purchase_price" force_save="True"/>
                             </group>

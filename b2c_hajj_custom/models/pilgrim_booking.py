@@ -37,7 +37,7 @@ class PilgrimBooking(models.Model):
     partner_id = fields.Many2one('res.partner',required=True)
     package_id = fields.Many2one('booking.package', required=True, domain="[('package_closed', '=', False)]")
     pilgrim_count = fields.Integer()
-    pilgrim_cost = fields.Float(string="sales Price")
+    pilgrim_cost = fields.Float(string="sales Price", compute='_compute_pilgrim_cost', store=True, readonly=False)
     total_cost = fields.Float(compute='compute_total_cost', store=True)
     room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
     line_ids = fields.One2many('pilgrim.booking.line', 'book_id')
@@ -45,6 +45,12 @@ class PilgrimBooking(models.Model):
     move_id = fields.Many2one('account.move', copy=False)
     extra_lines = fields.One2many('extra.booking.line', 'book_id')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id, string='Company')
+
+    @api.depends('room_type', 'package_id')
+    def _compute_pilgrim_cost(self):
+        for rec in self:
+            line = rec.package_id.package_sale_price_ids.filtered(lambda x: x.room_type == rec.room_type)
+            rec.pilgrim_cost = line.price if line else 0.0
 
     @api.constrains('line_ids', 'pilgrim_count', 'source')
     def _check_line_count(self):
@@ -57,21 +63,36 @@ class PilgrimBooking(models.Model):
                     if len(rec.line_ids) != rec.pilgrim_count - 1:
                         raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
 
+    # @api.onchange('source')
+    # def _onchange_source(self):
+    #     self.partner_id = False
+    #     domain = []
+    #     if self.source == 'person':
+    #         domain = [('is_company', '=', False)]
+    #     elif self.source == 'company':
+    #         domain = [('is_company', '=', True)]
+    #
+    #     return {
+    #         'domain': {
+    #             'partner_id': domain
+    #         }
+    #     }
+
     @api.onchange('source')
     def _onchange_source(self):
-        self.partner_id = False
         domain = []
         if self.source == 'person':
             domain = [('is_company', '=', False)]
+            # Do NOT clear partner_id here
         elif self.source == 'company':
             domain = [('is_company', '=', True)]
+            # Do NOT clear partner_id here
 
         return {
             'domain': {
                 'partner_id': domain
             }
         }
-
     @api.depends('pilgrim_count', 'pilgrim_cost', 'extra_lines.quantity', 'extra_lines.price_unit')
     def compute_total_cost(self):
         for rec in self:
