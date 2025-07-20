@@ -51,7 +51,6 @@
   "auto_install":  False,
   "price":  99,
   "currency": "USD",
-  "pre_init_hook":  "pre_init_check",
   "external_dependencies": {"python":[
     "pytesseract",
     "opencv-python",
