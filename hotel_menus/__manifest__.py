@@ -12,7 +12,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hotel_booking', 'hotel_booking_folio', 'hotel_booking_folio_extend', 'ks_curved_backend_theme', 'ks_dashboard_ninja'],
+    'depends': ['base', 'hotel_booking', 'hotel_booking_folio', 'hotel_booking_folio_extend'],
 
     # always loaded
     'data': [
