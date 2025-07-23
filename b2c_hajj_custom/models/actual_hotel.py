@@ -8,7 +8,7 @@ class ActualHotel(models.Model):
 
     name = fields.Char(required=True, string="Hotel Name")
     hotel_id = fields.Many2one('hotel.hotel', required=True, string="Hotel Category")
-
+    partner_id = fields.Many2one('res.partner', string="Partner", readonly=True)
 
     @api.model
     def create(self, vals):
@@ -17,5 +17,6 @@ class ActualHotel(models.Model):
             'is_company': True,
             'hotel_id': vals['hotel_id']
         }
-        self.env['res.partner'].create(partner_vals)
+        partner = self.env['res.partner'].create(partner_vals)
+        vals['partner_id'] = partner.id
         return super(ActualHotel, self).create(vals)

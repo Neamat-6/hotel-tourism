@@ -81,6 +81,7 @@
                                 <group>
                                     <field name="main_makkah"/>
                                     <field name="actual_main_makkah"/>
+                                    <field name="actual_main_makkah_partner_id" invisible="1"/>
                                     <field name="main_makkah_company_id" invisible="1"/>
                                     <field name="makkah_arrival_date" attrs="{'required': [('main_makkah', '!=', False)]}"/>
                                     <field name="makkah_departure_date"
@@ -176,6 +177,7 @@
                                 <group>
                                     <field name="main_madinah"/>
                                     <field name="actual_main_madinah"/>
+                                    <field name="actual_main_madinah_partner_id" invisible="1"/>
                                     <field name="main_madinah_company_id" invisible="1"/>
                                     <field name="madinah_arrival_date"
                                            attrs="{'required': [('main_madinah', '!=', False)]}"/>
@@ -348,6 +350,7 @@
                                 <group>
                                     <field name="main_hotel"/>
                                     <field name="actual_main_hotel"/>
+                                    <field name="actual_main_hotel_partner_id" invisible="1"/>
                                     <field name="main_hotel_company_id" invisible="1"/>
                                     <field name="hotel_arrival_date" attrs="{'required': [('main_hotel', '!=', False)]}"/>
                                     <field name="hotel_departure_date" attrs="{'required': [('main_hotel', '!=', False)]}"/>

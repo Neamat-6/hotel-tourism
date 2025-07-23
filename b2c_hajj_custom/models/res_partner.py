@@ -193,6 +193,13 @@ class Partner(models.Model):
                     })
                 record.flight_schedule_id = flight_schedule_obj.id
 
+    @api.onchange('package_id')
+    def onchange_package(self):
+        for rec in self:
+            if rec.package_id:
+                if rec.package_id.flight_contract_lines:
+                    rec.flight_schedule_id = rec.package_id.flight_contract_lines[0].flight_contract_id.id
+
     @api.onchange('pilgrim_type')
     def onchange_pilgrim_type(self):
         self.main_member_id = False

@@ -32,7 +32,10 @@ class BookingPackage(models.Model):
     #  makkah
     main_makkah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'makkah')]", string='Makkah Hotel', tracking=True)
     actual_main_makkah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_makkah)]", string='Actual Makkah Hotel')
-    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False)]")
+    actual_main_makkah_partner_id = fields.Many2one('res.partner',
+                                                    compute='_compute_actual_main_makkah_partner_id',
+                                                    store=True)
+    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False),('vendor', '=', actual_main_makkah_partner_id)]")
     makkah_purchase_currency = fields.Many2one('res.currency', related='makkah_contract_id.purchase_currency_id', store=True)
     makkah_purchase_price = fields.Monetary(string="Makkah Purchase Price",related='makkah_contract_id.purchase_price', store=True, currency_field='makkah_purchase_currency')
     makkah_date_from = fields.Date("Contract Start Date", related='makkah_contract_id.date_from', store=True)
@@ -91,7 +94,10 @@ class BookingPackage(models.Model):
     # madinah
     main_madinah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'madinah')]", string='Madinah Hotel', tracking=True)
     actual_main_madinah = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_madinah)]", string='Actual Madinah Hotel')
-    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False)]")
+    actual_main_madinah_partner_id = fields.Many2one('res.partner',
+                                                    compute='_compute_actual_main_madinah_partner_id',
+                                                    store=True)
+    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False), ('vendor', '=', actual_main_madinah_partner_id)]")
     madinah_purchase_currency = fields.Many2one('res.currency', related='madinah_contract_id.purchase_currency_id', store=True)
     madinah_purchase_price = fields.Monetary(string="Madinah Purchase Price",related='madinah_contract_id.purchase_price', store=True, currency_field='madinah_purchase_currency')
     madinah_date_from = fields.Date("Contract Start Date", related='madinah_contract_id.date_from', store=True)
@@ -190,7 +196,10 @@ class BookingPackage(models.Model):
     # main shift
     main_hotel = fields.Many2one('hotel.hotel', "Main Shift", domain="[('type', 'in', ['hotel','makkah'])]", tracking=True)
     actual_main_hotel = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', main_hotel)]", string='Actual Main Shift')
-    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel),('is_expired', '=', False)]")
+    actual_main_hotel_partner_id = fields.Many2one('res.partner',
+                                                    compute='_compute_actual_main_hotel_partner_id',
+                                                    store=True)
+    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel),('is_expired', '=', False), ('vendor', '=', actual_main_hotel_partner_id)]")
     main_hotel_date_from = fields.Date("Contract Start Date", related='main_hotel_contract_id.date_from', store=True)
     main_hotel_date_to = fields.Date("Contract End Date", related='main_hotel_contract_id.date_to', store=True)
     main_hotel_company_id = fields.Many2one('res.company', related='main_hotel.company_id')
@@ -291,6 +300,21 @@ class BookingPackage(models.Model):
         ('package_code', 'unique (package_code)', 'Package Code must be unique')
     ]
 
+
+    @api.depends('actual_main_makkah')
+    def _compute_actual_main_makkah_partner_id(self):
+        for rec in self:
+            rec.actual_main_makkah_partner_id = rec.actual_main_makkah.partner_id.id
+
+    @api.depends('actual_main_madinah')
+    def _compute_actual_main_madinah_partner_id(self):
+        for rec in self:
+            rec.actual_main_madinah_partner_id = rec.actual_main_madinah.partner_id.id
+
+    @api.depends('actual_main_hotel')
+    def _compute_actual_main_hotel_partner_id(self):
+        for rec in self:
+            rec.actual_main_hotel_partner_id = rec.actual_main_hotel.partner_id.id
 
     @api.model
     def _cron_update_package_closed(self):
@@ -568,24 +592,24 @@ class BookingPackage(models.Model):
             if total_assigned != record.hotel_no_double:
                 raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
 
-    @api.constrains('package_closing_date', 'makkah_arrival_date', 'madinah_arrival_date',
-                    'arfa_arrival_date', 'minnah_arrival_date', 'hotel_arrival_date')
-    def _check_booking_date(self):
-        for record in self:
-            arrival_dates = list(filter(None, [
-                record.makkah_arrival_date,
-                record.madinah_arrival_date,
-                record.arfa_arrival_date,
-                record.minnah_arrival_date,
-                record.hotel_arrival_date
-            ]))
-            if arrival_dates:
-                earliest_date = min(arrival_dates)
-                if record.package_closing_date < earliest_date:
-                    raise exceptions.ValidationError(
-                        "The Package Closing Date cannot be earlier than the earliest arrival date")
-            # If no arrival dates, skip validation
-            self._compute_allow_booking()
+    # @api.constrains('package_closing_date', 'makkah_arrival_date', 'madinah_arrival_date',
+    #                 'arfa_arrival_date', 'minnah_arrival_date', 'hotel_arrival_date')
+    # def _check_booking_date(self):
+    #     for record in self:
+    #         arrival_dates = list(filter(None, [
+    #             record.makkah_arrival_date,
+    #             record.madinah_arrival_date,
+    #             record.arfa_arrival_date,
+    #             record.minnah_arrival_date,
+    #             record.hotel_arrival_date
+    #         ]))
+    #         if arrival_dates:
+    #             earliest_date = min(arrival_dates)
+    #             if record.package_closing_date < earliest_date:
+    #                 raise exceptions.ValidationError(
+    #                     "The Package Closing Date cannot be earlier than the earliest arrival date")
+    #         # If no arrival dates, skip validation
+    #         self._compute_allow_booking()
 
     @api.onchange('package_closing_date')
     def _compute_allow_booking(self):
