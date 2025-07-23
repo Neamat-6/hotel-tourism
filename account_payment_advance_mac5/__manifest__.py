@@ -26,6 +26,7 @@ partner's receivable/payable account.
         'views/account_payment_views.xml',
         'views/account_move_views.xml',
         'views/account_journal.xml',
+        'views/booking.xml',
     ],
     'installable': True,
     'application': False,

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_form_hotel_booking_advance_payment" model="ir.ui.view">
+            <field name="name">view_form_hotel_booking_advance_payment</field>
+            <field name="model">hotel.booking</field>
+            <field name="inherit_id" ref="hotel_booking.view_form_hotel_booking"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_register_payment']" position="after">
+                    <field name="has_advance_payment" invisible="1"/>
+                    <button name="action_account_advance_payment" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('has_advance_payment', '=', False)]}"
+                            string="Apply Advance Payment"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
