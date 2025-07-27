@@ -94,6 +94,24 @@
                                 </group>
                             </group>
                             <group>
+                                <group string="Single">
+                                    <field name="makkah_single_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_no_single" string="Booking"/>
+                                    <field name="makka_single_male_beds" string="Booking Male Rooms"/>
+                                    <field name="makka_single_female_beds" string="Booking Female Rooms"/>
+                                    <field name="makkah_single_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('makkah_no_single', '>', 0)]}"/>
+                                    <field name="makkah_single_male_total_beds" string="Total Male Beds"/>
+                                    <field name="makkah_single_female_total_beds" string="Total Female Beds"/>
+                                    <field name="makkah_single_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_single_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_single_male_available_beds" string="Male Available Beds"/>
+                                    <field name="makkah_single_female_available_beds" string="Female Available Beds"/>
+                                </group>
                                 <group string="Double">
                                     <field name="makkah_double_available" string="Available" readonly="1"
                                            force_save="1"/>
@@ -102,7 +120,6 @@
                                     <field name="makka_double_female_beds" string="Booking Female Rooms"/>
                                     <field name="makkah_double_plan_id" string="Rate Plan"
                                            attrs="{'required': [('makkah_no_double', '>', 0)]}"/>
-                                    <!--                                    <field name="makkah_double_total_beds" string="Total Beds"/>-->
                                     <field name="makkah_double_male_total_beds" string="Total Male Beds"/>
                                     <field name="makkah_double_female_total_beds" string="Total Female Beds"/>
                                     <field name="makkah_double_male_booked_beds" string="Male Booked Beds" readonly="1"
@@ -110,8 +127,6 @@
                                     <field name="makkah_double_female_booked_beds" string="Female Booked Beds"
                                            readonly="1"
                                            force_save="1"/>
-                                    <!--                                    <field name="makkah_double_booked_beds" string="Booked Beds" readonly="1" force_save="1"/>-->
-                                    <!--                                    <field name="makkah_double_available_beds" string="Available Beds"/>-->
                                     <field name="makkah_double_male_available_beds" string="Male Available Beds"/>
                                     <field name="makkah_double_female_available_beds" string="Female Available Beds"/>
                                 </group>
@@ -158,6 +173,24 @@
                                     <field name="makkah_quad_male_available_beds" string="Male Available Beds"/>
                                     <field name="makkah_quad_female_available_beds" string="Female Available Beds"/>
                                 </group>
+                                <group string="Quint">
+                                    <field name="makkah_quint_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_no_quint" string="Booking"/>
+                                    <field name="makka_quint_male_beds" string="Booking Male Rooms"/>
+                                    <field name="makka_quint_female_beds" string="Booking Female Rooms"/>
+                                    <field name="makkah_quint_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('makkah_no_quint', '>', 0)]}"/>
+                                    <field name="makkah_quint_male_total_beds" string="Total Male Beds"/>
+                                    <field name="makkah_quint_female_total_beds" string="Total Female Beds"/>
+                                    <field name="makkah_quint_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_quint_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <field name="makkah_quint_male_available_beds" string="Male Available Beds"/>
+                                    <field name="makkah_quint_female_available_beds" string="Female Available Beds"/>
+                                </group>
                             </group>
                             <group string="Activities">
                                 <field name="makkah_activity_line_ids" nolabel="1" context="{'default_location': 'makkah'}" domain="[('location', '=', 'makkah')]">
@@ -191,6 +224,23 @@
                                 </group>
                             </group>
                             <group>
+                                <group string="Single">
+                                    <field name="madinah_single_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_no_single" string="Booking"/>
+                                    <field name="madinah_single_male_beds" string="Booking Male Rooms"/>
+                                    <field name="madinah_single_female_beds" string="Booking Female Rooms"/>
+                                    <field name="madinah_single_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('madinah_no_single', '>', 0)]}"/>
+                                    <field name="madinah_single_male_total_beds" string="Total Male Beds"/>
+                                    <field name="madinah_single_female_total_beds" string="Total Female Beds"/>
+                                    <field name="madinah_single_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_single_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="madinah_single_male_available_beds" string="Male Available Beds"/>
+                                    <field name="madinah_single_female_available_beds" string="Female Available Beds"/>
+                                </group>
                                 <group string="Double">
                                     <field name="madinah_double_available" string="Available" readonly="1"
                                            force_save="1"/>
@@ -199,7 +249,6 @@
                                     <field name="madinah_double_female_beds" string="Booking Female Rooms"/>
                                     <field name="madinah_double_plan_id" string="Rate Plan"
                                            attrs="{'required': [('madinah_no_double', '>', 0)]}"/>
-                                    <!--                                    <field name="madinah_double_total_beds" string="Total Beds"/>-->
                                     <field name="madinah_double_male_total_beds" string="Total Male Beds"/>
                                     <field name="madinah_double_female_total_beds" string="Total Female Beds"/>
                                     <field name="madinah_double_male_booked_beds" string="Male Booked Beds" readonly="1"
@@ -249,6 +298,23 @@
                                     <!--                                    <field name="madinah_quad_total_beds" string="Total Beds"/>-->
                                     <!--                                    <field name="madinah_quad_booked_beds" string="Booked Beds" readonly="1" force_save="1"/>-->
                                     <!--                                    <field name="madinah_quad_available_beds" string="Available Beds"/>-->
+                                </group>
+                                <group string="Quint">
+                                    <field name="madinah_quint_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_no_quint" string="Booking"/>
+                                    <field name="madinah_quint_male_beds" string="Booking Male Rooms"/>
+                                    <field name="madinah_quint_female_beds" string="Booking Female Rooms"/>
+                                    <field name="madinah_quint_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('madinah_no_quint', '>', 0)]}"/>
+                                    <field name="madinah_quint_male_total_beds" string="Total Male Beds"/>
+                                    <field name="madinah_quint_female_total_beds" string="Total Female Beds"/>
+                                    <field name="madinah_quint_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="madinah_quint_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="madinah_quint_male_available_beds" string="Male Available Beds"/>
+                                    <field name="madinah_quint_female_available_beds" string="Female Available Beds"/>
                                 </group>
                             </group>
                             <group string="Activities">
@@ -364,6 +430,23 @@
 
                             </group>
                             <group>
+                                <group string="Single">
+                                    <field name="hotel_single_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_no_single" string="Booking"/>
+                                    <field name="hotel_single_male_beds" string="Booking Male Rooms"/>
+                                    <field name="hotel_single_female_beds" string="Booking Female Rooms"/>
+                                    <field name="hotel_single_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('hotel_no_single', '>', 0)]}"/>
+                                     <field name="hotel_single_male_total_beds" string="Total Male Beds"/>
+                                    <field name="hotel_single_female_total_beds" string="Total Female Beds"/>
+                                     <field name="hotel_single_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_single_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="hotel_single_male_available_beds" string="Male Available Beds"/>
+                                    <field name="hotel_single_female_available_beds" string="Female Available Beds"/>
+                                </group>
                                 <group string="Double">
                                     <field name="hotel_double_available" string="Available" readonly="1"
                                            force_save="1"/>
@@ -414,6 +497,23 @@
                                     <field name="hotel_quad_male_available_beds" string="Male Available Beds"/>
                                     <field name="hotel_quad_female_available_beds" string="Female Available Beds"/>
                                 </group>
+                                <group string="Quint">
+                                    <field name="hotel_quint_available" string="Available" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_no_quint" string="Booking"/>
+                                    <field name="hotel_quint_male_beds" string="Booking Male Rooms"/>
+                                    <field name="hotel_quint_female_beds" string="Booking Female Rooms"/>
+                                    <field name="hotel_quint_plan_id" string="Rate Plan"
+                                           attrs="{'required': [('hotel_no_quint', '>', 0)]}"/>
+                                     <field name="hotel_quint_male_total_beds" string="Total Male Beds"/>
+                                    <field name="hotel_quint_female_total_beds" string="Total Female Beds"/>
+                                     <field name="hotel_quint_male_booked_beds" string="Male Booked Beds" readonly="1"
+                                           force_save="1"/>
+                                    <field name="hotel_quint_female_booked_beds" string="Female Booked Beds"
+                                           readonly="1" force_save="1"/>
+                                    <field name="hotel_quint_male_available_beds" string="Male Available Beds"/>
+                                    <field name="hotel_quint_female_available_beds" string="Female Available Beds"/>
+                                </group>
                             </group>
                             <group string="Activities">
                                 <field name="hotel_activity_line_ids" nolabel="1" context="{'default_location': 'hotel'}" domain="[('location', '=', 'hotel')]">
@@ -454,6 +554,8 @@
                                 <tree editable="bottom">
                                     <field name="room_type"/>
                                     <field name="price"/>
+                                    <field name="child_price"/>
+                                    <field name="baby_price"/>
                                 </tree>
                             </field>
                         </page>

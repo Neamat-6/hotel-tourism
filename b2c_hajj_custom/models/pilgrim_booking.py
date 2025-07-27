@@ -36,11 +36,17 @@ class PilgrimBooking(models.Model):
     source = fields.Selection([('person','Direct'), ('company','Company')],required=True)
     partner_id = fields.Many2one('res.partner',required=True)
     package_id = fields.Many2one('booking.package', required=True, domain="[('package_closed', '=', False)]")
-    pilgrim_count = fields.Integer()
-    pilgrim_cost = fields.Float(string="sales Price", compute='_compute_pilgrim_cost', store=True, readonly=False)
+    pilgrim_count = fields.Integer(string='Adult Count')
+    child_count = fields.Integer(string='child Count')
+    baby_count = fields.Integer(string='Baby Count')
+    pilgrim_cost = fields.Float(string="Adult sales Price", compute='_compute_pilgrim_cost', store=True, readonly=False)
+    child_cost = fields.Float(string="Child sales Price", compute='_compute_pilgrim_cost', store=True, readonly=False)
+    baby_cost = fields.Float(string="Baby sales Price", compute='_compute_pilgrim_cost', store=True, readonly=False)
     total_cost = fields.Float(compute='compute_total_cost', store=True)
-    room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    room_type = fields.Selection(selection=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     line_ids = fields.One2many('pilgrim.booking.line', 'book_id')
+    child_ids = fields.One2many('child.booking.line', 'book_id')
+    baby_ids = fields.One2many('baby.booking.line', 'book_id')
     state= fields.Selection([('draft', 'Tentative Confirmation'),('hotel_confirm', 'Confirmed Waiting Payment'),('confirmed', 'Confirmed'),('cancelled', 'Cancelled')], default='draft')
     move_id = fields.Many2one('account.move', copy=False)
     extra_lines = fields.One2many('extra.booking.line', 'book_id')
@@ -51,6 +57,8 @@ class PilgrimBooking(models.Model):
         for rec in self:
             line = rec.package_id.package_sale_price_ids.filtered(lambda x: x.room_type == rec.room_type)
             rec.pilgrim_cost = line.price if line else 0.0
+            rec.child_cost = line.child_price if line else 0.0
+            rec.baby_cost = line.baby_price if line else 0.0
 
     @api.constrains('line_ids', 'pilgrim_count', 'source')
     def _check_line_count(self):
@@ -93,33 +101,51 @@ class PilgrimBooking(models.Model):
                 'partner_id': domain
             }
         }
-    @api.depends('pilgrim_count', 'pilgrim_cost', 'extra_lines.quantity', 'extra_lines.price_unit')
+    @api.depends('pilgrim_count', 'pilgrim_cost', 'child_count', 'baby_count', 'child_cost', 'baby_cost', 'extra_lines.quantity', 'extra_lines.price_unit')
     def compute_total_cost(self):
         for rec in self:
             total_cost = 0.0
             for line in rec.extra_lines:
                 total_cost += line.quantity * line.price_unit
-            total_cost += rec.pilgrim_count * rec.pilgrim_cost
+            cost = (rec.pilgrim_count * rec.pilgrim_cost) + (rec.child_count * rec.child_cost) + (rec.baby_count * rec.baby_cost)
+            total_cost += cost
             rec.total_cost = total_cost
 
-
-    def create_invoice(self):
-        self.ensure_one()
-        tax_ids = self.env.company.hotel_default_tax_ids.ids
+    def _prepare_invoice_lines(self):
         invoice_line_vals = [(0, 0, {
                 # 'product_id': line.room_id.product_id.id,
-                'name': self.package_id.package_code,
+                'name': f"{self.package_id.package_code}-Adult Booking",
                 'quantity': self.pilgrim_count,
                 'price_unit': self.pilgrim_cost,
                 # 'tax_ids': line.tax_id,
                 # 'account_id': hotel_hotel_obj.account_journal_id.default_account_id.id
             })]
+        if self.child_count and self.child_cost:
+            invoice_line_vals.append((0, 0, {
+                'name': f"{self.package_id.package_code}-Child Booking",
+                'quantity': self.child_count,
+                'price_unit': self.child_cost,
+            }))
+        if self.baby_count and self.baby_cost:
+            invoice_line_vals.append((0, 0, {
+                'name': f"{self.package_id.package_code}-Baby Booking",
+                'quantity': self.baby_count,
+                'price_unit': self.baby_cost,
+            }))
         for line in self.extra_lines:
             invoice_line_vals.append((0, 0, {
                 'name': line.extra_id.name,
                 'quantity': line.quantity,
                 'price_unit': line.price_unit,
             }))
+        return invoice_line_vals
+
+    def create_invoice(self):
+        self.ensure_one()
+        print(f'create_invoice called {self.company_id.name}')
+        company = self.company_id or self.env.company
+        tax_ids = self.company_id.hotel_default_tax_ids.ids
+        invoice_line_vals = self._prepare_invoice_lines()
         move_vals = {
             'move_type': 'out_invoice',
             'partner_id': self.partner_id.id,
@@ -130,7 +156,7 @@ class PilgrimBooking(models.Model):
             'invoice_line_ids': invoice_line_vals,
             'company_id': self.company_id.id,
         }
-        move = self.env['account.move'].with_context({'line_ids': False}).create(move_vals)
+        move = self.env['account.move'].with_context({'line_ids': False,}).with_company(company).create(move_vals)
         move.action_post()
         print('mmmmmmmmmove', move)
         self.move_id = move.id
@@ -143,18 +169,10 @@ class PilgrimBooking(models.Model):
         income_account = self.env['account.account'].search([
             ('user_type_id.type', '=', 'income'),
             ('deprecated', '=', False),
-            ('company_id', '=', self.env.company.id)
+            ('company_id', '=', self.company_id.id)
         ], limit=1)
         print('income_account', income_account)
-        invoice_line_vals = [(0, 0, {
-                # 'product_id': line.room_id.product_id.id,
-                'name': self.package_id.package_code,
-                'quantity': self.pilgrim_count,
-                'price_unit': self.pilgrim_cost,
-                'account_id': income_account.id,
-                # 'tax_ids': line.tax_id,
-                # 'account_id': hotel_hotel_obj.account_journal_id.default_account_id.id
-            })]
+        invoice_line_vals = self._prepare_invoice_lines()
         self.move_id.write({
             'partner_id': self.partner_id.id,
             'invoice_line_ids': invoice_line_vals
@@ -183,6 +201,23 @@ class PilgrimBooking(models.Model):
                 else:
                     pilgrim = self.env['res.partner'].sudo().create(vals)
                     line.write({'partner_id': pilgrim.id})
+
+            for line in rec.child_ids:
+                vals = line.get_pilgrim_data()
+                if line.partner_id:
+                    line.partner_id.sudo().write(vals)
+                else:
+                    pilgrim = self.env['res.partner'].sudo().create(vals)
+                    line.write({'partner_id': pilgrim.id})
+
+            for line in rec.baby_ids:
+                vals = line.get_pilgrim_data()
+                if line.partner_id:
+                    line.partner_id.sudo().write(vals)
+                else:
+                    pilgrim = self.env['res.partner'].sudo().create(vals)
+                    line.write({'partner_id': pilgrim.id})
+
             rec.state = 'hotel_confirm'
 
     def action_confirm(self):
@@ -206,6 +241,14 @@ class PilgrimBooking(models.Model):
                 line.partner_id.write({
                     'package_id': False,
                 })
+            for line in rec.child_ids:
+                line.partner_id.write({
+                    'package_id': False,
+                })
+            for line in rec.baby_ids:
+                line.partner_id.write({
+                    'package_id': False,
+                })
             rec.move_id.button_draft()
             rec.state = 'draft'
 
@@ -217,6 +260,14 @@ class PilgrimBooking(models.Model):
                     'package_id': False,
                 })
             for line in rec.line_ids:
+                line.partner_id.write({
+                    'package_id': False,
+                })
+            for line in rec.child_ids:
+                line.partner_id.write({
+                    'package_id': False,
+                })
+            for line in rec.baby_ids:
                 line.partner_id.write({
                     'package_id': False,
                 })
@@ -377,3 +428,77 @@ class PilgrimBookingLine(models.Model):
             'madinah_room_type': self.book_id.room_type,
             'hotel_room_type': self.book_id.room_type,
         }
+
+
+class ChildBookingLine(models.Model):
+    _name = 'child.booking.line'
+
+
+    name = fields.Char()
+    main_member_id = fields.Many2one('res.partner')
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ], string="Gender")
+    pilgrim_type = fields.Selection(selection=[
+        ('main', 'Main'), ('member', 'Family Member')
+    ], default='member')
+    book_id = fields.Many2one('pilgrim.booking', ondelete='cascade')
+    partner_id = fields.Many2one('res.partner')
+
+
+    def get_pilgrim_data(self):
+        return {
+            'name': self.name,
+            'gender': self.gender,
+            'pilgrim_type': self.pilgrim_type,
+            'main_member_id': self.main_member_id.id if self.main_member_id else None,
+            'package_id': self.book_id.package_id.id,
+            'makkah_room_type': self.book_id.room_type,
+            'madinah_room_type': self.book_id.room_type,
+            'hotel_room_type': self.book_id.room_type,
+            'is_child': True,
+        }
+
+    @api.model
+    def create(self, vals):
+        if not vals.get('main_member_id') and 'book_id' in vals:
+            vals['main_member_id'] = self.env['pilgrim.booking'].browse(vals['book_id']).partner_id.id
+        return super(ChildBookingLine, self).create(vals)
+
+
+class BabyBookingLine(models.Model):
+    _name = 'baby.booking.line'
+
+    name = fields.Char()
+    main_member_id = fields.Many2one('res.partner')
+
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ], string="Gender")
+    pilgrim_type = fields.Selection(selection=[
+        ('main', 'Main'), ('member', 'Family Member')
+    ], default='member')
+    book_id = fields.Many2one('pilgrim.booking', ondelete='cascade')
+    partner_id = fields.Many2one('res.partner')
+
+
+    def get_pilgrim_data(self):
+        return {
+            'name': self.name,
+            'gender': self.gender,
+            'pilgrim_type': self.pilgrim_type,
+            'main_member_id': self.main_member_id.id if self.main_member_id else None,
+            'package_id': self.book_id.package_id.id,
+            'makkah_room_type': self.book_id.room_type,
+            'madinah_room_type': self.book_id.room_type,
+            'hotel_room_type': self.book_id.room_type,
+            'is_baby': True,
+        }
+
+    @api.model
+    def create(self, vals):
+        if not vals.get('main_member_id') and 'book_id' in vals:
+            vals['main_member_id'] = self.env['pilgrim.booking'].browse(vals['book_id']).partner_id.id
+        return super(BabyBookingLine, self).create(vals)

@@ -114,6 +114,8 @@
                            domain="[('package_id', '=', package_id), ('pilgrim_type', '=', 'main'), ('id', '!=', id), ('makkah_room_type', '=', makkah_room_type)]"/>
                     <field name="gender" attrs="{'required': [('is_company', '=', False)]}"/>
                     <field name="is_guide"/>
+                    <field name="is_child"/>
+                    <field name="is_baby"/>
                     <field name="room_ref"/>
                     <field name="package_id"/>
                     <field name="package_contract_id"/>

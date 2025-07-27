@@ -43,12 +43,19 @@ class BookingPackage(models.Model):
     main_makkah_company_id = fields.Many2one('res.company', related='main_makkah.company_id', store=True)
     makkah_arrival_date = fields.Date("Makkah Arrival Date", tracking=True)
     makkah_departure_date = fields.Date("Makkah Departure Date", tracking=True)
+    makkah_no_single = fields.Integer("Makkah Single", tracking=True)
     makkah_no_double = fields.Integer("Makkah Double", tracking=True)
     makkah_no_triple = fields.Integer("Makkah Triple", tracking=True)
     makkah_no_quad = fields.Integer("Makkah Quad", tracking=True)
+    makkah_no_quint = fields.Integer("Makkah Quintuple", tracking=True)
+    makkah_single_available = fields.Integer("Makkah Single Available", tracking=True)
     makkah_double_available = fields.Integer("Makkah Double Available", tracking=True)
     makkah_triple_available = fields.Integer("Makkah Triple Available", tracking=True)
     makkah_quad_available = fields.Integer("Makkah Quad Available", tracking=True)
+    makkah_quint_available = fields.Integer("Makkah Quintuple Available", tracking=True)
+    makkah_single_plan_id = fields.Many2one('hotel.rate.plan',
+                                            domain="[('room_type_id.mini_adults', '=', 1), ('company_id', '=', main_makkah_company_id)]",
+                                            tracking=True)
     makkah_double_plan_id = fields.Many2one('hotel.rate.plan',
                                             domain="[('room_type_id.mini_adults', '=', 2), ('company_id', '=', main_makkah_company_id)]",
                                             tracking=True)
@@ -58,8 +65,19 @@ class BookingPackage(models.Model):
     makkah_quad_plan_id = fields.Many2one('hotel.rate.plan',
                                           domain="[('room_type_id.mini_adults', '=', 4), ('company_id', '=', main_makkah_company_id)]",
                                           tracking=True)
+    makkah_quint_plan_id = fields.Many2one('hotel.rate.plan',
+                                          domain="[('room_type_id.mini_adults', '=', 5), ('company_id', '=', main_makkah_company_id)]",
+                                          tracking=True)
+    makka_single_male_beds = fields.Integer("Booking Male Beds")
+    makka_single_female_beds = fields.Integer("Booking Female Beds")
+    makkah_single_male_booked_beds = fields.Integer(tracking=True, string="Male Booked Beds", compute='compute_booked_beds', store=True)
+    makkah_single_female_booked_beds = fields.Integer(tracking=True, string="Female Booked Beds", compute='compute_booked_beds', store=True)
+    makkah_single_male_total_beds = fields.Integer(compute='compute_makkah_single_male_total_beds', store=True, tracking=True)
+    makkah_single_female_total_beds = fields.Integer(compute='compute_makkah_single_female_total_beds', store=True, tracking=True)
+    makkah_single_male_available_beds = fields.Integer(compute='compute_makkah_single_male_available_beds',  tracking=True, store=True)
+    makkah_single_female_available_beds = fields.Integer(compute='compute_makkah_single_female_available_beds',  tracking=True, store=True)
 
-    makkah_double_total_beds = fields.Integer(compute='compute_makkah_double_total_beds', store=True, tracking=True)
+    # makkah_double_total_beds = fields.Integer(compute='compute_makkah_double_total_beds', store=True, tracking=True)
     makka_double_male_beds = fields.Integer("Booking Male Beds")
     makka_double_female_beds = fields.Integer("Booking Female Beds")
     makkah_double_male_booked_beds = fields.Integer(tracking=True, string="Male Booked Beds", compute='compute_booked_beds', store=True)
@@ -69,7 +87,7 @@ class BookingPackage(models.Model):
     makkah_double_male_available_beds = fields.Integer(compute='compute_makkah_double_male_available_beds',  tracking=True, store=True)
     makkah_double_female_available_beds = fields.Integer(compute='compute_makkah_double_female_available_beds',  tracking=True, store=True)
 
-    makkah_triple_total_beds = fields.Integer(compute='compute_makkah_triple_total_beds', store=True, tracking=True)
+    # makkah_triple_total_beds = fields.Integer(compute='compute_makkah_triple_total_beds', store=True, tracking=True)
     makka_triple_male_beds = fields.Integer("Booking Male Beds")
     makka_triple_female_beds = fields.Integer("Booking Female Beds")
     makkah_triple_male_total_beds = fields.Integer(compute='compute_makkah_triple_male_total_beds', store=True, tracking=True)
@@ -79,17 +97,24 @@ class BookingPackage(models.Model):
     makkah_triple_male_available_beds = fields.Integer(compute='compute_makkah_triple_male_available_beds', tracking=True, store=True)
     makkah_triple_female_available_beds = fields.Integer(compute='compute_makkah_triple_female_available_beds', tracking=True, store=True)
 
-    makkah_quad_total_beds = fields.Integer(compute='compute_makkah_quad_total_beds', store=True, tracking=True)
+    # makkah_quad_total_beds = fields.Integer(compute='compute_makkah_quad_total_beds', store=True, tracking=True)
     makka_quad_male_beds = fields.Integer("Booking Male Beds")
     makka_quad_female_beds = fields.Integer("Booking Female Beds")
-
     makkah_quad_male_total_beds = fields.Integer(compute='compute_makkah_quad_male_total_beds', store=True, tracking=True)
     makkah_quad_female_total_beds = fields.Integer(compute='compute_makkah_quad_female_total_beds', store=True, tracking=True)
     makkah_quad_male_booked_beds = fields.Integer(tracking=True, string="Male Booked Beds", compute='compute_booked_beds', store=True)
     makkah_quad_female_booked_beds = fields.Integer(tracking=True, string="Female Booked Beds", compute='compute_booked_beds', store=True)
-
     makkah_quad_male_available_beds = fields.Integer(compute='compute_makkah_quad_male_available_beds', tracking=True, store=True)
     makkah_quad_female_available_beds = fields.Integer(compute='compute_makkah_quad_female_available_beds',  tracking=True, store=True)
+
+    makka_quint_male_beds = fields.Integer("Booking Male Beds")
+    makka_quint_female_beds = fields.Integer("Booking Female Beds")
+    makkah_quint_male_booked_beds = fields.Integer(tracking=True, string="Male Booked Beds", compute='compute_booked_beds', store=True)
+    makkah_quint_female_booked_beds = fields.Integer(tracking=True, string="Female Booked Beds", compute='compute_booked_beds', store=True)
+    makkah_quint_male_total_beds = fields.Integer(compute='compute_makkah_quint_male_total_beds', store=True, tracking=True)
+    makkah_quint_female_total_beds = fields.Integer(compute='compute_makkah_quint_female_total_beds', store=True, tracking=True)
+    makkah_quint_male_available_beds = fields.Integer(compute='compute_makkah_quint_male_available_beds',  tracking=True, store=True)
+    makkah_quint_female_available_beds = fields.Integer(compute='compute_makkah_quint_female_available_beds',  tracking=True, store=True)
 
     # madinah
     main_madinah = fields.Many2one('hotel.hotel', domain="[('type', '=', 'madinah')]", string='Madinah Hotel', tracking=True)
@@ -105,12 +130,19 @@ class BookingPackage(models.Model):
     main_madinah_company_id = fields.Many2one('res.company', related='main_madinah.company_id', store=True)
     madinah_arrival_date = fields.Date("Madinah Arrival Date", tracking=True)
     madinah_departure_date = fields.Date("Madinah Departure Date", tracking=True)
+    madinah_no_single = fields.Integer("Madinah Single", tracking=True)
     madinah_no_double = fields.Integer("Madinah Double", tracking=True)
     madinah_no_triple = fields.Integer("Madinah Triple", tracking=True)
     madinah_no_quad = fields.Integer("Madinah Quad", tracking=True)
+    madinah_no_quint = fields.Integer("Madinah Quint", tracking=True)
+    madinah_single_available = fields.Integer("Madinah Single Available", tracking=True)
     madinah_double_available = fields.Integer("Madinah Double Available", tracking=True)
     madinah_triple_available = fields.Integer("Madinah Triple Available", tracking=True)
     madinah_quad_available = fields.Integer("Madinah Quad Available", tracking=True)
+    madinah_quint_available = fields.Integer("Madinah Quint Available", tracking=True)
+    madinah_single_plan_id = fields.Many2one('hotel.rate.plan',
+                                             domain="[('room_type_id.mini_adults', '=', 1), ('company_id', '=', main_madinah_company_id)]",
+                                             tracking=True)
     madinah_double_plan_id = fields.Many2one('hotel.rate.plan',
                                              domain="[('room_type_id.mini_adults', '=', 2), ('company_id', '=', main_madinah_company_id)]",
                                              tracking=True)
@@ -120,8 +152,20 @@ class BookingPackage(models.Model):
     madinah_quad_plan_id = fields.Many2one('hotel.rate.plan',
                                            domain="[('room_type_id.mini_adults', '=', 4), ('company_id', '=', main_madinah_company_id)]",
                                            tracking=True)
+    madinah_quint_plan_id = fields.Many2one('hotel.rate.plan',
+                                           domain="[('room_type_id.mini_adults', '=', 5), ('company_id', '=', main_madinah_company_id)]",
+                                           tracking=True)
 
-    madinah_double_total_beds = fields.Integer(compute='compute_madinah_double_total_beds', store=True, tracking=True)
+    madinah_single_male_beds = fields.Integer("Booking Male Beds")
+    madinah_single_female_beds = fields.Integer("Booking Female Beds")
+    madinah_single_male_total_beds = fields.Integer(compute='compute_madinah_single_male_total_beds', store=True, tracking=True)
+    madinah_single_female_total_beds = fields.Integer(compute='compute_madinah_single_female_total_beds', store=True, tracking=True)
+    madinah_single_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    madinah_single_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    madinah_single_male_available_beds = fields.Integer(compute='compute_madinah_single_male_available_beds', tracking=True, store=True)
+    madinah_single_female_available_beds = fields.Integer(compute='compute_madinah_single_female_available_beds', tracking=True, store=True)
+
+    # madinah_double_total_beds = fields.Integer(compute='compute_madinah_double_total_beds', store=True, tracking=True)
     madinah_double_male_beds = fields.Integer("Booking Male Beds")
     madinah_double_female_beds = fields.Integer("Booking Female Beds")
     madinah_double_male_total_beds = fields.Integer(compute='compute_madinah_double_male_total_beds', store=True, tracking=True)
@@ -131,7 +175,7 @@ class BookingPackage(models.Model):
     madinah_double_male_available_beds = fields.Integer(compute='compute_madinah_double_male_available_beds', tracking=True, store=True)
     madinah_double_female_available_beds = fields.Integer(compute='compute_madinah_double_female_available_beds', tracking=True, store=True)
 
-    madinah_triple_total_beds = fields.Integer(compute='compute_madinah_triple_total_beds', store=True, tracking=True)
+    # madinah_triple_total_beds = fields.Integer(compute='compute_madinah_triple_total_beds', store=True, tracking=True)
     madinah_triple_male_beds = fields.Integer("Booking Male Beds")
     madinah_triple_female_beds = fields.Integer("Booking Female Beds")
     madinah_triple_male_total_beds = fields.Integer(compute='compute_madinah_male_triple_total_beds', store=True, tracking=True)
@@ -141,7 +185,7 @@ class BookingPackage(models.Model):
     madinah_triple_male_available_beds = fields.Integer(compute='compute_madinah_triple_male_available_beds', tracking=True, store=True)
     madinah_triple_female_available_beds = fields.Integer(compute='compute_madinah_triple_female_available_beds', tracking=True, store=True)
 
-    madinah_quad_total_beds = fields.Integer(compute='compute_madinah_quad_total_beds', store=True, tracking=True)
+    # madinah_quad_total_beds = fields.Integer(compute='compute_madinah_quad_total_beds', store=True, tracking=True)
     madinah_quad_male_beds = fields.Integer("Booking Male Beds")
     madinah_quad_female_beds = fields.Integer("Booking Female Beds")
     madinah_quad_male_total_beds = fields.Integer(compute='compute_madinah_quad_male_total_beds', store=True, tracking=True)
@@ -150,6 +194,15 @@ class BookingPackage(models.Model):
     madinah_quad_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     madinah_quad_male_available_beds = fields.Integer(compute='compute_madinah_quad_male_available_beds', tracking=True, store=True)
     madinah_quad_female_available_beds = fields.Integer(compute='compute_madinah_quad_female_available_beds', tracking=True, store=True)
+
+    madinah_quint_male_beds = fields.Integer("Booking Male Beds")
+    madinah_quint_female_beds = fields.Integer("Booking Female Beds")
+    madinah_quint_male_total_beds = fields.Integer(compute='compute_madinah_quint_male_total_beds', store=True, tracking=True)
+    madinah_quint_female_total_beds = fields.Integer(compute='compute_madinah_quint_female_total_beds', store=True, tracking=True)
+    madinah_quint_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    madinah_quint_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    madinah_quint_male_available_beds = fields.Integer(compute='compute_madinah_quint_male_available_beds', tracking=True, store=True)
+    madinah_quint_female_available_beds = fields.Integer(compute='compute_madinah_quint_female_available_beds', tracking=True, store=True)
 
     #  arfa
     main_arfa = fields.Many2one('hotel.hotel', domain="[('type', '=', 'arfa')]", string='Arfa Hotel', tracking=True)
@@ -205,6 +258,10 @@ class BookingPackage(models.Model):
     main_hotel_company_id = fields.Many2one('res.company', related='main_hotel.company_id')
     hotel_arrival_date = fields.Date("Main Shift Arrival Date", tracking=True)
     hotel_departure_date = fields.Date("Main Shift Departure Date", tracking=True)
+    hotel_no_single = fields.Integer("Main Single", tracking=True)
+    hotel_single_male_beds = fields.Integer("Booking Male Beds")
+    hotel_single_female_beds = fields.Integer("Booking Female Beds")
+    hotel_single_available = fields.Integer(tracking=True)
     hotel_no_double = fields.Integer("Main Double", tracking=True)
     hotel_double_male_beds = fields.Integer("Booking Male Beds")
     hotel_double_female_beds = fields.Integer("Booking Female Beds")
@@ -217,6 +274,13 @@ class BookingPackage(models.Model):
     hotel_quad_male_beds = fields.Integer("Booking Male Beds")
     hotel_quad_female_beds = fields.Integer("Booking Female Beds")
     hotel_quad_available = fields.Integer(tracking=True)
+    hotel_no_quint = fields.Integer("Main quint", tracking=True)
+    hotel_quint_male_beds = fields.Integer("Booking Male Beds")
+    hotel_quint_female_beds = fields.Integer("Booking Female Beds")
+    hotel_quint_available = fields.Integer(tracking=True)
+    hotel_single_plan_id = fields.Many2one('hotel.rate.plan',
+                                           domain="[('room_type_id.mini_adults', '=', 1), ('company_id', '=', main_hotel_company_id)]",
+                                           tracking=True)
     hotel_double_plan_id = fields.Many2one('hotel.rate.plan',
                                            domain="[('room_type_id.mini_adults', '=', 2), ('company_id', '=', main_hotel_company_id)]",
                                            tracking=True)
@@ -226,27 +290,44 @@ class BookingPackage(models.Model):
     hotel_quad_plan_id = fields.Many2one('hotel.rate.plan',
                                          domain="[('room_type_id.mini_adults', '=', 4), ('company_id', '=', main_hotel_company_id)]",
                                          tracking=True)
-    hotel_double_total_beds = fields.Integer(compute='compute_hotel_double_total_beds', store=True, tracking=True)
+    hotel_quint_plan_id = fields.Many2one('hotel.rate.plan',
+                                         domain="[('room_type_id.mini_adults', '=', 5), ('company_id', '=', main_hotel_company_id)]",
+                                         tracking=True)
+    hotel_single_male_total_beds = fields.Integer(compute='compute_hotel_single_male_total_beds', store=True, tracking=True)
+    hotel_single_female_total_beds = fields.Integer(compute='compute_hotel_single_female_total_beds', store=True, tracking=True)
+    hotel_single_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    hotel_single_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    hotel_single_male_available_beds = fields.Integer(compute='compute_hotel_single_male_available_beds', tracking=True, store=True)
+    hotel_single_female_available_beds = fields.Integer(compute='compute_hotel_single_female_available_beds', tracking=True, store=True)
+
+    # hotel_double_total_beds = fields.Integer(compute='compute_hotel_double_total_beds', store=True, tracking=True)
     hotel_double_male_total_beds = fields.Integer(compute='compute_hotel_double_male_total_beds', store=True, tracking=True)
     hotel_double_female_total_beds = fields.Integer(compute='compute_hotel_double_female_total_beds', store=True, tracking=True)
     hotel_double_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_double_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_double_male_available_beds = fields.Integer(compute='compute_hotel_double_male_available_beds', tracking=True, store=True)
     hotel_double_female_available_beds = fields.Integer(compute='compute_hotel_double_female_available_beds', tracking=True, store=True)
-    hotel_triple_total_beds = fields.Integer(compute='compute_hotel_triple_total_beds', store=True, tracking=True)
+    # hotel_triple_total_beds = fields.Integer(compute='compute_hotel_triple_total_beds', store=True, tracking=True)
     hotel_triple_male_total_beds = fields.Integer(compute='compute_hotel_triple_male_total_beds', store=True, tracking=True)
     hotel_triple_female_total_beds = fields.Integer(compute='compute_hotel_triple_female_total_beds', store=True, tracking=True)
     hotel_triple_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_triple_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_triple_male_available_beds = fields.Integer(compute='compute_hotel_triple_male_available_beds',tracking=True, store=True)
     hotel_triple_female_available_beds = fields.Integer(compute='compute_hotel_triple_female_available_beds',tracking=True, store=True)
-    hotel_quad_total_beds = fields.Integer(compute='compute_hotel_quad_total_beds', store=True, tracking=True)
+    # hotel_quad_total_beds = fields.Integer(compute='compute_hotel_quad_total_beds', store=True, tracking=True)
     hotel_quad_male_total_beds = fields.Integer(compute='compute_hotel_quad_male_total_beds', store=True, tracking=True)
     hotel_quad_female_total_beds = fields.Integer(compute='compute_hotel_quad_female_total_beds', store=True, tracking=True)
     hotel_quad_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_quad_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
     hotel_quad_male_available_beds = fields.Integer(compute='compute_hotel_quad_male_available_beds', tracking=True, store=True)
     hotel_quad_female_available_beds = fields.Integer(compute='compute_hotel_quad_female_available_beds', tracking=True, store=True)
+    hotel_quint_male_total_beds = fields.Integer(compute='compute_hotel_quint_male_total_beds', store=True, tracking=True)
+    hotel_quint_female_total_beds = fields.Integer(compute='compute_hotel_quint_female_total_beds', store=True, tracking=True)
+    hotel_quint_male_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    hotel_quint_female_booked_beds = fields.Integer(tracking=True, compute='compute_booked_beds', store=True)
+    hotel_quint_male_available_beds = fields.Integer(compute='compute_hotel_quint_male_available_beds', tracking=True, store=True)
+    hotel_quint_female_available_beds = fields.Integer(compute='compute_hotel_quint_female_available_beds', tracking=True, store=True)
+
     transportation_contract_ids = fields.Many2many('transportation.contract',  string="Transportation Contracts", domain="[('is_expired', '=', False)]")
     transport_purchase_price = fields.Float(compute='compute_transport_purchase_price', store=True)
 
@@ -390,16 +471,16 @@ class BookingPackage(models.Model):
         print('compute_booked_beds')
         for record in self:
             makkah_beds = {
-                'male': {2: 0, 3: 0, 4: 0},
-                'female': {2: 0, 3: 0, 4: 0},
+                'male': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
+                'female': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
             }
             madinah_beds = {
-                'male': {2: 0, 3: 0, 4: 0},
-                'female': {2: 0, 3: 0, 4: 0},
+                'male': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
+                'female': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
             }
             hotel_beds = {
-                'male': {2: 0, 3: 0, 4: 0},
-                'female': {2: 0, 3: 0, 4: 0},
+                'male': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
+                'female': {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
             }
             arfa_beds = {
                 'male': 0,
@@ -410,24 +491,36 @@ class BookingPackage(models.Model):
                 'female': 0
             }
             if not record.booking_ids:
+                record.makkah_single_male_booked_beds = 0
+                record.makkah_single_female_booked_beds = 0
                 record.makkah_double_male_booked_beds = 0
                 record.makkah_double_female_booked_beds = 0
                 record.makkah_triple_male_booked_beds = 0
                 record.makkah_triple_female_booked_beds = 0
                 record.makkah_quad_male_booked_beds = 0
                 record.makkah_quad_female_booked_beds = 0
+                record.makkah_quint_male_booked_beds = 0
+                record.makkah_quint_female_booked_beds = 0
+                record.madinah_single_male_booked_beds = 0
+                record.madinah_single_female_booked_beds = 0
                 record.madinah_double_male_booked_beds = 0
                 record.madinah_double_female_booked_beds = 0
                 record.madinah_triple_male_booked_beds = 0
                 record.madinah_triple_female_booked_beds = 0
                 record.madinah_quad_male_booked_beds = 0
                 record.madinah_quad_female_booked_beds = 0
+                record.madinah_quint_male_booked_beds = 0
+                record.madinah_quint_female_booked_beds = 0
+                record.hotel_single_male_booked_beds = 0
+                record.hotel_single_female_booked_beds = 0
                 record.hotel_double_male_booked_beds = 0
                 record.hotel_double_female_booked_beds = 0
                 record.hotel_triple_male_booked_beds = 0
                 record.hotel_triple_female_booked_beds = 0
                 record.hotel_quad_male_booked_beds = 0
                 record.hotel_quad_female_booked_beds = 0
+                record.hotel_quint_male_booked_beds = 0
+                record.hotel_quint_female_booked_beds = 0
                 record.arfa_male_booked_beds = 0
                 record.arfa_female_booked_beds = 0
                 record.minnah_male_booked_beds = 0
@@ -435,7 +528,7 @@ class BookingPackage(models.Model):
             for booking in record.booking_ids:
                 if booking.hotel_id.type == 'makkah':
                     counts = self.env['res.partner'].read_group(
-                        domain=[('package_id', '=', record.id)],
+                        domain=[('package_id', '=', record.id),('is_child', '=', False), ('is_baby', '=', False)],
                         fields=['makkah_room_type', 'gender'],
                         groupby=['makkah_room_type', 'gender'],
                         lazy=False
@@ -450,7 +543,7 @@ class BookingPackage(models.Model):
 
                 elif booking.hotel_id.type == 'madinah':
                     counts = self.env['res.partner'].read_group(
-                        domain=[('package_id', '=', record.id)],
+                        domain=[('package_id', '=', record.id),('is_child', '=', False), ('is_baby', '=', False)],
                         fields=['madinah_room_type', 'gender'],
                         groupby=['madinah_room_type', 'gender'],
                         lazy=False
@@ -465,7 +558,7 @@ class BookingPackage(models.Model):
 
                 elif booking.hotel_id.type == 'hotel':
                     counts = self.env['res.partner'].read_group(
-                        domain=[('package_id', '=', record.id)],
+                        domain=[('package_id', '=', record.id),('is_child', '=', False), ('is_baby', '=', False)],
                         fields=['hotel_room_type', 'gender'],
                         groupby=['hotel_room_type', 'gender'],
                         lazy=False
@@ -479,7 +572,7 @@ class BookingPackage(models.Model):
 
                 elif booking.hotel_id.type == 'arfa':
                     counts = self.env['res.partner'].read_group(
-                        domain=[('package_id', '=', record.id)],
+                        domain=[('package_id', '=', record.id),('is_child', '=', False), ('is_baby', '=', False)],
                         fields=['gender'],
                         groupby=['gender'],
                         lazy=False
@@ -493,7 +586,7 @@ class BookingPackage(models.Model):
 
                 elif booking.hotel_id.type == 'minnah':
                     counts = self.env['res.partner'].read_group(
-                        domain=[('package_id', '=', record.id)],
+                        domain=[('package_id', '=', record.id),('is_child', '=', False), ('is_baby', '=', False)],
                         fields=['gender'],
                         groupby=['gender'],
                         lazy=False
@@ -505,24 +598,36 @@ class BookingPackage(models.Model):
                         if gender in minnah_beds:
                             minnah_beds[gender] = count
 
+                record.makkah_single_male_booked_beds = makkah_beds['male'][1]
+                record.makkah_single_female_booked_beds = makkah_beds['female'][1]
                 record.makkah_double_male_booked_beds = makkah_beds['male'][2]
                 record.makkah_double_female_booked_beds = makkah_beds['female'][2]
                 record.makkah_triple_male_booked_beds = makkah_beds['male'][3]
                 record.makkah_triple_female_booked_beds = makkah_beds['female'][3]
                 record.makkah_quad_male_booked_beds = makkah_beds['male'][4]
                 record.makkah_quad_female_booked_beds = makkah_beds['female'][4]
+                record.makkah_quint_male_booked_beds = makkah_beds['male'][5]
+                record.makkah_quint_female_booked_beds = makkah_beds['female'][5]
+                record.madinah_single_male_booked_beds = madinah_beds['male'][1]
+                record.madinah_single_female_booked_beds = madinah_beds['female'][1]
                 record.madinah_double_male_booked_beds = madinah_beds['male'][2]
                 record.madinah_double_female_booked_beds = madinah_beds['female'][2]
                 record.madinah_triple_male_booked_beds = madinah_beds['male'][3]
                 record.madinah_triple_female_booked_beds = madinah_beds['female'][3]
                 record.madinah_quad_male_booked_beds = madinah_beds['male'][4]
                 record.madinah_quad_female_booked_beds = madinah_beds['female'][4]
+                record.madinah_quint_male_booked_beds = madinah_beds['male'][5]
+                record.madinah_quint_female_booked_beds = madinah_beds['female'][5]
+                record.hotel_single_male_booked_beds = hotel_beds['male'][1]
+                record.hotel_single_female_booked_beds = hotel_beds['female'][1]
                 record.hotel_double_male_booked_beds = hotel_beds['male'][2]
                 record.hotel_double_female_booked_beds = hotel_beds['female'][2]
                 record.hotel_triple_male_booked_beds = hotel_beds['male'][3]
                 record.hotel_triple_female_booked_beds = hotel_beds['female'][3]
                 record.hotel_quad_male_booked_beds = hotel_beds['male'][4]
                 record.hotel_quad_female_booked_beds = hotel_beds['female'][4]
+                record.hotel_quint_male_booked_beds = hotel_beds['male'][5]
+                record.hotel_quint_female_booked_beds = hotel_beds['female'][5]
                 record.arfa_male_booked_beds = arfa_beds['male']
                 record.arfa_female_booked_beds = arfa_beds['female']
                 record.minnah_male_booked_beds = minnah_beds['male']
@@ -550,6 +655,27 @@ class BookingPackage(models.Model):
             if total_assigned != record.makkah_no_double:
                 raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
 
+    @api.constrains('makka_single_male_beds', 'makka_single_female_beds', 'makkah_no_single')
+    def check_makkah_single_bed_distribution(self):
+        for record in self:
+            total_assigned = record.makka_single_male_beds + record.makka_single_female_beds
+            if total_assigned != record.makkah_no_single:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
+    @api.constrains('makka_quint_male_beds', 'makka_quint_female_beds', 'makkah_no_quint')
+    def check_makkah_quint_bed_distribution(self):
+        for record in self:
+            total_assigned = record.makka_quint_male_beds + record.makka_quint_female_beds
+            if total_assigned != record.makkah_no_quint:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
+    @api.constrains('madinah_single_male_beds', 'madinah_single_female_beds', 'madinah_no_single')
+    def check_single_madinah_bed_distribution(self):
+        for record in self:
+            total_assigned = record.madinah_single_male_beds + record.madinah_single_female_beds
+            if total_assigned != record.madinah_no_single:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
     @api.constrains('madinah_double_male_beds', 'madinah_double_female_beds', 'madinah_no_double')
     def check_double_madinah_bed_distribution(self):
         for record in self:
@@ -571,6 +697,20 @@ class BookingPackage(models.Model):
             if total_assigned != record.madinah_no_quad:
                 raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
 
+    @api.constrains('madinah_quint_male_beds', 'madinah_quint_female_beds', 'madinah_no_quint')
+    def check_quint_madinah_bed_distribution(self):
+        for record in self:
+            total_assigned = record.madinah_quint_male_beds + record.madinah_quint_female_beds
+            if total_assigned != record.madinah_no_quint:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
+    @api.constrains('hotel_quint_male_beds', 'hotel_quint_female_beds', 'hotel_no_quint')
+    def check_hotel_quint_bed_distribution(self):
+        for record in self:
+            total_assigned = record.hotel_quint_male_beds + record.hotel_quint_female_beds
+            if total_assigned != record.hotel_no_quint:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
     @api.constrains('hotel_quad_male_beds', 'hotel_quad_female_beds', 'hotel_no_quad')
     def check_hotel_quad_bed_distribution(self):
         for record in self:
@@ -590,6 +730,13 @@ class BookingPackage(models.Model):
         for record in self:
             total_assigned = record.hotel_double_male_beds + record.hotel_double_female_beds
             if total_assigned != record.hotel_no_double:
+                raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
+
+    @api.constrains('hotel_single_male_beds', 'hotel_single_female_beds', 'hotel_no_single')
+    def check_hotel_single_bed_distribution(self):
+        for record in self:
+            total_assigned = record.hotel_single_male_beds + record.hotel_single_female_beds
+            if total_assigned != record.hotel_no_single:
                 raise ValidationError("The sum of Male Beds and Female Beds must equal the total bookings (Booking)")
 
     # @api.constrains('package_closing_date', 'makkah_arrival_date', 'madinah_arrival_date',
@@ -689,16 +836,22 @@ class BookingPackage(models.Model):
                     return contract.line_ids.filtered(
                         lambda l: l.room_type_id.mini_adults == adults)
 
+                single_line = get_line(1)
                 double_line = get_line(2)
                 triple_line = get_line(3)
                 quad_line = get_line(4)
+                quint_line = get_line(5)
 
+                if single_line:
+                    self.makkah_single_available = single_line.count - single_line.booked_count
                 if double_line:
                     self.makkah_double_available = double_line.count - double_line.booked_count
                 if triple_line:
                     self.makkah_triple_available = triple_line.count - triple_line.booked_count
                 if quad_line:
                     self.makkah_quad_available = quad_line.count - quad_line.booked_count
+                if quint_line:
+                    self.makkah_quint_available = quint_line.count - quint_line.booked_count
             else:
                 available_rooms = self.get_available_rooms(self.main_makkah, self.makkah_arrival_date,
                                                            self.makkah_departure_date)
@@ -711,16 +864,22 @@ class BookingPackage(models.Model):
                 ])
                 logger.info(f'onchange_makkah_data not_assigned_booking {not_assigned_booking}')
                 not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
+                single_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 1)
                 double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
                 triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
                 quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                quint_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 5)
                 available_rooms = self.env['hotel.room'].browse(available_rooms)
+                single_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 1)
                 double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
                 triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
                 quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                quint_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 5)
+                self.makkah_single_available = len(single_rooms) - len(single_rooms_decrease)
                 self.makkah_double_available = len(double_rooms) - len(double_rooms_decrease)
                 self.makkah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
                 self.makkah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+                self.makkah_quint_available = len(quint_rooms) - len(quint_rooms_decrease)
 
     @api.onchange('main_madinah', 'madinah_arrival_date', 'madinah_departure_date', 'madinah_contract_id')
     def onchange_madinah_data(self):
@@ -736,16 +895,21 @@ class BookingPackage(models.Model):
                     return contract.line_ids.filtered(
                         lambda l: l.room_type_id.mini_adults == adults)
 
+                single_line = get_line(1)
                 double_line = get_line(2)
                 triple_line = get_line(3)
                 quad_line = get_line(4)
-
+                quint_line = get_line(5)
+                if single_line:
+                    self.madinah_single_available = single_line.count - single_line.booked_count
                 if double_line:
                     self.madinah_double_available = double_line.count - double_line.booked_count
                 if triple_line:
                     self.madinah_triple_available = triple_line.count - triple_line.booked_count
                 if quad_line:
                     self.madinah_quad_available = quad_line.count - quad_line.booked_count
+                if quint_line:
+                    self.madinah_quint_available = quint_line.count - quint_line.booked_count
             else:
                 available_rooms = self.get_available_rooms(self.main_madinah, self.madinah_arrival_date,
                                                            self.madinah_departure_date)
@@ -761,19 +925,24 @@ class BookingPackage(models.Model):
                 logger.info(f'onchange_madinah_data not_assigned_booking {not_assigned_booking}')
                 not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
                 logger.info(f'onchange_madinah_data not_assigned_folio_room {not_assigned_folio_room}')
+                single_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 1)
                 double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
                 triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
                 quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                quint_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 5)
                 logger.info(f'onchange_madinah_data double_rooms_decrease {double_rooms_decrease}')
                 logger.info(f'onchange_madinah_data triple_rooms_decrease {triple_rooms_decrease}')
                 logger.info(f'onchange_madinah_data quad_rooms_decrease {quad_rooms_decrease}')
+                single_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 1)
                 double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
                 triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
                 quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                quint_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 5)
+                self.madinah_single_available = len(single_rooms) - len(single_rooms_decrease)
                 self.madinah_double_available = len(double_rooms) - len(double_rooms_decrease)
-                logger.info(f'onchange_madinah_data self.madinah_double_available {self.madinah_double_available}')
                 self.madinah_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
                 self.madinah_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+                self.madinah_quint_available = len(quint_rooms) - len(quint_rooms_decrease)
 
     @api.depends('main_arfa', 'arfa_arrival_date', 'arfa_departure_date')
     def onchange_arfa_data(self):
@@ -861,16 +1030,22 @@ class BookingPackage(models.Model):
                     return contract.line_ids.filtered(
                         lambda l: l.room_type_id.mini_adults == adults)
 
+                single_line = get_line(1)
                 double_line = get_line(2)
                 triple_line = get_line(3)
                 quad_line = get_line(4)
+                quint_line = get_line(5)
 
+                if single_line:
+                    self.hotel_single_available = single_line.count - single_line.booked_count
                 if double_line:
                     self.hotel_double_available = double_line.count - double_line.booked_count
                 if triple_line:
                     self.hotel_triple_available = triple_line.count - triple_line.booked_count
                 if quad_line:
                     self.hotel_quad_available = quad_line.count - quad_line.booked_count
+                if quint_line:
+                    self.hotel_quint_available = quint_line.count - quint_line.booked_count
             else:
                 available_rooms = self.get_available_rooms(self.main_hotel, self.hotel_arrival_date,
                                                            self.hotel_departure_date)
@@ -881,16 +1056,22 @@ class BookingPackage(models.Model):
                     ('new_check_out', '>', self.hotel_arrival_date),
                 ])
                 not_assigned_folio_room = not_assigned_booking.folio_ids.filtered(lambda f: not f.room_id)
+                single_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 1)
                 double_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 2)
                 triple_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 3)
                 quad_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 4)
+                quint_rooms_decrease = not_assigned_folio_room.filtered(lambda r: r.room_type_id.mini_adults == 5)
                 available_rooms = self.env['hotel.room'].browse(available_rooms)
+                single_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 1)
                 double_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 2)
                 triple_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 3)
                 quad_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 4)
+                quint_rooms = available_rooms.filtered(lambda r: r.room_type.mini_adults == 5)
+                self.hotel_single_available = len(single_rooms) - len(single_rooms_decrease)
                 self.hotel_double_available = len(double_rooms) - len(double_rooms_decrease)
                 self.hotel_triple_available = len(triple_rooms) - len(triple_rooms_decrease)
                 self.hotel_quad_available = len(quad_rooms) - len(quad_rooms_decrease)
+                self.hotel_quint_available = len(quint_rooms) - len(quint_rooms_decrease)
 
     def get_available_rooms(self, hotel_id, check_in_date, check_out_date):
         available_rooms = []
@@ -947,7 +1128,7 @@ class BookingPackage(models.Model):
     def button_create_bookings(self):
         cities = ['makkah', 'madinah', 'hotel']
         camps = ['arfa', 'minnah']
-        rooms = ['double', 'triple', 'quad']
+        rooms = ['single','double', 'triple', 'quad', 'quint']
         for city in cities:
             hotel_id = getattr(self, f'main_{city}', None)
             if hotel_id:
@@ -1081,10 +1262,32 @@ class BookingPackage(models.Model):
 
     # <<<<computed methods>>>>>
     # ==============================================================
-    @api.depends('makkah_no_double')
-    def compute_makkah_double_total_beds(self):
+    # @api.depends('makkah_no_double')
+    # def compute_makkah_double_total_beds(self):
+    #     for rec in self:
+    #         rec.makkah_double_total_beds = rec.makkah_no_double * 2
+
+
+    @api.depends('makka_single_male_beds')
+    def compute_makkah_single_male_total_beds(self):
         for rec in self:
-            rec.makkah_double_total_beds = rec.makkah_no_double * 2
+            rec.makkah_single_male_total_beds = rec.makka_single_male_beds * 1
+
+    @api.depends('makka_single_female_beds')
+    def compute_makkah_single_female_total_beds(self):
+        for rec in self:
+            rec.makkah_single_female_total_beds = rec.makka_single_female_beds * 1
+
+    @api.depends('makkah_single_male_total_beds', 'makkah_single_male_booked_beds')
+    def compute_makkah_single_male_available_beds(self):
+        for rec in self:
+            rec.makkah_single_male_available_beds = rec.makkah_single_male_total_beds - rec.makkah_single_male_booked_beds
+
+    @api.depends('makkah_single_female_total_beds', 'makkah_single_female_booked_beds')
+    def compute_makkah_single_female_available_beds(self):
+        for rec in self:
+            rec.makkah_single_female_available_beds = rec.makkah_single_female_total_beds - rec.makkah_single_female_booked_beds
+
 
     @api.depends('makka_double_male_beds')
     def compute_makkah_double_male_total_beds(self):
@@ -1116,10 +1319,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.makkah_triple_female_total_beds = rec.makka_triple_female_beds * 3
 
-    @api.depends('makkah_no_triple')
-    def compute_makkah_triple_total_beds(self):
-        for rec in self:
-            rec.makkah_triple_total_beds = rec.makkah_no_triple * 3
+    # @api.depends('makkah_no_triple')
+    # def compute_makkah_triple_total_beds(self):
+    #     for rec in self:
+    #         rec.makkah_triple_total_beds = rec.makkah_no_triple * 3
 
 
     @api.depends('makkah_triple_male_total_beds', 'makkah_triple_male_booked_beds')
@@ -1132,10 +1335,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.makkah_triple_female_available_beds = rec.makkah_triple_female_total_beds - rec.makkah_triple_female_booked_beds
 
-    @api.depends('makkah_no_quad')
-    def compute_makkah_quad_total_beds(self):
-        for rec in self:
-            rec.makkah_quad_total_beds = rec.makkah_no_quad * 4
+    # @api.depends('makkah_no_quad')
+    # def compute_makkah_quad_total_beds(self):
+    #     for rec in self:
+    #         rec.makkah_quad_total_beds = rec.makkah_no_quad * 4
 
     @api.depends('makka_quad_male_beds')
     def compute_makkah_quad_male_total_beds(self):
@@ -1158,11 +1361,53 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.makkah_quad_female_available_beds = rec.makkah_quad_female_total_beds - rec.makkah_quad_female_booked_beds
 
-    # =====================================================
-    @api.depends('madinah_no_double')
-    def compute_madinah_double_total_beds(self):
+
+    @api.depends('makka_quint_male_beds')
+    def compute_makkah_quint_male_total_beds(self):
         for rec in self:
-            rec.madinah_double_total_beds = rec.madinah_no_double * 2
+            rec.makkah_quint_male_total_beds = rec.makka_quint_male_beds * 5
+
+    @api.depends('makka_quint_female_beds')
+    def compute_makkah_quint_female_total_beds(self):
+        for rec in self:
+            rec.makkah_quint_female_total_beds = rec.makka_quint_female_beds * 5
+
+    @api.depends('makkah_quint_male_total_beds', 'makkah_quint_male_booked_beds')
+    def compute_makkah_quint_male_available_beds(self):
+        for rec in self:
+            rec.makkah_quint_male_available_beds = rec.makkah_quint_male_total_beds - rec.makkah_single_male_booked_beds
+
+    @api.depends('makkah_quint_female_total_beds', 'makkah_quint_female_booked_beds')
+    def compute_makkah_quint_female_available_beds(self):
+        for rec in self:
+            rec.makkah_quint_female_available_beds = rec.makkah_quint_female_total_beds - rec.makkah_single_female_booked_beds
+
+    # =====================================================
+    # @api.depends('madinah_no_double')
+    # def compute_madinah_double_total_beds(self):
+    #     for rec in self:
+    #         rec.madinah_double_total_beds = rec.madinah_no_double * 2
+
+    @api.depends('madinah_single_male_beds')
+    def compute_madinah_single_male_total_beds(self):
+        for rec in self:
+            rec.madinah_single_male_total_beds = rec.madinah_single_male_beds * 1
+
+    @api.depends('madinah_single_female_beds')
+    def compute_madinah_single_female_total_beds(self):
+        for rec in self:
+            rec.madinah_single_female_total_beds = rec.madinah_single_female_beds * 1
+
+    @api.depends('madinah_single_male_total_beds', 'madinah_single_male_booked_beds')
+    def compute_madinah_single_male_available_beds(self):
+        for rec in self:
+            rec.madinah_single_male_available_beds = rec.madinah_single_male_total_beds - rec.madinah_single_male_booked_beds
+
+    @api.depends('madinah_single_female_total_beds', 'madinah_single_female_booked_beds')
+    def compute_madinah_single_female_available_beds(self):
+        for rec in self:
+            rec.madinah_single_female_available_beds = rec.madinah_single_female_total_beds - rec.madinah_single_female_booked_beds
+
 
     @api.depends('madinah_double_male_beds')
     def compute_madinah_double_male_total_beds(self):
@@ -1184,10 +1429,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.madinah_double_female_available_beds = rec.madinah_double_female_total_beds - rec.madinah_double_female_booked_beds
 
-    @api.depends('madinah_no_triple')
-    def compute_madinah_triple_total_beds(self):
-        for rec in self:
-            rec.madinah_triple_total_beds = rec.madinah_no_triple * 3
+    # @api.depends('madinah_no_triple')
+    # def compute_madinah_triple_total_beds(self):
+    #     for rec in self:
+    #         rec.madinah_triple_total_beds = rec.madinah_no_triple * 3
 
     @api.depends('madinah_triple_male_beds')
     def compute_madinah_male_triple_total_beds(self):
@@ -1210,10 +1455,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.madinah_triple_female_available_beds = rec.madinah_triple_female_total_beds - rec.madinah_triple_female_booked_beds
 
-    @api.depends('madinah_no_quad')
-    def compute_madinah_quad_total_beds(self):
-        for rec in self:
-            rec.madinah_quad_total_beds = rec.madinah_no_quad * 4
+    # @api.depends('madinah_no_quad')
+    # def compute_madinah_quad_total_beds(self):
+    #     for rec in self:
+    #         rec.madinah_quad_total_beds = rec.madinah_no_quad * 4
 
     @api.depends('madinah_quad_male_beds')
     def compute_madinah_quad_male_total_beds(self):
@@ -1234,6 +1479,27 @@ class BookingPackage(models.Model):
     def compute_madinah_quad_female_available_beds(self):
         for rec in self:
             rec.madinah_quad_female_available_beds = rec.madinah_quad_female_total_beds - rec.madinah_quad_female_booked_beds
+
+
+    @api.depends('madinah_quint_male_beds')
+    def compute_madinah_quint_male_total_beds(self):
+        for rec in self:
+            rec.madinah_quint_male_total_beds = rec.madinah_quint_male_beds * 5
+
+    @api.depends('madinah_quint_female_beds')
+    def compute_madinah_quint_female_total_beds(self):
+        for rec in self:
+            rec.madinah_quint_female_total_beds = rec.madinah_quint_female_beds * 5
+
+    @api.depends('madinah_quint_male_total_beds', 'madinah_quint_male_booked_beds')
+    def compute_madinah_quint_male_available_beds(self):
+        for rec in self:
+            rec.madinah_quint_male_available_beds = rec.madinah_quint_male_total_beds - rec.madinah_quint_male_booked_beds
+
+    @api.depends('madinah_quint_female_total_beds', 'madinah_quint_female_booked_beds')
+    def compute_madinah_quint_female_available_beds(self):
+        for rec in self:
+            rec.madinah_quint_female_available_beds = rec.madinah_quint_female_total_beds - rec.madinah_quint_female_booked_beds
 
     # =====================================================
 
@@ -1260,11 +1526,33 @@ class BookingPackage(models.Model):
             rec.minnah_female_unbooked_beds = rec.minnah_female_total_beds - rec.minnah_female_booked_beds
 
     # =====================================================
+    #
+    # @api.depends('hotel_no_double')
+    # def compute_hotel_double_total_beds(self):
+    #     for rec in self:
+    #         rec.hotel_double_total_beds = rec.hotel_no_double * 2
 
-    @api.depends('hotel_no_double')
-    def compute_hotel_double_total_beds(self):
+
+    @api.depends('hotel_single_male_beds')
+    def compute_hotel_single_male_total_beds(self):
         for rec in self:
-            rec.hotel_double_total_beds = rec.hotel_no_double * 2
+            rec.hotel_single_male_total_beds = rec.hotel_single_male_beds * 1
+
+    @api.depends('hotel_single_female_beds')
+    def compute_hotel_single_female_total_beds(self):
+        for rec in self:
+            rec.hotel_single_female_total_beds = rec.hotel_single_female_beds * 1
+
+    @api.depends('hotel_single_female_total_beds', 'hotel_double_female_booked_beds')
+    def compute_hotel_single_female_available_beds(self):
+        for rec in self:
+            rec.hotel_single_female_available_beds = rec.hotel_single_female_total_beds - rec.hotel_single_female_booked_beds
+
+    @api.depends('hotel_single_male_total_beds', 'hotel_single_male_booked_beds')
+    def compute_hotel_single_male_available_beds(self):
+        for rec in self:
+            rec.hotel_single_male_available_beds = rec.hotel_single_male_total_beds - rec.hotel_single_male_booked_beds
+
 
     @api.depends('hotel_double_male_beds')
     def compute_hotel_double_male_total_beds(self):
@@ -1286,10 +1574,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.hotel_double_male_available_beds = rec.hotel_double_male_total_beds - rec.hotel_double_male_booked_beds
 
-    @api.depends('hotel_no_triple')
-    def compute_hotel_triple_total_beds(self):
-        for rec in self:
-            rec.hotel_triple_total_beds = rec.hotel_no_triple * 3
+    # @api.depends('hotel_no_triple')
+    # def compute_hotel_triple_total_beds(self):
+    #     for rec in self:
+    #         rec.hotel_triple_total_beds = rec.hotel_no_triple * 3
 
     @api.depends('hotel_triple_male_beds')
     def compute_hotel_triple_male_total_beds(self):
@@ -1311,10 +1599,10 @@ class BookingPackage(models.Model):
         for rec in self:
             rec.hotel_triple_male_available_beds = rec.hotel_triple_male_total_beds - rec.hotel_triple_male_booked_beds
 
-    @api.depends('hotel_no_quad')
-    def compute_hotel_quad_total_beds(self):
-        for rec in self:
-            rec.hotel_quad_total_beds = rec.hotel_no_quad * 4
+    # @api.depends('hotel_no_quad')
+    # def compute_hotel_quad_total_beds(self):
+    #     for rec in self:
+    #         rec.hotel_quad_total_beds = rec.hotel_no_quad * 4
 
     @api.depends('hotel_quad_male_beds')
     def compute_hotel_quad_male_total_beds(self):
@@ -1335,6 +1623,27 @@ class BookingPackage(models.Model):
     def compute_hotel_quad_male_available_beds(self):
         for rec in self:
             rec.hotel_quad_male_available_beds = rec.hotel_quad_male_total_beds - rec.hotel_quad_male_booked_beds
+
+
+    @api.depends('hotel_quint_male_beds')
+    def compute_hotel_quint_male_total_beds(self):
+        for rec in self:
+            rec.hotel_quint_male_total_beds = rec.hotel_quint_male_beds * 5
+
+    @api.depends('hotel_quint_female_beds')
+    def compute_hotel_quint_female_total_beds(self):
+        for rec in self:
+            rec.hotel_quint_female_total_beds = rec.hotel_quint_female_beds * 5
+
+    @api.depends('hotel_quint_female_total_beds', 'hotel_quint_female_booked_beds')
+    def compute_hotel_quint_female_available_beds(self):
+        for rec in self:
+            rec.hotel_quint_female_available_beds = rec.hotel_quint_female_total_beds - rec.hotel_quint_female_booked_beds
+
+    @api.depends('hotel_quint_male_total_beds', 'hotel_quint_male_booked_beds')
+    def compute_hotel_quint_male_available_beds(self):
+        for rec in self:
+            rec.hotel_quint_male_available_beds = rec.hotel_quint_male_total_beds - rec.hotel_quint_male_booked_beds
 
     # =====================================================
     # constrains
@@ -1395,6 +1704,13 @@ class BookingPackage(models.Model):
                     raise ValidationError(_(
                         "Main Shift Departure Date Must Be Between Contract Start Date And End Date"))
 
+    @api.constrains('makkah_single_available', 'makkah_no_single')
+    def check_makkah_single(self):
+        for rec in self:
+            if rec.makkah_single_available and rec.makkah_no_single:
+                if rec.makkah_single_available < rec.makkah_no_single:
+                    raise ValidationError(_('Makkah single rooms cannot be more than available rooms!'))
+
     @api.constrains('makkah_double_available', 'makkah_no_double')
     def check_makkah_double(self):
         for rec in self:
@@ -1415,6 +1731,14 @@ class BookingPackage(models.Model):
             if rec.makkah_quad_available and rec.makkah_no_quad:
                 if rec.makkah_quad_available < rec.makkah_no_quad:
                     raise ValidationError(_('Makkah quad rooms cannot be more than available rooms!'))
+
+
+    @api.constrains('madinah_single_available', 'madinah_no_single')
+    def check_madinah_single(self):
+        for rec in self:
+            if rec.madinah_single_available and rec.madinah_no_single:
+                if rec.madinah_single_available < rec.madinah_no_single:
+                    raise ValidationError(_('Madinah double rooms cannot be more than available rooms!'))
 
     @api.constrains('madinah_double_available', 'madinah_no_double')
     def check_madinah_double(self):
@@ -1437,7 +1761,19 @@ class BookingPackage(models.Model):
                 if rec.madinah_quad_available < rec.madinah_no_quad:
                     raise ValidationError(_('Madinah quad rooms cannot be more than available rooms!'))
 
+    @api.constrains('madinah_quint_available', 'madinah_no_quint')
+    def check_madinah_quint(self):
+        for rec in self:
+            if rec.madinah_quint_available and rec.madinah_no_quint:
+                if rec.madinah_quint_available < rec.madinah_no_quint:
+                    raise ValidationError(_('Madinah quad rooms cannot be more than available rooms!'))
 
+    @api.constrains('hotel_single_available', 'hotel_no_single')
+    def check_hotel_single(self):
+        for rec in self:
+            if rec.hotel_single_available and rec.hotel_no_single:
+                if rec.hotel_single_available < rec.hotel_no_single:
+                    raise ValidationError(_('Main shift double rooms cannot be more than available rooms!'))
 
     @api.constrains('hotel_double_available', 'hotel_no_double')
     def check_hotel_double(self):
@@ -1460,6 +1796,12 @@ class BookingPackage(models.Model):
                 if rec.hotel_quad_available < rec.hotel_no_quad:
                     raise ValidationError(_('Main shift quad rooms cannot be more than available rooms!'))
 
+    @api.constrains('hotel_quint_available', 'hotel_no_quint')
+    def check_hotel_quint(self):
+        for rec in self:
+            if rec.hotel_quint_available and rec.hotel_no_quint:
+                if rec.hotel_quint_available < rec.hotel_no_quint:
+                    raise ValidationError(_('Main shift quad rooms cannot be more than available rooms!'))
 
     @api.constrains('arfa_male_available_beds', 'arfa_male_total_beds')
     def check_arfa_male(self):

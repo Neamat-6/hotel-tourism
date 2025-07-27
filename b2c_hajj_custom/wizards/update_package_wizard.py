@@ -30,7 +30,7 @@ class UpdatePackageWizard(models.TransientModel):
 
         print('cities', cities)
         print('camps', camps)
-        rooms = ['double', 'triple', 'quad']
+        rooms = ['single','double', 'triple', 'quad', 'quint']
         for city in cities:
             hotel_id = getattr(self.package_id, f'main_{city}', None)
             if hotel_id:

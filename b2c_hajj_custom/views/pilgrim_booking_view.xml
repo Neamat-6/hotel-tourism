@@ -32,11 +32,15 @@
                             <field name="source" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="package_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="pilgrim_cost" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="child_cost" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="baby_cost" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
                             <field name="partner_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="room_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="pilgrim_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="child_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="baby_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             <field name="total_cost"/>
                         </group>
                     </group>
@@ -51,6 +55,25 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Children">
+                            <field name="child_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="name" required="True"/>
+                                    <field name="gender" required="True"/>
+                                    <field name="main_member_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Babies">
+                            <field name="baby_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="name" required="True"/>
+                                    <field name="gender" required="True"/>
+                                    <field name="main_member_id"/>
+                                </tree>
+                            </field>
+                        </page>
+
                         <page string="Extra">
                             <field name="extra_lines" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                 <tree editable="bottom">

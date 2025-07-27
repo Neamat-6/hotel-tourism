@@ -37,3 +37,5 @@ access_extra_booking_line,access_extra_booking_line,model_extra_booking_line,,1,
 access_visa_contract,access_visa_contract,model_visa_contract,,1,1,1,1
 access_visa_contract_line,access_visa_contract_line,model_visa_contract_line,,1,1,1,1
 access_package_sale_price,access_package_sale_price,model_package_sale_price,,1,1,1,1
+access_child_booking_line,access_child_booking_line,model_child_booking_line,,1,1,1,1
+access_baby_booking_line,access_baby_booking_line,model_baby_booking_line,,1,1,1,1

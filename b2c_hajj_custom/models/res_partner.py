@@ -43,13 +43,13 @@ class Partner(models.Model):
     main_makkah = fields.Many2one('hotel.hotel', "Makkah Hotel", related='package_id.main_makkah', store=True)
     makkah_arrival_date = fields.Date("Makkah Arrival Date", related='package_id.makkah_arrival_date', store=True)
     makkah_departure_date = fields.Date("Makkah Departure Date", related='package_id.makkah_departure_date', store=True)
-    makkah_room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    makkah_room_type = fields.Selection(selection=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
 
     main_madinah = fields.Many2one('hotel.hotel', "Madinah Hotel", related='package_id.main_madinah', store=True)
     madinah_arrival_date = fields.Date("Madinah Arrival Date", related='package_id.madinah_arrival_date', store=True)
     madinah_departure_date = fields.Date("Madinah Departure Date", related='package_id.madinah_departure_date',
                                          store=True)
-    madinah_room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    madinah_room_type = fields.Selection(selection=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
 
     main_arfa = fields.Many2one('hotel.hotel', "Arfa Hotel", related='package_id.main_arfa', store=True)
     arfa_arrival_date = fields.Date("Arfa Arrival Date", related='package_id.arfa_arrival_date', store=True)
@@ -63,7 +63,7 @@ class Partner(models.Model):
     hotel_arrival_date = fields.Date("Main Shift Arrival Date", related='package_id.hotel_arrival_date', store=True)
     hotel_departure_date = fields.Date("Main Shift Departure Date", related='package_id.hotel_departure_date',
                                        store=True)
-    hotel_room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    hotel_room_type = fields.Selection(selection=[('1', '1'),('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     transportation_contract_ids = fields.Many2many('transportation.contract',
                                                     compute='_compute_transportation_contract_ids', store=True)
     flight_schedule_id = fields.Many2one('flight.schedule', "Flight Contract ID")
@@ -136,6 +136,8 @@ class Partner(models.Model):
     upgraded = fields.Boolean(string="Upgraded")
     hotel_id = fields.Many2one('hotel.hotel', string="Hotel Category", help="Hotel category associated with this partner.")
     visa_contract_id = fields.Many2one('visa.contract')
+    is_child = fields.Boolean(string='Child')
+    is_baby = fields.Boolean(string='Baby')
 
     def generate_new_qr_code(self):
         for partner in self:
@@ -174,6 +176,22 @@ class Partner(models.Model):
         print('domain',domain)
         return self.search(expression.AND([domain, args]), limit=limit).name_get()
 
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = args or []
+
+        domain = []
+        if name:
+            logger.info('name_search called with name: %s', name)
+            domain = expression.OR([
+                [('name', operator, name)],
+                [('pilgrim_id', operator, name)],
+                [('mobile', operator, name)],
+                [('email', operator, name)],
+            ])
+        logger.info('domain: %s', domain)
+        return self.search(expression.AND([domain, args]), limit=limit).name_get()
+
     @api.depends('package_id.transportation_contract_ids')
     def _compute_transportation_contract_ids(self):
         for rec in self:
@@ -208,7 +226,7 @@ class Partner(models.Model):
     def create(self, vals):
         res = super(Partner, self).create(vals)
         print('called partner create',vals)
-        if vals.get('package_id', False):
+        if vals.get('package_id', False) and not vals.get('is_baby') and not vals.get('is_child'):
             res.assign_to_bookings()
         res.generate_qr_code()
         return res
@@ -230,7 +248,7 @@ class Partner(models.Model):
             ]
 
             # Only call assign_to_bookings if any of these fields changed
-            if any(field in vals for field in fields):
+            if any(field in vals for field in fields) and not rec.is_child and not rec.is_baby:
                 print('go to sassign to booking')
                 rec.with_context(skip_assign_to_bookings=True).assign_to_bookings(
                     old_package=old_package
