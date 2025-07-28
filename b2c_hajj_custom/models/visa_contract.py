@@ -79,8 +79,12 @@ class VisaContract(models.Model):
 
     def _compute_booked_no(self):
         for record in self:
+            booked_count = 0
             visa_contract_pilgrim = self.env['res.partner'].search([('visa_contract_id', '=', record.id)])
-            record.booked_no = len(visa_contract_pilgrim)
+            visa_contract_booking = self.env['contract.booking'].search([('visa_contract', '=', record.id), ('state', 'in', ['hotel_confirm', 'confirmed'])])
+            if visa_contract_booking:
+                booked_count = sum(visa_contract_booking.mapped('visa_count'))
+            record.booked_no = len(visa_contract_pilgrim) + booked_count
 
 
 class VisaContractLine(models.Model):

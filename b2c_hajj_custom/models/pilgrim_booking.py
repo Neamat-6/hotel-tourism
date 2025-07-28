@@ -20,6 +20,7 @@ class ExtraBookingLine(models.Model):
     extra_id = fields.Many2one('extra.booking')
     quantity = fields.Integer()
     price_unit = fields.Float()
+    contract_book_id = fields.Many2one('contract.booking', ondelete='cascade')
 
 
 class AccountMove(models.Model):
@@ -194,28 +195,35 @@ class PilgrimBooking(models.Model):
                                       'makkah_room_type': rec.room_type,
                                        'madinah_room_type': rec.room_type,
                                        'hotel_room_type': rec.room_type})
+                rec.partner_id.onchange_package()
             for line in rec.line_ids:
                 vals = line.get_pilgrim_data()
                 if line.partner_id:
                     line.partner_id.sudo().write(vals)
+                    line.partner_id.onchange_package()
                 else:
                     pilgrim = self.env['res.partner'].sudo().create(vals)
+                    pilgrim.onchange_package()
                     line.write({'partner_id': pilgrim.id})
 
             for line in rec.child_ids:
                 vals = line.get_pilgrim_data()
                 if line.partner_id:
                     line.partner_id.sudo().write(vals)
+                    line.partner_id.onchange_package()
                 else:
                     pilgrim = self.env['res.partner'].sudo().create(vals)
+                    pilgrim.onchange_package()
                     line.write({'partner_id': pilgrim.id})
 
             for line in rec.baby_ids:
                 vals = line.get_pilgrim_data()
                 if line.partner_id:
                     line.partner_id.sudo().write(vals)
+                    line.partner_id.onchange_package()
                 else:
                     pilgrim = self.env['res.partner'].sudo().create(vals)
+                    pilgrim.onchange_package()
                     line.write({'partner_id': pilgrim.id})
 
             rec.state = 'hotel_confirm'
@@ -230,25 +238,22 @@ class PilgrimBooking(models.Model):
             else:
                 raise UserError("Must create invoice first")
 
+    def remove_partner_package(self,partner):
+        partner.sudo().write({
+            'package_id': False,
+        })
+        partner.onchange_package()
 
     def action_reset_to_draft(self):
         for rec in self:
             if rec.source == 'person':
-                rec.partner_id.sudo().update({
-                    'package_id': False,
-                })
+                self.remove_partner_package(rec.partner_id)
             for line in rec.line_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             for line in rec.child_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             for line in rec.baby_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             rec.move_id.button_draft()
             rec.state = 'draft'
 
@@ -256,21 +261,13 @@ class PilgrimBooking(models.Model):
     def action_cancel(self):
         for rec in self:
             if rec.source == 'person':
-                rec.partner_id.sudo().update({
-                    'package_id': False,
-                })
+                self.remove_partner_package(rec.partner_id)
             for line in rec.line_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             for line in rec.child_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             for line in rec.baby_ids:
-                line.partner_id.write({
-                    'package_id': False,
-                })
+                self.remove_partner_package(line.partner_id)
             rec.move_id.button_cancel()
             rec.state = 'cancelled'
 

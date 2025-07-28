@@ -77,8 +77,12 @@ class TransportationContract(models.Model):
 
     def _compute_booked_no(self):
         for record in self:
+            booked_count = 0
             trans_contract_pilgrim = self.env['res.partner'].search([('transportation_contract_ids', 'in', record.id)])
-            record.booked_no = len(trans_contract_pilgrim)
+            trans_contract_booking = self.env['contract.booking'].search([('transport_contract', '=', record.id), ('state', 'in', ['hotel_confirm', 'confirmed'])])
+            if trans_contract_booking:
+                booked_count = sum(trans_contract_booking.mapped('transport_count'))
+            record.booked_no = len(trans_contract_pilgrim) + booked_count
 
 
 

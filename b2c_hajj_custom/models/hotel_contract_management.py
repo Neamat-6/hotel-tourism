@@ -160,23 +160,29 @@ class HotelContractLine(models.Model):
             if hotel_type == 'makkah':
                 domain = [('makkah_contract_id', '=', line.contract_id.id)]
                 qty_field = {
+                    1: 'makkah_no_single',
                     2: 'makkah_no_double',
                     3: 'makkah_no_triple',
-                    4: 'makkah_no_quad'
+                    4: 'makkah_no_quad',
+                    5: 'makkah_no_quint',
                 }
             elif hotel_type == 'madinah':
                 domain = [('madinah_contract_id', '=', line.contract_id.id)]
                 qty_field = {
+                    1: 'madinah_no_single',
                     2: 'madinah_no_double',
                     3: 'madinah_no_triple',
-                    4: 'madinah_no_quad'
+                    4: 'madinah_no_quad',
+                    5: 'madinah_no_quint'
                 }
             elif hotel_type == 'hotel':
                 domain = [('main_hotel_contract_id', '=', line.contract_id.id)]
                 qty_field = {
+                    1: 'hotel_no_single',
                     2: 'hotel_no_double',
                     3: 'hotel_no_triple',
-                    4: 'hotel_no_quad'
+                    4: 'hotel_no_quad',
+                    5: 'hotel_no_quint'
                 }
             else:
                 line.booked_count = 0

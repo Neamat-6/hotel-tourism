@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contract_booking_view_form" model="ir.ui.view">
+            <field name="name">contract_booking_view_form</field>
+            <field name="model">contract.booking</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <header>
+                    <button name="create_booking" string="Create Booking" type="object" class="oe_highlight"
+                            states="draft"/>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"
+                            states="hotel_confirm"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" states="hotel_confirm"
+                            class="btn-secondary"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,hotel_confirm"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_invoice" type="object" class="oe_stat_button"
+                                    icon="fa-credit-card">
+                                <div class="o_stat_info">
+                                    <field name="total_cost" class="o_stat_value"/>
+                                    <span class="o_stat_text">Invoiced</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="source" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                            <field name="partner_id"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Flight Contract">
+                                <field name="flight_contract" options="{'no_create': True}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="flight_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="flight_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            </group>
+                            <group string="Visa Contract">
+                                <field name="visa_contract" options="{'no_create': True}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="visa_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="visa_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Transport Contract">
+                                <field name="transport_contract" options="{'no_create': True}"
+                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="transport_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="transport_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            </group>
+                            <group></group>
+                        </group>
+                        <notebook>
+                            <page string="Extra">
+                                <field name="extra_lines" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="extra_id" required="True"/>
+                                        <field name="quantity" required="True"/>
+                                        <field name="price_unit" required="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="contract_booking_view_tree" model="ir.ui.view">
+            <field name="name">contract_booking_view_tree</field>
+            <field name="model">contract.booking</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="source"/>
+                    <field name="partner_id"/>
+                    <field name="flight_contract"/>
+                    <field name="visa_contract"/>
+                    <field name="transport_contract"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contract_booking_view_search" model="ir.ui.view">
+            <field name="name">contract.booking.search</field>
+            <field name="model">contract.booking</field>
+            <field name="arch" type="xml">
+                <search string="Contract Booking">
+                    <field name="source"/>
+                    <field name="partner_id"/>
+                    <filter string="Tentative Confirmation" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Confirmed Waiting Payment" name="hotel_confirm" domain="[('state', '=', 'hotel_confirm')]"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="contract_booking_action" model="ir.actions.act_window">
+            <field name="name">Contract Booking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.booking</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="contract_booking_menu" name="Contract Booking" parent="b2c_hajj_custom.b2c_main_menu"
+                  action="contract_booking_action" sequence="11"/>
+    </data>
+</odoo>

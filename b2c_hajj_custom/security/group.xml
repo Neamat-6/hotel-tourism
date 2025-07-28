@@ -20,5 +20,9 @@
         <record id="b2c_hajj_madinah" model="res.groups">
             <field name="name">فندق المدينة</field>
         </record>
+
+        <record id="hotel_generated_room" model="res.groups">
+            <field name="name">Access Generate Room</field>
+        </record>
     </data>
 </odoo>

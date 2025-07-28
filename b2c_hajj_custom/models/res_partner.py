@@ -166,22 +166,6 @@ class Partner(models.Model):
 
         domain = []
         if name:
-            print('called name_search',name)
-            domain = expression.OR([
-                [('name', operator, name)],
-                [('pilgrim_id', operator, name)],
-                [('mobile', operator, name)],
-                [('email', operator, name)],
-            ])
-        print('domain',domain)
-        return self.search(expression.AND([domain, args]), limit=limit).name_get()
-
-    @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        args = args or []
-
-        domain = []
-        if name:
             logger.info('name_search called with name: %s', name)
             domain = expression.OR([
                 [('name', operator, name)],
@@ -217,6 +201,11 @@ class Partner(models.Model):
             if rec.package_id:
                 if rec.package_id.flight_contract_lines:
                     rec.flight_schedule_id = rec.package_id.flight_contract_lines[0].flight_contract_id.id
+                if rec.package_id.visa_contract_lines:
+                    rec.visa_contract_id = rec.package_id.visa_contract_lines[0].visa_contract_id.id
+            else:
+                rec.flight_schedule_id = None
+                rec.visa_contract_id = None
 
     @api.onchange('pilgrim_type')
     def onchange_pilgrim_type(self):

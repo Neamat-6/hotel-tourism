@@ -97,8 +97,12 @@ class FlightSchedule(models.Model):
 
     def _compute_booked_no(self):
         for record in self:
+            booked_count = 0
             flight_schedule_pilgrim = self.env['res.partner'].search([('flight_schedule_id', '=', record.id)])
-            record.booked_no = len(flight_schedule_pilgrim)
+            flight_contract_booking = self.env['contract.booking'].search([('flight_contract', '=', record.id), ('state', 'in', ['hotel_confirm', 'confirmed'])])
+            if flight_contract_booking:
+                booked_count = sum(flight_contract_booking.mapped('flight_count'))
+            record.booked_no = len(flight_schedule_pilgrim) + booked_count
 
 
 class FlightScheduleLine(models.Model):

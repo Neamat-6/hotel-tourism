@@ -104,6 +104,21 @@
         </field>
     </record>
 
+    <record id="pilgrim_booking_view_search" model="ir.ui.view">
+            <field name="name">pilgrim.booking.search</field>
+            <field name="model">pilgrim.booking</field>
+            <field name="arch" type="xml">
+                <search string="pilgrim Booking">
+                    <field name="source"/>
+                    <field name="partner_id"/>
+                    <filter string="Tentative Confirmation" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Confirmed Waiting Payment" name="hotel_confirm" domain="[('state', '=', 'hotel_confirm')]"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                </search>
+            </field>
+        </record>
+
     <record id="action_pilgrim_booking_view" model="ir.actions.act_window">
         <field name="name">Pilgrim Booking</field>
         <field name="type">ir.actions.act_window</field>
