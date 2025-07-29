@@ -20,6 +20,12 @@ class Company(models.Model):
         })
         self.write({'related_hotel_id': hotel_id.id})
         # room types
+        single = self.env['room.type'].sudo().create({
+            'name': 'Single',
+            'mini_adults': 1,
+            'max_adults': 1,
+            'company_id': self.id,
+        })
         double = self.env['room.type'].sudo().create({
             'name': 'Double',
             'mini_adults': 2,
@@ -36,6 +42,12 @@ class Company(models.Model):
             'name': 'Quad',
             'mini_adults': 4,
             'max_adults': 4,
+            'company_id': self.id,
+        })
+        quint = self.env['room.type'].sudo().create({
+            'name': 'Quint',
+            'mini_adults': 5,
+            'max_adults': 5,
             'company_id': self.id,
         })
         # floors
@@ -71,6 +83,11 @@ class Company(models.Model):
         })
         # rate plans
         self.env['hotel.rate.plan'].sudo().create({
+            'room_type_id': single.id,
+            'rate_type_id': room_only.id,
+            'company_id': self.id,
+        })
+        self.env['hotel.rate.plan'].sudo().create({
             'room_type_id': double.id,
             'rate_type_id': room_only.id,
             'company_id': self.id,
@@ -82,6 +99,11 @@ class Company(models.Model):
         })
         self.env['hotel.rate.plan'].sudo().create({
             'room_type_id': quad.id,
+            'rate_type_id': room_only.id,
+            'company_id': self.id,
+        })
+        self.env['hotel.rate.plan'].sudo().create({
+            'room_type_id': quint.id,
             'rate_type_id': room_only.id,
             'company_id': self.id,
         })
