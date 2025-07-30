@@ -758,7 +758,7 @@ class BookingPackage(models.Model):
     #         # If no arrival dates, skip validation
     #         self._compute_allow_booking()
 
-    @api.onchange('package_closing_date')
+    @api.depends('package_closing_date')
     def _compute_allow_booking(self):
         for record in self:
             if record.package_closing_date:
