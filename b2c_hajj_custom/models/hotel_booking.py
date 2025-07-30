@@ -703,7 +703,7 @@ class BookingGuest(models.Model):
     folio_id = fields.Many2one('booking.folio')
     room_id = fields.Many2one('hotel.room', related='folio_id.room_id', store=True)
     room_type_id = fields.Many2one('room.type', related='room_id.room_type', store=True, string='Room Type')
-    booked_room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    booked_room_type = fields.Selection(selection=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     pilgrim_type = fields.Selection(selection=[('main', 'Main'), ('member', 'Family Member')], readonly=False)
     allowed_member_ids = fields.Many2many('res.partner')
     partner_ids = fields.Many2many('res.partner', 'rel_guest_partner',
@@ -775,7 +775,7 @@ class GuestRoomSummary(models.Model):
     _description = 'Room Summary'
 
     room_id = fields.Many2one('hotel.room')
-    booked_room_type = fields.Selection(selection=[('2', '2'), ('3', '3'), ('4', '4')])
+    booked_room_type = fields.Selection(selection=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     room_type = fields.Selection(selection=[('main', 'Main'), ('member', 'Family Member')],
                                     readonly=False)
     room_gender = fields.Selection(selection=[('male', 'Male'), ('female', 'Female')], string='Room Gender')
