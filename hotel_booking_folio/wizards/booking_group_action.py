@@ -177,16 +177,18 @@ class BookingGroupAction(models.TransientModel):
                         continue
                     if not folios:
                         break
-        message = f'Rooms Assigned Successfully'
-        return {
-            'name': 'Success',
-            'type': 'ir.actions.act_window',
-            'res_model': 'warn.wizard',
-            'view_mode': 'form',
-            'view_type': 'form',
-            'target': 'new',
-            'context': {'default_message': message, 'default_booking_id': self.booking_id.id}
-        }
+        return self.button_refresh()
+        # message = f'Rooms Assigned Successfully'
+        # return {
+        #     'name': 'Success',
+        #     'type': 'ir.actions.act_window',
+        #     'res_model': 'warn.wizard',
+        #     'view_mode': 'form',
+        #     'view_type': 'form',
+        #     'target': 'new',
+        #     'context': {'default_message': message, 'default_booking_id': self.booking_id.id}
+        # }
+
 
     def button_group_check_in(self):
         for folio in self.checkin_folio_ids:
