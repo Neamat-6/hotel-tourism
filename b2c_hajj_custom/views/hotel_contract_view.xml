@@ -27,17 +27,19 @@
                     </div>
                     <group>
                         <group>
-                            <field name="hotel_id"/>
+                            <field name="hotel_id" options="{'no_create': True}"/>
+                            <field name="hotel" options="{'no_create': True}"/>
                             <field name="vendor" options="{'no_create': True}"
                                    attrs="{'readonly': [('state', '=', 'po_created')]}"/>
                             <field name="company_id" readonly="1"/>
-                            <field name="purchase_order_id" readonly="1"/>
+
                         </group>
                         <group>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="is_expired" invisible="1"/>
                             <field name="booking_no"/>
+                            <field name="purchase_order_id" readonly="1"/>
 <!--                            <field name="start"/>-->
 <!--                            <field name="count"/>-->
                         </group>
@@ -48,7 +50,7 @@
                                 <tree editable="bottom">
                                     <field name="room_type_id" options="{'no_create': True, 'no_edit': True}"/>
                                     <field name="floor_id"/>
-                                    <field name="start"/>
+                                    <field name="start" optional="hide"/>
                                     <field name="count"/>
                                     <field name="booked_count"/>
                                     <field name="unit_price"/>
@@ -65,13 +67,44 @@
 
     <record id="hotel_contract_tree_view" model="ir.ui.view">
         <field name="name">hotel.contract.tree.view</field>
-        <field name="model">hotel.contract</field>
+        <field name="model">hotel.contract.management</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="hotel_id"/>
+                <field name="hotel"/>
+                <field name="vendor"/>
+                <field name="company_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="booking_no"/>
+                <field name="purchase_order_id"/>
             </tree>
         </field>
     </record>
+
+
+    <record id="hotel_contract_management_search_view" model="ir.ui.view">
+       <field name="name">hotel_contract_management_search_view</field>
+       <field name="model">hotel.contract.management</field>
+        <field name="arch" type="xml">
+            <search string="">
+            <field name="name"/>
+            <field name="booking_no"/>
+            <field name="purchase_order_id"/>
+            <filter string="Hotel Category" name="hotel_id" domain="[]" context="{'group_by': 'hotel_id'}"/>
+            <filter string="Hotel" name="hotel" domain="[]" context="{'group_by': 'hotel'}"/>
+            <filter string="Supplier" name="vendor" domain="[]" context="{'group_by': 'vendor'}"/>
+            <filter string="Company" name="company_id" domain="[]" context="{'group_by': 'company_id'}"/>
+            <filter name="filter_date_from" date="date_from"/>
+            <filter name="filter_date_to" date="date_to"/>
+            <filter name="group_by_date_from" domain="[]" context="{'group_by':'date_from'}"/>
+            <filter name="group_by_date_to" domain="[]" context="{'group_by':'date_to'}"/>
+
+        </search>
+       </field>
+    </record>
+
 
     <record id="hotel_contract_action_view" model="ir.actions.act_window">
         <field name="name">Hotel Contract</field>

@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="transportation_company"/>
+                <field name="transportation_contract_no"/>
                 <field name="pilgrims_no"/>
                 <field name="booked_no"/>
                 <field name="available_no"/>
@@ -57,6 +58,21 @@
                 </sheet>
             </form>
         </field>
+    </record>
+
+
+    <record id="transportation_contract_search" model="ir.ui.view">
+       <field name="name">transportation_contract_search</field>
+       <field name="model">transportation.contract</field>
+        <field name="arch" type="xml">
+            <search string="">
+                <field name="transportation_contract_no"/>
+                <filter name="filter_date" date="expiry_date"/>
+                <filter string="Transportation Company" name="transportation_company" domain="[]" context="{'group_by': 'transportation_company'}"/>
+                <filter name="group_by_expiry_date" domain="[]" context="{'group_by':'expiry_date'}"/>
+
+        </search>
+       </field>
     </record>
 
     <record id="transportation_contract_action_view" model="ir.actions.act_window">

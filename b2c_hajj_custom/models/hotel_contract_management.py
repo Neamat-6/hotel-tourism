@@ -6,8 +6,9 @@ class HotelContract(models.Model):
     _name = 'hotel.contract.management'
 
     name = fields.Char("Name")
-    vendor = fields.Many2one('res.partner', string="Supplier", required=True, domain="[('hotel_id', '=', hotel_id)]")
+    vendor = fields.Many2one('res.partner', string="Supplier", required=True)
     hotel_id = fields.Many2one('hotel.hotel', copy=False, required=True, string="Hotel Category",)
+    hotel = fields.Many2one('actual.hotel', domain="[('hotel_id', '=', hotel_id)]")
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=1)
     room_type_id = fields.Many2one('room.type', domain="[('company_id', '=', company_id)]")
     floor_id = fields.Many2one('hotel.floor', domain="[('company_id', '=', company_id)]")
