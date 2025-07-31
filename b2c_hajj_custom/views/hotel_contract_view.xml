@@ -37,6 +37,7 @@
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="is_expired" invisible="1"/>
+                            <field name="booking_no"/>
 <!--                            <field name="start"/>-->
 <!--                            <field name="count"/>-->
                         </group>
@@ -82,4 +83,19 @@
     <menuitem id="hotel_contract_menu" name="Hotel Contract" parent="booking_config_menuitem"
               action="hotel_contract_action_view"
               sequence="20"/>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase_order_form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="booking_no"/>
+            </xpath>
+
+        </field>
+    </record>
 </odoo>

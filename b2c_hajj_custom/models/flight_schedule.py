@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -34,6 +34,7 @@ class FlightSchedule(models.Model):
     contract_type = fields.Selection(selection=[('B2B', 'B2B'), ('B2C', 'B2C'), ('B2G', 'B2G')])
     expiry_date = fields.Date("Expiry Date")
     is_expired = fields.Boolean("Is Expired", default=False)
+    partner_count = fields.Integer(compute='_compute_booked_no')
 
     _sql_constraints = [('arrival_departure_date', 'check(arrival_date < departure_date)', 'Departure Date must be greater than Arrival Date!')]
 
@@ -103,6 +104,16 @@ class FlightSchedule(models.Model):
             if flight_contract_booking:
                 booked_count = sum(flight_contract_booking.mapped('flight_count'))
             record.booked_no = len(flight_schedule_pilgrim) + booked_count
+            record.partner_count = len(flight_schedule_pilgrim)
+
+    def action_view_pilgrims(self):
+        return {
+            'name': _('Pilgrims'),
+            'view_mode': 'tree,form',
+            'res_model': 'res.partner',
+            'type': 'ir.actions.act_window',
+            'domain': [('flight_schedule_id', '=', self.id)],
+        }
 
 
 class FlightScheduleLine(models.Model):

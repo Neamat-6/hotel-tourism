@@ -72,20 +72,6 @@ class PilgrimBooking(models.Model):
                     if len(rec.line_ids) != rec.pilgrim_count - 1:
                         raise UserError(_("The number of pilgrims must match the number of pilgrims lines minus one."))
 
-    # @api.onchange('source')
-    # def _onchange_source(self):
-    #     self.partner_id = False
-    #     domain = []
-    #     if self.source == 'person':
-    #         domain = [('is_company', '=', False)]
-    #     elif self.source == 'company':
-    #         domain = [('is_company', '=', True)]
-    #
-    #     return {
-    #         'domain': {
-    #             'partner_id': domain
-    #         }
-    #     }
 
     @api.onchange('source')
     def _onchange_source(self):

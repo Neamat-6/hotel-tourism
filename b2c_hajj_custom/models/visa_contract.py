@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -18,6 +18,7 @@ class VisaContract(models.Model):
     pilgrims_no = fields.Integer("Pilgrims No.")
     booked_no = fields.Integer("Booked No.", compute='_compute_booked_no')
     available_no = fields.Integer("Available No.", compute='_compute_available_no')
+    partner_count = fields.Integer(compute='_compute_booked_no')
 
     @api.model
     def _cron_update_contract_expiry(self):
@@ -85,6 +86,16 @@ class VisaContract(models.Model):
             if visa_contract_booking:
                 booked_count = sum(visa_contract_booking.mapped('visa_count'))
             record.booked_no = len(visa_contract_pilgrim) + booked_count
+            record.partner_count = len(visa_contract_pilgrim)
+
+    def action_view_pilgrims(self):
+        return {
+            'name': _('Pilgrims'),
+            'view_mode': 'tree,form',
+            'res_model': 'res.partner',
+            'type': 'ir.actions.act_window',
+            'domain': [('visa_contract_id', '=', self.id)],
+        }
 
 
 class VisaContractLine(models.Model):

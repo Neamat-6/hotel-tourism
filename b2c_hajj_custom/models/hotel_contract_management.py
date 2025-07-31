@@ -36,6 +36,7 @@ class HotelContract(models.Model):
     date_to = fields.Date("End Date", required=True)
     is_expired = fields.Boolean("Is Expired", default=False)
     generate_room = fields.Boolean("Generate Rooms", default=False)
+    booking_no = fields.Char('Booking Ref')
 
     _sql_constraints = [('check_dates', 'CHECK(date_from < date_to)', 'End Date must be greater than Start Date!')]
 
@@ -74,6 +75,7 @@ class HotelContract(models.Model):
         po_vals = {
             'partner_id': self.vendor.id,
             'company_id': self.company_id.id,
+            'booking_no': self.booking_no,
             'origin': self.name,
             'order_line': [],
         }
@@ -199,6 +201,12 @@ class HotelContractLine(models.Model):
                 line.booked_count = sum(getattr(p, field_name, 0) for p in packages)
             else:
                 line.booked_count = 0
+
+
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    booking_no = fields.Char('Booking Ref')
 
 # class TransportationLine(models.Model):
 #     _name = 'transportation.line'

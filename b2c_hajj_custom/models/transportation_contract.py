@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -18,6 +18,7 @@ class TransportationContract(models.Model):
     purchase_order_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True, copy=False)
     expiry_date = fields.Date("Expiry Date")
     is_expired = fields.Boolean("Is Expired", default=False)
+    partner_count = fields.Integer(compute='_compute_booked_no')
 
     @api.model
     def _cron_update_contract_expiry(self):
@@ -83,6 +84,17 @@ class TransportationContract(models.Model):
             if trans_contract_booking:
                 booked_count = sum(trans_contract_booking.mapped('transport_count'))
             record.booked_no = len(trans_contract_pilgrim) + booked_count
+            record.partner_count = len(trans_contract_pilgrim)
+
+    def action_view_pilgrims(self):
+        return {
+            'name': _('Pilgrims'),
+            'view_mode': 'tree,form',
+            'res_model': 'res.partner',
+            'type': 'ir.actions.act_window',
+            'domain': [('transportation_contract_ids', 'in', self.id)],
+        }
+
 
 
 
