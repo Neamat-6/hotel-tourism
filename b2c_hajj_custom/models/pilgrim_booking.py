@@ -104,6 +104,7 @@ class PilgrimBooking(models.Model):
                 'name': f"{self.package_id.package_code}-Adult Booking",
                 'quantity': self.pilgrim_count,
                 'price_unit': self.pilgrim_cost,
+                'analytic_account_id': self.package_id.analytic_account_id.id,
                 # 'tax_ids': line.tax_id,
                 # 'account_id': hotel_hotel_obj.account_journal_id.default_account_id.id
             })]
@@ -112,18 +113,21 @@ class PilgrimBooking(models.Model):
                 'name': f"{self.package_id.package_code}-Child Booking",
                 'quantity': self.child_count,
                 'price_unit': self.child_cost,
+                'analytic_account_id': self.package_id.analytic_account_id.id,
             }))
         if self.baby_count and self.baby_cost:
             invoice_line_vals.append((0, 0, {
                 'name': f"{self.package_id.package_code}-Baby Booking",
                 'quantity': self.baby_count,
                 'price_unit': self.baby_cost,
+                'analytic_account_id': self.package_id.analytic_account_id.id,
             }))
         for line in self.extra_lines:
             invoice_line_vals.append((0, 0, {
                 'name': line.extra_id.name,
                 'quantity': line.quantity,
                 'price_unit': line.price_unit,
+                'analytic_account_id': self.package_id.analytic_account_id.id,
             }))
         return invoice_line_vals
 

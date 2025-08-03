@@ -376,7 +376,7 @@ class BookingPackage(models.Model):
     is_hajj = fields.Boolean(string="Is Hajj Package")
     visa_contract_lines = fields.One2many('visa.contract.line', 'package_id')
     visa_purchase_price = fields.Float(string="Visa Purchase Price", compute='compute_visa_price', store=True)
-
+    analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account")
     _sql_constraints = [
         ('package_code', 'unique (package_code)', 'Package Code must be unique')
     ]
@@ -771,10 +771,11 @@ class BookingPackage(models.Model):
         vals['name'] = self.env['ir.sequence'].next_by_code('booking.package') or '/'
         record = super().create(vals)
         record._generate_activity_lines()
-        analytic_account = self.env['account.analytic.account'].sudo().create({
+        analytic_account_id = self.env['account.analytic.account'].sudo().create({
             'name': record.package_code,
             'company_id': record.company_id.id,
         })
+        record.write({'analytic_account_id': analytic_account_id.id})
         return record
 
     def _generate_activity_lines(self):

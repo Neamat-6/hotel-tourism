@@ -42,6 +42,7 @@
                                    required="1"/>
                             <field name="package_closing_date"/>
                             <field name="allow_booking" invisible="1"/>
+                            <field name="analytic_account_id" options="{'no_create': True, 'no_edit': True}" readonly="1"/>
                         </group>
                     </group>
                     <notebook>
