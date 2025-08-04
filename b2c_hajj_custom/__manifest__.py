@@ -46,6 +46,7 @@
         'report/pilgrim_booking_report.xml',
         'views/visa_contract.xml',
         'views/contract_booking.xml',
+        'views/account_move.xml',
     ],
     'installable': True,
     'application': True,

@@ -97,3 +97,31 @@ class CrmLead(models.Model):
 
             }
         }
+
+    def action_create_customer_new(self):
+        """
+        Create a new partner from the lead and open its form view.
+        If partner already exists, open the existing partner form.
+        """
+        self.ensure_one()
+        
+        # Create partner if not exists
+        if not self.partner_id:
+            # Create the partner first
+            self._handle_partner_assignment(create_missing=True)
+            # Refresh the record to get the created partner
+            self.refresh()
+        if not self.partner_id:
+            return {'type': 'ir.actions.act_window_close'}
+            
+        # Return the action to open the partner form
+        return {
+            'name': 'Customer',
+            'type': 'ir.actions.act_window',
+            'res_model': 'res.partner',
+            'res_id': self.partner_id.id,  # Use the created partner's ID
+            'view_mode': 'form',
+            'view_id': self.env.ref('base.view_partner_form').id,
+            'target': 'current',  # Open in the same tab
+            'flags': {'form': {'action_buttons': True, 'options': {'mode': 'edit'}}},
+        }

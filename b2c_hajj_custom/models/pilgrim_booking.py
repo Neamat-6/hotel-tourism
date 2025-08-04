@@ -27,6 +27,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     pilgrim_booking_id = fields.Many2one('pilgrim.booking')
+    package_id = fields.Many2one('booking.package')
 
 
 class PilgrimBooking(models.Model):
@@ -141,6 +142,7 @@ class PilgrimBooking(models.Model):
             'move_type': 'out_invoice',
             'partner_id': self.partner_id.id,
             'pilgrim_booking_id': self.id,
+            'package_id': self.package_id.id,
             # 'journal_id': journal_id,
             'invoice_user_id': self._uid,
             'invoice_date': fields.Date.today(),

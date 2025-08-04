@@ -8,6 +8,8 @@
             <field name="inherit_id" ref="crm.crm_lead_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='action_set_won_rainbowman']" position="before">
+                    <button string="Create/Update Customer" name="action_create_customer_new" type="object" class="oe_highlight" data-hotkey="q"
+                        title="Create New Customer"/>
                     <button string="Package Booking" name="action_pilgrim_booking_new" type="object" class="oe_highlight" data-hotkey="q"
                         title="Create Package Booking"/>
                     <button string="Tourism Booking" name="action_tourism_booking_new" type="object" class="oe_highlight" data-hotkey="q"

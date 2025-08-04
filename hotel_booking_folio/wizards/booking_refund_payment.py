@@ -285,7 +285,7 @@ class BookingRefundPayment(models.Model):
                 if rec.state == 'refund':
                     amount_to_refund = rec.refund_amount if rec.refund_status == 'partially_return' else rec.total_amount
                     payment_vals = {
-                        'date': self.payment_date,
+                        'date': fields.Date.today(),
                         'amount': amount_to_refund,
                         'payment_type': 'outbound',
                         'partner_type': 'customer',
@@ -300,7 +300,7 @@ class BookingRefundPayment(models.Model):
                     }
                 else:
                     payment_vals = {
-                        'date': self.payment_date,
+                        'date': fields.Date.today(),
                         'amount': amount,
                         'payment_type': 'inbound',
                         'partner_type': 'customer',
@@ -318,7 +318,7 @@ class BookingRefundPayment(models.Model):
                 for line in self.booking_refund_payment_line_ids:
                     to_process = []
                     payment_vals = {
-                        'date': self.payment_date,
+                        'date': fields.Date.today(),
                         'amount': line.amount,
                         'payment_type': 'outbound',
                         'partner_type': 'customer',
