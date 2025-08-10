@@ -11,7 +11,7 @@ class ShomoosIntermediaryController(http.Controller):
     def shomoos_connect(self, **post):
         try:
 
-            url = "https://api.shomoos.com.sa/accommodation/accommodationservice.svc/InsertGuest"
+            url = "https://api.shomoos.gov.sa/accommodation/accommodationservice.svc/InsertGuest"
 
             headers = post['Auth']
             _logger.info("+++++++++++++ headers %s ++++++++++++" % headers)
@@ -33,7 +33,7 @@ class ShomoosIntermediaryController(http.Controller):
     @http.route('/shomoos_checkout', type='json', auth="public", methods=['POST'], csrf="*")
     def shomoos_checkout(self, **post):
         try:
-            url = "https://api.shomoos.com.sa/accommodation/accommodationservice.svc/CheckOutAndRatingGuest"
+            url = "https://api.shomoos.gov.sa/accommodation/accommodationservice.svc/CheckOutAndRatingGuest"
             _logger.info("+++++++++++++ Calling Shomoos Checkout %s ++++++++++++" % url)
 
             _logger.info("+++++++++++++ post Checkout %s ++++++++++++" % post)
