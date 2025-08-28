@@ -26,6 +26,10 @@
                     </button>
 
                 </button>
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="preferred_date"/>
+                    <field name="booking_level"/>
+                </xpath>
             </field>
         </record>
     </data>

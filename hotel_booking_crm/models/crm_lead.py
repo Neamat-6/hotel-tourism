@@ -21,6 +21,8 @@ class CrmLead(models.Model):
     tourism_hotel_booking_count = fields.Integer(compute='_compute_tourism_hotel_booking_count', string='Tourism Booking Count')
     package_booking_ids = fields.One2many('pilgrim.booking', 'crm_lead_id', string='Package Bookings')
     package_booking_count = fields.Integer(compute='_compute_package_booking_count', string='Package Booking Count')
+    preferred_date = fields.Char()
+    booking_level = fields.Char()
 
     @api.depends('tourism_hotel_booking_ids')
     def _compute_tourism_hotel_booking_count(self):
@@ -104,7 +106,7 @@ class CrmLead(models.Model):
         If partner already exists, open the existing partner form.
         """
         self.ensure_one()
-        
+
         # Create partner if not exists
         if not self.partner_id:
             # Create the partner first
@@ -113,7 +115,7 @@ class CrmLead(models.Model):
             self.refresh()
         if not self.partner_id:
             return {'type': 'ir.actions.act_window_close'}
-            
+
         # Return the action to open the partner form
         return {
             'name': 'Customer',
