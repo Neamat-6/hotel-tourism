@@ -35,7 +35,7 @@ class BookingPackage(models.Model):
     actual_main_makkah_partner_id = fields.Many2one('res.partner',
                                                     compute='_compute_actual_main_makkah_partner_id',
                                                     store=True)
-    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False),('vendor', '=', actual_main_makkah_partner_id)]")
+    makkah_contract_id = fields.Many2one('hotel.contract.management', string="Makkah Contract", domain="[('hotel_id', '=', main_makkah),('is_expired', '=', False),('hotel', '=', actual_main_makkah)]")
     makkah_purchase_currency = fields.Many2one('res.currency', related='makkah_contract_id.purchase_currency_id', store=True)
     makkah_purchase_price = fields.Monetary(string="Makkah Purchase Price",related='makkah_contract_id.purchase_price', store=True, currency_field='makkah_purchase_currency')
     makkah_date_from = fields.Date("Contract Start Date", related='makkah_contract_id.date_from', store=True)
@@ -122,7 +122,7 @@ class BookingPackage(models.Model):
     actual_main_madinah_partner_id = fields.Many2one('res.partner',
                                                     compute='_compute_actual_main_madinah_partner_id',
                                                     store=True)
-    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False), ('vendor', '=', actual_main_madinah_partner_id)]")
+    madinah_contract_id = fields.Many2one('hotel.contract.management', string="Madinah Contract", domain="[('hotel_id', '=', main_madinah),('is_expired', '=', False), ('hotel', '=', actual_main_madinah)]")
     madinah_purchase_currency = fields.Many2one('res.currency', related='madinah_contract_id.purchase_currency_id', store=True)
     madinah_purchase_price = fields.Monetary(string="Madinah Purchase Price",related='madinah_contract_id.purchase_price', store=True, currency_field='madinah_purchase_currency')
     madinah_date_from = fields.Date("Contract Start Date", related='madinah_contract_id.date_from', store=True)
@@ -252,7 +252,7 @@ class BookingPackage(models.Model):
     actual_main_hotel_partner_id = fields.Many2one('res.partner',
                                                     compute='_compute_actual_main_hotel_partner_id',
                                                     store=True)
-    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel),('is_expired', '=', False), ('vendor', '=', actual_main_hotel_partner_id)]")
+    main_hotel_contract_id = fields.Many2one('hotel.contract.management', string="Main Shift Contract", domain="[('hotel_id', '=', main_hotel),('is_expired', '=', False), ('hotel', '=', actual_main_hotel)]")
     main_hotel_date_from = fields.Date("Contract Start Date", related='main_hotel_contract_id.date_from', store=True)
     main_hotel_date_to = fields.Date("Contract End Date", related='main_hotel_contract_id.date_to', store=True)
     main_hotel_company_id = fields.Many2one('res.company', related='main_hotel.company_id')
