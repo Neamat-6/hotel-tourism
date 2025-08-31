@@ -13,6 +13,12 @@ class PilgrimBooking(models.Model):
     crm_lead_id = fields.Many2one('crm.lead', string='CRM Lead', ondelete='cascade', index=True, help="Link to the CRM lead associated with this booking.")
 
 
+class FlightTicket(models.Model):
+    _inherit = 'flight.ticket'
+
+    crm_lead_id = fields.Many2one('crm.lead', string='CRM Lead', ondelete='cascade', index=True, help="Link to the CRM lead associated with this booking.")
+
+
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
@@ -23,6 +29,8 @@ class CrmLead(models.Model):
     package_booking_count = fields.Integer(compute='_compute_package_booking_count', string='Package Booking Count')
     preferred_date = fields.Char()
     booking_level = fields.Char()
+    flight_ticket_ids = fields.One2many('flight.ticket', 'crm_lead_id', string='Flight Tickets')
+    flight_ticket_count = fields.Integer(compute='_compute_flight_ticket_count', string='Flight Ticket Count')
 
     @api.depends('tourism_hotel_booking_ids')
     def _compute_tourism_hotel_booking_count(self):
@@ -33,6 +41,21 @@ class CrmLead(models.Model):
     def _compute_package_booking_count(self):
         for lead in self:
             lead.package_booking_count = len(lead.package_booking_ids)
+
+    @api.depends('flight_ticket_ids')
+    def _compute_flight_ticket_count(self):
+        for lead in self:
+            lead.flight_ticket_count = len(lead.flight_ticket_ids)
+
+
+    def action_view_flight_tickets(self):
+        action = self.env["ir.actions.actions"]._for_xml_id("b2c_hajj_custom.flight_ticket_action")
+        action['domain'] = [('crm_lead_id', '=', self.id)]
+        action['context'] = {
+            'default_crm_lead_id': self.id,
+            'search_default_crm_lead_id': self.id,
+        }
+        return action
 
     def action_view_tourism_hotel_bookings(self):
         action = self.env["ir.actions.actions"]._for_xml_id("tourism_hotel_booking.action_hotel_booking")
@@ -68,6 +91,14 @@ class CrmLead(models.Model):
         else:
             return self.action_tourism_booking()
 
+    def action_flight_ticket_new(self):
+        if not self.partner_id:
+            action = self.env["ir.actions.actions"]._for_xml_id("hotel_booking_crm.crm_booking_partner_action")
+            action['context'] = {'default_booking_type': 'flight'}
+            return action
+        else:
+            return self.action_flight_ticket()
+
 
     def action_pilgrim_booking(self):
         return {
@@ -84,6 +115,20 @@ class CrmLead(models.Model):
             }
         }
 
+
+    def action_flight_ticket(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Flight Ticket',
+            'res_model': 'flight.ticket',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_crm_lead_id': self.id,
+                'default_customer_id': self.partner_id.id,
+                'default_company_id': self.company_id.id or self.env.company.id,
+            }
+        }
 
     def action_tourism_booking(self):
         return {

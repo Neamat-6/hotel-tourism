@@ -34,27 +34,6 @@ class FlightTicket(models.Model):
     bill_id = fields.Many2one('account.move', copy=False)
 
 
-    # def create_invoice(self):
-    #     self.ensure_one()
-    #     print(f'create_invoice called {self.company_id.name}')
-    #     company = self.company_id or self.env.company
-    #     tax_ids = self.company_id.hotel_default_tax_ids.ids
-    #     invoice_line_vals = self._prepare_invoice_lines()
-    #     move_vals = {
-    #         'move_type': 'out_invoice',
-    #         'partner_id': self.partner_id.id,
-    #         'contract_booking_id': self.id,
-    #         # 'journal_id': journal_id,
-    #         'invoice_user_id': self._uid,
-    #         'invoice_date': fields.Date.today(),
-    #         'invoice_line_ids': invoice_line_vals,
-    #         'company_id': self.company_id.id,
-    #     }
-    #     move = self.env['account.move'].with_context({'line_ids': False,}).with_company(company).create(move_vals)
-    #     move.action_post()
-    #     print('mmmmmmmmmove', move)
-    #     self.move_id = move.id
-
     def action_confirm(self):
         for rec in self:
             if rec.move_id:
@@ -199,20 +178,28 @@ class FlightTicket(models.Model):
 
         self.bill_id = move.id
         move.action_post()
-        return move
+        return {
+            'name': _('Bills'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move',
+            'view_mode': 'tree,form',
+            'domain': [('id', '=', move.id)],
+            'target': 'current',
+        }
+        # return move
 
     def action_create_invoices(self):
         """Action to create both customer invoice and vendor bill"""
         self.ensure_one()
         invoice = self.create_customer_invoice()
-        bill = self.create_vendor_bill()
+        # bill = self.create_vendor_bill()
         self.state = 'hotel_confirm'
         return {
             'name': _('Invoices'),
             'type': 'ir.actions.act_window',
             'res_model': 'account.move',
             'view_mode': 'tree,form',
-            'domain': [('id', 'in', [invoice.id, bill.id])],
+            'domain': [('id', '=', invoice.id)],
             'target': 'current',
         }
 

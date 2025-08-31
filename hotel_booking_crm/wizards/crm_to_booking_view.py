@@ -41,7 +41,9 @@ class Booking2Quotation(models.TransientModel):
     partner_id = fields.Many2one('res.partner', 'Customer')
     booking_type = fields.Selection([
         ('tourism', 'Tourism Booking'),
-        ('package', 'Package Booking')])
+        ('package', 'Package Booking'),
+        ('flight', 'Flight Ticket'),
+    ])
 
     def action_apply(self):
         """ Convert lead to opportunity or merge lead and opportunity and open
@@ -56,3 +58,5 @@ class Booking2Quotation(models.TransientModel):
             return self.lead_id.action_tourism_booking_new()
         elif self.booking_type == 'package':
             return self.lead_id.action_pilgrim_booking_new()
+        elif self.booking_type == 'flight':
+            return self.lead_id.action_flight_ticket_new()

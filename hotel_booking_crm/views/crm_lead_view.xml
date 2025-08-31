@@ -14,6 +14,8 @@
                         title="Create Package Booking"/>
                     <button string="Tourism Booking" name="action_tourism_booking_new" type="object" class="oe_highlight" data-hotkey="q"
                         title="Create Tourism Booking"/>
+                    <button string="Flight Ticket" name="action_flight_ticket_new" type="object" class="oe_highlight" data-hotkey="q"
+                        title="Create Flight Ticket"/>
                 </xpath>
                 <button name="action_schedule_meeting" position="after">
                     <button class="oe_stat_button" type="object"
@@ -23,6 +25,10 @@
                     <button class="oe_stat_button" type="object"
                         name="action_view_tourism_hotel_bookings" icon="fa-pencil-square-o">
                         <field name="tourism_hotel_booking_count" widget="statinfo" string="Tourism Booking"/>
+                    </button>
+                   <button class="oe_stat_button" type="object"
+                        name="action_view_flight_tickets" icon="fa-pencil-square-o">
+                        <field name="flight_ticket_count" widget="statinfo" string="Flight Ticket"/>
                     </button>
 
                 </button>
