@@ -8,6 +8,7 @@
         'python': ['qrcode'],
     },
     'data': [
+        'data/data.xml',
         'data/ir_sequence.xml',
         'security/group.xml',
         'security/ir.model.access.csv',
@@ -47,6 +48,7 @@
         'views/visa_contract.xml',
         'views/contract_booking.xml',
         'views/account_move.xml',
+        'views/flight_ticket.xml',
     ],
     'installable': True,
     'application': True,
