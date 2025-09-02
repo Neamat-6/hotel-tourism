@@ -30,6 +30,7 @@ class ContractBooking(models.Model):
     flight_price = fields.Float(string="Flight Price")
     visa_price = fields.Float(string="Visa Price")
     transport_price = fields.Float(string="Transport Price")
+    notes = fields.Text()
 
 
 

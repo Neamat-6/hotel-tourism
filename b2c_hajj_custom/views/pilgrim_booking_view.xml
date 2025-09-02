@@ -44,6 +44,9 @@
                             <field name="total_cost"/>
                         </group>
                     </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
                     <notebook>
                         <page string="Pilgrims">
                             <field name="line_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">

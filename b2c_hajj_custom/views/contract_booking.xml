@@ -59,7 +59,9 @@
                                 <field name="transport_count" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
 
                             </group>
-                            <group></group>
+                            <group>
+                                <field name="notes"/>
+                            </group>
                         </group>
                         <notebook>
                             <page string="Extra">

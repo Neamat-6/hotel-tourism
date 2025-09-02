@@ -53,6 +53,7 @@ class PilgrimBooking(models.Model):
     move_id = fields.Many2one('account.move', copy=False)
     extra_lines = fields.One2many('extra.booking.line', 'book_id')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id, string='Company')
+    notes = fields.Text()
 
     @api.depends('room_type', 'package_id')
     def _compute_pilgrim_cost(self):
