@@ -148,6 +148,12 @@ class HotelContractLine(models.Model):
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, readonly=1)
     currency_id = fields.Many2one('res.currency', readonly=True, default=lambda x: x.env.company.currency_id)
     booked_count = fields.Integer(string="Booked Count", compute="_compute_booked_count", store=False)
+    total = fields.Monetary(string="Total", compute="_compute_total", store=True)
+
+    @api.depends('count', 'unit_price')
+    def _compute_total(self):
+        for rec in self:
+            rec.total = rec.count * rec.unit_price
 
     @api.constrains('count', 'booked_count')
     def _check_booked_less_than_count(self):

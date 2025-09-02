@@ -5,12 +5,20 @@ from odoo.exceptions import UserError, ValidationError
 class AccountMove(models.Model):
     _inherit = 'account.move'
     flight_ticket_id = fields.Many2one('flight.ticket', string='Flight Ticket')
+    ticket_booking_ref = fields.Char(string='Ticket Booking Ref.')
+
+
+class FlightCompany(models.Model):
+    _name = 'flight.company'
+
+    name = fields.Char(string='Name', required=True)
+
 
 
 class FlightTicket(models.Model):
     _name = 'flight.ticket'
     _description = 'Flight Ticket'
-    _rec_name = 'customer_id'
+    _rec_name = 'booking_ref'
     _inherit = ["mail.thread", 'portal.mixin']
 
     customer_id = fields.Many2one('res.partner', string='Customer')
@@ -32,6 +40,9 @@ class FlightTicket(models.Model):
     departure_hall_no = fields.Char("Departure Hall No.")
     move_id = fields.Many2one('account.move', copy=False)
     bill_id = fields.Many2one('account.move', copy=False)
+    notes = fields.Text("Notes")
+    booking_ref = fields.Char("Booking Ref.")
+    flight_company_id = fields.Many2one('flight.company', "Flight Company")
 
 
     def action_confirm(self):
@@ -111,6 +122,7 @@ class FlightTicket(models.Model):
             raise ValidationError(_("Flight Ticket product not found. Please create a product with XML ID 'b2c_hajj_custom.product_flight_ticket'"))
             
         return {
+            'ticket_booking_ref': self.booking_ref,
             'move_type': move_type,
             'partner_id': partner_id,
             'invoice_date': fields.Date.context_today(self),

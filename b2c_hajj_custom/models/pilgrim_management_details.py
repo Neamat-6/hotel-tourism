@@ -14,7 +14,8 @@ class PilgrimManagementDetails(models.Model):
         ('makkah', 'Makkah'), ('madinah', 'Madinah'), ('arfa', 'Arfa'),
         ('minnah', 'Minnah'), ('hotel', 'Main Shift')
     ])
-    hotel_id = fields.Many2one("hotel.hotel", string='Hotel', domain="[('type', '=', hotel_type)]")
+    hotel_id = fields.Many2one("hotel.hotel", string='Hotel Category', domain="[('type', '=', hotel_type)]")
+    actual_hotel_id = fields.Many2one("actual.hotel", string='Hotel', domain="[('hotel_id', '=', hotel_id)]")
     partner_id = fields.Many2one('res.partner', domain="[('package_id', '!=', False), ('pilgrim_type', '=', 'main')]")
     airport = fields.Char("Airport")
     arrival_airport_id = fields.Many2one('airport.management', "Airport")
@@ -41,6 +42,17 @@ class PilgrimManagementDetails(models.Model):
     ], string="Gender")
     line_ids = fields.One2many(comodel_name="pilgrim.management.line", inverse_name="pilgrim_management_id")
 
+    @api.onchange('hotel_type')
+    def onchange_hotel_type(self):
+        for rec in self:
+            rec.actual_hotel_id = False
+            rec.hotel_id = False
+
+    @api.onchange('hotel_id')
+    def onchange_hotel_id(self):
+        for rec in self:
+            rec.actual_hotel_id = False
+
     def print_pdf(self):
         return self.env.ref('b2c_hajj_custom.action_pilgrim_management_report').with_context(
             landscape=True).report_action(self)
@@ -66,6 +78,9 @@ class PilgrimManagementDetails(models.Model):
             if self.hotel_id:
                 hotel_id = self.hotel_id.id
                 domain = [(field_name, '=', hotel_id)]
+            if self.actual_hotel_id:
+                field_name = f'actual_main_{self.hotel_type}'
+                domain.append((field_name, '=', self.actual_hotel_id.id))
             field_arrival = f'{self.hotel_type}_arrival_date'
             field_departure = f'{self.hotel_type}_departure_date'
             if self.hotel_arrival_date_from:

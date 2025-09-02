@@ -96,8 +96,12 @@
                                         <t t-esc="doc.hotel_type"/>
                                     </t>
                                     <t t-if="doc.hotel_id">
-                                        &#160;&#160;&#160;&#160; Hotel:
+                                        &#160;&#160;&#160;&#160; Hotel Category:
                                         <t t-esc="doc.hotel_id.name"/>
+                                    </t>
+                                    <t t-if="doc.actual_hotel_id">
+                                        &#160;&#160;&#160;&#160; Hotel:
+                                        <t t-esc="doc.actual_hotel_id.name"/>
                                     </t>
                                     <t t-if="doc.hotel_arrival_date_from">
                                         &#160;&#160;&#160;&#160; Arrival Date From:

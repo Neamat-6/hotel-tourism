@@ -19,6 +19,12 @@ class TransportationContract(models.Model):
     expiry_date = fields.Date("Expiry Date")
     is_expired = fields.Boolean("Is Expired", default=False)
     partner_count = fields.Integer(compute='_compute_booked_no')
+    total = fields.Float(string="Total", compute="_compute_total", store=True)
+
+    @api.depends('pilgrims_no', 'cost_price')
+    def _compute_total(self):
+        for rec in self:
+            rec.total = rec.pilgrims_no * rec.cost_price
 
     @api.model
     def _cron_update_contract_expiry(self):

@@ -18,6 +18,8 @@
                 <field name="arrival_hall_no"/>
                 <field name="departure_hall_no"/>
                 <field name="pilgrims_no"/>
+                <field name="unit_price"/>
+                <field name="total"/>
             </tree>
         </field>
     </record>
@@ -55,6 +57,7 @@
                             <field name="available_no"/>
                             <field name="expiry_date"/>
                             <field name="is_expired" invisible="1"/>
+                            <field name="total"/>
                         </group>
                     </group>
                     <group>

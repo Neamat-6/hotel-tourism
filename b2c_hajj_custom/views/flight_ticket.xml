@@ -40,6 +40,7 @@
                         </div>
                         <group>
                             <group>
+                                <field name="booking_ref"/>
                                 <field name="customer_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="sale_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="no_ticket"/>
@@ -47,6 +48,8 @@
                             <group>
                                 <field name="vendor_id"/>
                                 <field name="purchase_price" />
+                                <field name="flight_company_id"/>
+                                <field name="notes"/>
                             </group>
                         </group>
                         <group>
@@ -79,11 +82,13 @@
             <field name="model">flight.ticket</field>
             <field name="arch" type="xml">
                 <tree string="flight_ticket_tree">
+                    <field name="booking_ref"/>
                     <field name="customer_id"/>
                     <field name="vendor_id"/>
                     <field name="sale_price"/>
                     <field name="purchase_price"/>
                     <field name="no_ticket"/>
+                    <field name="flight_company_id"/>
                 </tree>
             </field>
         </record>
@@ -113,5 +118,28 @@
         <!-- This Menu Item must have a parent and an action -->
         <menuitem id="flight_ticket_menu" name="Flight Ticket" parent="b2c_hajj_custom.b2c_main_menu"
                   action="flight_ticket_action" sequence="11"/>
+
+
+        <record id="flight_company_view_tree" model="ir.ui.view">
+            <field name="name">flight_company_view_tree</field>
+            <field name="model">flight.company</field>
+            <field name="arch" type="xml">
+                <tree string="_tree" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="flight_company_action" model="ir.actions.act_window">
+            <field name="name">Flight Company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">flight.company</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="flight_company_menu" name="Flight Company"
+                  parent="b2c_hajj_custom.booking_config_menuitem"
+                  action="flight_company_action" sequence="21"/>
     </data>
 </odoo>

@@ -19,6 +19,12 @@ class VisaContract(models.Model):
     booked_no = fields.Integer("Booked No.", compute='_compute_booked_no')
     available_no = fields.Integer("Available No.", compute='_compute_available_no')
     partner_count = fields.Integer(compute='_compute_booked_no')
+    total = fields.Monetary(string="Total", compute="_compute_total", store=True)
+
+    @api.depends('pilgrims_no', 'unit_price')
+    def _compute_total(self):
+        for rec in self:
+            rec.total = rec.pilgrims_no * rec.unit_price
 
     @api.model
     def _cron_update_contract_expiry(self):

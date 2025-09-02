@@ -27,8 +27,10 @@ class PilgrimManagementXlsx(models.AbstractModel):
         sheet.set_column(0, 23, 20)
         sheet.write(row, 0, 'Hotel Type', style_body_bold)
         sheet.write(row, 1, doc.hotel_type, style_body)
-        sheet.write(row, 2, 'Hotel', style_body_bold)
+        sheet.write(row, 2, 'Hotel Category', style_body_bold)
         sheet.write(row, 3, doc.hotel_id.name, style_body)
+        sheet.write(row, 4, 'Hotel', style_body_bold)
+        sheet.write(row, 5, doc.actual_hotel_id.name, style_body)
         row += 1
         sheet.write(row, 0, 'Arrival Date From', style_body_bold)
         sheet.write(row, 2, 'Arrival Date To', style_body_bold)

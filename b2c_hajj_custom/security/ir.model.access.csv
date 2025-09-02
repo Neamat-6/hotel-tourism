@@ -41,3 +41,4 @@ access_child_booking_line,access_child_booking_line,model_child_booking_line,,1,
 access_baby_booking_line,access_baby_booking_line,model_baby_booking_line,,1,1,1,1
 access_contract_booking,access_contract_booking,model_contract_booking,,1,1,1,1
 access_flight_ticket,access_flight_ticket,model_flight_ticket,,1,1,1,1
+access_flight_company,access_flight_company,model_flight_company,,1,1,1,1

@@ -10,6 +10,8 @@
                 <field name="pilgrims_no"/>
                 <field name="booked_no"/>
                 <field name="available_no"/>
+                <field name="cost_price"/>
+                <field name="total"/>
             </tree>
         </field>
     </record>
@@ -45,6 +47,7 @@
                             <field name="cost_price"/>
                             <field name="expiry_date"/>
                             <field name="is_expired" invisible="1"/>
+                            <field name="total"/>
                         </group>
                     </group>
                     <group string="Locations">

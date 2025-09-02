@@ -35,8 +35,14 @@ class FlightSchedule(models.Model):
     expiry_date = fields.Date("Expiry Date")
     is_expired = fields.Boolean("Is Expired", default=False)
     partner_count = fields.Integer(compute='_compute_booked_no')
+    total = fields.Monetary(string="Total", compute="_compute_total", store=True)
 
     _sql_constraints = [('arrival_departure_date', 'check(arrival_date < departure_date)', 'Departure Date must be greater than Arrival Date!')]
+
+    @api.depends('pilgrims_no', 'unit_price')
+    def _compute_total(self):
+        for rec in self:
+            rec.total = rec.pilgrims_no * rec.unit_price
 
     @api.model
     def _cron_update_contract_expiry(self):

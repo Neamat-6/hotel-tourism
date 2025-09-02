@@ -16,6 +16,8 @@
                     <group>
                         <group>
                            <field name="hotel_type"/>
+                            <field name="actual_hotel_id" attrs="{'invisible':[('hotel_type', 'not in', ['makkah', 'madinah', 'hotel'])]}"
+                                   options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                         </group>
                         <group>
                             <field name="hotel_id" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
