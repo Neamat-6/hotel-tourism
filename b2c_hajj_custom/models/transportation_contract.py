@@ -15,6 +15,7 @@ class TransportationContract(models.Model):
     available_no = fields.Integer(string='Available NO.', compute='_compute_available_no')
     cost_price = fields.Float(string='Cost Price')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=True)
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
     purchase_order_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True, copy=False)
     expiry_date = fields.Date("Expiry Date")
     is_expired = fields.Boolean("Is Expired", default=False)
@@ -43,6 +44,7 @@ class TransportationContract(models.Model):
                 'partner_id': rec.transportation_company.id,
                 'company_id': rec.company_id.id,
                 'origin': rec.transportation_contract_no,
+                'currency_id': rec.currency_id.id,
                 'order_line': [],
             }
 

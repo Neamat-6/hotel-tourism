@@ -10,7 +10,8 @@ class VisaContract(models.Model):
     partner_id = fields.Many2one('res.partner', string="Supplier", required=True, domain=[('is_company', '=', True)])
     unit_price = fields.Monetary("Unit Price")
     state = fields.Selection(selection=[('draft', 'Draft'), ('confirm', 'Confirm')], required=False, default='draft')
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.user.company_id, readonly=True)
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
     purchase_id = fields.Many2one('purchase.order')
     contract_type = fields.Selection(selection=[('Visa', 'visa'), ('Barcode', 'barcode')])
     expiry_date = fields.Date("Expiry Date")
@@ -55,6 +56,8 @@ class VisaContract(models.Model):
         purchase_order = self.env['purchase.order'].sudo().create({
             'partner_id': self.partner_id.id,
             'date_order': fields.Datetime.now(),
+            'company_id': self.company_id.id,
+            'currency_id': self.currency_id.id,
             'order_line': [(0, 0, {
                 'name': f'Visa Contract: {self.name}',
                 'product_id': product_id,

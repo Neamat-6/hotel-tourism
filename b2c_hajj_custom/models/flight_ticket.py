@@ -43,6 +43,16 @@ class FlightTicket(models.Model):
     notes = fields.Text("Notes")
     booking_ref = fields.Char("Booking Ref.")
     flight_company_id = fields.Many2one('flight.company', "Flight Company")
+    flight_type = fields.Selection([('national', 'National'),('international','International')])
+    direction = fields.Selection([('arrival', 'Arrival'),('departure','Departure'), ('arrival-dep', 'Arrival and Departure'), ('multi_direction','Multiple directions')])
+    profit = fields.Float(string='Profit', compute='_compute_profit', store=True)
+    seat_type = fields.Selection([('adult', 'Adult'),('child','Child'),('baby','Baby')])
+    ticket_type = fields.Selection([('issue', 'Issue'),('reissue','Reissue'),('refund','Refund'), ('re_validate','ReValidate')])
+
+    @api.depends('sale_price', 'purchase_price', 'no_ticket')
+    def _compute_profit(self):
+        for rec in self:
+            rec.profit = (rec.sale_price - rec.purchase_price) * rec.no_ticket
 
 
     def action_confirm(self):

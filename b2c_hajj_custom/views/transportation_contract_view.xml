@@ -39,6 +39,7 @@
                             <field name="pilgrims_no"/>
                             <field name="available_no"/>
                             <field name="company_id"/>
+                            <field name="currency_id"/>
                             <field name="purchase_order_id"/>
                         </group>
                         <group>

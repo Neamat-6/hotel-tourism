@@ -40,15 +40,20 @@
                         </div>
                         <group>
                             <group>
-                                <field name="booking_ref"/>
                                 <field name="customer_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="sale_price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="no_ticket"/>
+                                <field name="booking_ref"/>
+                                <field name="flight_type"/>
+                                <field name="seat_type"/>
+                                <field name="profit"/>
                             </group>
                             <group>
                                 <field name="vendor_id"/>
                                 <field name="purchase_price" />
                                 <field name="flight_company_id"/>
+                                <field name="direction"/>
+                                <field name="ticket_type"/>
                                 <field name="notes"/>
                             </group>
                         </group>
@@ -89,6 +94,11 @@
                     <field name="purchase_price"/>
                     <field name="no_ticket"/>
                     <field name="flight_company_id"/>
+                    <field name="flight_type"/>
+                    <field name="direction"/>
+                    <field name="seat_type"/>
+                    <field name="ticket_type"/>
+                    <field name="profit"/>
                 </tree>
             </field>
         </record>
@@ -104,6 +114,13 @@
                     <filter string="Confirmed Waiting Payment" name="hotel_confirm" domain="[('state', '=', 'hotel_confirm')]"/>
                     <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
                     <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+
+                    <filter string="Status" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter string="Flight Company" name="flight_company_id" domain="[]" context="{'group_by': 'flight_company_id'}"/>
+                    <filter string="Flight Type" name="flight_type" domain="[]" context="{'group_by': 'flight_type'}"/>
+                    <filter string="Direction" name="direction" domain="[]" context="{'group_by': 'direction'}"/>
+                    <filter string="Seat Type" name="seat_type" domain="[]" context="{'group_by': 'seat_type'}"/>
+                    <filter string="Ticket Type" name="ticket_type" domain="[]" context="{'group_by': 'ticket_type'}"/>
                 </search>
             </field>
         </record>

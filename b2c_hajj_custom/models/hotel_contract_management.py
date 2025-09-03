@@ -1,5 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from datetime import datetime, timedelta, date
+
 
 
 class HotelContract(models.Model):
@@ -18,6 +20,7 @@ class HotelContract(models.Model):
                             "Contract Type", copy=False, default='hotel')
     line_ids = fields.One2many(comodel_name="hotel.contract.management.line", inverse_name="contract_id")
     purchase_order_id = fields.Many2one('purchase.order', string="Purchase Order", readonly=True, copy=False)
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
     purchase_currency_id = fields.Many2one(
         'res.currency',
         related='purchase_order_id.currency_id',
@@ -38,8 +41,17 @@ class HotelContract(models.Model):
     is_expired = fields.Boolean("Is Expired", default=False)
     generate_room = fields.Boolean("Generate Rooms", default=False)
     booking_no = fields.Char('Booking Ref')
+    total_nights = fields.Integer('Total Nights', compute='_compute_total_days', store=True)
 
     _sql_constraints = [('check_dates', 'CHECK(date_from < date_to)', 'End Date must be greater than Start Date!')]
+
+    @api.depends('date_from', 'date_to')
+    def _compute_total_days(self):
+        for rec in self:
+            rec.total_nights = 0
+            if rec.date_to and rec.date_from:
+                delta = (rec.date_to - rec.date_from).days
+                rec.total_nights = delta if delta > 0 else 0
 
     @api.model
     def _cron_update_contract_expiry(self):
@@ -78,6 +90,7 @@ class HotelContract(models.Model):
             'company_id': self.company_id.id,
             'booking_no': self.booking_no,
             'origin': self.name,
+            'currency_id': self.currency_id.id,
             'order_line': [],
         }
 
@@ -97,7 +110,7 @@ class HotelContract(models.Model):
                 po_vals['order_line'].append((0, 0, {
                     'product_id': product_id,
                     'name': f"Room Type: {line.room_type_id.name} (Floor: {line.floor_id.name})",
-                    'product_qty': line.count,
+                    'product_qty': line.count * line.total_nights,
                     'price_unit': line.unit_price,
                     'date_planned': fields.Date.today(),
                     'company_id': self.company_id.id,
@@ -146,14 +159,15 @@ class HotelContractLine(models.Model):
     count = fields.Integer(default=1, required=True)
     unit_price = fields.Monetary("Unit Price", required=True)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, readonly=1)
-    currency_id = fields.Many2one('res.currency', readonly=True, default=lambda x: x.env.company.currency_id)
+    currency_id = fields.Many2one('res.currency', readonly=True, related='contract_id.currency_id')
     booked_count = fields.Integer(string="Booked Count", compute="_compute_booked_count", store=False)
     total = fields.Monetary(string="Total", compute="_compute_total", store=True)
+    total_nights = fields.Integer(related='contract_id.total_nights')
 
-    @api.depends('count', 'unit_price')
+    @api.depends('count', 'unit_price', 'total_nights')
     def _compute_total(self):
         for rec in self:
-            rec.total = rec.count * rec.unit_price
+            rec.total = rec.count * rec.unit_price * rec.total_nights
 
     @api.constrains('count', 'booked_count')
     def _check_booked_less_than_count(self):
