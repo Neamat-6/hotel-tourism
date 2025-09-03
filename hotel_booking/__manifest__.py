@@ -8,7 +8,7 @@
     'license': 'AGPL-3',
     'depends': [
         'account', 'product', 'text_table_widget', 'contacts', 'purchase', 'web_domain_field', 'hr',
-        'sh_whatsapp_integration_api', 'multi_step_wizard', 'saudi_einvoice_knk', 'einv_sa'
+        'sh_whatsapp_integration_api', 'multi_step_wizard', 'saudi_einvoice_knk', 'einv_sa','report_xlsx'
     ],
     'data': [
         'security/group.xml',
@@ -41,8 +41,8 @@
         'views/rate_plan.xml',
         'views/room_type.xml',
         'views/facility.xml',
-        'views/booking.xml',
         'views/room.xml',
+        'views/booking.xml',
         # 'views/menus.xml',
         'views/res_partner.xml',
         'views/account_move.xml',

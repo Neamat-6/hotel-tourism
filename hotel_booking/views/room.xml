@@ -315,9 +315,6 @@
     <menuitem id="menu_hotel_rooms" name="Rooms" action="action_hotel_rooms" sequence="2" parent="menu_front_office"
               groups="hotel_booking.hotel_rooms_menu_group"/>
 
-    <menuitem id="menu_front_office_hotel_booking1" name="Reservation Management"
-              action="hotel_booking.action_hotel_booking"
-              parent="menu_front_office" groups="hotel_booking.hotel_rooms_menu_group"
-              sequence="5"/>
+
 
 </odoo>
