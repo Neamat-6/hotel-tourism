@@ -18,5 +18,33 @@
         <field name="perm_unlink" eval="False"/>
         <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
     </record>
+
+        <record id="flight_ticket_comp_rule" model="ir.rule">
+            <field name="name">flight ticket company rule</field>
+            <field name="model_id" ref="model_flight_ticket"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="visa_contract_comp_rule" model="ir.rule">
+            <field name="name">visa contract company rule</field>
+            <field name="model_id" ref="model_visa_contract"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="transportation_contract_comp_rule" model="ir.rule">
+            <field name="name">transportation contract company rule</field>
+            <field name="model_id" ref="model_transportation_contract"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="contract_booking_comp_rule" model="ir.rule">
+            <field name="name">contract booking company rule</field>
+            <field name="model_id" ref="model_contract_booking"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
     </data>
 </odoo>

@@ -200,30 +200,24 @@ class FlightTicket(models.Model):
 
         self.bill_id = move.id
         move.action_post()
-        return {
-            'name': _('Bills'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.move',
-            'view_mode': 'tree,form',
-            'domain': [('id', '=', move.id)],
-            'target': 'current',
-        }
+        return True
+        # return {
+        #     'name': _('Bills'),
+        #     'type': 'ir.actions.act_window',
+        #     'res_model': 'account.move',
+        #     'view_mode': 'tree,form',
+        #     'domain': [('id', '=', move.id)],
+        #     'target': 'current',
+        # }
         # return move
 
     def action_create_invoices(self):
         """Action to create both customer invoice and vendor bill"""
         self.ensure_one()
-        invoice = self.create_customer_invoice()
+        self.create_customer_invoice()
         # bill = self.create_vendor_bill()
         self.state = 'hotel_confirm'
-        return {
-            'name': _('Invoices'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.move',
-            'view_mode': 'tree,form',
-            'domain': [('id', '=', invoice.id)],
-            'target': 'current',
-        }
+        return True
 
     def flight_ticket(self):
         for rec in self:
