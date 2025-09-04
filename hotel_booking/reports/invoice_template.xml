@@ -444,9 +444,9 @@
                                         <t t-set="service_amount" t-value="0"/>
                                         <t t-if="folio_service">
                                             <t t-set="folio_service_municipality"
-                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'municipality')"/>
+                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id in folio_service.ids and l.tax_type == 'municipality')"/>
                                             <t t-set="folio_service_vat"
-                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id == folio_service.id and l.tax_type == 'vat')"/>
+                                               t-value="line.folio_id.line_ids.filtered(lambda l: l.related_line_id.id in folio_service.ids and l.tax_type == 'vat')"/>
                                             <t t-if="folio_service_municipality">
                                                 <t t-set="municipality_amount"
                                                    t-value="sum(folio_service_municipality.mapped('amount'))"/>
