@@ -219,13 +219,13 @@ class FlightTicket(models.Model):
         self.state = 'hotel_confirm'
         return True
 
-    def flight_ticket(self):
-        for rec in self:
-            if not rec.total_cost:
-                raise UserError(_("can not create invoice with zero amount"))
-            if not rec.move_id:
-                rec.create_invoice()
-            else:
-                print('hhhhhhhhhhhhhhhhhhhhhhhh')
-                rec.update_invoice()
-            rec.state = 'hotel_confirm'
+    # def flight_ticket(self):
+    #     for rec in self:
+    #         if not rec.total_cost:
+    #             raise UserError(_("can not create invoice with zero amount"))
+    #         if not rec.move_id:
+    #             rec.create_invoice()
+    #         else:
+    #             print('hhhhhhhhhhhhhhhhhhhhhhhh')
+    #             rec.update_invoice()
+    #         rec.state = 'hotel_confirm'

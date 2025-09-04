@@ -42,3 +42,8 @@ access_baby_booking_line,access_baby_booking_line,model_baby_booking_line,,1,1,1
 access_contract_booking,access_contract_booking,model_contract_booking,,1,1,1,1
 access_flight_ticket,access_flight_ticket,model_flight_ticket,,1,1,1,1
 access_flight_company,access_flight_company,model_flight_company,,1,1,1,1
+access_room_reservation,access_room_reservation,model_room_reservation,,1,1,1,1
+access_room_view,access_room_view,model_room_view,,1,1,1,1
+access_meal_reservation,access_meal_reservation,model_meal_reservation,,1,1,1,1
+access_hotel_reservation,access_hotel_reservation,model_hotel_reservation,,1,1,1,1
+access_hotel_reservation_line,access_hotel_reservation_line,model_hotel_reservation_line,,1,1,1,1

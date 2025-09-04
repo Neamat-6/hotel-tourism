@@ -22,3 +22,4 @@ from . import actual_hotel
 from . import visa_contract
 from . import contract_booking
 from . import flight_ticket
+from . import hotel_reservation

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="room_reservation_view_tree" model="ir.ui.view">
+            <field name="name">room_reservation_view_tree</field>
+            <field name="model">room.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="_tree" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="room_reservation_action" model="ir.actions.act_window">
+            <field name="name">Reservation Rooms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">room.reservation</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="room_reservation_menu" name="Reservation Rooms"
+                  parent="b2c_hajj_custom.booking_config_menuitem"
+                  action="room_reservation_action" sequence="22"/>
+
+        <record id="room_view_view_tree" model="ir.ui.view">
+            <field name="name">room_view_view_tree</field>
+            <field name="model">room.view</field>
+            <field name="arch" type="xml">
+                <tree string="_tree" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="room_view_action" model="ir.actions.act_window">
+            <field name="name">Room View</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">room.view</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="room_view_menu" name="Room View"
+                  parent="b2c_hajj_custom.booking_config_menuitem"
+                  action="room_view_action" sequence="23"/>
+
+        <record id="meal_reservation_view_tree" model="ir.ui.view">
+            <field name="name">meal_reservation_view_tree</field>
+            <field name="model">meal.reservation</field>
+            <field name="arch" type="xml">
+                <tree string="_tree" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="meal_reservation_action" model="ir.actions.act_window">
+            <field name="name">Meal</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">meal.reservation</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="meal_reservation_menu" name="Meal"
+                  parent="b2c_hajj_custom.booking_config_menuitem"
+                  action="meal_reservation_action" sequence="24"/>
+
+
+        <record id="hotel_reservation_view_form" model="ir.ui.view">
+            <field name="name">hotel_reservation_view_form</field>
+            <field name="model">hotel.reservation</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <header>
+                        <field name="bill_id" invisible="1"/>
+                        <field name="line_count" invisible="1"/>
+                        <button name="action_create_invoices" string="Create Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible':['|',('state','!=', 'draft'),('line_count', '=', 0)]}"/>
+                        <button name="create_vendor_bill" string="Create Bill" type="object" class="oe_highlight"
+                            attrs="{'invisible':['|',('bill_id', '!=', False),('line_count', '=', 0)]}"/>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight"
+                                states="hotel_confirm"/>
+                        <button name="action_reset_to_draft" type="object" string="Reset to Draft" states="hotel_confirm"
+                                class="btn-secondary"/>
+                        <button name="action_cancel" type="object" string="Cancel" states="draft,hotel_confirm"
+                                class="btn-secondary"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_invoice" type="object" class="oe_stat_button"
+                                    icon="fa-credit-card">
+                                <div class="o_stat_info">
+<!--                                    <field name="total_cost" class="o_stat_value"/>-->
+                                    <span class="o_stat_text">Invoice</span>
+                                </div>
+                            </button>
+                            <button name="action_open_bill" type="object" class="oe_stat_button"
+                                    icon="fa-credit-card">
+                                <div class="o_stat_info">
+<!--                                    <field name="total_cost" class="o_stat_value"/>-->
+                                    <span class="o_stat_text">Bill</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="customer_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="booking_ref"/>
+
+                            </group>
+                            <group>
+                                <field name="vendor_id"/>
+                                <field name="currency_id" options="{'no_create':True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="booking" string="Booking">
+                                <field name="line_ids" attrs="{'readonly':[('state','!=', 'draft')]}">
+                                <tree>
+                                    <field name="hotel_id"/>
+                                    <field name="room_id"/>
+                                    <field name="room_view_id"/>
+                                    <field name="meal_id" widget="many2many_tags"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                    <field name="total_nights"/>
+                                    <field name="price"/>
+                                    <field name="count"/>
+                                    <field name="total_amount"/>
+                                    <field name="tax_amount"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group string="Scheduled Check-In/Out">
+                                            <field name="check_in"/>
+                                            <field name="check_out" />
+                                            <field name="hotel_id" options="{'no_open': True, 'no_create': True}"/>
+                                            <field name="tax_id"/>
+                                            <field name="purchase_tax_id"/>
+                                            <field name="count" required="1"/>
+                                            <field name="room_id"/>
+                                            <field name="room_view_id"/>
+                                            <field name="meal_id" widget="many2many_tags"/>
+                                        </group>
+                                        <group string="Room">
+                                            <!--                                            <field name="vendor" domain="[('check','=', True)]"-->
+                                            <!--                                                   attrs="{'invisible':[('check_dir','=',True)]}"/>-->
+                                            <field name="total_nights"/>
+                                            <field name="price"/>
+                                            <field name="cost"/>
+                                            <field name="subtotal_amount"/>
+                                            <field name="tax_amount"/>
+                                            <field name="total_amount"/>
+                                        </group>
+                                        <group string="Other">
+                                            <field name="number_of_adults"/>
+                                            <field name="number_of_children"/>
+                                        </group>
+<!--                                        <group string="Actual Check-In/Out">-->
+<!--                                            <field name="actual_check_in"/>-->
+<!--                                            <field name="actual_check_out"/>-->
+<!--                                            <field name="actual_number_of_days"/>-->
+<!--                                        </group>-->
+                                    </group>
+
+                                </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                <field name="subtotal_amount" widget='monetary'/>
+                                <field name="tax_amount" widget='monetary'/>
+                                <field name="total_amount" widget='monetary'/>
+<!--                                <field name="amount_paid" invisible="0" widget='monetary' readonly="1"-->
+<!--                                       string="Paid Amount"/>-->
+<!--                                <field name="amount_due" invisible="0" widget='monetary' readonly="1"-->
+<!--                                       string="Due Amount"/>-->
+<!--                                <field name="reconcile_total" invisible="0" widget='monetary' readonly="1"-->
+<!--                                       string="Reconcile Total"/>-->
+<!--                                <field name="payment_total" invisible="0" widget='monetary' readonly="1"-->
+<!--                                       string="Payments Total"/>-->
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hotel_reservation_action" model="ir.actions.act_window">
+            <field name="name">Hotel Reservation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hotel.reservation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="hotel_reservation_menu"
+                  name="Hotel Reservation"
+                  parent="b2c_hajj_custom.b2c_main_menu"
+                  action="hotel_reservation_action" sequence="12"/>
+    </data>
+</odoo>

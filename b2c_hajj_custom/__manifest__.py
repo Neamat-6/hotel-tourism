@@ -49,6 +49,7 @@
         'views/contract_booking.xml',
         'views/account_move.xml',
         'views/flight_ticket.xml',
+        'views/hotel_reservation.xml',
     ],
     'installable': True,
     'application': True,
